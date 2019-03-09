@@ -1,5 +1,6 @@
 package com.korlab.foodex;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -10,11 +11,16 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.korlab.foodex.Data.User;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import spencerstudios.com.bungeelib.Bungee;
 
 public class Authorize extends Singleton {
 
     private MaterialEditText inputPhone;
+    private MaterialButton buttonContinue, buttonFacebook, buttonGoogle;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,26 @@ public class Authorize extends Singleton {
         setInstance(this);
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
         findView();
+        user = new User();
+
+        buttonContinue.setOnClickListener((v)->{
+            user.setPhone(inputPhone.getText().toString());
+            Intent intent = new Intent(getInstance(), InfoGender.class);
+            intent.putExtra("user", Helper.toJson(user));
+            startActivity(intent);
+            Bungee.slideLeft(getInstance());
+            finish();
+        });
+        buttonFacebook.setOnClickListener((v)->{
+            startActivity(new Intent(getInstance(), InfoGender.class));
+            Bungee.slideLeft(getInstance());
+            finish();
+        });
+        buttonGoogle.setOnClickListener((v)->{
+            startActivity(new Intent(getInstance(), InfoGender.class));
+            Bungee.slideLeft(getInstance());
+            finish();
+        });
 
         inputPhone.addTextChangedListener(new TextWatcher() {
             private int characterAction = -1;
@@ -95,27 +121,24 @@ public class Authorize extends Singleton {
             }
         });
 
-        inputPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    if (inputPhone.getText().toString().length() == 0) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                inputPhone.setText("+380 ");
-                                inputPhone.setSelection(inputPhone.getText().toString().length());
-                            }
-                        }, 250);
-                    }
-                } else {
-                    inputPhone.setText("");
+        inputPhone.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                if (inputPhone.getText().toString().length() == 0) {
+                    new Handler().postDelayed(() -> {
+                        inputPhone.setText("+380 ");
+                        inputPhone.setSelection(inputPhone.getText().toString().length());
+                    }, 250);
                 }
+            } else {
+                inputPhone.setText("");
             }
         });
     }
 
     private void findView() {
-        inputPhone = findViewById(R.id.input_phone);
+        inputPhone = findViewById(R.id.input_ph);
+        buttonContinue = findViewById(R.id.button_continue);
+        buttonFacebook = findViewById(R.id.button_facebook);
+        buttonGoogle = findViewById(R.id.button_google);
     }
 }

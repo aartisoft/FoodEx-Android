@@ -26,6 +26,7 @@ import android.view.WindowManager;
 
 
 import com.google.gson.Gson;
+import com.korlab.foodex.Data.User;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -33,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -219,5 +221,13 @@ public class Helper {
 
     public static void logObjectToJson(Object obj) {
         log("Object \n\tName: " + obj.getClass().getSimpleName() + "\n\tFields: " + gson.toJson(obj));
+    }
+
+    public static String toJson(Object obj) {
+        return gson.toJson(obj);
+    }
+
+    public static User fromJson(String json, Object object) {
+        return gson.fromJson(json, (Type) object);
     }
 }
