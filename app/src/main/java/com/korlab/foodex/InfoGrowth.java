@@ -7,6 +7,9 @@ import android.widget.ImageView;
 
 import com.cncoderx.wheelview.WheelView;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.Technical.Helper;
+import com.korlab.foodex.UI.MaterialButton;
+import com.korlab.foodex.Technical.Singleton;
 
 import spencerstudios.com.bungeelib.Bungee;
 
@@ -49,11 +52,11 @@ public class InfoGrowth extends Singleton {
         buttonNext.setOnClickListener((v)->{
             user.setGrowth(mGrowth);
             user.setGrowthMetrics((mGrowthMetrics != 0));
-//            Intent intent = new Intent(getInstance(), InfoWeight.class);
+            Intent intent = new Intent(getInstance(), InfoBirthday.class);
             Helper.logObjectToJson(user);
-//            intent.putExtra("user", Helper.toJson(user));
-//            startActivity(intent);
-//            Bungee.slideLeft(getInstance());
+            intent.putExtra("user", Helper.toJson(user));
+            startActivity(intent);
+            Bungee.slideLeft(getInstance());
         });
     }
 

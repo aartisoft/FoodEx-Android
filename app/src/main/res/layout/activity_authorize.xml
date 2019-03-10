@@ -103,7 +103,7 @@
 
 
 
-        <com.korlab.foodex.MaterialButton
+        <com.korlab.foodex.UI.MaterialButton
             android:id="@+id/button_continue"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -182,7 +182,7 @@
             android:layout_weight="100"
             android:orientation="horizontal">
 
-            <com.korlab.foodex.MaterialButton
+            <com.korlab.foodex.UI.MaterialButton
                 android:id="@+id/button_facebook"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -200,7 +200,7 @@
                 app:mb_textColor="@color/facebook"
                 app:mb_textSize="19sp" />
 
-            <com.korlab.foodex.MaterialButton
+            <com.korlab.foodex.UI.MaterialButton
                 android:id="@+id/button_google"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"

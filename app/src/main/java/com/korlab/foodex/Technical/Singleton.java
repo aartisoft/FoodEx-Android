@@ -1,11 +1,9 @@
-package com.korlab.foodex;
+package com.korlab.foodex.Technical;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-
-class Singleton extends AppCompatActivity {
+public class Singleton extends AppCompatActivity {
     private static Activity mInstance;
 
     public static void setInstance(Activity activity) {

@@ -33,6 +33,7 @@
     <style name="WheelViewStyle">
         <item name="lineSpace">14dp</item>
         <item name="textSize">30sp</item>
+        <item name="android:fontFamily">@font/rns_light</item>
         <item name="selectedColor">@color/colorPrimary</item>
         <item name="unselectedColor">#d9d9d9</item>
         <item name="divider">@drawable/date_picker_divider</item>

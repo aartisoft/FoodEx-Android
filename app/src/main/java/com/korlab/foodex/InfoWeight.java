@@ -2,13 +2,14 @@ package com.korlab.foodex;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.cncoderx.wheelview.OnWheelChangedListener;
 import com.cncoderx.wheelview.WheelView;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.Technical.Helper;
+import com.korlab.foodex.UI.MaterialButton;
+import com.korlab.foodex.Technical.Singleton;
 
 import spencerstudios.com.bungeelib.Bungee;
 

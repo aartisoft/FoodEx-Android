@@ -1,4 +1,4 @@
-package com.korlab.foodex;
+package com.korlab.foodex.UI;
 
 import android.animation.AnimatorInflater;
 import android.content.Context;
@@ -21,12 +21,8 @@ import android.util.TypedValue;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.korlab.foodex.R;
 import com.makeramen.roundedimageview.RoundedImageView;
-
-
-/**
- * Created by karl on 22/09/2016.
- */
 
 public class MaterialButton extends FrameLayout {
 

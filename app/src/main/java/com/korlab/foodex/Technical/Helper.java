@@ -1,4 +1,4 @@
-package com.korlab.foodex;
+package com.korlab.foodex.Technical;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +27,7 @@ import android.view.WindowManager;
 
 import com.google.gson.Gson;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

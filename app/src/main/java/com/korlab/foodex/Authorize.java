@@ -1,17 +1,16 @@
 package com.korlab.foodex;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.Technical.Helper;
+import com.korlab.foodex.UI.MaterialButton;
+import com.korlab.foodex.Technical.Singleton;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import spencerstudios.com.bungeelib.Bungee;
@@ -34,19 +33,19 @@ public class Authorize extends Singleton {
 
         buttonContinue.setOnClickListener((v)->{
             user.setPhone(inputPhone.getText().toString());
-            Intent intent = new Intent(getInstance(), InfoGender.class);
+            Intent intent = new Intent(getInstance(), AuthorizeVerification.class);
             intent.putExtra("user", Helper.toJson(user));
             startActivity(intent);
             Bungee.slideLeft(getInstance());
             finish();
         });
         buttonFacebook.setOnClickListener((v)->{
-            startActivity(new Intent(getInstance(), InfoGender.class));
+            startActivity(new Intent(getInstance(), AuthorizeVerification.class));
             Bungee.slideLeft(getInstance());
             finish();
         });
         buttonGoogle.setOnClickListener((v)->{
-            startActivity(new Intent(getInstance(), InfoGender.class));
+            startActivity(new Intent(getInstance(), AuthorizeVerification.class));
             Bungee.slideLeft(getInstance());
             finish();
         });

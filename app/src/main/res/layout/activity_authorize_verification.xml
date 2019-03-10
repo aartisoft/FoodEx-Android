@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AuthorizeVerification">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:progress="0"
+            android:progressDrawable="@drawable/progress_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="60dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/rns_medium"
+                android:gravity="center_horizontal"
+                android:text="Activate your account"
+                android:textColor="@color/dark_text"
+                android:textScaleX="1.03"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/rns_medium"
+                android:text="We`re sending an SMS to phone number"
+                android:textColor="@color/dark_text"
+                android:textScaleX="1.0"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rns_bold"
+                android:text="+380 95 948 35 23"
+                android:textColor="@color/dark_text"
+                android:textScaleX="1.0"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/rns_medium"
+                android:text="Wrong number?"
+                android:textColor="?colorPrimaryDark"
+                android:textScaleX="1.0"
+                android:textSize="15sp" />
+
+            <com.korlab.foodex.UI.InputCodeLayout
+                android:id="@+id/inputCodeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                app:icl_divideWidth="10dp"
+                app:icl_focusBackground="@drawable/bg_edit_focus"
+                app:icl_height="42dp"
+                app:icl_number="6"
+                app:icl_showMode="normal"
+                app:icl_textColor="@color/colorPrimaryDark"
+                app:icl_textSize="22sp"
+                app:icl_unFocusBackground="@drawable/bg_edit_un_focus"
+                app:icl_width="42dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/rns_medium"
+                android:text="Code will be detected automatically."
+                android:textColor="@color/dark_text"
+                android:textScaleX="1.0"
+                android:textSize="15sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.korlab.foodex.UI.MaterialButton
+                        android:id="@+id/button_resend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_alignParentLeft="true"
+                        app:mb_borderColor="@color/white"
+                        app:mb_borderWidth="1dp"
+                        app:mb_buttonColor="@color/white"
+                        app:mb_buttonType="flat"
+                        app:mb_cornerRadius="30dp"
+                        app:mb_rippleColor="#f8f8f8"
+                        app:mb_text="RESEND SMS"
+                        app:mb_textColor="@color/dark_text"
+                        app:mb_textSize="19sp" />
+
+                    <TextView
+                        android:id="@+id/timer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/rns_bold"
+                        android:text="1:00"
+                        android:textColor="@color/dark_text"
+                        android:textScaleX="1.0"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

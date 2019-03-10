@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoWeight"
+    tools:context=".InfoBirthday"
     android:background="@color/white">
 
     <LinearLayout
@@ -16,43 +16,53 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Weight"
+            android:text="Your Birthday"
             android:textSize="28sp"
             android:textColor="@color/black"
             android:gravity="center_horizontal"
             android:layout_marginTop="60dp"
             android:fontFamily="@font/rns_light"/>
 
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/birthday"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="150dp"
             android:gravity="center_horizontal">
 
-
             <com.cncoderx.wheelview.Wheel3DView
-                android:id="@+id/wv_weight"
+                android:id="@+id/wv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:visibleItems="7"
+                app:toward="left"
+                app:cyclic="true"
+                style="@style/WheelViewStyle"/>
+            <com.cncoderx.wheelview.Wheel3DView
+                android:id="@+id/wv_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:visibleItems="7"
+                app:toward="left"
+                app:cyclic="true"
+                style="@style/WheelViewStyle"/>
+            <com.cncoderx.wheelview.Wheel3DView
+                android:id="@+id/wv_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:visibleItems="7"
                 app:toward="left"
                 style="@style/WheelViewStyle"/>
 
-            <com.cncoderx.wheelview.Wheel3DView
-                android:id="@+id/wv_weight_metrics"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:visibleItems="7"
-                app:toward="left"
-                style="@style/WheelViewStyle"/>
 
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:src="@drawable/man_weight"/>
         </LinearLayout>
     </LinearLayout>
 

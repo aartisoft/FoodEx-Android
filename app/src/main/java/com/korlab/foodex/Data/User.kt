@@ -14,6 +14,9 @@ class User {
     var growth: Int = 160
     var growthMetrics: Boolean = false
 
+    var birthdayDay: Int = 0
+    var birthdayMonth: Int = 0
+    var birthdayYear: Int = 0
 
     companion object {
         const val TAG = "User"
