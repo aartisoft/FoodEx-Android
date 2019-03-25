@@ -22,7 +22,7 @@ allprojects {
         jcenter()
         maven { url  "https://dl.bintray.com/karlgao0811/MaterialRoundButton" }
         maven { url "https://jitpack.io" }
-
+        maven { url  'http://dl.bintray.com/gigamole/maven/' }
     }
 }
 

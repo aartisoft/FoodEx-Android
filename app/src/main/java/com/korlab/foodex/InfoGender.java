@@ -1,19 +1,31 @@
 package com.korlab.foodex;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
-import com.korlab.foodex.Technical.Singleton;
+
+
+import java.util.Objects;
 
 import spencerstudios.com.bungeelib.Bungee;
 
-public class InfoGender extends Singleton {
-
+public class InfoGender extends AppCompatActivity {
+    private InfoGender instance;
+    public InfoGender getInstance() {
+        return instance;
+    }
     private MaterialButton buttonNext;
     private ImageView male, female;
     private User user;
@@ -21,10 +33,24 @@ public class InfoGender extends Singleton {
             isNext = false;
 
     @Override
+    public void onBackPressed()
+    {
+        Helper.showExitDialog(getInstance());
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_gender);
-        setInstance(this);
+        instance = this;
+
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+//        Helper.hideKeyboard(getInstance(), getInstance());
+
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         findView();
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);

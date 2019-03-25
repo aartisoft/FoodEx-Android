@@ -18,7 +18,7 @@
             android:id="@+id/progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="3dp"
             android:progress="0"
             android:progressDrawable="@drawable/progress_bar" />
 
@@ -50,6 +50,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/text_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rns_bold"
@@ -69,7 +70,7 @@
                 android:textSize="15sp" />
 
             <com.korlab.foodex.UI.InputCodeLayout
-                android:id="@+id/inputCodeLayout"
+                android:id="@+id/input_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"

@@ -39,4 +39,9 @@
         <item name="divider">@drawable/date_picker_divider</item>
     </style>
 
+    <style name="WheelViewStyleSmall" parent="WheelViewStyle">
+        <item name="lineSpace">12dp</item>
+        <item name="textSize">21sp</item>
+    </style>
+
 </resources>

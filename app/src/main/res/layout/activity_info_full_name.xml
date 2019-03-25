@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfoFullName"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="60dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/rns_medium"
+                android:gravity="center_horizontal"
+                android:text="Please enter your details"
+                android:textColor="@color/dark_text"
+                android:textScaleX="1.03"
+                android:textSize="20sp" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:theme="@style/MyTheme.Design.TextInputLayout">
+            <com.korlab.foodex.UI.MaterialEditText
+                android:id="@+id/input_f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="First Nаme"
+                android:textSize="16sp"
+                app:met_baseColor="@color/black"
+                app:met_primaryColor="@color/colorPrimary"
+                app:met_floatingLabelTextColor="@color/dark_text"
+                android:textCursorDrawable="@drawable/text_cursor"
+                app:met_singleLineEllipsis="true"
+                android:maxLength="17"
+                android:inputType="text"
+                android:drawableLeft="@drawable/input_user"
+                android:drawablePadding="7dp"/>
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:theme="@style/MyTheme.Design.TextInputLayout">
+            <com.korlab.foodex.UI.MaterialEditText
+                android:id="@+id/input_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Lаst Nаme"
+                android:textSize="16sp"
+                app:met_baseColor="@color/black"
+                app:met_primaryColor="@color/colorPrimary"
+                app:met_floatingLabelTextColor="@color/dark_text"
+                android:textCursorDrawable="@drawable/text_cursor"
+                app:met_singleLineEllipsis="true"
+                android:maxLength="17"
+                android:inputType="text"
+                android:drawableLeft="@drawable/input_user"
+                android:drawablePadding="7dp"/>
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_m"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:theme="@style/MyTheme.Design.TextInputLayout">
+            <com.korlab.foodex.UI.MaterialEditText
+                android:id="@+id/input_m"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Middlе Nаme"
+                android:textSize="16sp"
+                app:met_baseColor="@color/black"
+                app:met_primaryColor="@color/colorPrimary"
+                app:met_floatingLabelTextColor="@color/dark_text"
+                android:textCursorDrawable="@drawable/text_cursor"
+                app:met_singleLineEllipsis="true"
+                android:maxLength="17"
+                android:inputType="text"
+                android:drawableLeft="@drawable/input_user"
+                android:drawablePadding="7dp"/>
+            </android.support.design.widget.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/rns_medium"
+                    android:text="* "
+                    android:textColor="#ff6449"
+                    android:textScaleX="1.0"
+                    android:textSize="15sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/rns_medium"
+                    android:text="This data is required."
+                    android:textColor="@color/dark_text"
+                    android:textScaleX="1.0"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="190dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.korlab.foodex.UI.MaterialButton
+            android:id="@+id/next"
+            android:layout_width="280dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            app:mb_borderColor="@color/colorPrimary"
+            app:mb_borderWidth="40dp"
+            app:mb_buttonColor="@color/colorPrimary"
+            app:mb_buttonType="flat"
+            app:mb_cornerRadius="30dp"
+            app:mb_rippleColor="@color/colorPrimaryVeryLight"
+            app:mb_text="NEXT"
+            app:mb_textColor="#ffffff"
+            app:mb_textSize="19sp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

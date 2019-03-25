@@ -7,12 +7,15 @@
 
     <color name="colorAccent">#CACACA</color>
     <color name="white">#FFFFFF</color>
+    <color name="bottom_menu_background">#F5F5F5</color>
     <color name="light_white">#F0F0F0</color>
     <color name="dark_white">#e6e3e5</color>
     <color name="dark">#24344a</color>
     <color name="white_text">#CACACA</color>
     <color name="dark_text">#AAAAAA</color>
+    <color name="very_dark_text">#969696</color>
     <color name="black">#333333</color>
     <color name="facebook">#621fcf</color>
     <color name="google">#ea3555</color>
+    <color name="transparent">#00000000</color>
 </resources>

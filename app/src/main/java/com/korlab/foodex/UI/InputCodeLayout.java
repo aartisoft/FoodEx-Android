@@ -7,8 +7,10 @@ import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.IntDef;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
@@ -40,29 +42,20 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
     public static final int PASSWORD = 1;
 
     private final Context mContext;
-
-    /** 输入框数量 */
     private int mNumber;
-    /** 输入框宽度 */
     private int mWidth;
-    /** 输入框高度 */
     private int mHeight;
-    /** 输入框之间的分割线宽度 */
     private int mDivideWidth;
-    /** 输入文字颜色 */
     private int mTextColor;
-    /** 输入文字大小 */
     private int mTextSize;
-    /** 有焦点时输入框背景 */
     private int mFocusBackground;
-    /** 无焦点时输入框背景 */
     private int mUnFocusBackground;
-    /** 显示模式 */
     private int mShowMode;
 
     private LinearLayout mContainer;
     private TextView[] mTextViews;
     private EditText mEdtCode;
+    private OnInputCompleteCallback mOnInputCompleteCallback;
 
     public InputCodeLayout(Context context) {
         this(context, null);
@@ -106,10 +99,14 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
         addView(mContainer);
 
         mEdtCode = new EditText(mContext);
+
         mEdtCode.setLayoutParams(params);
         mEdtCode.setCursorVisible(false);
-        mEdtCode.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+        mEdtCode.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+
+//        mEdtCode.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         mEdtCode.setBackgroundResource(android.R.color.transparent);
+        mEdtCode.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
         addView(mEdtCode);
     }
 
@@ -191,27 +188,17 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                initTextView();
-            }
-        });
+        mContainer.post(this::initTextView);
     }
 
     private void initTextView() {
         if(mNumber <= 0) return;
-
         int measuredWidth = mContainer.getMeasuredWidth();
-        // 均分情况下，根据控件的宽度计算输入框的高度
         int height = (measuredWidth - (mDivideWidth * (mNumber - 1))) / mNumber;
-
         mTextViews = new TextView[mNumber];
         mContainer.removeAllViews();
         for (int i = 0; i < mNumber; i++) {
             final TextView textView = new TextView(mContext);
-
-            // 判断如果没有设置宽高，则根据控件宽度均分
             if (mWidth != -1 && mHeight != -1) {
                 textView.setWidth(mWidth);
                 textView.setHeight(mHeight);
@@ -220,14 +207,12 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
                         LinearLayout.LayoutParams.WRAP_CONTENT + mDivideWidth, height, 1);
                 textView.setLayoutParams(lp);
             }
-
             if (mTextSize != -1)
                 textView.getPaint().setTextSize(mTextSize);
             if (mTextColor != -1)
                 textView.setTextColor(mTextColor);
             if (mFocusBackground != -1 && mUnFocusBackground != -1)
                 textView.setBackgroundResource(i != 0 ? mUnFocusBackground : mFocusBackground);
-
             textView.setGravity(Gravity.CENTER);
             textView.setFocusable(false);
             setShowMode(textView);
@@ -235,19 +220,9 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
             mContainer.addView(textView);
         }
 
-        mContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                mEdtCode.setHeight(mContainer.getMeasuredHeight());
-            }
-        });
+        mContainer.post(() -> mEdtCode.setHeight(mContainer.getMeasuredHeight()));
     }
 
-    /**
-     * 设置输入框数量。
-     *
-     * @param number 输入框数量
-     */
     public void setNumber(int number){
         if(mNumber != number){
             mNumber = number;
@@ -256,11 +231,6 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
         }
     }
 
-    /**
-     * 设置分割线宽度。
-     *
-     * @param width 分割线宽度
-     */
     public void setDivideWidth(int width){
         if(width != mDivideWidth){
             mDivideWidth = width;
@@ -274,11 +244,6 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
         return shape;
     }
 
-    /**
-     * 设置输入框宽度。（如果宽度 == -1, 则输入框大小按照控件的宽度来均分）
-     *
-     * @param width 输入框宽度
-     */
     public void setWidth(int width){
         if(mWidth != width){
             mWidth = width;
@@ -286,11 +251,6 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
         }
     }
 
-    /**
-     * 设置输入框高度。（如果高度 == -1, 则输入框大小按照控件的宽度来均分）
-     *
-     * @param height 输入框高度
-     */
     public void setHeight(int height){
         if(mHeight != height){
             mHeight = height;
@@ -298,12 +258,6 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
         }
     }
 
-    /**
-     * 设置显示模式。
-     *
-     * @param showMode 通过 {@link #NORMAL} 或者 {@link #PASSWORD} 设置
-     *                 默认是 {@link #NORMAL}
-     */
     public void setShowMode(@ShowMode int showMode) {
         if (mShowMode != showMode) {
             mShowMode = showMode;
@@ -320,21 +274,11 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
             textView.setTransformationMethod(PasswordTransformationMethod.getInstance());
     }
 
-    /**
-     * 设置输入框的摆放位置。
-     *
-     * @param gravity 请参阅 {@link android.view.Gravity}
-     */
     public void setGravity(int gravity) {
         if(mContainer != null)
             mContainer.setGravity(gravity);
     }
 
-    /**
-     * 获取已经输入的验证码。
-     *
-     * @return 验证码
-     */
     public String getCode() {
         StringBuilder sb = new StringBuilder();
         for (TextView textView : mTextViews) {
@@ -343,9 +287,6 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
         return sb.toString();
     }
 
-    /**
-     * 清空输入框。
-     */
     public void clear() {
         for (int i = 0; i < mTextViews.length; i++) {
             TextView textView = mTextViews[i];
@@ -354,22 +295,11 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
         }
     }
 
-    private OnInputCompleteCallback mOnInputCompleteCallback;
 
     public interface OnInputCompleteCallback {
-        /**
-         * 输入完成监听。
-         *
-         * @param code 输入的验证码
-         */
         void onInputCompleteListener(String code);
     }
 
-    /**
-     * 设置输入完成监听。
-     *
-     * @param callback 回调
-     */
     public void setOnInputCompleteListener(OnInputCompleteCallback callback) {
         this.mOnInputCompleteCallback = callback;
     }

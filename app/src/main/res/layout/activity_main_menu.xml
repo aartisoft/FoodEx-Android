@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context=".MainMenu">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+
+
+        <com.korlab.foodex.UI.CustomViewPager
+            android:id="@+id/viewpagerMainMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            />
+
+
+    </LinearLayout>
+
+    <com.sdsmdg.harjot.materialshadows.MaterialShadowViewWrapper
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:animationDuration="0"
+        app:shadowAlpha="0.99"
+        app:shadowOffsetY="-10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:orientation="vertical">
+
+            <com.korlab.foodex.UI.ReadableBottomBar
+                android:id="@+id/bottom_bar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:rbb_textTypeface="@font/rns_medium"
+                app:rbb_activeItemType="icon"
+                app:rbb_backgroundColor="#ffffff"
+                app:rbb_indicatorColor="@color/colorPrimary"
+                app:rbb_indicatorHeight="2dp"
+                app:rbb_tabs="@xml/tabs"
+                app:rbb_textColor="#C1C1C1"
+                app:rbb_textSize="5dp" />
+
+        </LinearLayout>
+
+    </com.sdsmdg.harjot.materialshadows.MaterialShadowViewWrapper>
+
+
+</RelativeLayout>

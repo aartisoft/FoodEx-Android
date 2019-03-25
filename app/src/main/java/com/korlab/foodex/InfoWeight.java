@@ -3,18 +3,22 @@ package com.korlab.foodex;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.cncoderx.wheelview.WheelView;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
-import com.korlab.foodex.Technical.Singleton;
+
 
 import spencerstudios.com.bungeelib.Bungee;
 
-public class InfoWeight extends Singleton {
-
+public class InfoWeight extends AppCompatActivity {
+    private InfoWeight instance;
+    public InfoWeight getInstance() {
+        return instance;
+    }
     private User user;
     private MaterialButton buttonNext;
     private ImageView image;
@@ -26,7 +30,7 @@ public class InfoWeight extends Singleton {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_weight);
-        setInstance(this);
+        instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         findView();
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);

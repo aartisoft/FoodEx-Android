@@ -1,6 +1,7 @@
 package com.korlab.foodex.Technical;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -17,17 +18,28 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.ColorInt;
+import android.support.design.widget.TextInputLayout;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 
 import com.google.gson.Gson;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.R;
+import com.korlab.foodex.UI.InputCodeLayout;
+import com.korlab.foodex.UI.MaterialButton;
+import com.korlab.foodex.UI.MaterialEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -230,5 +242,90 @@ public class Helper {
 
     public static User fromJson(String json, Object object) {
         return gson.fromJson(json, (Type) object);
+    }
+
+    public static void showKeyboard(Activity activity, View view) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+        inputMethodManager.toggleSoftInputFromWindow(view.getApplicationWindowToken(),     InputMethodManager.SHOW_FORCED, 0);
+        view.requestFocus();
+    }
+
+    public static void setStatusBarIconWhite(Window window) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
+    public static void hideKeyboard(Activity activity, View view) {
+        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static void showExitDialog(Activity activity) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_exit);
+        dialog.setCancelable(true);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.transparent);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        MaterialButton exit = dialog.findViewById(R.id.exit);
+        MaterialButton cancel = dialog.findViewById(R.id.cancel);
+
+        exit.setOnClickListener((v) -> {
+            activity.finish();
+            dialog.dismiss();
+        });
+
+        cancel.setOnClickListener(v -> dialog.dismiss());
+        dialog.getWindow().setAttributes(lp);
+        Window window = dialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.show();
+    }
+
+    public static void setUpHintColor(EditText editText, TextInputLayout textInputLayout, int color){
+        textInputLayout.setHintTextAppearance(0);
+        String hint = textInputLayout.getHint().toString();
+        final SpannableStringBuilder hintWithAsterisk = getHintWithAsterisk(hint, color);
+        if(!editText.hasFocus()){
+            textInputLayout.setHint(null);
+            editText.setHint(hintWithAsterisk);
+        }
+        setOnFocuschangeListener(editText, textInputLayout, hintWithAsterisk);
+    }
+
+    private static void setOnFocuschangeListener(final EditText editText, final TextInputLayout textInputLayout, final SpannableStringBuilder hintWithAsterisk){
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    textInputLayout.setHint(hintWithAsterisk);
+                    editText.setHint(null);
+                } else if(editText.getText().toString().length()==0){
+                    textInputLayout.setHint(null);
+                    editText.setHint(hintWithAsterisk);
+                }
+            }
+        });
+    }
+
+    private static SpannableStringBuilder getHintWithAsterisk(String hint, int color){
+        String asterisk = " *";
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(hint);
+        int start = builder.length();
+        builder.append(asterisk);
+        int end = builder.length();
+        builder.setSpan(new ForegroundColorSpan(color), start, end,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return builder;
     }
 }

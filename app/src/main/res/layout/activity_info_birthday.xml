@@ -42,25 +42,25 @@
                 android:id="@+id/wv_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:visibleItems="7"
+                app:visibleItems="9"
                 app:toward="left"
                 app:cyclic="true"
-                style="@style/WheelViewStyle"/>
+                style="@style/WheelViewStyleSmall"/>
             <com.cncoderx.wheelview.Wheel3DView
                 android:id="@+id/wv_month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:visibleItems="7"
+                app:visibleItems="9"
                 app:toward="left"
                 app:cyclic="true"
-                style="@style/WheelViewStyle"/>
+                style="@style/WheelViewStyleSmall"/>
             <com.cncoderx.wheelview.Wheel3DView
                 android:id="@+id/wv_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:visibleItems="7"
+                app:visibleItems="9"
                 app:toward="left"
-                style="@style/WheelViewStyle"/>
+                style="@style/WheelViewStyleSmall"/>
 
 
         </LinearLayout>

@@ -1,31 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!--自定义验证码输入布局-->
     <declare-styleable name="InputCodeLayout">
-        <!--输入框数量-->
         <attr name="icl_number" format="integer"/>
-        <!--输入框宽度-->
         <attr name="icl_width" format="dimension|reference"/>
-        <!--输入框高度-->
         <attr name="icl_height" format="dimension|reference"/>
-        <!--输入框之间的分割线宽度-->
         <attr name="icl_divideWidth" format="dimension|reference"/>
-        <!--输入文字颜色-->
         <attr name="icl_textColor" format="color|reference"/>
-        <!--输入文字大小-->
         <attr name="icl_textSize" format="dimension|reference"/>
-        <!--有焦点时输入框背景-->
         <attr name="icl_focusBackground" format="reference"/>
-        <!--无焦点时输入框背景-->
         <attr name="icl_unFocusBackground" format="reference"/>
-        <!--显示模式-->
         <attr name="icl_showMode">
-            <enum name="normal" value="0"/><!--正常-->
-            <enum name="password" value="1"/><!--密码-->
+            <enum name="normal" value="0"/>
+            <enum name="password" value="1"/>
         </attr>
-        <!--输入框显示位置-->
         <attr name="android:gravity"/>
     </declare-styleable>
 
+    <declare-styleable name="NavigationTabStrip">
+        <attr name="nts_color" format="color"/>
+        <attr name="nts_size" format="dimension"/>
+        <attr name="nts_weight" format="dimension"/>
+        <attr name="nts_factor" format="float"/>
+        <attr name="nts_titles" format="reference"/>
+        <attr name="nts_bold" value="true"/>
+
+        <attr name="nts_type" format="enum">
+            <enum name="line" value="0"/>
+            <enum name="point" value="1"/>
+        </attr>
+        <attr name="nts_gravity" format="enum">
+            <enum name="bottom" value="0"/>
+            <enum name="top" value="1"/>
+        </attr>
+
+        <attr name="nts_typeface" format="string"/>
+        <attr name="nts_corners_radius" format="dimension"/>
+        <attr name="nts_animation_duration" format="integer"/>
+        <attr name="nts_inactive_color" format="color"/>
+        <attr name="nts_active_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ReadableBottomBar">
+        <attr name="rbb_tabs" format="reference" />
+        <attr name="rbb_backgroundColor" format="color" />
+        <attr name="rbb_indicatorColor" format="color" />
+        <attr name="rbb_indicatorHeight" format="dimension" />
+        <attr name="rbb_initialIndex" format="integer" />
+        <attr name="rbb_textColor" format="color" />
+        <attr name="rbb_textSize" format="dimension" />
+        <attr name="rbb_textTypeface" format="string" />
+        <attr name="rbb_activeItemType" format="enum">
+            <enum name="text" value="0" />
+            <enum name="icon" value="1" />
+        </attr>
+    </declare-styleable>
 </resources>

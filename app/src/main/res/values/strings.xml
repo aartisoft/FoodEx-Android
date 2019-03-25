@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FoodEx</string>
+    <string name="home">HOME</string>
+    <string name="search">WEIGHT</string>
+    <string name="bag">MANAGER</string>
+    <string name="favorite">PAYMENT</string>
+    <string name="profile">PROFILE</string>
 </resources>

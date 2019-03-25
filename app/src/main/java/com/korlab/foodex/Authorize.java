@@ -4,29 +4,40 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
-import com.korlab.foodex.Technical.Singleton;
-import com.rengwuxian.materialedittext.MaterialEditText;
+
+import com.korlab.foodex.UI.MaterialEditText;
 
 import spencerstudios.com.bungeelib.Bungee;
 
-public class Authorize extends Singleton {
+public class Authorize extends AppCompatActivity {
 
+    private Authorize instance;
+    public Authorize getInstance() {
+        return instance;
+    }
     private MaterialEditText inputPhone;
     private MaterialButton buttonContinue, buttonFacebook, buttonGoogle;
     private User user;
+
+    @Override
+    public void onBackPressed()
+    {
+        Helper.showExitDialog(getInstance());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Helper.log("onCreate Authorize");
         setContentView(R.layout.activity_authorize);
-        setInstance(this);
+        instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
         findView();
         user = new User();

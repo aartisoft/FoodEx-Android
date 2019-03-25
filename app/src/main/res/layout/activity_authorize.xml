@@ -75,14 +75,14 @@
             android:layout_marginTop="45dp">
 
 
-            <com.rengwuxian.materialedittext.MaterialEditText
+            <com.korlab.foodex.UI.MaterialEditText
                 android:id="@+id/input_ph"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mobile Phоne"
                 android:textSize="16sp"
                 app:met_baseColor="@color/black"
-                app:met_primaryColor="@color/dark_text"
+                app:met_primaryColor="@color/colorPrimary"
                 app:met_floatingLabelTextColor="@color/dark_text"
                 android:textCursorDrawable="@drawable/text_cursor"
                 app:met_singleLineEllipsis="true"
