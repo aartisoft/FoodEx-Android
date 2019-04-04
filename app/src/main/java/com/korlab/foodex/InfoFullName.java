@@ -18,6 +18,7 @@ import spencerstudios.com.bungeelib.Bungee;
 public class InfoFullName extends AppCompatActivity {
 
     private InfoFullName instance;
+
     public InfoFullName getInstance() {
         return instance;
     }
@@ -29,8 +30,7 @@ public class InfoFullName extends AppCompatActivity {
     private User user;
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         Helper.showExitDialog(getInstance());
     }
 
@@ -47,9 +47,8 @@ public class InfoFullName extends AppCompatActivity {
         Helper.setUpHintColor(inputFirstName, inputLayoutFirstName, red);
         Helper.setUpHintColor(inputLastName, inputLayoutLastName, red);
         Helper.setUpHintColor(inputMiddleName, inputLayoutMiddleName, red);
-//        new Handler().postDelayed(() -> Helper.showKeyboard(getInstance(), inputFirstName), 100);
 
-        buttonNext.setOnClickListener((v)->{
+        buttonNext.setOnClickListener((v) -> {
             user.setFirstName(inputFirstName.getText().toString());
             user.setLastName(inputLastName.getText().toString());
             user.setMiddleName(inputMiddleName.getText().toString());

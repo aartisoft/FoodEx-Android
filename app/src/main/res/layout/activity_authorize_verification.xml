@@ -116,7 +116,7 @@
                         app:mb_buttonColor="@color/white"
                         app:mb_buttonType="flat"
                         app:mb_cornerRadius="30dp"
-                        app:mb_rippleColor="#f8f8f8"
+                        app:mb_rippleColor="@color/ripple_color"
                         app:mb_text="RESEND SMS"
                         app:mb_textColor="@color/dark_text"
                         app:mb_textSize="19sp" />

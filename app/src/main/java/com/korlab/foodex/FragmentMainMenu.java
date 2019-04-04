@@ -1,25 +1,38 @@
 package com.korlab.foodex;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CustomViewPager;
+import com.korlab.foodex.UI.MenuRow;
 import com.korlab.foodex.UI.NavigationTabStrip;
+import com.korlab.foodex.UI.Toolbar;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+
+import spencerstudios.com.bungeelib.Bungee;
+
 
 public class FragmentMainMenu extends Fragment {
     public static final String ARG_PAGE_MAIN_MENU = "ARG_PAGE_MAIN_MENU";
 
     private int mPage;
     private NavigationTabStrip navigationTabStrip;
+
+    private List<MenuRow> menuRows;
+    private MainMenu activity;
 
     public static FragmentMainMenu newInstance(int page) {
         Bundle args = new Bundle();
@@ -29,33 +42,30 @@ public class FragmentMainMenu extends Fragment {
         return fragment;
     }
 
-    @Override public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mPage = getArguments().getInt(ARG_PAGE_MAIN_MENU);
         }
     }
 
-    @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
-//        Helper.log("==========Main Menu onCreateView: " + mPage);
-        switch(mPage) {
+        LinearLayout toolbarContainer;
+        activity = (MainMenu) getActivity();
+        switch (mPage) {
             case 1:
                 view = inflater.inflate(R.layout.fragment_home, container, false);
-//                TextView fragmentHome = view.findViewById(R.id.fragment_home_text);
-//                fragmentHome.setText(fragmentHome.getText()+"++");
+                CustomViewPager viewPagerHome = view.findViewById(R.id.viewpager_home);
 
-                CustomViewPager viewPagerHome = view.findViewById(R.id.viewpagerHome);
-                MainMenu activity = (MainMenu) getActivity();
                 FragmentHomeAdapter fragmentHomeAdapter = new FragmentHomeAdapter(activity.getSupportFragmentManager(), activity.getApplicationContext());
-
                 viewPagerHome.setAdapter(fragmentHomeAdapter);
                 viewPagerHome.setPagingEnabled(false);
-                fragmentHomeAdapter.notifyDataSetChanged();
-
-                Helper.log("notifyDataSetChanged");
+                viewPagerHome.setOffscreenPageLimit(10);
+                toolbarContainer = view.findViewById(R.id.toolbar_container);
+                toolbarContainer.addView(new Toolbar(activity, true, "Home", activity.getDrawable(R.drawable.ic_search_black_24dp), activity.getDrawable(R.drawable.toolbar_filter)).getView());
 
                 navigationTabStrip = view.findViewById(R.id.tabs);
                 navigationTabStrip.setTitles("Dashboard", "Your Menu", "Pause Menu");
@@ -65,7 +75,6 @@ public class FragmentMainMenu extends Fragment {
                 navigationTabStrip.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
                     @Override
                     public void onStartTabSelected(String title, int index) {
-//                        index++;
                         Helper.log("======Top Bar Index: " + index);
                         viewPagerHome.setCurrentItem(index);
                     }
@@ -75,27 +84,95 @@ public class FragmentMainMenu extends Fragment {
 
                     }
                 });
-//                textView = view.findViewById(R.id.text_view);
-//                textView.setText("Fragment Home#" + mPage);
+
                 break;
-            case 2: view = inflater.inflate(R.layout.fragment_weight, container, false);
+            case 2:
+                view = inflater.inflate(R.layout.fragment_weight, container, false);
                 TextView textFragmentWeight = view.findViewById(R.id.textFragmentWeight);
                 textFragmentWeight.setText("Fragment Weight#" + mPage);
+                toolbarContainer = view.findViewById(R.id.toolbar_container);
+                toolbarContainer.addView(new Toolbar(activity, false, "Weight Control", null, activity.getDrawable(R.drawable.toolbar_share)).getView());
+//                view.findViewById(R.id.toolbar_right).setOnClickListener((v) -> {
+//                    Helper.log("click+");
+//                });
                 break;
-            case 3: view = inflater.inflate(R.layout.fragment_manager, container, false);
+            case 3:
+                view = inflater.inflate(R.layout.fragment_manager, container, false);
                 TextView textFragmentManager = view.findViewById(R.id.textFragmentManager);
                 textFragmentManager.setText("Fragment Manager#" + mPage);
+                toolbarContainer = view.findViewById(R.id.toolbar_container);
+                toolbarContainer.addView(new Toolbar(activity, false, "Personal Manager", null, activity.getDrawable(R.drawable.toolbar_filter)).getView());
                 break;
-            case 4: view = inflater.inflate(R.layout.fragment_payment, container, false);
+            case 4:
+                view = inflater.inflate(R.layout.fragment_payment, container, false);
                 TextView textFragmentPurchases = view.findViewById(R.id.textFragmentPurchases);
                 textFragmentPurchases.setText("Fragment Purchases#" + mPage);
+                toolbarContainer = view.findViewById(R.id.toolbar_container);
+                toolbarContainer.addView(new Toolbar(activity, false, "Your Purchases", null, activity.getDrawable(R.drawable.toolbar_filter)).getView());
                 break;
-            case 5: view = inflater.inflate(R.layout.fragment_profile, container, false);
-                TextView textFragmentProfile = view.findViewById(R.id.textFragmentProfile);
-                textFragmentProfile.setText("Fragment Profile#" + mPage);
+            case 5:
+                view = inflater.inflate(R.layout.fragment_profile, container, false);
+                toolbarContainer = view.findViewById(R.id.toolbar_container);
+                toolbarContainer.addView(new Toolbar(activity, false, "Profile", null, activity.getDrawable(R.drawable.toolbar_settings)).getView());
+
+
+                LinearLayout menuContainer = view.findViewById(R.id.menu_container);
+                String[] menuHeader = {"Feedback",
+                        "Friends",
+                        "Discount",
+                        "Blog",
+                        // "5",
+                        "Exit"
+                };
+                Drawable[] menuIcon = {
+                        activity.getDrawable(R.drawable.profile_feedback),
+                        activity.getDrawable(R.drawable.profile_friends),
+                        activity.getDrawable(R.drawable.profile_discount),
+                        activity.getDrawable(R.drawable.profile_blog),
+                        // activity.getDrawable(R.drawable.toolbar_filter),
+                        activity.getDrawable(R.drawable.profile_exit)
+                };
+                menuRows = new ArrayList<>();
+                for (int i = 0; i < menuHeader.length; i++) {
+                    MenuRow menuRow = new MenuRow(activity, menuHeader[i], menuIcon[i]).getView();
+                    menuRow.getRoot().setTag(i + 1);
+                    menuRow.getRoot().setOnClickListener(this::processClickMenu);
+                    menuRows.add(menuRow.getView());
+                    menuContainer.addView(menuRow.getView());
+                }
+                LinearLayout buttonProfileEdit = view.findViewById(R.id.button_profile_edit);
+                buttonProfileEdit.setTag(0);
+                buttonProfileEdit.setOnClickListener(this::processClickMenu);
                 break;
         }
 
         return view;
+    }
+
+    private void processClickMenu(View v) {
+        Helper.log("processClickMenu: " + v.getClass().getSimpleName());
+        switch (v.getTag().toString()) {
+            case "0":
+                startActivity(new Intent(activity, ProfileEdit.class));
+                Bungee.slideLeft(activity);
+                Helper.log("click: " + "profile_edit");
+                break;
+            case "1":
+                Helper.log("click: " + "profile_feedback");
+                break;
+            case "2":
+                Helper.log("click: " + "profile_friends");
+                break;
+            case "3":
+                Helper.log("click: " + "profile_discount");
+                break;
+            case "4":
+                Helper.log("click: " + "profile_blog");
+                break;
+            case "5":
+                Helper.log("click: " + "profile_exit");
+                break;
+
+        }
     }
 }

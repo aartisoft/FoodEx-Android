@@ -19,16 +19,17 @@ import spencerstudios.com.bungeelib.Bungee;
 public class Authorize extends AppCompatActivity {
 
     private Authorize instance;
+
     public Authorize getInstance() {
         return instance;
     }
+
     private MaterialEditText inputPhone;
     private MaterialButton buttonContinue, buttonFacebook, buttonGoogle;
     private User user;
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         Helper.showExitDialog(getInstance());
     }
 
@@ -42,7 +43,7 @@ public class Authorize extends AppCompatActivity {
         findView();
         user = new User();
 
-        buttonContinue.setOnClickListener((v)->{
+        buttonContinue.setOnClickListener((v) -> {
             user.setPhone(inputPhone.getText().toString());
             Intent intent = new Intent(getInstance(), AuthorizeVerification.class);
             intent.putExtra("user", Helper.toJson(user));
@@ -50,12 +51,12 @@ public class Authorize extends AppCompatActivity {
             Bungee.slideLeft(getInstance());
             finish();
         });
-        buttonFacebook.setOnClickListener((v)->{
+        buttonFacebook.setOnClickListener((v) -> {
             startActivity(new Intent(getInstance(), AuthorizeVerification.class));
             Bungee.slideLeft(getInstance());
             finish();
         });
-        buttonGoogle.setOnClickListener((v)->{
+        buttonGoogle.setOnClickListener((v) -> {
             startActivity(new Intent(getInstance(), AuthorizeVerification.class));
             Bungee.slideLeft(getInstance());
             finish();

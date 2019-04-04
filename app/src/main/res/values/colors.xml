@@ -14,8 +14,12 @@
     <color name="white_text">#CACACA</color>
     <color name="dark_text">#AAAAAA</color>
     <color name="very_dark_text">#969696</color>
-    <color name="black">#333333</color>
+    <color name="black_light">#BF444444</color>
+    <color name="black">#444444</color>
+    <color name="дивайдер">#0F444444</color>
     <color name="facebook">#621fcf</color>
     <color name="google">#ea3555</color>
     <color name="transparent">#00000000</color>
+    <color name="ripple_color">#f8f8f8</color>
+    <color name="ripple_dark_color">#C8C8C8</color>
 </resources>

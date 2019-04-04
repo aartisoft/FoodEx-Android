@@ -61,239 +61,52 @@ public class MaterialEditText extends AppCompatEditText {
     public static final int FLOATING_LABEL_NORMAL = 1;
     public static final int FLOATING_LABEL_HIGHLIGHT = 2;
 
-    /**
-     * the spacing between the main text and the inner top padding.
-     */
     private int extraPaddingTop;
-
-    /**
-     * the spacing between the main text and the inner bottom padding.
-     */
     private int extraPaddingBottom;
-
-    /**
-     * the extra spacing between the main text and the left, actually for the left icon.
-     */
     private int extraPaddingLeft;
-
-    /**
-     * the extra spacing between the main text and the right, actually for the right icon.
-     */
     private int extraPaddingRight;
-
-    /**
-     * the floating label's text size.
-     */
     private int floatingLabelTextSize;
-
-    /**
-     * the floating label's text color.
-     */
     private int floatingLabelTextColor;
-
-    /**
-     * the bottom texts' size.
-     */
     private int bottomTextSize;
-
-    /**
-     * the spacing between the main text and the floating label.
-     */
     private int floatingLabelPadding;
-
-    /**
-     * the spacing between the main text and the bottom components (bottom ellipsis, helper/error text, characters counter).
-     */
     private int bottomSpacing;
-
-    /**
-     * whether the floating label should be shown. default is false.
-     */
     private boolean floatingLabelEnabled;
-
-    /**
-     * whether to highlight the floating label's text color when focused (with the main color). default is true.
-     */
     private boolean highlightFloatingLabel;
-
-    /**
-     * the base color of the line and the texts. default is black.
-     */
     private int baseColor;
-
-    /**
-     * inner top padding
-     */
     private int innerPaddingTop;
-
-    /**
-     * inner bottom padding
-     */
     private int innerPaddingBottom;
-
-    /**
-     * inner left padding
-     */
     private int innerPaddingLeft;
-
-    /**
-     * inner right padding
-     */
     private int innerPaddingRight;
-
-    /**
-     * the underline's highlight color, and the highlight color of the floating label if app:highlightFloatingLabel is set true in the xml. default is black(when app:darkTheme is false) or white(when app:darkTheme is true)
-     */
     private int primaryColor;
-
-    /**
-     * the color for when something is wrong.(e.g. exceeding max characters)
-     */
     private int errorColor;
-
-    /**
-     * min characters count limit. 0 means no limit. default is 0. NOTE: the character counter will increase the View's height.
-     */
     private int minCharacters;
-
-    /**
-     * max characters count limit. 0 means no limit. default is 0. NOTE: the character counter will increase the View's height.
-     */
     private int maxCharacters;
-
-    /**
-     * whether to show the bottom ellipsis in singleLine mode. default is false. NOTE: the bottom ellipsis will increase the View's height.
-     */
     private boolean singleLineEllipsis;
-
-    /**
-     * Always show the floating label, instead of animating it in/out. False by default.
-     */
     private boolean floatingLabelAlwaysShown;
-
-    /**
-     * Always show the helper text, no matter if the edit text is focused. False by default.
-     */
     private boolean helperTextAlwaysShown;
-
-    /**
-     * bottom ellipsis's height
-     */
     private int bottomEllipsisSize;
-
-    /**
-     * min bottom lines count.
-     */
     private int minBottomLines;
-
-    /**
-     * reserved bottom text lines count, no matter if there is some helper/error text.
-     */
     private int minBottomTextLines;
-
-    /**
-     * real-time bottom lines count. used for bottom extending/collapsing animation.
-     */
     private float currentBottomLines;
-
-    /**
-     * bottom lines count.
-     */
     private float bottomLines;
-
-    /**
-     * Helper text at the bottom
-     */
     private String helperText;
-
-    /**
-     * Helper text color
-     */
     private int helperTextColor = -1;
-
-    /**
-     * error text for manually invoked {@link #setError(CharSequence)}
-     */
     private String tempErrorText;
-
-    /**
-     * animation fraction of the floating label (0 as totally hidden).
-     */
     private float floatingLabelFraction;
-
-    /**
-     * whether the floating label is being shown.
-     */
     private boolean floatingLabelShown;
-
-    /**
-     * the floating label's focusFraction
-     */
     private float focusFraction;
-
-    /**
-     * The font used for the accent texts (floating label, error/helper text, character counter, etc.)
-     */
     private Typeface accentTypeface;
-
-    /**
-     * The font used on the view (EditText content)
-     */
     private Typeface typeface;
-
-    /**
-     * Text for the floatLabel if different from the hint
-     */
     private CharSequence floatingLabelText;
-
-    /**
-     * Whether or not to show the underline. Shown by default
-     */
     private boolean hideUnderline;
-
-    /**
-     * Underline's color
-     */
     private int underlineColor;
-
-    /**
-     * Whether to validate as soon as the text has changed. False by default
-     */
     private boolean autoValidate;
-
-    /**
-     * Whether the characters count is valid
-     */
     private boolean charactersCountValid;
-
-    /**
-     * Whether use animation to show/hide the floating label.
-     */
     private boolean floatingLabelAnimating;
-
-    /**
-     * Whether check the characters count at the beginning it's shown.
-     */
     private boolean checkCharactersCountAtBeginning;
-
-    /**
-     * Left Icon
-     */
     private Bitmap[] iconLeftBitmaps;
-
-    /**
-     * Right Icon
-     */
     private Bitmap[] iconRightBitmaps;
-
-    /**
-     * Clear Button
-     */
     private Bitmap[] clearButtonBitmaps;
-
-    /**
-     * Auto validate when focus lost.
-     */
     private boolean validateOnFocusLost;
 
     private boolean showClearButton;
@@ -342,7 +155,6 @@ public class MaterialEditText extends AppCompatEditText {
         bottomSpacing = getResources().getDimensionPixelSize(R.dimen.inner_components_spacing);
         bottomEllipsisSize = getResources().getDimensionPixelSize(R.dimen.bottom_ellipsis_height);
 
-        // default baseColor is black
         int defaultBaseColor = Color.BLACK;
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialEditText);
@@ -350,7 +162,6 @@ public class MaterialEditText extends AppCompatEditText {
         textColorHintStateList = typedArray.getColorStateList(R.styleable.MaterialEditText_met_textColorHint);
         baseColor = typedArray.getColor(R.styleable.MaterialEditText_met_baseColor, defaultBaseColor);
 
-        // retrieve the default primaryColor
         int defaultPrimaryColor;
         TypedValue primaryColorTypedValue = new TypedValue();
         try {
@@ -646,9 +457,6 @@ public class MaterialEditText extends AppCompatEditText {
         return accentTypeface;
     }
 
-    /**
-     * Set typeface used for the accent texts (floating label, error/helper text, character counter, etc.)
-     */
     public void setAccentTypeface(Typeface accentTypeface) {
         this.accentTypeface = accentTypeface;
         this.textPaint.setTypeface(accentTypeface);
@@ -659,30 +467,16 @@ public class MaterialEditText extends AppCompatEditText {
         return hideUnderline;
     }
 
-    /**
-     * Set whether or not to hide the underline (shown by default).
-     * <p/>
-     * The positions of text below will be adjusted accordingly (error/helper text, character counter, ellipses, etc.)
-     * <p/>
-     * NOTE: You probably don't want to hide this if you have any subtext features of this enabled, as it can look weird to not have a dividing line between them.
-     */
     public void setHideUnderline(boolean hideUnderline) {
         this.hideUnderline = hideUnderline;
         initPadding();
         postInvalidate();
     }
 
-    /**
-     * get the color of the underline for normal state
-     */
     public int getUnderlineColor() {
         return underlineColor;
     }
 
-    /**
-     * Set the color of the underline for normal state
-     * @param color
-     */
     public void setUnderlineColor(int color) {
         this.underlineColor = color;
         postInvalidate();
@@ -692,13 +486,6 @@ public class MaterialEditText extends AppCompatEditText {
         return floatingLabelText;
     }
 
-    /**
-     * Set the floating label text.
-     * <p/>
-     * Pass null to force fallback to use hint's value.
-     *
-     * @param floatingLabelText
-     */
     public void setFloatingLabelText(@Nullable CharSequence floatingLabelText) {
         this.floatingLabelText = floatingLabelText == null ? getHint() : floatingLabelText;
         postInvalidate();
@@ -745,26 +532,17 @@ public class MaterialEditText extends AppCompatEditText {
         correctPaddings();
     }
 
-    /**
-     * calculate {@link #minBottomLines}
-     */
     private void initMinBottomLines() {
         boolean extendBottom = minCharacters > 0 || maxCharacters > 0 || singleLineEllipsis || tempErrorText != null || helperText != null;
         currentBottomLines = minBottomLines = minBottomTextLines > 0 ? minBottomTextLines : extendBottom ? 1 : 0;
     }
 
-    /**
-     * use {@link #setPaddings(int, int, int, int)} instead, or the paddingTop and the paddingBottom may be set incorrectly.
-     */
     @Deprecated
     @Override
     public final void setPadding(int left, int top, int right, int bottom) {
         super.setPadding(left, top, right, bottom);
     }
 
-    /**
-     * Use this method instead of {@link #setPadding(int, int, int, int)} to automatically set the paddingTop and the paddingBottom correctly.
-     */
     public void setPaddings(int left, int top, int right, int bottom) {
         innerPaddingTop = top;
         innerPaddingBottom = bottom;
@@ -773,9 +551,6 @@ public class MaterialEditText extends AppCompatEditText {
         correctPaddings();
     }
 
-    /**
-     * Set paddings to the correct values
-     */
     private void correctPaddings() {
         int buttonsWidthLeft = 0, buttonsWidthRight = 0;
         int buttonsWidth = iconOuterWidth * getButtonsCount();
@@ -807,9 +582,6 @@ public class MaterialEditText extends AppCompatEditText {
         }
     }
 
-    /**
-     * @return True, if adjustments were made that require the view to be invalidated.
-     */
     private boolean adjustBottomLines() {
         // Bail out if we have a zero width; lines will be adjusted during next layout.
         if (getWidth() == 0) {
@@ -833,30 +605,18 @@ public class MaterialEditText extends AppCompatEditText {
         return true;
     }
 
-    /**
-     * get inner top padding, not the real paddingTop
-     */
     public int getInnerPaddingTop() {
         return innerPaddingTop;
     }
 
-    /**
-     * get inner bottom padding, not the real paddingBottom
-     */
     public int getInnerPaddingBottom() {
         return innerPaddingBottom;
     }
 
-    /**
-     * get inner left padding, not the real paddingLeft
-     */
     public int getInnerPaddingLeft() {
         return innerPaddingLeft;
     }
 
-    /**
-     * get inner right padding, not the real paddingRight
-     */
     public int getInnerPaddingRight() {
         return innerPaddingRight;
     }
@@ -887,7 +647,6 @@ public class MaterialEditText extends AppCompatEditText {
                 }
             }
         });
-        // observe the focus state to animate the floating label's text color appropriately
         innerFocusChangeListener = new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -932,17 +691,11 @@ public class MaterialEditText extends AppCompatEditText {
         postInvalidate();
     }
 
-    /**
-     * Same function as {@link #setTextColor(int)}. (Directly overriding the built-in one could cause some error, so use this method instead.)
-     */
     public void setMetTextColor(int color) {
         textColorStateList = ColorStateList.valueOf(color);
         resetTextColor();
     }
 
-    /**
-     * Same function as {@link #setTextColor(ColorStateList)}. (Directly overriding the built-in one could cause some error, so use this method instead.)
-     */
     public void setMetTextColor(ColorStateList colors) {
         textColorStateList = colors;
         resetTextColor();
@@ -957,17 +710,11 @@ public class MaterialEditText extends AppCompatEditText {
         }
     }
 
-    /**
-     * Same function as {@link #setHintTextColor(int)}. (The built-in one is a final method that can't be overridden, so use this method instead.)
-     */
     public void setMetHintTextColor(int color) {
         textColorHintStateList = ColorStateList.valueOf(color);
         resetHintTextColor();
     }
 
-    /**
-     * Same function as {@link #setHintTextColor(ColorStateList)}. (The built-in one is a final method that can't be overridden, so use this method instead.)
-     */
     public void setMetHintTextColor(ColorStateList colors) {
         textColorHintStateList = colors;
         resetHintTextColor();
@@ -1117,18 +864,11 @@ public class MaterialEditText extends AppCompatEditText {
         return tempErrorText;
     }
 
-    /**
-     * only used to draw the bottom line
-     */
     private boolean isInternalValid() {
         return tempErrorText == null && isCharactersCountValid();
     }
 
-    /**
-     * if the main text matches the regex
-     *
-     * @deprecated use the new validator interface to add your own custom validator
-     */
+
     @Deprecated
     public boolean isValid(String regex) {
         if (regex == null) {
@@ -1139,12 +879,6 @@ public class MaterialEditText extends AppCompatEditText {
         return matcher.matches();
     }
 
-    /**
-     * check if the main text matches the regex, and set the error text if not.
-     *
-     * @return true if it matches the regex, false if not.
-     * @deprecated use the new validator interface to add your own custom validator
-     */
     @Deprecated
     public boolean validate(String regex, CharSequence errorText) {
         boolean isValid = isValid(regex);
@@ -1155,12 +889,6 @@ public class MaterialEditText extends AppCompatEditText {
         return isValid;
     }
 
-    /**
-     * Run validation on a single validator instance
-     *
-     * @param validator Validator to check
-     * @return True if valid, false if not
-     */
     public boolean validateWith(@NonNull METValidator validator) {
         CharSequence text = getText();
         boolean isValid = validator.isValid(text, text.length() == 0);
@@ -1171,13 +899,6 @@ public class MaterialEditText extends AppCompatEditText {
         return isValid;
     }
 
-    /**
-     * Check all validators, sets the error text if not
-     * <p/>
-     * NOTE: this stops at the first validator to report invalid.
-     *
-     * @return True if all validators pass, false if not
-     */
     public boolean validate() {
         if (validators == null || validators.isEmpty()) {
             return true;
@@ -1207,14 +928,6 @@ public class MaterialEditText extends AppCompatEditText {
         return this.validators != null && !this.validators.isEmpty();
     }
 
-    /**
-     * Adds a new validator to the View's list of validators
-     * <p/>
-     * This will be checked with the others in {@link #validate()}
-     *
-     * @param validator Validator to add
-     * @return This instance, for easy chaining
-     */
     public MaterialEditText addValidator(METValidator validator) {
         if (validators == null) {
             this.validators = new ArrayList<>();
@@ -1278,7 +991,6 @@ public class MaterialEditText extends AppCompatEditText {
         int endX = getScrollX() + (iconRightBitmaps == null ? getWidth() : getWidth() - iconOuterWidth - iconPadding);
         int lineStartY = getScrollY() + getHeight() - getPaddingBottom();
 
-        // draw the icon(s)
         paint.setAlpha(255);
         if (iconLeftBitmaps != null) {
             Bitmap icon = iconLeftBitmaps[!isInternalValid() ? 3 : !isEnabled() ? 2 : hasFocus() ? 1 : 0];
@@ -1293,7 +1005,6 @@ public class MaterialEditText extends AppCompatEditText {
             canvas.drawBitmap(icon, iconRight, iconTop, paint);
         }
 
-        // draw the clear button
         if (hasFocus() && showClearButton && !TextUtils.isEmpty(getText())) {
             paint.setAlpha(255);
             int buttonLeft;
@@ -1308,7 +1019,6 @@ public class MaterialEditText extends AppCompatEditText {
             canvas.drawBitmap(clearButtonBitmap, buttonLeft, iconTop, paint);
         }
 
-        // draw the underline
         if (!hideUnderline) {
             lineStartY += bottomSpacing;
             if (!isInternalValid()) { // not valid
@@ -1334,7 +1044,6 @@ public class MaterialEditText extends AppCompatEditText {
         float relativeHeight = -textMetrics.ascent - textMetrics.descent;
         float bottomTextPadding = bottomTextSize + textMetrics.ascent + textMetrics.descent;
 
-        // draw the characters counter
         if ((hasFocus() && hasCharactersCounter()) || !isCharactersCountValid()) {
             textPaint.setColor(isCharactersCountValid() ? (baseColor & 0x00ffffff | 0x44000000) : errorColor);
             String charactersCounterText = getCharactersCounterText();
@@ -1349,20 +1058,19 @@ public class MaterialEditText extends AppCompatEditText {
                 if (isRTL()) {
                     canvas.translate(endX - textLayout.getWidth(), lineStartY + bottomSpacing - bottomTextPadding);
                 } else {
-                    canvas.translate(startX + getBottomTextLeftOffset(), lineStartY + bottomSpacing - bottomTextPadding);
+                    canvas.translate(0, lineStartY + bottomSpacing - bottomTextPadding);
+//                    canvas.translate(startX + getBottomTextLeftOffset(), lineStartY + bottomSpacing - bottomTextPadding);
                 }
                 textLayout.draw(canvas);
                 canvas.restore();
             }
         }
 
-        // draw the floating label
         if (floatingLabelEnabled && !TextUtils.isEmpty(floatingLabelText)) {
             textPaint.setTextSize(floatingLabelTextSize);
             // calculate the text color
             textPaint.setColor((Integer) focusEvaluator.evaluate(focusFraction, floatingLabelTextColor != -1 ? floatingLabelTextColor : (baseColor & 0x00ffffff | 0x44000000), primaryColor));
 
-            // calculate the horizontal position
             float floatingLabelWidth = textPaint.measureText(floatingLabelText.toString());
             int floatingLabelStartX;
             if ((getGravity() & Gravity.RIGHT) == Gravity.RIGHT || isRTL()) {
@@ -1373,15 +1081,12 @@ public class MaterialEditText extends AppCompatEditText {
                 floatingLabelStartX = startX + (int) (getInnerPaddingLeft() + (getWidth() - getInnerPaddingLeft() - getInnerPaddingRight() - floatingLabelWidth) / 2);
             }
 
-            // calculate the vertical position
             int distance = floatingLabelPadding;
             int floatingLabelStartY = (int) (innerPaddingTop + floatingLabelTextSize + floatingLabelPadding - distance * (floatingLabelAlwaysShown ? 1 : floatingLabelFraction) + getScrollY());
 
-            // calculate the alpha
             int alpha = ((int) ((floatingLabelAlwaysShown ? 1 : floatingLabelFraction) * 0xff * (0.74f * focusFraction + 0.26f) * (floatingLabelTextColor != -1 ? 1 : Color.alpha(floatingLabelTextColor) / 256f)));
             textPaint.setAlpha(alpha);
 
-            // draw the floating label
             canvas.drawText(floatingLabelText.toString(), floatingLabelStartX, floatingLabelStartY, textPaint);
         }
 
@@ -1401,7 +1106,6 @@ public class MaterialEditText extends AppCompatEditText {
             canvas.drawCircle(ellipsisStartX + signum * bottomEllipsisSize * 9 / 2, startY + bottomEllipsisSize / 2, bottomEllipsisSize / 2, paint);
         }
 
-        // draw the original things
         super.onDraw(canvas);
     }
 

@@ -16,15 +16,18 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class InfoGrowth extends AppCompatActivity {
     private InfoGrowth instance;
+
     public InfoGrowth getInstance() {
         return instance;
     }
+
     private User user;
     private MaterialButton buttonNext;
     private ImageView image;
     private WheelView wvGrowth, wvGrowthMetrics;
     private int mGrowth, mGrowthMetrics;
     private String growthStringCm[], growthStringInch[];
+   private double cmInchFactor = 0.39370078740157;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +40,8 @@ public class InfoGrowth extends AppCompatActivity {
         changeImage(user.isMale());
         growthStringCm = new String[300];
         growthStringInch = new String[118];
-        for(int i=1; i<=300; i++) growthStringCm[i-1] = String.valueOf(i);
-        for(int i=1; i<=118; i++) growthStringInch[i-1] = String.valueOf(i);
+        for (int i = 1; i <= 300; i++) growthStringCm[i - 1] = String.valueOf(i);
+        for (int i = 1; i <= 118; i++) growthStringInch[i - 1] = String.valueOf(i);
         wvGrowth.setEntries(growthStringCm);
         wvGrowth.setCurrentIndex(159);
         mGrowth = 160;
@@ -46,14 +49,14 @@ public class InfoGrowth extends AppCompatActivity {
             mGrowth = Integer.parseInt((String) wvGrowth.getItem(newIndex));
         });
 
-
-        wvGrowthMetrics.setEntries(new String[] {"cm", "inch"});
+        wvGrowthMetrics.setEntries(new String[]{"cm", "inch"});
         wvGrowthMetrics.setCurrentIndex(0);
         wvGrowthMetrics.setOnWheelChangedListener((wheel, oldIndex, newIndex) -> {
             mGrowthMetrics = newIndex;
             changeMetrics(mGrowth, newIndex);
         });
-        buttonNext.setOnClickListener((v)->{
+
+        buttonNext.setOnClickListener((v) -> {
             user.setGrowth(mGrowth);
             user.setGrowthMetrics((mGrowthMetrics != 0));
             Intent intent = new Intent(getInstance(), InfoBirthday.class);
@@ -65,7 +68,7 @@ public class InfoGrowth extends AppCompatActivity {
     }
 
     private void changeImage(boolean isMale) {
-        if(isMale) {
+        if (isMale) {
             image.setImageDrawable(getDrawable(R.drawable.man_growth));
         } else {
             image.setImageDrawable(getDrawable(R.drawable.woman_growth));
@@ -73,16 +76,16 @@ public class InfoGrowth extends AppCompatActivity {
     }
 
     private void changeMetrics(int value, int newIndex) {
-        if(newIndex == 0) {
-            int newValue = (int) Math.ceil(value/0.39370078740157);
+        if (newIndex == 0) {
+            int newValue = (int) Math.ceil(value / cmInchFactor);
             Helper.log("change to Cm: " + value + " inch => " + newValue + " cm");
             wvGrowth.setEntries(growthStringCm);
-            wvGrowth.setCurrentIndex(newValue-1, true);
+            wvGrowth.setCurrentIndex(newValue - 1, true);
         } else {
-            int newValue = (int) Math.floor(value*0.39370078740157);
+            int newValue = (int) Math.floor(value * cmInchFactor);
             Helper.log("change to Inch: " + value + " cm => " + newValue + " inch");
             wvGrowth.setEntries(growthStringInch);
-            wvGrowth.setCurrentIndex(newValue-1, true);
+            wvGrowth.setCurrentIndex(newValue - 1, true);
         }
 
     }

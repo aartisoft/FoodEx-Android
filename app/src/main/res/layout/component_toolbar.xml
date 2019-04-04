@@ -18,23 +18,40 @@
         android:weightSum="100">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:id="@+id/toolbar_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_search_black_24dp" />
 
+
+        <TextView
+            android:id="@+id/toolbar_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="19sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/rns_medium"
+            />
+
         <ImageView
+            android:id="@+id/toolbar_right"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/toolbar_filter"
             android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/wrapper_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#f3f3f3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <com.korlab.foodex.UI.NavigationTabStrip
             android:id="@+id/tabs"

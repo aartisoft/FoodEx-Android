@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.korlab.foodex.Technical.Helper;
 
-
 public class SplashScreen extends AppCompatActivity {
 
     @Override

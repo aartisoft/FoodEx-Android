@@ -23,18 +23,19 @@ public class FragmentHome extends Fragment {
         return fragment;
     }
 
-    @Override public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mPage = getArguments().getInt(ARG_PAGE_HOME);
         }
     }
 
-    @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
         TextView textView;
-//        Helper.log("==========Fragment Home onCreateView: " + mPage);
-        switch(mPage) {
+        switch (mPage) {
             case 1:
                 view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
 
@@ -47,16 +48,38 @@ public class FragmentHome extends Fragment {
                 view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
 
                 TextView fragmentHomeDashboard = view.findViewById(R.id.fragment_home_dashboard_text);
-                fragmentHomeDashboard.setText(fragmentHomeDashboard.getText()+"++");
+                fragmentHomeDashboard.setText(fragmentHomeDashboard.getText() + "++");
 
                 textView = view.findViewById(R.id.text_view);
                 Helper.log("Fragment Home Your Menu#" + mPage);
                 textView.setText("Fragment Home Your Menu#" + mPage);
                 break;
-            case 3: view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+            case 3:
+                view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
                 textView = view.findViewById(R.id.text_view);
                 Helper.log("Fragment Home Pause Menu#" + mPage);
                 textView.setText("Fragment Home Pause Menu#" + mPage);
+                break;
+
+            case 4:
+                view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+                textView = view.findViewById(R.id.text_view);
+                Helper.log("Fragment Home Pause Menu#" + mPage);
+                textView.setText("Fragment Home 1 Menu#" + mPage);
+                break;
+
+            case 5:
+                view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+                textView = view.findViewById(R.id.text_view);
+                Helper.log("Fragment Home Pause Menu#" + mPage);
+                textView.setText("Fragment Home 2 Menu#" + mPage);
+                break;
+
+            case 6:
+                view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+                textView = view.findViewById(R.id.text_view);
+                Helper.log("Fragment Home Pause Menu#" + mPage);
+                textView.setText("Fragment Home 3 Menu#" + mPage);
                 break;
         }
         return view;
