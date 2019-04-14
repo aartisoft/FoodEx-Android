@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
@@ -18,9 +19,9 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class Authorize extends AppCompatActivity {
 
-    private Authorize instance;
+    private static Authorize instance;
 
-    public Authorize getInstance() {
+    public static Authorize getInstance() {
         return instance;
     }
 
@@ -30,7 +31,7 @@ public class Authorize extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Helper.showExitDialog(getInstance());
+        Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_exit, null), (v)-> this.finishAffinity(), null);
     }
 
     @Override
@@ -42,25 +43,22 @@ public class Authorize extends AppCompatActivity {
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
         findView();
         user = new User();
-
+        Helper.disableButton(getInstance(), buttonContinue);
         buttonContinue.setOnClickListener((v) -> {
-            user.setPhone(inputPhone.getText().toString());
+            user.setPhone(inputPhone.getText().toString().replace(" ", ""));
             Intent intent = new Intent(getInstance(), AuthorizeVerification.class);
             intent.putExtra("user", Helper.toJson(user));
             startActivity(intent);
             Bungee.slideLeft(getInstance());
-            finish();
         });
-        buttonFacebook.setOnClickListener((v) -> {
-            startActivity(new Intent(getInstance(), AuthorizeVerification.class));
-            Bungee.slideLeft(getInstance());
-            finish();
-        });
-        buttonGoogle.setOnClickListener((v) -> {
-            startActivity(new Intent(getInstance(), AuthorizeVerification.class));
-            Bungee.slideLeft(getInstance());
-            finish();
-        });
+//        buttonFacebook.setOnClickListener((v) -> {
+//            startActivity(new Intent(getInstance(), AuthorizeVerification.class));
+//            Bungee.slideLeft(getInstance());
+//        });
+//        buttonGoogle.setOnClickListener((v) -> {
+//            startActivity(new Intent(getInstance(), AuthorizeVerification.class));
+//            Bungee.slideLeft(getInstance());
+//        });
 
         inputPhone.addTextChangedListener(new TextWatcher() {
             private int characterAction = -1;
@@ -129,6 +127,7 @@ public class Authorize extends AppCompatActivity {
                 if (start >= 0)
                     inputPhone.setSelection((start <= inputPhone.length()) ? start : inputPhone.getText().toString().length());
                 lock = false;
+                validateInput();
             }
         });
 
@@ -151,5 +150,12 @@ public class Authorize extends AppCompatActivity {
         buttonContinue = findViewById(R.id.button_continue);
         buttonFacebook = findViewById(R.id.button_facebook);
         buttonGoogle = findViewById(R.id.button_google);
+    }
+
+    private void validateInput() {
+        if(inputPhone.length() >= 17)
+            Helper.enableButton(getInstance(), buttonContinue);
+        else
+            Helper.disableButton(getInstance(), buttonContinue);
     }
 }

@@ -46,13 +46,14 @@
                 android:layout_height="wrap_content"
                 android:hint="First Nаme"
                 android:textSize="16sp"
+                android:textColor="@color/input_text"
                 app:met_baseColor="@color/black"
                 app:met_primaryColor="@color/colorPrimary"
                 app:met_floatingLabelTextColor="@color/dark_text"
                 android:textCursorDrawable="@drawable/text_cursor"
                 app:met_singleLineEllipsis="true"
                 android:maxLength="17"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:drawableLeft="@drawable/input_user"
                 android:drawablePadding="7dp"/>
             </android.support.design.widget.TextInputLayout>
@@ -69,13 +70,14 @@
                 android:layout_height="wrap_content"
                 android:hint="Lаst Nаme"
                 android:textSize="16sp"
+                android:textColor="@color/input_text"
                 app:met_baseColor="@color/black"
                 app:met_primaryColor="@color/colorPrimary"
                 app:met_floatingLabelTextColor="@color/dark_text"
                 android:textCursorDrawable="@drawable/text_cursor"
                 app:met_singleLineEllipsis="true"
                 android:maxLength="17"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:drawableLeft="@drawable/input_user"
                 android:drawablePadding="7dp"/>
             </android.support.design.widget.TextInputLayout>
@@ -92,13 +94,14 @@
                 android:layout_height="wrap_content"
                 android:hint="Middlе Nаme"
                 android:textSize="16sp"
+                android:textColor="@color/input_text"
                 app:met_baseColor="@color/black"
                 app:met_primaryColor="@color/colorPrimary"
                 app:met_floatingLabelTextColor="@color/dark_text"
                 android:textCursorDrawable="@drawable/text_cursor"
                 app:met_singleLineEllipsis="true"
                 android:maxLength="17"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:drawableLeft="@drawable/input_user"
                 android:drawablePadding="7dp"/>
             </android.support.design.widget.TextInputLayout>

@@ -7,6 +7,9 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
@@ -17,9 +20,9 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class InfoFullName extends AppCompatActivity {
 
-    private InfoFullName instance;
+    private static InfoFullName instance;
 
-    public InfoFullName getInstance() {
+    public static InfoFullName getInstance() {
         return instance;
     }
 
@@ -31,7 +34,7 @@ public class InfoFullName extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Helper.showExitDialog(getInstance());
+        Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_exit, null), (v)-> this.finishAffinity(), null);
     }
 
     @Override
@@ -48,6 +51,8 @@ public class InfoFullName extends AppCompatActivity {
         Helper.setUpHintColor(inputLastName, inputLayoutLastName, red);
         Helper.setUpHintColor(inputMiddleName, inputLayoutMiddleName, red);
 
+        Helper.disableButton(getInstance(), buttonNext);
+
         buttonNext.setOnClickListener((v) -> {
             user.setFirstName(inputFirstName.getText().toString());
             user.setLastName(inputLastName.getText().toString());
@@ -56,7 +61,21 @@ public class InfoFullName extends AppCompatActivity {
             intent.putExtra("user", Helper.toJson(user));
             startActivity(intent);
             Bungee.slideLeft(getInstance());
-            finish();
+        });
+        inputFirstName.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override public void afterTextChanged(Editable s) { validateInput(); }
+        });
+        inputLastName.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override public void afterTextChanged(Editable s) { validateInput(); }
+        });
+        inputMiddleName.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override public void afterTextChanged(Editable s) { validateInput(); }
         });
     }
 
@@ -68,6 +87,13 @@ public class InfoFullName extends AppCompatActivity {
         inputLayoutLastName = findViewById(R.id.input_layout_l);
         inputLayoutMiddleName = findViewById(R.id.input_layout_m);
         buttonNext = findViewById(R.id.next);
+    }
+
+    private void validateInput() {
+        if(inputFirstName.length() >= 2 && inputLastName.length() >=2 && inputMiddleName.length() >= 2)
+            Helper.enableButton(getInstance(), buttonNext);
+        else
+            Helper.disableButton(getInstance(), buttonNext);
     }
 
 }

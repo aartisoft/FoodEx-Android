@@ -15,9 +15,9 @@ import com.korlab.foodex.UI.MaterialButton;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class InfoWeight extends AppCompatActivity {
-    private InfoWeight instance;
+    private static InfoWeight instance;
 
-    public InfoWeight getInstance() {
+    public static InfoWeight getInstance() {
         return instance;
     }
 
@@ -37,7 +37,7 @@ public class InfoWeight extends AppCompatActivity {
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         findView();
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
-        changeImage(user.isMale());
+        changeImage(user.getGender());
 
         weightStringKg = new String[400];
         weightStringLb = new String[880];
@@ -67,8 +67,8 @@ public class InfoWeight extends AppCompatActivity {
         });
     }
 
-    private void changeImage(boolean isMale) {
-        if (isMale) {
+    private void changeImage(boolean gender) {
+        if (!gender) {
             image.setImageDrawable(getDrawable(R.drawable.man_weight));
         } else {
             image.setImageDrawable(getDrawable(R.drawable.woman_weight));

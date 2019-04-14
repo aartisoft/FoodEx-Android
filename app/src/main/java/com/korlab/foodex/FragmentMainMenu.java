@@ -3,6 +3,7 @@ package com.korlab.foodex;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -33,6 +34,8 @@ public class FragmentMainMenu extends Fragment {
 
     private List<MenuRow> menuRows;
     private MainMenu activity;
+    private LinearLayout toolbarRight;
+    private boolean isClickDelay = false;
 
     public static FragmentMainMenu newInstance(int page) {
         Bundle args = new Bundle();
@@ -114,7 +117,13 @@ public class FragmentMainMenu extends Fragment {
                 view = inflater.inflate(R.layout.fragment_profile, container, false);
                 toolbarContainer = view.findViewById(R.id.toolbar_container);
                 toolbarContainer.addView(new Toolbar(activity, false, "Profile", null, activity.getDrawable(R.drawable.toolbar_settings)).getView());
+                toolbarRight = view.findViewById(R.id.toolbar_right);
+                Helper.log("Settings setOnClickListener");
 
+                toolbarRight.setOnClickListener(v -> {
+                    Helper.log("Settings click");
+                    startActivity(new Intent(activity, ProfileSettings.class));
+                });
 
                 LinearLayout menuContainer = view.findViewById(R.id.menu_container);
                 String[] menuHeader = {"Feedback",
@@ -150,29 +159,36 @@ public class FragmentMainMenu extends Fragment {
     }
 
     private void processClickMenu(View v) {
-        Helper.log("processClickMenu: " + v.getClass().getSimpleName());
-        switch (v.getTag().toString()) {
-            case "0":
-                startActivity(new Intent(activity, ProfileEdit.class));
-                Bungee.slideLeft(activity);
-                Helper.log("click: " + "profile_edit");
-                break;
-            case "1":
-                Helper.log("click: " + "profile_feedback");
-                break;
-            case "2":
-                Helper.log("click: " + "profile_friends");
-                break;
-            case "3":
-                Helper.log("click: " + "profile_discount");
-                break;
-            case "4":
-                Helper.log("click: " + "profile_blog");
-                break;
-            case "5":
-                Helper.log("click: " + "profile_exit");
-                break;
+        if(!isClickDelay) {
+            isClickDelay = true;
+            Helper.log("processClickMenu: " + v.getClass().getSimpleName());
+            switch (v.getTag().toString()) {
+                case "0":
+                    String json = "{\"birthdayDay\":9,\"birthdayMonth\":11,\"birthdayYear\":1998,\"firstName\":\"Maxim\",\"growth\":170,\"growthMetrics\":false,\"gender\":false,\"lastName\":\"Romanyuta\",\"middleName\":\"Olegovich\",\"phone\":\"+380959483523\",\"weight\":60,\"weightMetrics\":false}";
+                    Intent intent = new Intent(activity, ProfileEdit.class);
+                    intent.putExtra("user", json);
+                    startActivity(intent);
+                    Bungee.slideLeft(activity);
+                    Helper.log("click: " + "profile_edit");
+                    break;
+                case "1":
+                    Helper.log("click: " + "profile_feedback");
+                    break;
+                case "2":
+                    Helper.log("click: " + "profile_friends");
+                    break;
+                case "3":
+                    Helper.log("click: " + "profile_discount");
+                    break;
+                case "4":
+                    Helper.log("click: " + "profile_blog");
+                    break;
+                case "5":
+                    Helper.log("click: " + "profile_exit");
+                    break;
 
+            }
+            new Handler().postDelayed(() -> isClickDelay = false,1000);
         }
     }
 }

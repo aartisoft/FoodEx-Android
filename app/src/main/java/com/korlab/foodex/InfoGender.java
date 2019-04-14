@@ -16,22 +16,17 @@ import com.korlab.foodex.UI.MaterialButton;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class InfoGender extends AppCompatActivity {
-    private InfoGender instance;
+    private static InfoGender instance;
 
-    public InfoGender getInstance() {
+    public static InfoGender getInstance() {
         return instance;
     }
 
     private MaterialButton buttonNext;
-    private ImageView male, female;
+    private ImageView man, woman;
     private User user;
-    private boolean isMale = false,
-            isNext = false;
+    private boolean gender = false, isNext = false;
 
-    @Override
-    public void onBackPressed() {
-        Helper.showExitDialog(getInstance());
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +45,13 @@ public class InfoGender extends AppCompatActivity {
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
         Helper.logObjectToJson(user);
 
-        buttonNext.setBorderColor(getResources().getColor(R.color.colorPrimaryVeryLight));
-        buttonNext.setButtonColor(getResources().getColor(R.color.colorPrimaryVeryLight));
-        buttonNext.setEnabled(false);
+        Helper.disableButton(getInstance(), buttonNext);
 
-        male.setOnClickListener((v) -> toggleGender(true));
-        female.setOnClickListener((v) -> toggleGender(false));
+        man.setOnClickListener((v) -> toggleGender(true));
+        woman.setOnClickListener((v) -> toggleGender(false));
 
         buttonNext.setOnClickListener((v) -> {
-            user.setMale(isMale);
+            user.setGender(gender);
             Intent intent = new Intent(getInstance(), InfoWeight.class);
             intent.putExtra("user", Helper.toJson(user));
             startActivity(intent);
@@ -67,25 +60,23 @@ public class InfoGender extends AppCompatActivity {
     }
 
     private void toggleGender(boolean var) {
-        buttonNext.setBorderColor(getResources().getColor(R.color.colorPrimary));
-        buttonNext.setButtonColor(getResources().getColor(R.color.colorPrimary));
-        buttonNext.setEnabled(true);
+        Helper.enableButton(getInstance(), buttonNext);
 
         isNext = true;
         if (var) {
-            isMale = true;
-            male.setImageDrawable(getDrawable(R.drawable.man_enable));
-            female.setImageDrawable(getDrawable(R.drawable.woman_disable));
+            gender = false;
+            man.setImageDrawable(getDrawable(R.drawable.man_enable));
+            woman.setImageDrawable(getDrawable(R.drawable.woman_disable));
         } else {
-            isMale = false;
-            male.setImageDrawable(getDrawable(R.drawable.man_disable));
-            female.setImageDrawable(getDrawable(R.drawable.woman_enable));
+            gender = true;
+            man.setImageDrawable(getDrawable(R.drawable.man_disable));
+            woman.setImageDrawable(getDrawable(R.drawable.woman_enable));
         }
     }
 
     private void findView() {
         buttonNext = findViewById(R.id.next);
-        male = findViewById(R.id.male);
-        female = findViewById(R.id.female);
+        man = findViewById(R.id.man);
+        woman = findViewById(R.id.woman);
     }
 }

@@ -3,16 +3,22 @@ package com.korlab.foodex;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CustomViewPager;
 import com.korlab.foodex.UI.ReadableBottomBar;
 
 public class MainMenu extends AppCompatActivity {
-    private MainMenu instance;
+    private static MainMenu instance;
 
-    public MainMenu getInstance() {
+    public static MainMenu getInstance() {
         return instance;
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
     }
 
     private ReadableBottomBar bottomBar;

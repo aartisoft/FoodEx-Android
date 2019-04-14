@@ -16,14 +16,11 @@ public class Toolbar extends LinearLayout {
     private TextView toolbarHeader;
     private ImageView toolbarLeftIcon, toolbarRightIcon;
 
-    private LinearLayout layout;
-    private Context mContext;
-
     private void initComponent() {
         wrapperTabs = findViewById(R.id.wrapper_tabs);
         toolbarHeader = findViewById(R.id.toolbar_header);
-        toolbarLeftIcon = findViewById(R.id.toolbar_left);
-        toolbarRightIcon = findViewById(R.id.toolbar_right);
+        toolbarLeftIcon = findViewById(R.id.toolbar_left_icon);
+        toolbarRightIcon = findViewById(R.id.toolbar_right_icon);
     }
 
     public Toolbar getView() {
@@ -32,10 +29,10 @@ public class Toolbar extends LinearLayout {
 
     public Toolbar(Context context, boolean isVisibleTabs, String text, Drawable drawableLeft, Drawable drawableRight) {
         super(context);
-        mContext = context;
+        Context mContext = context;
         String service = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(service);
-        layout = (LinearLayout) Objects.requireNonNull(li).inflate(R.layout.component_toolbar, this, true);
+        LinearLayout layout = (LinearLayout) Objects.requireNonNull(li).inflate(R.layout.component_toolbar, this, true);
         initComponent();
 
         this.setVisibleTabs(isVisibleTabs);

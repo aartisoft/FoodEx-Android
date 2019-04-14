@@ -8,93 +8,490 @@
     tools:context=".ProfileEdit"
     android:background="@color/white">
 
+
+
     <LinearLayout
         android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-
     </LinearLayout>
-
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="30dp"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="86dp"
-            android:layout_height="86dp"
-            android:src="@drawable/profile_icon"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"/>
-        <com.korlab.foodex.UI.MaterialEditText
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textSize="16sp"
-            app:met_baseColor="@color/black"
-            app:met_primaryColor="@color/dark_text"
-            android:textCursorDrawable="@drawable/text_cursor"
-            app:met_singleLineEllipsis="true"
-            android:maxLength="17"
-            android:text="Maxim"
-            app:met_helperText="Name"
-            app:met_helperTextAlwaysShown="true"
-            app:met_helperTextColor="#999999"
-            app:met_bottomTextSize="14sp"
-            android:inputType="text"/>
-
-
-        <com.korlab.foodex.UI.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textSize="16sp"
-            app:met_baseColor="@color/black"
-            app:met_primaryColor="@color/dark_text"
-            android:textCursorDrawable="@drawable/text_cursor"
-            app:met_singleLineEllipsis="true"
-            android:maxLength="17"
-            android:text="Romanyuta"
-            app:met_helperText="Surname"
-            app:met_helperTextAlwaysShown="true"
-            app:met_helperTextColor="#999999"
-            app:met_bottomTextSize="14sp"
-            android:inputType="text"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.korlab.foodex.UI.MaterialEditText
-                android:id="@+id/input_birthday"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="16sp"
-                app:met_baseColor="@color/black"
-                app:met_primaryColor="@color/dark_text"
-                android:textCursorDrawable="@drawable/text_cursor"
-                app:met_singleLineEllipsis="true"
-                android:maxLength="17"
-                android:text="09 November, 1998"
-                app:met_helperText="Birthday"
-                app:met_helperTextAlwaysShown="true"
-                app:met_helperTextColor="#999999"
-                app:met_bottomTextSize="14sp"
-                android:inputType="text"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/button_birthday"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal"/>
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:padding="30dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="20dp">
+                    <ImageView
+                        android:layout_width="86dp"
+                        android:layout_height="86dp"
+                        android:src="@drawable/profile_icon"
+                        android:layout_gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/rns_light"
+                        android:textColor="@color/black_light"
+                        android:text="click for edit"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp" />
+                </LinearLayout>
 
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/dark_text"
+                    android:text="Delivery info"
+                    android:textSize="19sp" />
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/input_text"
+                    android:text="On weekdays:"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+                    <com.korlab.foodex.UI.MaterialEditText
+                        android:id="@+id/input_weekdays_street"
+                        android:imeOptions="actionNext"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="70"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/input_text"
+                        app:met_baseColor="@color/black"
+                        app:met_primaryColor="@color/dark_text"
+                        android:textCursorDrawable="@drawable/text_cursor"
+                        app:met_singleLineEllipsis="true"
+                        android:maxLength="30"
+                        app:met_helperText="Street"
+                        app:met_helperTextAlwaysShown="true"
+                        app:met_helperTextColor="#999999"
+                        app:met_bottomTextSize="14sp"
+                        android:inputType="text"/>
+                    <com.korlab.foodex.UI.MaterialEditText
+                        android:id="@+id/input_weekdays_house"
+                        android:imeOptions="actionNext"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/input_text"
+                        app:met_baseColor="@color/black"
+                        app:met_primaryColor="@color/dark_text"
+                        android:textCursorDrawable="@drawable/text_cursor"
+                        app:met_singleLineEllipsis="true"
+                        android:maxLength="10"
+                        app:met_helperText="h."
+                        app:met_helperTextAlwaysShown="true"
+                        app:met_helperTextColor="#999999"
+                        app:met_bottomTextSize="14sp"
+                        android:inputType="text"/>
+                    <com.korlab.foodex.UI.MaterialEditText
+                        android:id="@+id/input_weekdays_apartment"
+                        android:imeOptions="actionNext"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/input_text"
+                        app:met_baseColor="@color/black"
+                        app:met_primaryColor="@color/dark_text"
+                        android:textCursorDrawable="@drawable/text_cursor"
+                        app:met_singleLineEllipsis="true"
+                        android:maxLength="10"
+                        app:met_helperText="ap."
+                        app:met_helperTextAlwaysShown="true"
+                        app:met_helperTextColor="#999999"
+                        app:met_bottomTextSize="14sp"
+                        android:inputType="text"/>
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/input_text"
+                    android:text="On weekends:"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+                    <com.korlab.foodex.UI.MaterialEditText
+                        android:id="@+id/input_weekends_street"
+                        android:imeOptions="actionNext"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="70"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/input_text"
+                        app:met_baseColor="@color/black"
+                        app:met_primaryColor="@color/dark_text"
+                        android:textCursorDrawable="@drawable/text_cursor"
+                        app:met_singleLineEllipsis="true"
+                        android:maxLength="30"
+                        app:met_helperText="Street"
+                        app:met_helperTextAlwaysShown="true"
+                        app:met_helperTextColor="#999999"
+                        app:met_bottomTextSize="14sp"
+                        android:inputType="text"/>
+                    <com.korlab.foodex.UI.MaterialEditText
+                        android:id="@+id/input_weekends_house"
+                        android:imeOptions="actionNext"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/input_text"
+                        app:met_baseColor="@color/black"
+                        app:met_primaryColor="@color/dark_text"
+                        android:textCursorDrawable="@drawable/text_cursor"
+                        app:met_singleLineEllipsis="true"
+                        android:maxLength="10"
+                        app:met_helperText="h."
+                        app:met_helperTextAlwaysShown="true"
+                        app:met_helperTextColor="#999999"
+                        app:met_bottomTextSize="14sp"
+                        android:inputType="text"/>
+                    <com.korlab.foodex.UI.MaterialEditText
+                        android:id="@+id/input_weekends_apartment"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/input_text"
+                        app:met_baseColor="@color/black"
+                        app:met_primaryColor="@color/dark_text"
+                        android:textCursorDrawable="@drawable/text_cursor"
+                        app:met_singleLineEllipsis="true"
+                        android:maxLength="10"
+                        app:met_helperText="ap."
+                        app:met_helperTextAlwaysShown="true"
+                        app:met_helperTextColor="#999999"
+                        app:met_bottomTextSize="14sp"
+                        android:inputType="text"/>
+                </LinearLayout>
+
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:imeOptions="actionNext"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="70"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/input_text"
+                    app:met_baseColor="@color/black"
+                    app:met_primaryColor="@color/dark_text"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    app:met_singleLineEllipsis="true"
+                    android:maxLength="100"
+                    app:met_helperText="Note (example: There is intercom)"
+                    app:met_helperTextAlwaysShown="true"
+                    app:met_helperTextColor="#999999"
+                    app:met_bottomTextSize="14sp"
+                    android:inputType="text"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/dark_text"
+                    android:text="Personal info"
+                    android:textSize="19sp" />
+
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:id="@+id/input_n"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/input_text"
+                    app:met_baseColor="@color/black"
+                    app:met_primaryColor="@color/dark_text"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    app:met_singleLineEllipsis="true"
+                    android:maxLength="17"
+                    app:met_helperText="Name"
+                    app:met_helperTextAlwaysShown="true"
+                    app:met_helperTextColor="#999999"
+                    app:met_bottomTextSize="14sp"
+                    android:inputType="text"/>
+
+
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:id="@+id/input_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/input_text"
+                    app:met_baseColor="@color/black"
+                    app:met_primaryColor="@color/dark_text"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    app:met_singleLineEllipsis="true"
+                    android:maxLength="17"
+                    app:met_helperText="Surname"
+                    app:met_helperTextAlwaysShown="true"
+                    app:met_helperTextColor="#999999"
+                    app:met_bottomTextSize="14sp"
+                    android:inputType="text"/>
+
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:id="@+id/input_m"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/input_text"
+                    app:met_baseColor="@color/black"
+                    app:met_primaryColor="@color/dark_text"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    app:met_singleLineEllipsis="true"
+                    android:maxLength="17"
+                    app:met_helperText="Middlename"
+                    app:met_helperTextAlwaysShown="true"
+                    app:met_helperTextColor="#999999"
+                    app:met_bottomTextSize="14sp"
+                    android:inputType="text"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.korlab.foodex.UI.MaterialEditText
+                        android:id="@+id/input_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/input_text"
+                        app:met_baseColor="@color/black"
+                        app:met_primaryColor="@color/dark_text"
+                        android:textCursorDrawable="@drawable/text_cursor"
+                        app:met_singleLineEllipsis="true"
+                        android:maxLength="17"
+                        app:met_helperText="Birthday"
+                        app:met_helperTextAlwaysShown="true"
+                        app:met_helperTextColor="#999999"
+                        app:met_bottomTextSize="14sp"
+                        android:inputType="text"/>
+                    <LinearLayout
+                        android:id="@+id/button_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sex:"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center_vertical"/>
+                    <LinearLayout
+                        android:id="@+id/input_man"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1">
+                        <com.uniquestudio.library.CircleCheckBox
+                            android:id="@+id/input_man_checkbox"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerInParent="true"
+                            app:border_width="2dp"
+                            app:background_color="#F5F5F5"
+                            app:border_color="#F5F5F5"
+                            app:tick_color="@color/colorPrimary"
+                            app:tick_width="2dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Man"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/input_woman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1">
+                        <com.uniquestudio.library.CircleCheckBox
+                            android:id="@+id/input_woman_checkbox"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerInParent="true"
+                            app:border_width="2dp"
+                            app:background_color="#F5F5F5"
+                            app:border_color="#F5F5F5"
+                            app:tick_color="@color/colorPrimary"
+                            app:tick_width="2dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Woman"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:id="@+id/input_growth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/input_text"
+                    app:met_baseColor="@color/black"
+                    app:met_primaryColor="@color/dark_text"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    app:met_singleLineEllipsis="true"
+                    android:maxLength="17"
+                    android:text=""
+                    app:met_helperText="Growth"
+                    app:met_helperTextAlwaysShown="true"
+                    app:met_helperTextColor="#999999"
+                    app:met_bottomTextSize="14sp"
+                    android:digits="1234567890"
+                    android:inputType="number"/>
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:id="@+id/input_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/input_text"
+                    app:met_baseColor="@color/black"
+                    app:met_primaryColor="@color/dark_text"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    app:met_singleLineEllipsis="true"
+                    android:maxLength="17"
+                    app:met_helperText="Weight"
+                    app:met_helperTextAlwaysShown="true"
+                    app:met_helperTextColor="#999999"
+                    app:met_bottomTextSize="14sp"
+                    android:digits="1234567890"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/dark_text"
+                    android:text="Contact info"
+                    android:textSize="19sp" />
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:id="@+id/input_e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/input_text"
+                    app:met_baseColor="@color/black"
+                    app:met_primaryColor="@color/dark_text"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    app:met_singleLineEllipsis="true"
+                    android:maxLength="40"
+                    app:met_helperText="Email"
+                    app:met_helperTextAlwaysShown="true"
+                    app:met_helperTextColor="#999999"
+                    app:met_bottomTextSize="14sp"
+                    android:inputType="textEmailAddress"/>
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:id="@+id/input_p"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/input_text"
+                    app:met_baseColor="@color/black"
+                    app:met_primaryColor="@color/dark_text"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    app:met_singleLineEllipsis="true"
+                    android:maxLength="13"
+                    app:met_helperText="Phone"
+                    app:met_helperTextAlwaysShown="true"
+                    app:met_helperTextColor="#999999"
+                    app:met_bottomTextSize="14sp"
+                    android:inputType="textEmailAddress"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
 </LinearLayout>

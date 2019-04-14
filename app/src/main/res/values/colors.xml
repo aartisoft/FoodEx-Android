@@ -3,6 +3,7 @@
     <color name="colorPrimaryVeryLight">#A6E4B5</color>
     <color name="colorPrimaryLight">#7dcc90</color>
     <color name="colorPrimary">#3ecd8e</color>
+    <color name="colorPrimaryDisabled">#72dbae</color>
     <color name="colorPrimaryDark">#35aa72</color>
 
     <color name="colorAccent">#CACACA</color>
@@ -22,4 +23,7 @@
     <color name="transparent">#00000000</color>
     <color name="ripple_color">#f8f8f8</color>
     <color name="ripple_dark_color">#C8C8C8</color>
+    <color name="input_text">#222222</color>
+
+
 </resources>

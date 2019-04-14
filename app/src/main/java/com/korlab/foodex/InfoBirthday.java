@@ -17,9 +17,9 @@ import java.util.Calendar;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class InfoBirthday extends AppCompatActivity {
-    private InfoBirthday instance;
+    private static InfoBirthday instance;
 
-    public InfoBirthday getInstance() {
+    public static InfoBirthday getInstance() {
         return instance;
     }
 
@@ -64,6 +64,10 @@ public class InfoBirthday extends AppCompatActivity {
             intent.putExtra("user", Helper.toJson(user));
             startActivity(intent);
             Bungee.slideLeft(getInstance());
+            super.finish();
+            InfoGrowth.getInstance().finish();
+            InfoWeight.getInstance().finish();
+            InfoGender.getInstance().finish();
         });
         mYear = 1990;
         mMonth = 0;

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,19 +9,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="18dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
         android:weightSum="100">
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/toolbar_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_search_black_24dp" />
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/toolbar_left_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_search_black_24dp" />
+        </LinearLayout>
 
 
         <TextView
@@ -30,19 +37,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textSize="19sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/rns_medium"
-            />
-
-        <ImageView
-            android:id="@+id/toolbar_right"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/toolbar_filter"
-            android:layout_alignParentRight="true"/>
+            android:fontFamily="@font/rns_medium"
+            android:textColor="@color/black"
+            android:textSize="19sp" />
 
+        <LinearLayout
+            android:id="@+id/toolbar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/toolbar_right_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/toolbar_filter" />
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -57,18 +71,18 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:nts_color="#000"
-            app:nts_size="15sp"
-            app:nts_weight="3dp"
-            app:nts_factor="1.5"
-            app:nts_type="line"
-            app:nts_gravity="bottom"
-            app:nts_corners_radius="10dp"
-            app:nts_animation_duration="250"
-            app:nts_typeface="fonts/rns_bold.otf"
-
             app:nts_active_color="?colorPrimary"
-            app:nts_inactive_color="#939393"/>
+            app:nts_animation_duration="250"
+            app:nts_color="#000"
+            app:nts_corners_radius="10dp"
+            app:nts_factor="1.5"
+            app:nts_gravity="bottom"
+            app:nts_inactive_color="#939393"
+            app:nts_size="15sp"
+            app:nts_type="line"
+
+            app:nts_typeface="fonts/rns_bold.otf"
+            app:nts_weight="3dp" />
     </LinearLayout>
 
 

@@ -15,9 +15,9 @@ import com.korlab.foodex.UI.MaterialButton;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class InfoGrowth extends AppCompatActivity {
-    private InfoGrowth instance;
+    private static InfoGrowth instance;
 
-    public InfoGrowth getInstance() {
+    public static InfoGrowth getInstance() {
         return instance;
     }
 
@@ -37,7 +37,7 @@ public class InfoGrowth extends AppCompatActivity {
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         findView();
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
-        changeImage(user.isMale());
+        changeImage(user.getGender());
         growthStringCm = new String[300];
         growthStringInch = new String[118];
         for (int i = 1; i <= 300; i++) growthStringCm[i - 1] = String.valueOf(i);
@@ -67,8 +67,8 @@ public class InfoGrowth extends AppCompatActivity {
         });
     }
 
-    private void changeImage(boolean isMale) {
-        if (isMale) {
+    private void changeImage(boolean gender) {
+        if (!gender) {
             image.setImageDrawable(getDrawable(R.drawable.man_growth));
         } else {
             image.setImageDrawable(getDrawable(R.drawable.woman_growth));

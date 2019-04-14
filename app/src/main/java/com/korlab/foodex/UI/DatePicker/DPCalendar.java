@@ -121,7 +121,7 @@ public abstract class DPCalendar {
         if(maxWeeknumber > 5) {
             dayOfWeek = calendarOld.get(Calendar.DAY_OF_WEEK)+5;
         } else if (month != 10 && month != 11) {
-            dayOfWeek = calendarOld.get(Calendar.DAY_OF_WEEK)-2;
+            dayOfWeek = calendarOld.get(Calendar.DAY_OF_WEEK);
         } else {
             dayOfWeek = calendarOld.get(Calendar.DAY_OF_WEEK);
         }
