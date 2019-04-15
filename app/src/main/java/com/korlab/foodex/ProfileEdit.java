@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
@@ -21,28 +24,31 @@ import com.haibin.calendarview.CalendarView;
 import com.korlab.foodex.Data.Address;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
+import com.korlab.foodex.UI.BottomBarItemView;
 import com.korlab.foodex.UI.MaterialButton;
 import com.korlab.foodex.UI.MaterialEditText;
 import com.korlab.foodex.UI.Toolbar;
 import com.uniquestudio.library.CircleCheckBox;
 
 import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 
 public class ProfileEdit extends AppCompatActivity {
-    private LinearLayout toolbarContainer, buttonBirthday;
-    private MaterialEditText inputName, inputLastname, inputMiddlename, inputBirthday, inputGrowth, inputWeight, inputEmail, inputPhone;
+    private LinearLayout toolbarContainer;
+
+    private MaterialEditText inputName, inputLastname, inputMiddlename, inputBirthday, inputGrowth, inputWeight, inputEmail, inputPhone, inputNote;
     private MaterialEditText inputWeekdaysStreet, inputWeekdaysHouse, inputWeekdaysApartment, inputWeekendsStreet, inputWeekendsHouse, inputWeekendsApartment;
     private CircleCheckBox inputManCheckbox, inputWomanCheckbox;
-    private LinearLayout inputMan, inputWoman;
+    private LinearLayout inputMan, inputWoman, buttonDelivery, buttonBirthday;
+    private TextView inputDeliveryType;
+
     private LinearLayout toolbarLeft, toolbarRight;
     private String[] arrayMonth = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private String[] deliveryTypeArray = {"Package", "Bag", "Other"};
 
     private int[] dateBirthday;
     private boolean gender;
+    private int deliveryType;
     private User user;
 
     private static ProfileEdit instance;
@@ -81,6 +87,10 @@ public class ProfileEdit extends AppCompatActivity {
             super.finish();
         });
 
+        buttonDelivery.setOnClickListener(v -> {
+            showDeliveryTypeDialog();
+        });
+
         inputGrowth.addTextChangedListener(new TextWatcher() {
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override public void beforeTextChanged(CharSequence c, int start, int count, int after) { }
@@ -94,6 +104,54 @@ public class ProfileEdit extends AppCompatActivity {
 
         setListenerChangeSex();
         drawUserData();
+    }
+
+    private void showDeliveryTypeDialog() {
+        final Dialog dialog = new Dialog(getInstance());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_delivery_type);
+        dialog.setCancelable(true);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.transparent);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        RadioGroup radioGroup = dialog.findViewById(R.id.input_radio);
+        RadioButton radioPackage = dialog.findViewById(R.id.radio_package);
+        RadioButton radioBag = dialog.findViewById(R.id.radio_bag);
+        RadioButton radioOther = dialog.findViewById(R.id.radio_other);
+        MaterialButton ok = dialog.findViewById(R.id.ok);
+        MaterialButton cancel = dialog.findViewById(R.id.cancel);
+
+        switch(deliveryType) {
+            case 0: radioPackage.setChecked(true);break;
+            case 1: radioBag.setChecked(true);break;
+            case 2: radioOther.setChecked(true);break;
+        }
+
+        ok.setOnClickListener((v) -> {
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            Helper.log("selectedId: " + selectedId);
+
+            switch(selectedId){
+                case R.id.radio_package: deliveryType = 0;break;
+                case R.id.radio_bag: deliveryType = 1;break;
+                case R.id.radio_other: deliveryType = 2;break;
+            }
+            inputDeliveryType.setText(deliveryTypeArray[deliveryType]);
+            dialog.dismiss();
+        });
+        cancel.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        dialog.getWindow().setAttributes(lp);
+        Window window = dialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.show();
     }
 
     private void updateUserData() {
@@ -118,8 +176,10 @@ public class ProfileEdit extends AppCompatActivity {
         user.setWeight(Integer.parseInt(inputWeight.getText().toString().replaceAll("[^0-9]","")));
         user.setEmail(inputEmail.getText().toString());
         user.setPhone(inputPhone.getText().toString());
+        user.setNote(inputNote.getText().toString());
         user.setWeekdaysAddress(addressWeekdays);
         user.setWeekendsAddress(addressWeekends);
+        user.setDeliveryType(deliveryType);
         Helper.logObjectToJson(user);
     }
 
@@ -167,6 +227,18 @@ public class ProfileEdit extends AppCompatActivity {
         inputWeight.setText(""+user.getWeight());
         inputEmail.setText(""+user.getEmail());
         inputPhone.setText(""+user.getPhone());
+        inputNote.setText(""+user.getNote());
+
+        deliveryType = user.getDeliveryType();
+        inputDeliveryType.setText(deliveryTypeArray[deliveryType]);
+
+        inputWeekdaysStreet.setText(user.getWeekdaysAddress().getStreet());
+        inputWeekdaysHouse.setText(user.getWeekdaysAddress().getHouse());
+        inputWeekdaysApartment.setText(user.getWeekdaysAddress().getApartment());
+
+        inputWeekendsStreet.setText(user.getWeekendsAddress().getStreet());
+        inputWeekendsHouse.setText(user.getWeekendsAddress().getHouse());
+        inputWeekendsApartment.setText(user.getWeekendsAddress().getApartment());
     }
 
     private void changeGender(boolean value) {
@@ -193,6 +265,9 @@ public class ProfileEdit extends AppCompatActivity {
         inputWeekendsStreet = findViewById(R.id.input_weekends_street);
         inputWeekendsHouse = findViewById(R.id.input_weekends_house);
         inputWeekendsApartment = findViewById(R.id.input_weekends_apartment);
+        buttonDelivery = findViewById(R.id.button_delivery);
+        buttonDelivery = findViewById(R.id.button_delivery);
+        inputDeliveryType = findViewById(R.id.input_delivery_type);
 
         inputName = findViewById(R.id.input_n);
         inputLastname = findViewById(R.id.input_l);
@@ -207,6 +282,7 @@ public class ProfileEdit extends AppCompatActivity {
         inputWeight = findViewById(R.id.input_weight);
         inputEmail = findViewById(R.id.input_e);
         inputPhone = findViewById(R.id.input_p);
+        inputNote = findViewById(R.id.input_note);
     }
 
     private String formatDate(int[] dateBirthday) {

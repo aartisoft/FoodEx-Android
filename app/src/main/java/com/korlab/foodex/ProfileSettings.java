@@ -31,9 +31,7 @@ public class ProfileSettings extends AppCompatActivity {
         toolbarContainer.addView(new Toolbar(getInstance(), false, "Settings",
                 getInstance().getDrawable(R.drawable.toolbar_arrow_left), null));
         toolbarLeft = findViewById(R.id.toolbar_left);
-        toolbarLeft.setOnClickListener(v -> {
-            super.finish();
-        });
+        toolbarLeft.setOnClickListener(v -> super.finish());
     }
 
     private void findView() {

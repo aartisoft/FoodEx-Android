@@ -18,7 +18,9 @@ class User {
     var birthdayMonth: Int = 0
     var birthdayYear: Int = 0
     var email: String = ""
+    var note: String = ""
     var weekdaysAddress: Address? = null
     var weekendsAddress: Address? = null
+    var deliveryType: Int = 0
 
 }

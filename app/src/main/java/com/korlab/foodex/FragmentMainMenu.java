@@ -130,7 +130,7 @@ public class FragmentMainMenu extends Fragment {
                         "Friends",
                         "Discount",
                         "Blog",
-                        // "5",
+                        "Allergies and Antipathies",
                         "Exit"
                 };
                 Drawable[] menuIcon = {
@@ -138,7 +138,7 @@ public class FragmentMainMenu extends Fragment {
                         activity.getDrawable(R.drawable.profile_friends),
                         activity.getDrawable(R.drawable.profile_discount),
                         activity.getDrawable(R.drawable.profile_blog),
-                        // activity.getDrawable(R.drawable.toolbar_filter),
+                        activity.getDrawable(R.drawable.profile_allergies),
                         activity.getDrawable(R.drawable.profile_exit)
                 };
                 menuRows = new ArrayList<>();
@@ -164,7 +164,7 @@ public class FragmentMainMenu extends Fragment {
             Helper.log("processClickMenu: " + v.getClass().getSimpleName());
             switch (v.getTag().toString()) {
                 case "0":
-                    String json = "{\"birthdayDay\":9,\"birthdayMonth\":11,\"birthdayYear\":1998,\"firstName\":\"Maxim\",\"growth\":170,\"growthMetrics\":false,\"gender\":false,\"lastName\":\"Romanyuta\",\"middleName\":\"Olegovich\",\"phone\":\"+380959483523\",\"weight\":60,\"weightMetrics\":false}";
+                    String json = "{\"birthdayDay\":9,\"birthdayMonth\":11,\"birthdayYear\":1998,\"deliveryType\":1,\"email\":\"xom9ik.code@gmail.com\",\"firstName\":\"Maxim\",\"gender\":false,\"growth\":170,\"growthMetrics\":false,\"lastName\":\"Romanyuta\",\"middleName\":\"Olegovich\",\"phone\":\"+380959483523\",\"weekdaysAddress\":{\"apartment\":\"2/F\",\"house\":\"77\",\"street\":\"Universitetksa\"},\"weekendsAddress\":{\"apartment\":\"1\",\"house\":\"30\",\"street\":\"Aprel`ska\"},\"weight\":60,\"weightMetrics\":false}";
                     Intent intent = new Intent(activity, ProfileEdit.class);
                     intent.putExtra("user", json);
                     startActivity(intent);
@@ -184,6 +184,9 @@ public class FragmentMainMenu extends Fragment {
                     Helper.log("click: " + "profile_blog");
                     break;
                 case "5":
+                    Helper.log("click: " + "profile_allergies");
+                    break;
+                case "6":
                     Helper.log("click: " + "profile_exit");
                     break;
 

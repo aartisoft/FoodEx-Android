@@ -81,7 +81,6 @@
                         android:layout_weight="70"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:textSize="16sp"
                         android:textColor="@color/input_text"
@@ -103,7 +102,6 @@
                         android:layout_weight="15"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:textSize="16sp"
                         android:textColor="@color/input_text"
@@ -124,7 +122,6 @@
                         android:layout_weight="15"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:textSize="16sp"
                         android:textColor="@color/input_text"
@@ -144,6 +141,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:fontFamily="@font/rns_medium"
                     android:textColor="@color/input_text"
                     android:text="On weekends:"
@@ -161,7 +159,6 @@
                         android:layout_weight="70"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:textSize="16sp"
                         android:textColor="@color/input_text"
@@ -183,7 +180,6 @@
                         android:layout_weight="15"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:textSize="16sp"
                         android:textColor="@color/input_text"
@@ -204,7 +200,6 @@
                         android:layout_weight="15"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:textSize="16sp"
                         android:textColor="@color/input_text"
@@ -220,26 +215,58 @@
                         android:inputType="text"/>
                 </LinearLayout>
 
-                <com.korlab.foodex.UI.MaterialEditText
-                    android:imeOptions="actionNext"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="70"
+                <LinearLayout
+                    android:id="@+id/button_delivery"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/rns_medium"
+                        android:textColor="@color/input_text"
+                        android:text="Deliver food delivery in:"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/input_delivery_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Package"
+                        android:fontFamily="@font/rns_medium"
+                        android:textColor="@color/dark_text"
+                        android:layout_marginRight="10dp"
+                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:id="@+id/input_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/input_text"
-                    app:met_baseColor="@color/black"
-                    app:met_primaryColor="@color/dark_text"
-                    android:textCursorDrawable="@drawable/text_cursor"
-                    app:met_singleLineEllipsis="true"
+                    android:layout_weight="70"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
                     android:maxLength="100"
+                    android:textColor="@color/input_text"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/black"
+                    app:met_bottomTextSize="14sp"
                     app:met_helperText="Note (example: There is intercom)"
                     app:met_helperTextAlwaysShown="true"
                     app:met_helperTextColor="#999999"
-                    app:met_bottomTextSize="14sp"
-                    android:inputType="text"/>
+                    app:met_primaryColor="@color/dark_text"
+                    app:met_singleLineEllipsis="true" />
+
+
 
 
                 <TextView
@@ -348,9 +375,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/rns_medium"
+                        android:textColor="@color/input_text"
                         android:text="Sex:"
                         android:layout_marginRight="10dp"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_gravity="center_vertical"
+                        android:textSize="16sp" />
+
                     <LinearLayout
                         android:id="@+id/input_man"
                         android:layout_width="wrap_content"
