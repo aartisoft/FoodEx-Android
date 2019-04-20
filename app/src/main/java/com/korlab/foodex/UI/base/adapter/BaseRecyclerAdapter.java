@@ -24,9 +24,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 基本的适配器
- */
 @SuppressWarnings("unused")
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
 
@@ -35,7 +32,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     private OnItemClickListener onItemClickListener;
     private OnClickListener onClickListener;
 
-   public  BaseRecyclerAdapter(Context context) {
+   public BaseRecyclerAdapter(Context context) {
         this.mItems = new ArrayList<>();
         mInflater = LayoutInflater.from(context);
         onClickListener = new OnClickListener() {
@@ -45,7 +42,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
                     onItemClickListener.onItemClick(position, itemId);
             }
         };
-
     }
 
     @Override

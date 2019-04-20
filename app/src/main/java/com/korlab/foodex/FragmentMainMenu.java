@@ -71,7 +71,7 @@ public class FragmentMainMenu extends Fragment {
                 toolbarContainer.addView(new Toolbar(activity, true, "Home", activity.getDrawable(R.drawable.ic_search_black_24dp), activity.getDrawable(R.drawable.toolbar_filter)).getView());
 
                 navigationTabStrip = view.findViewById(R.id.tabs);
-                navigationTabStrip.setTitles("Dashboard", "Your Menu", "Pause Menu");
+                navigationTabStrip.setTitles("Dashboard", "History", "Diet calendar");
                 navigationTabStrip.setTabIndex(0, true);
                 navigationTabStrip.setStripColor(getResources().getColor(R.color.colorPrimary));
                 navigationTabStrip.setTypeface("fonts/rns_bold.otf");
@@ -165,9 +165,7 @@ public class FragmentMainMenu extends Fragment {
             switch (v.getTag().toString()) {
                 case "0":
                     String json = "{\"birthdayDay\":9,\"birthdayMonth\":11,\"birthdayYear\":1998,\"deliveryType\":1,\"email\":\"xom9ik.code@gmail.com\",\"firstName\":\"Maxim\",\"gender\":false,\"growth\":170,\"growthMetrics\":false,\"lastName\":\"Romanyuta\",\"middleName\":\"Olegovich\",\"phone\":\"+380959483523\",\"weekdaysAddress\":{\"apartment\":\"2/F\",\"house\":\"77\",\"street\":\"Universitetksa\"},\"weekendsAddress\":{\"apartment\":\"1\",\"house\":\"30\",\"street\":\"Aprel`ska\"},\"weight\":60,\"weightMetrics\":false}";
-                    Intent intent = new Intent(activity, ProfileEdit.class);
-                    intent.putExtra("user", json);
-                    startActivity(intent);
+                    startActivity(new Intent(activity, ProfileEdit.class).putExtra("user", json));
                     Bungee.slideLeft(activity);
                     Helper.log("click: " + "profile_edit");
                     break;

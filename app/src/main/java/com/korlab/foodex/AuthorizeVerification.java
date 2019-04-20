@@ -47,6 +47,11 @@ public class AuthorizeVerification extends AppCompatActivity {
         Helper.setStatusBarIconWhite(getWindow());
         findView();
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
+        if(user.getPhone().equals("")) {
+            startActivity(new Intent(getInstance(), InfoFullName.class).putExtra("user", Helper.toJson(user)));
+            Bungee.slideLeft(getInstance());
+            finish();
+        }
         textPhone.setText(user.getPhone());
 
         new Handler().postDelayed(() -> Helper.showKeyboard(getInstance(), inputCodeLayout), 100);
@@ -54,9 +59,7 @@ public class AuthorizeVerification extends AppCompatActivity {
         inputCodeLayout.setOnInputCompleteListener(code -> {
             Helper.log(code);
             Helper.hideKeyboard(getInstance(), inputCodeLayout);
-            Intent intent = new Intent(getInstance(), InfoFullName.class);
-            intent.putExtra("user", Helper.toJson(user));
-            startActivity(intent);
+            startActivity(new Intent(getInstance(), InfoFullName.class).putExtra("user", Helper.toJson(user)));
             Bungee.slideLeft(getInstance());
             finish();
         });

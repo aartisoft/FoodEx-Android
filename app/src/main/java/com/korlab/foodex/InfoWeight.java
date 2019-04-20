@@ -60,9 +60,7 @@ public class InfoWeight extends AppCompatActivity {
         buttonNext.setOnClickListener((v) -> {
             user.setWeight(mWeight);
             user.setWeightMetrics((mWeightMetrics != 0));
-            Intent intent = new Intent(getInstance(), InfoGrowth.class);
-            intent.putExtra("user", Helper.toJson(user));
-            startActivity(intent);
+            startActivity(new Intent(getInstance(), InfoGrowth.class).putExtra("user", Helper.toJson(user)));
             Bungee.slideLeft(getInstance());
         });
     }

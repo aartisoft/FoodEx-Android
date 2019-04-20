@@ -102,7 +102,6 @@
 
         <LinearLayout
             android:id="@+id/input_wrapper_em"
-
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -159,6 +158,40 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/input_wrapper_recovery_em"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:theme="@style/MyTheme.Design.TextInputLayout">
+
+                <com.korlab.foodex.UI.MaterialEditText
+                    android:id="@+id/input_recovery_em"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_email"
+                    android:drawablePadding="7dp"
+                    android:hint="Emаil"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="50"
+                    android:textCursorDrawable="@drawable/text_cursor"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/black"
+                    app:met_floatingLabelTextColor="@color/dark_text"
+                    app:met_primaryColor="@color/colorPrimary"
+                    app:met_singleLineEllipsis="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+        </LinearLayout>
 
         <com.korlab.foodex.UI.MaterialButton
             android:id="@+id/button_continue"

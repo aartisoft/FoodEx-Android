@@ -59,10 +59,8 @@ public class InfoBirthday extends AppCompatActivity {
             user.setBirthdayDay(mDay);
             user.setBirthdayMonth(mMonth);
             user.setBirthdayYear(mYear);
-            Intent intent = new Intent(getInstance(), MainMenu.class);
             Helper.logObjectToJson(user);
-            intent.putExtra("user", Helper.toJson(user));
-            startActivity(intent);
+            startActivity(new Intent(getInstance(), MainMenu.class).putExtra("user", Helper.toJson(user)));
             Bungee.slideLeft(getInstance());
             super.finish();
             InfoGrowth.getInstance().finish();

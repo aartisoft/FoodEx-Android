@@ -57,9 +57,7 @@ public class InfoFullName extends AppCompatActivity {
             user.setFirstName(inputFirstName.getText().toString());
             user.setLastName(inputLastName.getText().toString());
             user.setMiddleName(inputMiddleName.getText().toString());
-            Intent intent = new Intent(getInstance(), InfoGender.class);
-            intent.putExtra("user", Helper.toJson(user));
-            startActivity(intent);
+            startActivity(new Intent(getInstance(), InfoGender.class).putExtra("user", Helper.toJson(user)));
             Bungee.slideLeft(getInstance());
         });
         inputFirstName.addTextChangedListener(new TextWatcher() {

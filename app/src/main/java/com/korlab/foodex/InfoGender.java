@@ -52,9 +52,7 @@ public class InfoGender extends AppCompatActivity {
 
         buttonNext.setOnClickListener((v) -> {
             user.setGender(gender);
-            Intent intent = new Intent(getInstance(), InfoWeight.class);
-            intent.putExtra("user", Helper.toJson(user));
-            startActivity(intent);
+            startActivity(new Intent(getInstance(), InfoWeight.class).putExtra("user", Helper.toJson(user)));
             Bungee.slideLeft(getInstance());
         });
     }

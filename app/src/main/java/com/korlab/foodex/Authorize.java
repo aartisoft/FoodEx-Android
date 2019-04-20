@@ -24,14 +24,13 @@ import spencerstudios.com.bungeelib.Bungee;
 public class Authorize extends AppCompatActivity {
 
     private static Authorize instance;
-
     public static Authorize getInstance() {
         return instance;
     }
 
     private TextView buttonRecoveryPassword;
-    private LinearLayout inputWrapperEmail, inputWrapperPhone;
-    private MaterialEditText inputPhone, inputEmail, inputPassword;
+    private LinearLayout inputWrapperEmail, inputWrapperRecoveryEmail, inputWrapperPhone;
+    private MaterialEditText inputPhone, inputEmail, inputRecoveryEmail, inputPassword;
     private MaterialButton buttonContinue, buttomSwitchEmailPhone, buttonGoogle;
     private boolean isEmail = false, isRecovery = false;
     private User user;
@@ -52,21 +51,22 @@ public class Authorize extends AppCompatActivity {
         user = new User();
         Helper.disableButton(getInstance(), buttonContinue);
         buttonContinue.setOnClickListener((v) -> {
-            if(isEmail) {
-                user.setEmail(inputEmail.getText().toString().replace(" ", ""));
+            if(isRecovery) {
+                // TODO: 4/15/2019 recovery password By email
             } else {
-                user.setPhone(inputPhone.getText().toString().replace(" ", ""));
+                if(isEmail) {
+                    user.setEmail(inputEmail.getText().toString().replace(" ", ""));
+                } else {
+                    user.setPhone(inputPhone.getText().toString().replace(" ", ""));
+                }
+                startActivity(new Intent(getInstance(), AuthorizeVerification.class).putExtra("user", Helper.toJson(user)));
+                Bungee.slideLeft(getInstance());
             }
-            Intent intent = new Intent(getInstance(), AuthorizeVerification.class);
-            intent.putExtra("user", Helper.toJson(user));
-            startActivity(intent);
-            Bungee.slideLeft(getInstance());
         });
         buttomSwitchEmailPhone.setOnClickListener((v) -> switchButton());
-//        buttonGoogle.setOnClickListener((v) -> {
-//            startActivity(new Intent(getInstance(), AuthorizeVerification.class));
-//            Bungee.slideLeft(getInstance());
-//        });
+        buttonGoogle.setOnClickListener((v) -> {
+            // TODO: 4/15/2019 authorize by gmail
+        });
 
         inputPhone.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
@@ -167,19 +167,37 @@ public class Authorize extends AppCompatActivity {
                 validateInput();
             }
         });
+        inputRecoveryEmail.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateInput();
+            }
+        });
 
 
         buttonRecoveryPassword.setOnClickListener(v -> switchRecoveryPassword());
     }
 
     private void switchRecoveryPassword() {
-        // TODO: 4/15/2019
         isRecovery = !isRecovery;
         if(isRecovery) {
-
+            buttonRecoveryPassword.setText("Back to the login form");
+            buttonContinue.setText("Send recovery email");
+            inputWrapperRecoveryEmail.setVisibility(View.VISIBLE);
+            inputWrapperPhone.setVisibility(View.GONE);
+            inputWrapperEmail.setVisibility(View.GONE);
         } else {
-
+            buttonContinue.setText("Continue");
+            inputWrapperRecoveryEmail.setVisibility(View.GONE);
+            if(isEmail) {
+                inputWrapperEmail.setVisibility(View.VISIBLE);
+            } else {
+                inputWrapperPhone.setVisibility(View.VISIBLE);
+            }
         }
+        validateInput();
     }
 
     private void switchButton() {
@@ -199,8 +217,10 @@ public class Authorize extends AppCompatActivity {
     private void findView() {
         inputWrapperPhone = findViewById(R.id.input_wrapper_ph);
         inputWrapperEmail = findViewById(R.id.input_wrapper_em);
+        inputWrapperRecoveryEmail = findViewById(R.id.input_wrapper_recovery_em);
         inputPhone = findViewById(R.id.input_ph);
         inputEmail = findViewById(R.id.input_em);
+        inputRecoveryEmail = findViewById(R.id.input_recovery_em);
         inputPassword = findViewById(R.id.input_password);
         buttonContinue = findViewById(R.id.button_continue);
         buttomSwitchEmailPhone = findViewById(R.id.button_switch_email_phone);
@@ -209,17 +229,27 @@ public class Authorize extends AppCompatActivity {
     }
 
     private void validateInput() {
-        if(isEmail) {
-            if(inputEmail.length() >= 5 && inputPassword.length() >= 6 && Helper.isEmailValid(inputEmail.getText().toString()))
+        Helper.log("validateInput");
+        if(isRecovery) {
+            Helper.log("isRecovery");
+            if(inputRecoveryEmail.length() >= 5 && Helper.isEmailValid(inputRecoveryEmail.getText().toString()))
                 Helper.enableButton(getInstance(), buttonContinue);
             else
                 Helper.disableButton(getInstance(), buttonContinue);
         } else {
-            if(inputPhone.length() >= 17)
-                Helper.enableButton(getInstance(), buttonContinue);
-            else
-                Helper.disableButton(getInstance(), buttonContinue);
+            if(isEmail) {
+                if(inputEmail.length() >= 5 && inputPassword.length() >= 6 && Helper.isEmailValid(inputEmail.getText().toString()))
+                    Helper.enableButton(getInstance(), buttonContinue);
+                else
+                    Helper.disableButton(getInstance(), buttonContinue);
+            } else {
+                if(inputPhone.length() >= 17)
+                    Helper.enableButton(getInstance(), buttonContinue);
+                else
+                    Helper.disableButton(getInstance(), buttonContinue);
+            }
         }
+
     }
 
 

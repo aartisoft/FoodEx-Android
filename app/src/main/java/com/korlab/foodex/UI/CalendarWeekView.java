@@ -1,56 +1,43 @@
 package com.korlab.foodex.UI;
 
 import android.content.Context;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.View;
 
 import com.haibin.calendarview.Calendar;
-import com.haibin.calendarview.MultiWeekView;
+import com.haibin.calendarview.WeekView;
 
-/**
- * 魅族周视图
- * Created by huanghaibin on 2017/11/29.
- */
 
-public class CalendarWeekView extends MultiWeekView {
+public class CalendarWeekView extends WeekView {
     private int mRadius;
+
 
     public CalendarWeekView(Context context) {
         super(context);
+        setLayerType(View.LAYER_TYPE_SOFTWARE,mSelectedPaint);
+        mSelectedPaint.setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.SOLID));
     }
 
     @Override
     protected void onPreviewHook() {
-        mRadius = Math.min(mItemWidth, mItemHeight) / 5 * 2;
+        mRadius = Math.min(mItemWidth, mItemHeight) / 8 * 3;
         mSchemePaint.setStyle(Paint.Style.STROKE);
+        mSchemePaint.setColor(0xFF3ecd8e);
+        mSchemePaint.setMaskFilter(new BlurMaskFilter(20, BlurMaskFilter.Blur.SOLID));
     }
 
-
     @Override
-    protected boolean onDrawSelected(Canvas canvas, Calendar calendar, int x, boolean hasScheme,
-                                     boolean isSelectedPre, boolean isSelectedNext) {
+    protected boolean onDrawSelected(Canvas canvas, Calendar calendar, int x, boolean hasScheme) {
         int cx = x + mItemWidth / 2;
         int cy = mItemHeight / 2;
-
-        if (isSelectedPre) {
-            if (isSelectedNext) {
-                canvas.drawRect(x, cy - mRadius, x + mItemWidth, cy + mRadius, mSelectedPaint);
-            } else {//最后一个，the last
-                canvas.drawRect(x, cy - mRadius, cx, cy + mRadius, mSelectedPaint);
-                canvas.drawCircle(cx, cy, mRadius, mSelectedPaint);
-            }
-        } else {
-            if (isSelectedNext) {
-                canvas.drawRect(cx, cy - mRadius, x + mItemWidth, cy + mRadius, mSelectedPaint);
-            }
-            canvas.drawCircle(cx, cy, mRadius, mSelectedPaint);
-
-        }
+        canvas.drawCircle(cx, cy, mRadius, mSelectedPaint);
         return false;
     }
 
     @Override
-    protected void onDrawScheme(Canvas canvas, Calendar calendar, int x, boolean isSelected) {
+    protected void onDrawScheme(Canvas canvas, Calendar calendar, int x) {
         int cx = x + mItemWidth / 2;
         int cy = mItemHeight / 2;
         canvas.drawCircle(cx, cy, mRadius, mSchemePaint);
@@ -60,8 +47,6 @@ public class CalendarWeekView extends MultiWeekView {
     protected void onDrawText(Canvas canvas, Calendar calendar, int x, boolean hasScheme, boolean isSelected) {
         float baselineY = mTextBaseLine;
         int cx = x + mItemWidth / 2;
-        boolean isInRange = isInRange(calendar);
-        boolean isEnable = !onCalendarIntercept(calendar);
         if (isSelected) {
             canvas.drawText(String.valueOf(calendar.getDay()),
                     cx,
@@ -72,13 +57,12 @@ public class CalendarWeekView extends MultiWeekView {
                     cx,
                     baselineY,
                     calendar.isCurrentDay() ? mCurDayTextPaint :
-                            calendar.isCurrentMonth() && isInRange && isEnable? mSchemeTextPaint : mOtherMonthTextPaint);
+                            calendar.isCurrentMonth() ? mSchemeTextPaint : mSchemeTextPaint);
 
         } else {
             canvas.drawText(String.valueOf(calendar.getDay()), cx, baselineY,
                     calendar.isCurrentDay() ? mCurDayTextPaint :
-                            calendar.isCurrentMonth() && isInRange && isEnable? mCurMonthTextPaint : mOtherMonthTextPaint);
+                            calendar.isCurrentMonth() ? mCurMonthTextPaint : mCurMonthTextPaint);
         }
     }
-
 }

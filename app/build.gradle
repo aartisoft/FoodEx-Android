@@ -52,6 +52,8 @@ dependencies {
     implementation 'com.balysv:material-ripple:1.0.2'
     implementation 'com.uniquestudio:checkbox:1.0.10'
     implementation 'com.haibin:calendarview:3.6.0'
+    implementation 'com.robinhood.ticker:ticker:1.1.1'
+
 
 
 }

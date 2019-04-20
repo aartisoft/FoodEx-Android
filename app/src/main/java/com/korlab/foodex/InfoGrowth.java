@@ -59,10 +59,8 @@ public class InfoGrowth extends AppCompatActivity {
         buttonNext.setOnClickListener((v) -> {
             user.setGrowth(mGrowth);
             user.setGrowthMetrics((mGrowthMetrics != 0));
-            Intent intent = new Intent(getInstance(), InfoBirthday.class);
             Helper.logObjectToJson(user);
-            intent.putExtra("user", Helper.toJson(user));
-            startActivity(intent);
+            startActivity(new Intent(getInstance(), InfoBirthday.class).putExtra("user", Helper.toJson(user)));
             Bungee.slideLeft(getInstance());
         });
     }
