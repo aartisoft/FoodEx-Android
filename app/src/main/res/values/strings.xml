@@ -1,8 +1,31 @@
 <resources>
     <string name="app_name">FoodEx</string>
     <string name="home">HOME</string>
-    <string name="search">WEIGHT</string>
-    <string name="bag">MANAGER</string>
-    <string name="favorite">PAYMENT</string>
+    <string name="weight">WEIGHT</string>
+    <string name="manager">MANAGER</string>
+    <string name="payment">PAYMENT</string>
     <string name="profile">PROFILE</string>
+
+    <!--DishType-->
+    <string name="salad">Salad</string>
+    <string name="soup">Soup</string>
+    <string name="hotter">Hotter</string>
+    <string name="garnish">Garnish</string>
+    <string name="drink">Drink</string>
+
+    <!--Months-->
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+
+
 </resources>

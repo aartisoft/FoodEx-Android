@@ -1,24 +1,12 @@
 package com.korlab.foodex;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.haibin.calendarview.Calendar;
@@ -26,8 +14,8 @@ import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.korlab.foodex.Components.Article;
 import com.korlab.foodex.Components.ArticleAdapter;
-import com.korlab.foodex.Components.CalendarCard;
 import com.korlab.foodex.Components.HistoryCard;
+import com.korlab.foodex.Data.Dish;
 import com.korlab.foodex.Data.Meal;
 import com.korlab.foodex.Data.ProgramDay;
 import com.korlab.foodex.Technical.Helper;
@@ -35,17 +23,18 @@ import com.korlab.foodex.UI.group.GroupItemDecoration;
 import com.korlab.foodex.UI.group.GroupRecyclerView;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class FragmentHome extends Fragment {
     public static final String ARG_PAGE_HOME = "ARG_PAGE_HOME";
 
     private int mPage;
     private Map<Date, ProgramDay> programDays;
+    boolean isVisibleAll = false;
 
     public static FragmentHome newInstance(int page) {
         Bundle args = new Bundle();
@@ -64,50 +53,94 @@ public class FragmentHome extends Fragment {
     }
 
     GroupRecyclerView recyclerView;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
-        TextView textView;
         programDays = new HashMap<>();
 
-        for(int i=0; i< 29; i++) {
+        for (int i = 0; i < 29; i+=3) {
             List<Meal> mealList = new ArrayList<>();
-            mealList.add(new Meal("Breakfast", 1900+i,87,23,190));
-            mealList.add(new Meal("Brunch", 1900+i,87,23,190));
-            mealList.add(new Meal("Lunch", 1900+i,87,23,190));
-            mealList.add(new Meal("Afternoon meals", 1900+i,87,23,190));
-            mealList.add(new Meal("Dinner", 1900+i,87,23,190));
-            programDays.put(new Date(2019,4,1+i), new ProgramDay(new Date(2019,4,17), mealList));
+            List<Dish> dishListBreakfast = new ArrayList<>();
+            // Breakfast
+            dishListBreakfast.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
+            dishListBreakfast.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListBreakfast.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListBreakfast.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListBreakfast.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            mealList.add(new Meal(0, dishListBreakfast));
+
+            // Brunch
+            List<Dish> dishListBrunch = new ArrayList<>();
+            dishListBrunch.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
+            dishListBrunch.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListBrunch.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListBrunch.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListBrunch.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            mealList.add(new Meal(1, dishListBrunch));
+
+            // Lunch
+            List<Dish> dishListLunch = new ArrayList<>();
+            dishListLunch.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
+            dishListLunch.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListLunch.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListLunch.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListLunch.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            mealList.add(new Meal(2, dishListLunch));
+
+            // Afternoon meals
+            List<Dish> dishListAfternoonMeals = new ArrayList<>();
+            dishListAfternoonMeals.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
+            dishListAfternoonMeals.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListAfternoonMeals.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListAfternoonMeals.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListAfternoonMeals.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            mealList.add(new Meal(3, dishListAfternoonMeals));
+
+            // Second afternoon meals
+            List<Dish> dishListSecondAfternoonMeals = new ArrayList<>();
+            dishListSecondAfternoonMeals.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
+            dishListSecondAfternoonMeals.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListSecondAfternoonMeals.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListSecondAfternoonMeals.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListSecondAfternoonMeals.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            mealList.add(new Meal(4, dishListSecondAfternoonMeals));
+
+            // Dinner
+            List<Dish> dishListDinner = new ArrayList<>();
+            dishListDinner.clear();
+            dishListDinner.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
+            dishListDinner.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListDinner.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListDinner.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListDinner.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            mealList.add(new Meal(5, dishListDinner));
+            Date date = new Date(2019, 4, i + 1);
+            programDays.put(date, new ProgramDay(date, mealList));
+            programDays.put(new Date(2019, 3, i + 1), new ProgramDay(new Date(2019, 3, i + 1), mealList));
         }
 
         switch (mPage) {
             case 1:
                 view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
-
                 break;
             case 2:
                 view = inflater.inflate(R.layout.fragment_home_history, container, false);
 
 
-
-                boolean isVisibleAll = false;
                 ViewGroup root;
+                TextView buttonAllHistory;
                 root = view.findViewById(R.id.root);
+                buttonAllHistory = view.findViewById(R.id.button_all_history);
+
+                updateDayCardsHistory(root, isVisibleAll);
+
+                buttonAllHistory.setOnClickListener(v -> {
+                    isVisibleAll = !isVisibleAll;
+                    updateDayCardsHistory(root, isVisibleAll);
+                });
 
 
-
-
-
-                for(int i=0; i< (isVisibleAll ? programDays.size() : 5); i++) {
-                    HistoryCard hc = new HistoryCard(getActivity().getBaseContext(), "id_" + i);
-                    hc.setHeader("<font color='" + getResources().getColor(R.color.dark_text)
-                            + "'><b>" + "Day #" + i + "</b> " + " of the meal program </font>" + "<b>" + "«Individual menu»"+ "</b>");
-                    hc.setTitle("Title lorem ipsum sit dolor amet" + i);
-                    hc.setCost(i+2*750/78);
-                    hc.setContent("Comment lorem ipsum sit dolor amet " + i);
-                    hc.setDate("29 Jan 2019");
-                    root.addView(hc.getView());
-                }
                 Helper.log("Fragment Home Your Menu#" + mPage);
                 break;
             case 3:
@@ -130,6 +163,7 @@ public class FragmentHome extends Fragment {
 //                mCalendarView.getSelectedCalendar().setMonth(dateBirthday[1]);
 //                mCalendarView.getSelectedCalendar().setYear(dateBirthday[2]);
 //                mCalendarView.scrollToCalendar(dateBirthday[2],dateBirthday[1],dateBirthday[0]);
+                updateDayCardsCalendar(new Date(mCalendarView.getCurYear(), mCalendarView.getCurMonth(), mCalendarView.getCurDay()));
 
                 mTextMonthDay.setOnClickListener(v -> {
                     if (!mCalendarLayout.isExpand()) {
@@ -144,32 +178,40 @@ public class FragmentHome extends Fragment {
                 view.findViewById(R.id.fl_current).setOnClickListener(v -> mCalendarView.scrollToCurrent());
 
                 mCalendarLayout = view.findViewById(R.id.calendarLayout);
-                mCalendarView.setOnYearChangeListener(year -> mTextMonthDay.setText(String.valueOf(year)));
+                mCalendarView.setOnYearChangeListener(year -> {
+                    mTextMonthDay.setText(String.valueOf(year));
+                    mYear = year;
+                    mMonth = mCalendarView.getSelectedCalendar().getMonth();
+                    initProgramsDays(mYear, mMonth);
+                });
+                mCalendarView.setOnMonthChangeListener((year, month) -> {
+                    mYear = year;
+                    mMonth = month;
+                    initProgramsDays(mYear, mMonth);
+                });
                 mCalendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
-                    @Override
-                    public void onCalendarOutOfRange(Calendar calendar) {
-
-                    }
-
+                    @Override public void onCalendarOutOfRange(Calendar calendar) {}
                     @Override
                     public void onCalendarSelect(Calendar calendar, boolean isClick) {
                         mTextLunar.setVisibility(View.VISIBLE);
                         mTextYear.setVisibility(View.VISIBLE);
-                        mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months[mCalendarView.getSelectedCalendar().getMonth() - 1]);
+                        mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
                         mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
                         int year = mCalendarView.getSelectedCalendar().getYear();
                         int month = mCalendarView.getSelectedCalendar().getMonth();
                         int day = mCalendarView.getSelectedCalendar().getDay();
-                        updateDayCards(new Date(year, month, day));
+                        updateDayCardsCalendar(new Date(year, month, day));
                     }
                 });
                 mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
-                mYear = mCalendarView.getCurYear();
-                mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months[mCalendarView.getSelectedCalendar().getMonth() - 1]);
+
+                mYear = mCalendarView.getSelectedCalendar().getYear();
+                mMonth = mCalendarView.getSelectedCalendar().getMonth();
+                mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
                 mTextLunar.setText("Year");
                 mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
 
-                initProgramsDays();
+                initProgramsDays(mYear, mMonth);
                 //////////////////////////////
                 break;
 
@@ -178,28 +220,67 @@ public class FragmentHome extends Fragment {
         return view;
     }
 
-    private void initProgramsDays() {
-        int year = mCalendarView.getCurYear();
-        int month = mCalendarView.getCurMonth();
+    private void updateDayCardsHistory(ViewGroup root, boolean isVisibleAll) {
+        root.removeAllViews();
+        for (int i = programDays.size(); i > (isVisibleAll ? 0 : programDays.size() - 5); i--) {
+            HistoryCard hc = new HistoryCard(getActivity().getBaseContext(), "id_" + i);
+            hc.setHeader("<font color='" + getResources().getColor(R.color.dark_text)
+                    + "'><b>" + "Day #" + i + "</b> " + " of the meal program </font>" + "<b>" + "«Individual menu»" + "</b>");
+            hc.setTitle("Title lorem ipsum sit dolor amet" + i);
+            hc.setCost(i + 2 * 750 / 78);
+            hc.setContent("Comment lorem ipsum sit dolor amet " + i);
+            hc.setDate("29 Jan 2019");
+            root.addView(hc.getView());
+        }
+    }
+
+    private void initProgramsDays(int year, int month) {
+
+        Helper.log("initProgramsDays======================================");
+
         Map<String, Calendar> map = new HashMap<>();
-        map.put(getSchemeCalendar(year, month, 1, 0x993ecd8e, "Раз").toString(),
-                getSchemeCalendar(year, month, 1, 0x993ecd8e, "Раз"));
-        map.put(getSchemeCalendar(year, month, 2, 0x993ecd8e, "Раз").toString(),
-                getSchemeCalendar(year, month, 2, 0x993ecd8e, "Раз"));
-        map.put(getSchemeCalendar(year, month, 3, 0x993ecd8e, "Раз").toString(),
-                getSchemeCalendar(year, month, 3, 0x993ecd8e, "Раз"));
-        map.put(getSchemeCalendar(year, month, 4, 0x993ecd8e, "Раз").toString(),
-                getSchemeCalendar(year, month, 4, 0x993ecd8e, "Раз"));
-        map.put(getSchemeCalendar(year, month, 5, 0x993ecd8e, "Раз").toString(),
-                getSchemeCalendar(year, month, 5, 0x993ecd8e, "Раз"));
-        map.put(getSchemeCalendar(year, month, 6, 0x993ecd8e, "Раз").toString(),
-                getSchemeCalendar(year, month, 6, 0x993ecd8e, "Раз"));
-        map.put(getSchemeCalendar(year, month, 7, 0x99ff0000, "Раз").toString(),
-                getSchemeCalendar(year, month, 7, 0x99ff0000, "Раз"));
-        map.put(getSchemeCalendar(year, month, 8, 0x993ecd8e, "Раз").toString(),
-                getSchemeCalendar(year, month, 8, 0x993ecd8e, "Раз"));
-        map.put(getSchemeCalendar(year, month, 9, 0x993ecd8e, "Раз").toString(),
-                getSchemeCalendar(year, month, 9, 0x993ecd8e, "Раз"));
+
+
+        for(int i=1; i<Helper.getMaxNumbersInMonth(year, month); i++) {
+            try {
+                int day = programDays.get(new Date(year,month,i)).getDate().getDate();
+                map.put(getSchemeCalendar(year, month, day, 0x993ecd8e, "Раз").toString(),
+                        getSchemeCalendar(year, month, day, 0x993ecd8e, "Раз"));
+            } catch (Exception e) {
+                Helper.log("For " + year + " " + month + " " + i + " program not found");
+            }
+        }
+//
+//        map.put(getSchemeCalendar(year, month, 1, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 1, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 4, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 4, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 6, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 6, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 7, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 7, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 8, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 8, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 12, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 12, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 14, 0x99ff0000, "Раз").toString(),
+//                getSchemeCalendar(year, month, 14, 0x99ff0000, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 15, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 15, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 16, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 16, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 19, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 19, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 21, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 21, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 22, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 22, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 23, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 23, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 24, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 24, 0x993ecd8e, "Раз"));
+//        map.put(getSchemeCalendar(year, month, 25, 0x993ecd8e, "Раз").toString(),
+//                getSchemeCalendar(year, month, 25, 0x993ecd8e, "Раз"));
         mCalendarView.setSchemeDate(map);
     }
 
@@ -209,8 +290,8 @@ public class FragmentHome extends Fragment {
     private TextView mTextLunar;
     private TextView mTextCurrentDay;
     private CalendarView mCalendarView;
-    private int mYear;
-    private String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private int mYear, mMonth;
+    private List<String> months = Helper.getTranslate(Helper.Translate.months, MainMenu.getInstance());
     private CalendarLayout mCalendarLayout;
 
 
@@ -225,17 +306,10 @@ public class FragmentHome extends Fragment {
         return calendar;
     }
 
-    private void updateDayCards(Date date) {
-
-
+    private void updateDayCardsCalendar(Date date) {
         ArticleAdapter articleAdapter = new ArticleAdapter(getActivity().getBaseContext());
         articleAdapter.init(programDays.get(date));
         recyclerView.setAdapter(articleAdapter);
         recyclerView.notifyDataSetChanged();
-
-//        ArticleAdapter articleAdapter = new ArticleAdapter(getActivity().getBaseContext());
-//        articleAdapter.init(programDays.get(date));
-//        recyclerView.setAdapter(articleAdapter);
-//        recyclerView.notifyDataSetChanged();
     }
 }

@@ -1,32 +1,29 @@
 package com.korlab.foodex.Components;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v7.widget.CardView;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 import com.korlab.foodex.Data.ProgramDay;
+import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
 import com.korlab.foodex.Technical.Helper;
+import com.korlab.foodex.Technical.ViewAnimation;
+import com.korlab.foodex.UI.CardDish;
 import com.korlab.foodex.UI.group.GroupRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-/**
- * 适配器
- * Created by huanghaibin on 2017/12/4.
- */
-
 public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
-
 
 
     public ArticleAdapter(Context context) {
@@ -44,50 +41,157 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
     protected void onBindViewHolder(RecyclerView.ViewHolder holder, Article item, int position) {
         ArticleViewHolder h = (ArticleViewHolder) holder;
 
-        h.mCalendarCard.animate().alpha(0).setDuration(1000).setInterpolator(new DecelerateInterpolator()).withEndAction(() -> {
-            h.mCalendarCard.animate().alpha(1).setDuration(1000).setInterpolator(new AccelerateInterpolator()).start();
-        }).start();
+        //Helper.logObjectToJson(item);
+//        Helper.log("=============Start check==============");
+        if(item.getDate() != null) {
+//            Helper.log("Pushed item");
+            h.calendarCardEmpty.setVisibility(View.GONE);
+            h.calendarCard.setVisibility(View.VISIBLE);
+            h.header.setText(item.getHeader());
+            h.header.setTextColor(item.getColor());
+
+            h.date.setText(item.getTime() + ", " + item.getDate().getDate() + " " + months.get(item.getDate().getMonth()) + " " + (item.getDate().getYear()));
+            h.image.setImageDrawable(item.getImage());
+            h.colorView.setBackgroundColor(item.getColor());
+
+            for(int i = 0; i<item.getListDish().size(); i++) {
+                h.wrapperCategories.addView(new CardDish(MainMenu.getInstance().getBaseContext(), dishTypes.get(item.getListDish().get(i).getDishType()), item.getListDish().get(i).getName(), item.getColor()));
+            }
+
+            h.toggle_text.setText("More");
+            h.lyt_expand_text.setVisibility(View.GONE);
+            h.bt_toggle_text.setOnClickListener(view -> toggleSectionText(h, true));
+            h.calendarCard.setOnClickListener(view -> toggleSectionText(h, false));
+        } else {
+//            Helper.log("Empty item");
+            h.calendarCard.setVisibility(View.GONE);
+            h.calendarCardEmpty.setVisibility(View.VISIBLE);
+        }
 
 
-        h.mTextTitle.setText(item.getTitle());
-        h.mTextContent.setText(""+item.getCalorie());
+
     }
 
     private class ArticleViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTextTitle,
-                mTextContent;
-        private CardView mCalendarCard;
+        private boolean show = false;
+        private TextView header, date;
+        private ImageView image;
+        private View colorView;
+        private LinearLayout calendarCard, calendarCardEmpty, wrapperCategories;
+
+        private LinearLayout bt_toggle_text;
+        private View lyt_expand_text;
+        private TextView toggle_text;
+        boolean clickExpand = false;
+
         private ArticleViewHolder(View itemView) {
             super(itemView);
-            mCalendarCard = itemView.findViewById(R.id.calendar_card);
-            mTextTitle = itemView.findViewById(R.id.header);
-            mTextContent = itemView.findViewById(R.id.date);
+            calendarCard = itemView.findViewById(R.id.calendar_card);
+            calendarCardEmpty = itemView.findViewById(R.id.calendar_card_empty);
+            header = itemView.findViewById(R.id.header);
+            date = itemView.findViewById(R.id.date);
+            image = itemView.findViewById(R.id.image);
+            colorView = itemView.findViewById(R.id.color_view);
+            wrapperCategories = itemView.findViewById(R.id.wrapper_categories);
+
+            bt_toggle_text = itemView.findViewById(R.id.bt_toggle_text);
+            lyt_expand_text = itemView.findViewById(R.id.lyt_expand_text);
+            toggle_text = itemView.findViewById(R.id.toggle_text);
         }
     }
 
+    String[] dayTimes = {"8:00", "10:00", "12:00", "15:00", "17:00", "19:00"};
+    String[] dayTimesName = {"Breakfast", "Brunch", "Lunch", "Afternoon meals", "Second afternoon meals", "Dinner"};
+    int[] dayTimesColor = {0xFFE58F9F, 0xFFE89754, 0xFFFFC871, 0xFFF46C4D, 0xFFA17DA8, 0xFF608EC6};
+    Drawable[] dayTimesImage = {
+            MainMenu.getInstance().getResources().getDrawable(R.drawable.diet_card_breakfast),
+            MainMenu.getInstance().getResources().getDrawable(R.drawable.diet_card_brunch),
+            MainMenu.getInstance().getResources().getDrawable(R.drawable.diet_card_lunch),
+            MainMenu.getInstance().getResources().getDrawable(R.drawable.diet_card_afternoon_meals),
+            MainMenu.getInstance().getResources().getDrawable(R.drawable.diet_card_second_afternoon_meals),
+            MainMenu.getInstance().getResources().getDrawable(R.drawable.diet_card_dinner)
+    };
 
-    private Article create(String title, int calorie) {
-        Article article = new Article();
-        article.setTitle(title);
-        article.setCalorie(calorie);
-        return article;
-    }
+
+    List<String> dishTypes = Helper.getTranslate(Helper.Translate.dishTypes, MainMenu.getInstance());
+
+
+    List<String> months = Helper.getTranslate(Helper.Translate.months, MainMenu.getInstance());
+
 
     public List<Article> init(ProgramDay programDay) {
         LinkedHashMap<String, List<Article>> map = new LinkedHashMap<>();
-
-
         List<Article> list = new ArrayList<>();
-        for(int i=0; i<programDay.getMeals().size(); i++) {
-            list.add(create(programDay.getMeals().get(i).getName(),
-                    programDay.getMeals().get(i).getCalorie()));
-        }
-        Helper.logObjectToJson(list);
+        if(programDay != null) {
+            for (int i = 0; i < programDay.getMeals().size(); i++) {
+                Article article = new Article();
+                article.setHeader(dayTimesName[programDay.getMeals().get(i).getDayTime()]);
 
+                int sumCalorie = 0;
+                for (int j = 0; j < programDay.getMeals().get(i).getDishList().size(); j++) {
+                    sumCalorie += programDay.getMeals().get(i).getDishList().get(j).getCalories();
+                }
+                article.setCalorie(sumCalorie);
+                article.setListDish(programDay.getMeals().get(i).getDishList());
+
+                article.setTime(dayTimes[programDay.getMeals().get(i).getDayTime()]);
+                article.setDate(programDay.getDate());
+                article.setImage(dayTimesImage[programDay.getMeals().get(i).getDayTime()]);
+                article.setColor(dayTimesColor[programDay.getMeals().get(i).getDayTime()]);
+                list.add(article);
+            }
+        } else {
+            list.add(new Article());
+        }
+
+//        Helper.logObjectToJson(list);
         List<String> titles = new ArrayList<>();
         map.put("", list);
         titles.add("");
-        resetGroups(map,titles);
+        resetGroups(map, titles);
         return list;
     }
+
+
+    @SuppressLint("SetTextI18n")
+    private void toggleSectionText(ArticleViewHolder h, boolean isToggleButton) {
+
+        if (isToggleButton) {
+            if (!h.show) {
+                h.show = true;
+                if (!h.clickExpand) {
+                    h.clickExpand = true;
+                }
+                Helper.log("setText Less");
+                h.toggle_text.setText("Less");
+                ViewAnimation.expand(h.lyt_expand_text, () -> {
+//                    calories.setText(Integer.toString(1546), true);
+//                    proteins.setText(Integer.toString(74), true);
+//                    fats.setText(Integer.toString(36), true);
+//                    carbo.setText(Integer.toString(171), true);
+                });
+            } else {
+                h.show = false;
+                h.toggle_text.setText("More");
+                ViewAnimation.collapse(h.lyt_expand_text);
+            }
+        } else {
+            Helper.log("!isToggleButton");
+            if (!h.show) {
+                h.show = true;
+                if (!h.clickExpand) {
+                    h.clickExpand = true;
+                }
+                h.toggle_text.setText("Less");
+                ViewAnimation.expand(h.lyt_expand_text, () -> {
+//                    calories.setText(Integer.toString(1546), true);
+//                    proteins.setText(Integer.toString(74), true);
+//                    fats.setText(Integer.toString(36), true);
+//                    carbo.setText(Integer.toString(171), true);
+                });
+            }
+        }
+
+    }
+
 }

@@ -1,66 +1,68 @@
 package com.korlab.foodex.Components;
 
-import java.io.Serializable;
+import android.graphics.drawable.Drawable;
 
-/**
- * 一个简单的bean
- * Created by huanghaibin on 2017/12/4.
- */
+import com.korlab.foodex.Data.Dish;
+
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.List;
+
 @SuppressWarnings("all")
 public class Article implements Serializable {
     private int id;
-    private String title;
+    private String header;
+    private String time;
+    private Date date;
     private int calorie;
-    private String imgUrl;
-    private String desc;
-    private String date;
+    private Drawable image;
+    private int color;
     private int type;
+    private List<Dish> dishList;
 
     public int getId() {
         return id;
     }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getHeader() { return header; }
+    public void setHeader(String header) {
+        this.header = header;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getTime() { return time; }
+    public void setTime(String time) { this.time = time; }
+
+    public Date getDate() { return date; }
+    public void setDate(Date date) { this.date = date; }
 
     public int getCalorie() {
         return calorie;
     }
-
     public void setCalorie(int calorie) {
         this.calorie = calorie;
     }
 
-    public String getDesc() {
-        return desc;
+    public Drawable getImage() { return image; }
+    public void setImage(Drawable image) { this.image = image; }
+
+
+    public int getColor() { return color; }
+    public void setColor(int color) { this.color = color; }
+
+    public int getType() {
+        return type;
+    }
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setListDish(List<Dish> dishList) {
+        this.dishList = dishList;
     }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public List<Dish> getListDish() {
+        return dishList;
     }
 }

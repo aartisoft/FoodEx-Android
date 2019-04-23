@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
@@ -24,12 +23,12 @@ import com.haibin.calendarview.CalendarView;
 import com.korlab.foodex.Data.Address;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
-import com.korlab.foodex.UI.BottomBarItemView;
 import com.korlab.foodex.UI.MaterialButton;
 import com.korlab.foodex.UI.MaterialEditText;
 import com.korlab.foodex.UI.Toolbar;
 import com.uniquestudio.library.CircleCheckBox;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -43,7 +42,7 @@ public class ProfileEdit extends AppCompatActivity {
     private TextView inputDeliveryType;
 
     private LinearLayout toolbarLeft, toolbarRight;
-    private String[] arrayMonth = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private List<String> arrayMonth;
     private String[] deliveryTypeArray = {"Package", "Bag", "Other"};
 
     private int[] dateBirthday;
@@ -67,7 +66,7 @@ public class ProfileEdit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
         instance = this;
-
+        arrayMonth = Helper.getTranslate(Helper.Translate.months, getInstance());
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         Helper.setStatusBarIconWhite(getWindow());
 
@@ -220,7 +219,7 @@ public class ProfileEdit extends AppCompatActivity {
         inputName.setText(user.getFirstName());
         inputLastname.setText(user.getLastName());
         inputMiddlename.setText(user.getMiddleName());
-        inputBirthday.setText(dateBirthday[0] + " " + arrayMonth[dateBirthday[1]-1] + ", " + dateBirthday[2]);
+        inputBirthday.setText(dateBirthday[0] + " " + arrayMonth.get(dateBirthday[1]-1) + ", " + dateBirthday[2]);
         if(user.getGender()) inputWomanCheckbox.setChecked(true);
         else inputManCheckbox.setChecked(true);
         inputGrowth.setText(""+user.getGrowth());
@@ -286,7 +285,7 @@ public class ProfileEdit extends AppCompatActivity {
     }
 
     private String formatDate(int[] dateBirthday) {
-        return formatZero(dateBirthday[0]) + " " + arrayMonth[dateBirthday[1]-1] + ", " + dateBirthday[2];
+        return formatZero(dateBirthday[0]) + " " + arrayMonth.get(dateBirthday[1]-1) + ", " + dateBirthday[2];
     }
     private String formatZero(int value) {
         if(value>=1 && value<=9) return "0" + value;
@@ -299,7 +298,6 @@ public class ProfileEdit extends AppCompatActivity {
     private CalendarView mCalendarView;
     private int mYear;
     private boolean isSelectYear = false, isSelectMonth = false;
-    private String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private CalendarLayout mCalendarLayout;
     public void showCalendarDialog(Activity activity, int[] dateBirthday) {
 
@@ -353,7 +351,7 @@ public class ProfileEdit extends AppCompatActivity {
             public void onCalendarSelect(Calendar calendar, boolean isClick) {
                 mTextLunar.setVisibility(View.VISIBLE);
                 mTextYear.setVisibility(View.VISIBLE);
-                mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months[mCalendarView.getSelectedCalendar().getMonth() - 1]);
+                mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + arrayMonth.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
                 mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
                 if(!isSelectYear && !isSelectMonth) {
                     dateBirthday[0] = mCalendarView.getSelectedCalendar().getDay();
@@ -373,7 +371,7 @@ public class ProfileEdit extends AppCompatActivity {
         });
         mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
         mYear = mCalendarView.getCurYear();
-        mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months[mCalendarView.getSelectedCalendar().getMonth() - 1]);
+        mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + arrayMonth.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
         mTextLunar.setText("Year");
         mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
         //////////////////////////////

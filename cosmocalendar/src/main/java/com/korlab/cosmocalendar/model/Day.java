@@ -4,7 +4,7 @@ import com.korlab.cosmocalendar.selection.SelectionState;
 import com.korlab.cosmocalendar.utils.DateUtils;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 public class Day {
 

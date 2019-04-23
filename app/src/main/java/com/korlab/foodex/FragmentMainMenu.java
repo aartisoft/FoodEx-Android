@@ -68,7 +68,7 @@ public class FragmentMainMenu extends Fragment {
                 viewPagerHome.setPagingEnabled(false);
                 viewPagerHome.setOffscreenPageLimit(10);
                 toolbarContainer = view.findViewById(R.id.toolbar_container);
-                toolbarContainer.addView(new Toolbar(activity, true, "Home", activity.getDrawable(R.drawable.ic_search_black_24dp), activity.getDrawable(R.drawable.toolbar_filter)).getView());
+                toolbarContainer.addView(new Toolbar(activity, true, "Home", activity.getDrawable(R.drawable.toolbar_move), activity.getDrawable(R.drawable.toolbar_pause)).getView());
 
                 navigationTabStrip = view.findViewById(R.id.tabs);
                 navigationTabStrip.setTitles("Dashboard", "History", "Diet calendar");

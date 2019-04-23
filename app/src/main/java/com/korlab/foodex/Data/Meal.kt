@@ -1,18 +1,20 @@
 package com.korlab.foodex.Data
 
-class Meal(name: String, calorie: Int, proteins: Int, fats: Int, carbo: Int) {
-    var name: String = ""
-    var calorie: Int = 0
+class Meal(dayTime: Int, dishList: List<Dish>) {
+    var dayTime: Int = 0
+    var dishList: List<Dish>? = null
+//    var calories: Int = 0
 
-    var proteins: Int = 0
-    var fats: Int = 0
-    var carbo: Int = 0
+//    var proteins: Int = 0
+//    var fats: Int = 0
+//    var carbo: Int = 0
 
     init {
-        this.name = name
-        this.calorie = calorie
-        this.proteins = proteins
-        this.fats = fats
-        this.carbo = carbo
+        this.dayTime = dayTime
+        this.dishList = dishList
+//        this.calories = calories
+//        this.proteins = proteins
+//        this.fats = fats
+//        this.carbo = carbo
     }
 }

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.content.res.XmlResourceParser;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -32,6 +31,7 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
 import com.korlab.foodex.UI.MaterialButton;
 
@@ -42,10 +42,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -258,8 +261,6 @@ public class Helper {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-
-
     public static void showDialog(Activity activity, View dialogId, Consumer onPositive, Consumer onNegative) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -277,12 +278,12 @@ public class Helper {
 
         ok.setOnClickListener((v) -> {
             log("ok");
-            if(onPositive != null) onPositive.accept(v);
+            if (onPositive != null) onPositive.accept(v);
             dialog.dismiss();
         });
         cancel.setOnClickListener(v -> {
             log("cancel");
-            if(onNegative != null) onNegative.accept(v);
+            if (onNegative != null) onNegative.accept(v);
             dialog.dismiss();
         });
 
@@ -292,7 +293,6 @@ public class Helper {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         dialog.show();
     }
-
 
     public static void setUpHintColor(EditText editText, TextInputLayout textInputLayout, int color) {
         textInputLayout.setHintTextAppearance(0);
@@ -345,22 +345,47 @@ public class Helper {
         button.setBorderColor(activity.getResources().getColor(R.color.colorPrimaryDisabled));
     }
 
-    public static boolean isEmailValid(String email)
-    {
+    public static boolean isEmailValid(String email) {
         String regExpn =
                 "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
-                        +"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                        +"[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
-                        +"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                        +"[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
-                        +"([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
+                        + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                        + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                        + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
 
         CharSequence inputStr = email;
-        Pattern pattern = Pattern.compile(regExpn,Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(inputStr);
-        if(matcher.matches())
+        if (matcher.matches())
             return true;
         else
             return false;
+    }
+
+    public static int getMaxNumbersInMonth(int year, int month) {
+        Calendar calendar = new GregorianCalendar(year, month, 1);
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+
+    public enum Translate { months, dishTypes }
+    enum DishTypes { salad, soup, hotter, garnish, drink }
+    enum Months { january, february, march, april, may, june, july, august, september, october, november, december }
+
+
+    public static List<String> getTranslate(Translate translate, Activity a) {
+        List<String> res = new ArrayList<>();
+        switch (translate) {
+            case dishTypes:
+                for (DishTypes dir : DishTypes.values())
+                    res.add(a.getResources().getString(a.getResources().getIdentifier(dir.name(), "string", a.getPackageName())));
+                break;
+            case months:
+                for (Months dir : Months.values())
+                    res.add(a.getResources().getString(a.getResources().getIdentifier(dir.name(), "string", a.getPackageName())));
+                break;
+        }
+        return res;
     }
 }

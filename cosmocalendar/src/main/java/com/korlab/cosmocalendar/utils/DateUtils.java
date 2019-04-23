@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.korlab.cosmocalendar.model.Day;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 public class DateUtils {
 

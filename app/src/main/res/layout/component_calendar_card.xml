@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/calendar_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/spacing_middle"
@@ -17,91 +15,340 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-        <View
-            android:layout_width="8dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"/>
+
         <LinearLayout
+            android:id="@+id/calendar_card_empty"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/spacing_middle">
+            android:layout_height="120dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent"
+                android:background="@color/dark_text" />
 
             <LinearLayout
-                android:id="@+id/toggle_to_more"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/spacing_large"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:layout_marginRight="@dimen/spacing_large"
-                android:layout_marginBottom="@dimen/spacing_medium"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:paddingBottom="@dimen/spacing_middle">
 
-
-                <View
-                    android:layout_width="@dimen/spacing_large"
-                    android:layout_height="0dp" />
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/rns_regular"
+                    android:gravity="center_horizontal"
+                    android:text="No data for selected day"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/dark_text"
+                    android:textSize="28sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/calendar_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/color_view"
+                android:layout_width="8dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/spacing_middle">
+
+                <LinearLayout
+                    android:id="@+id/toggle_to_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:layout_marginRight="@dimen/spacing_large"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="0dp" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/header"
-                            android:layout_width="match_parent"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:text="Ivan Taranov did the job some work some work some work some work"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:textColor="?colorPrimary"
-                            android:visibility="visible" />
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/image"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_marginRight="10dp"
+                                    android:src="@drawable/diet_card_brunch" />
+
+                                <TextView
+                                    android:id="@+id/header"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/rns_regular"
+                                    android:gravity="center_vertical"
+                                    android:text="Brunch"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                    android:textColor="?colorPrimary"
+                                    android:textSize="16sp"
+                                    android:visibility="visible" />
+                            </LinearLayout>
+
+
+                            <TextView
+                                android:id="@+id/date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="@dimen/spacing_small"
+                                android:fontFamily="@font/rns_regular"
+                                android:gravity="center_vertical"
+                                android:text="8:00"
+                                android:textColor="@color/dark_text"
+                                android:textSize="12sp"
+                                android:visibility="visible" />
+                        </RelativeLayout>
+
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/date"
-                        android:layout_width="wrap_content"
+                </LinearLayout>
+
+
+                <!--Content-->
+
+                <LinearLayout
+                    android:id="@+id/lyt_expand_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/spacing_large"
+                    android:paddingTop="@dimen/spacing_medium"
+                    android:paddingRight="@dimen/spacing_large"
+                    android:paddingBottom="@dimen/spacing_medium">
+
+
+                    <LinearLayout
+                        android:id="@+id/wrapper_categories"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_small"
-                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal">-->
+                        <!--<TextView-->
+                        <!--android:id="@+id/dishType"-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Salad:"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/dish"-->
+                        <!--android:layout_marginLeft="5dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Fruit noodles"-->
+                        <!--android:textColor="@color/dark_text"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+
+                        <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/more"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_marginLeft="5dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="14dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="14dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:src="@drawable/diet_card_question"/>&ndash;&gt;-->
+                        <!--</LinearLayout>-->
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal">-->
+                        <!--<TextView-->
+                        <!--android:id="@+id/category1"-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Soup:"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/name1"-->
+                        <!--android:layout_marginLeft="5dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Pumpkin puree soup with ginger"-->
+                        <!--android:textColor="@color/dark_text"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+                        <!--</LinearLayout>-->
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal">-->
+                        <!--<TextView-->
+                        <!--android:id="@+id/category2"-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Hotter:"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/name2"-->
+                        <!--android:layout_marginLeft="5dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Veal tongue with asparagus in cream sauce"-->
+                        <!--android:textColor="@color/dark_text"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+                        <!--</LinearLayout>-->
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal">-->
+                        <!--<TextView-->
+                        <!--android:id="@+id/category3"-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Garnish:"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/name3"-->
+                        <!--android:layout_marginLeft="5dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Rice mix with vegetables"-->
+                        <!--android:textColor="@color/dark_text"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+                        <!--</LinearLayout>-->
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal">-->
+                        <!--<TextView-->
+                        <!--android:id="@+id/category4"-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Drink:"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/name4"-->
+                        <!--android:layout_marginLeft="5dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_small"-->
+                        <!--android:fontFamily="@font/rns_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Wellness Natural Balance"-->
+                        <!--android:textColor="@color/dark_text"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:visibility="visible" />-->
+                        <!--</LinearLayout>-->
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!--Toogle-->
+                <LinearLayout
+                    android:id="@+id/bt_toggle_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/toggle_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_medium"
+                        android:gravity="center_horizontal"
+                        android:text="More"
                         android:textColor="@color/dark_text"
-                        android:textSize="@dimen/spacing_middle"
-                        android:visibility="visible" />
+                        android:textSize="@dimen/spacing_middle" />
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <!--Toogle-->
-            <LinearLayout
-                android:id="@+id/bt_toggle_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/toggle_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/spacing_medium"
-                    android:gravity="center_horizontal"
-                    android:text="More"
-                    android:textColor="@color/dark_text"
-                    android:textSize="@dimen/spacing_middle" />
 
             </LinearLayout>
-
 
         </LinearLayout>
-
     </LinearLayout>
+
 
 </android.support.v7.widget.CardView>

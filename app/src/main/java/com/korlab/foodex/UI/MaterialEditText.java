@@ -1059,7 +1059,7 @@ public class MaterialEditText extends AppCompatEditText {
                     canvas.translate(endX - textLayout.getWidth(), lineStartY + bottomSpacing - bottomTextPadding);
                 } else {
                     canvas.translate(0, lineStartY + bottomSpacing - bottomTextPadding);
-//                    canvas.translate(startX + getBottomTextLeftOffset(), lineStartY + bottomSpacing - bottomTextPadding);
+//                    canvas.Translate(startX + getBottomTextLeftOffset(), lineStartY + bottomSpacing - bottomTextPadding);
                 }
                 textLayout.draw(canvas);
                 canvas.restore();

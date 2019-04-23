@@ -41,7 +41,7 @@ public class InfoBirthday extends AppCompatActivity {
         String[] birthdayStringYear = new String[119];
         for (int i = 0; i <= 118; i++) birthdayStringYear[i] = String.valueOf(i + 1900);
         wvYear.setEntries(birthdayStringYear);
-        wvMonth.setEntries(new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"});
+        wvMonth.setEntries(Helper.getTranslate(Helper.Translate.months, getInstance()));
         wvYear.setOnWheelChangedListener((wheel, oldIndex, newIndex) -> {
             String text = (String) wvYear.getItem(newIndex);
             mYear = Integer.parseInt(text);

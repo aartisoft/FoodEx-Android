@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">FoodEx</string>
+    <string name="home">ГОЛОВНА</string>
+    <string name="weight">ВАГА</string>
+    <string name="manager">МЕНЕДЖЕР</string>
+    <string name="payment">ОПЛАТА</string>
+    <string name="profile">ПРОФІЛЬ</string>
+
+    <!--DishType-->
+    <string name="salad">Салат</string>
+    <string name="soup">Суп</string>
+    <string name="hotter">Гаряче</string>
+    <string name="garnish">Гарнір</string>
+    <string name="drink">Напій</string>
+        
+    <!--Months-->
+    <string name="january">Січня</string>
+    <string name="february">Лютого</string>
+    <string name="march">Березня</string>
+    <string name="april">Квітня</string>
+    <string name="may">Травня</string>
+    <string name="june">Червня</string>
+    <string name="july">Липня</string>
+    <string name="august">Серпня</string>
+    <string name="september">Вересня</string>
+    <string name="october">Жовтня</string>
+    <string name="november">Листопада</string>
+    <string name="december">Грудня</string>
+
+</resources>

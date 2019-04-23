@@ -1,6 +1,6 @@
 package com.korlab.cosmocalendar.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class DayOfWeek extends Day {
 
