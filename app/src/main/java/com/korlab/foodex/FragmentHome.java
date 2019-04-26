@@ -63,47 +63,47 @@ public class FragmentHome extends Fragment {
             List<Meal> mealList = new ArrayList<>();
             List<Dish> dishListBreakfast = new ArrayList<>();
             // Breakfast
-            dishListBreakfast.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
-            dishListBreakfast.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
-            dishListBreakfast.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
-            dishListBreakfast.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
-            dishListBreakfast.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            dishListBreakfast.add(new Dish("1Fruit noodles", 0, 187, 23, 34, 56));
+            dishListBreakfast.add(new Dish("1Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListBreakfast.add(new Dish("1Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListBreakfast.add(new Dish("1Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListBreakfast.add(new Dish("1Wellness Natural Balance", 4, 187, 23, 34, 56));
             mealList.add(new Meal(0, dishListBreakfast));
 
             // Brunch
             List<Dish> dishListBrunch = new ArrayList<>();
-            dishListBrunch.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
-            dishListBrunch.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
-            dishListBrunch.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
-            dishListBrunch.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
-            dishListBrunch.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            dishListBrunch.add(new Dish("2Fruit noodles", 0, 187, 23, 34, 56));
+            dishListBrunch.add(new Dish("2Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListBrunch.add(new Dish("2Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListBrunch.add(new Dish("2Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListBrunch.add(new Dish("2Wellness Natural Balance", 4, 187, 23, 34, 56));
             mealList.add(new Meal(1, dishListBrunch));
 
             // Lunch
             List<Dish> dishListLunch = new ArrayList<>();
-            dishListLunch.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
-            dishListLunch.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
-            dishListLunch.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
-            dishListLunch.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
-            dishListLunch.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            dishListLunch.add(new Dish("3Fruit noodles", 0, 187, 23, 34, 56));
+            dishListLunch.add(new Dish("3Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListLunch.add(new Dish("3Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListLunch.add(new Dish("3Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListLunch.add(new Dish("3Wellness Natural Balance", 4, 187, 23, 34, 56));
             mealList.add(new Meal(2, dishListLunch));
 
             // Afternoon meals
             List<Dish> dishListAfternoonMeals = new ArrayList<>();
-            dishListAfternoonMeals.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
-            dishListAfternoonMeals.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
-            dishListAfternoonMeals.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
-            dishListAfternoonMeals.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
-            dishListAfternoonMeals.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            dishListAfternoonMeals.add(new Dish("4Fruit noodles", 0, 187, 23, 34, 56));
+            dishListAfternoonMeals.add(new Dish("4Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListAfternoonMeals.add(new Dish("4Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListAfternoonMeals.add(new Dish("4Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListAfternoonMeals.add(new Dish("4Wellness Natural Balance", 4, 187, 23, 34, 56));
             mealList.add(new Meal(3, dishListAfternoonMeals));
 
             // Second afternoon meals
             List<Dish> dishListSecondAfternoonMeals = new ArrayList<>();
-            dishListSecondAfternoonMeals.add(new Dish("Fruit noodles", 0, 187, 23, 34, 56));
-            dishListSecondAfternoonMeals.add(new Dish("Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
-            dishListSecondAfternoonMeals.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
-            dishListSecondAfternoonMeals.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
-            dishListSecondAfternoonMeals.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
+            dishListSecondAfternoonMeals.add(new Dish("5Fruit noodles", 0, 187, 23, 34, 56));
+            dishListSecondAfternoonMeals.add(new Dish("5Pumpkin puree soup with ginger", 1, 187, 23, 34, 56));
+            dishListSecondAfternoonMeals.add(new Dish("5Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
+            dishListSecondAfternoonMeals.add(new Dish("5Rice mix with vegetables", 3, 187, 23, 34, 56));
+            dishListSecondAfternoonMeals.add(new Dish("5Wellness Natural Balance", 4, 187, 23, 34, 56));
             mealList.add(new Meal(4, dishListSecondAfternoonMeals));
 
             // Dinner

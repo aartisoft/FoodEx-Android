@@ -55,7 +55,7 @@ public class HistoryCard extends LinearLayout {
     private LinearLayout bt_toggle_text;
     private View lyt_expand_text;
     private TextView toggle_text;
-    private boolean show = false;
+    private boolean show = false, isAnimate = false;
 
     private void initComponent() {
 
@@ -131,40 +131,47 @@ public class HistoryCard extends LinearLayout {
 
     @SuppressLint("SetTextI18n")
     private void toggleSectionText(boolean isToggleButton) {
-        if(isToggleButton) {
-            if (!show) {
-                show = true;
-                if (!clickExpand) {
-                    clickExpand = true;
+        if(!isAnimate) {
+            isAnimate = true;
+            if (isToggleButton) {
+                if (!show) {
+                    show = true;
+                    if (!clickExpand) {
+                        clickExpand = true;
+                    }
+                    toggle_text.setText("Less");
+                    ViewAnimation.expand(lyt_expand_text, () -> {
+                        calories.setText(Integer.toString(1546), true);
+                        proteins.setText(Integer.toString(74), true);
+                        fats.setText(Integer.toString(36), true);
+                        carbo.setText(Integer.toString(171), true);
+                        isAnimate = false;
+                    });
+                } else {
+                    show = false;
+                    toggle_text.setText("More");
+                    ViewAnimation.collapse(lyt_expand_text);
+                    isAnimate = false;
                 }
-                toggle_text.setText("Less");
-                ViewAnimation.expand(lyt_expand_text, () -> {
-                    calories.setText(Integer.toString(1546), true);
-                    proteins.setText(Integer.toString(74), true);
-                    fats.setText(Integer.toString(36), true);
-                    carbo.setText(Integer.toString(171), true);
-                });
             } else {
-                show = false;
-                toggle_text.setText("More");
-                ViewAnimation.collapse(lyt_expand_text);
-            }
-        } else {
-            if (!show) {
-                show = true;
-                if (!clickExpand) {
-                    clickExpand = true;
+                if (!show) {
+                    show = true;
+                    if (!clickExpand) {
+                        clickExpand = true;
+                    }
+                    toggle_text.setText("Less");
+                    ViewAnimation.expand(lyt_expand_text, () -> {
+                        calories.setText(Integer.toString(1546), true);
+                        proteins.setText(Integer.toString(74), true);
+                        fats.setText(Integer.toString(36), true);
+                        carbo.setText(Integer.toString(171), true);
+                        isAnimate = false;
+                    });
+                } else {
+                    isAnimate = false;
                 }
-                toggle_text.setText("Less");
-                ViewAnimation.expand(lyt_expand_text, () -> {
-                    calories.setText(Integer.toString(1546), true);
-                    proteins.setText(Integer.toString(74), true);
-                    fats.setText(Integer.toString(36), true);
-                    carbo.setText(Integer.toString(171), true);
-                });
             }
         }
-
     }
 
     public HistoryCard getView() {

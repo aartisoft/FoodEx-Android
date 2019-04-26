@@ -18,6 +18,8 @@ import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.Technical.ViewAnimation;
 import com.korlab.foodex.UI.CardDish;
 import com.korlab.foodex.UI.group.GroupRecyclerAdapter;
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -25,12 +27,12 @@ import java.util.List;
 
 public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
 
+    private boolean isAnimate = false;
 
     public ArticleAdapter(Context context) {
         super(context);
 
     }
-
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
@@ -40,6 +42,16 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
     @Override
     protected void onBindViewHolder(RecyclerView.ViewHolder holder, Article item, int position) {
         ArticleViewHolder h = (ArticleViewHolder) holder;
+        h.proteins.setAnimationDuration(1000);
+        h.proteins.setCharacterList(TickerUtils.getDefaultNumberList());
+        h.fats.setAnimationDuration(1000);
+        h.fats.setCharacterList(TickerUtils.getDefaultNumberList());
+        h.carbo.setAnimationDuration(1000);
+        h.carbo.setCharacterList(TickerUtils.getDefaultNumberList());
+
+        h.proteins.setText(Integer.toString(0), false);
+        h.fats.setText(Integer.toString(0), false);
+        h.carbo.setText(Integer.toString(0), false);
 
         //Helper.logObjectToJson(item);
 //        Helper.log("=============Start check==============");
@@ -54,6 +66,7 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
             h.image.setImageDrawable(item.getImage());
             h.colorView.setBackgroundColor(item.getColor());
 
+            h.wrapperCategories.removeAllViews();
             for(int i = 0; i<item.getListDish().size(); i++) {
                 h.wrapperCategories.addView(new CardDish(MainMenu.getInstance().getBaseContext(), dishTypes.get(item.getListDish().get(i).getDishType()), item.getListDish().get(i).getName(), item.getColor()));
             }
@@ -78,6 +91,7 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
         private ImageView image;
         private View colorView;
         private LinearLayout calendarCard, calendarCardEmpty, wrapperCategories;
+        private TickerView proteins, fats, carbo;
 
         private LinearLayout bt_toggle_text;
         private View lyt_expand_text;
@@ -93,6 +107,9 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
             image = itemView.findViewById(R.id.image);
             colorView = itemView.findViewById(R.id.color_view);
             wrapperCategories = itemView.findViewById(R.id.wrapper_categories);
+            proteins = itemView.findViewById(R.id.proteins);
+            fats = itemView.findViewById(R.id.fats);
+            carbo = itemView.findViewById(R.id.carbo);
 
             bt_toggle_text = itemView.findViewById(R.id.bt_toggle_text);
             lyt_expand_text = itemView.findViewById(R.id.lyt_expand_text);
@@ -112,12 +129,9 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
             MainMenu.getInstance().getResources().getDrawable(R.drawable.diet_card_dinner)
     };
 
-
     List<String> dishTypes = Helper.getTranslate(Helper.Translate.dishTypes, MainMenu.getInstance());
 
-
     List<String> months = Helper.getTranslate(Helper.Translate.months, MainMenu.getInstance());
-
 
     public List<Article> init(ProgramDay programDay) {
         LinkedHashMap<String, List<Article>> map = new LinkedHashMap<>();
@@ -155,40 +169,44 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
 
     @SuppressLint("SetTextI18n")
     private void toggleSectionText(ArticleViewHolder h, boolean isToggleButton) {
-
-        if (isToggleButton) {
-            if (!h.show) {
-                h.show = true;
-                if (!h.clickExpand) {
-                    h.clickExpand = true;
+        Helper.log("toggleSectionText isAnimate: " + isAnimate);
+        if(!isAnimate) {
+            isAnimate = true;
+            if (isToggleButton) {
+                if (!h.show) {
+                    h.show = true;
+                    if (!h.clickExpand) {
+                        h.clickExpand = true;
+                    }
+                    h.toggle_text.setText("Less");
+                    ViewAnimation.expand(h.lyt_expand_text, () -> {
+                        h. proteins.setText(Integer.toString(74), true);
+                        h.fats.setText(Integer.toString(36), true);
+                        h.carbo.setText(Integer.toString(171), true);
+                        isAnimate = false;
+                    });
+                } else {
+                    h.show = false;
+                    h.toggle_text.setText("More");
+                    ViewAnimation.collapse(h.lyt_expand_text);
+                    isAnimate = false;
                 }
-                Helper.log("setText Less");
-                h.toggle_text.setText("Less");
-                ViewAnimation.expand(h.lyt_expand_text, () -> {
-//                    calories.setText(Integer.toString(1546), true);
-//                    proteins.setText(Integer.toString(74), true);
-//                    fats.setText(Integer.toString(36), true);
-//                    carbo.setText(Integer.toString(171), true);
-                });
             } else {
-                h.show = false;
-                h.toggle_text.setText("More");
-                ViewAnimation.collapse(h.lyt_expand_text);
-            }
-        } else {
-            Helper.log("!isToggleButton");
-            if (!h.show) {
-                h.show = true;
-                if (!h.clickExpand) {
-                    h.clickExpand = true;
+                if (!h.show) {
+                    h.show = true;
+                    if (!h.clickExpand) {
+                        h.clickExpand = true;
+                    }
+                    h.toggle_text.setText("Less");
+                    ViewAnimation.expand(h.lyt_expand_text, () -> {
+                        h. proteins.setText(Integer.toString(74), true);
+                        h.fats.setText(Integer.toString(36), true);
+                        h.carbo.setText(Integer.toString(171), true);
+                        isAnimate = false;
+                    });
+                } else {
+                    isAnimate = false;
                 }
-                h.toggle_text.setText("Less");
-                ViewAnimation.expand(h.lyt_expand_text, () -> {
-//                    calories.setText(Integer.toString(1546), true);
-//                    proteins.setText(Integer.toString(74), true);
-//                    fats.setText(Integer.toString(36), true);
-//                    carbo.setText(Integer.toString(171), true);
-                });
             }
         }
 
