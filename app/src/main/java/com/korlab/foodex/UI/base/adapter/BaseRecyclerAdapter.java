@@ -21,6 +21,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
+import com.korlab.foodex.Components.Article;
+import com.korlab.foodex.Components.ArticleAdapter;
+import com.korlab.foodex.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +54,16 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final RecyclerView.ViewHolder holder = onCreateDefaultViewHolder(parent, viewType);
         if (holder != null) {
+//            final SkeletonScreen skeletonScreen = Skeleton.bind((RecyclerView) parent)
+//                    .adapter(this)
+//                    .shimmer(true)
+//                    .angle(20)
+//                    .frozen(false)
+//                    .duration(1200)
+//                    .count(10)
+//                    .load(R.layout.component_calendar_card_skeleton)
+//                    .show(); //default count is 10
+
             holder.itemView.setTag(holder);
             holder.itemView.setOnClickListener(onClickListener);
         }
@@ -56,6 +72,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+
         onBindViewHolder(holder, mItems.get(position), position);
     }
 
@@ -101,6 +119,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         @Override
         public void onClick(View v) {
             RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) v.getTag();
+
+
             onClick(holder.getAdapterPosition(), holder.getItemId());
         }
 

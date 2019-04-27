@@ -1,8 +1,11 @@
 package com.korlab.foodex.Components;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
 import com.korlab.foodex.Data.ProgramDay;
 import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
@@ -22,65 +27,74 @@ import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
 
     private boolean isAnimate = false;
+    private boolean isNew = true;
+    private Map<ArticleViewHolder, Boolean> mapState;
 
     public ArticleAdapter(Context context) {
         super(context);
-
     }
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
+        Helper.log("onCreateDefaultViewHolder");
+        new Handler().postDelayed(() -> isNew = false, 1000);
         return new ArticleViewHolder(mInflater.inflate(R.layout.component_calendar_card, parent, false));
     }
 
     @Override
     protected void onBindViewHolder(RecyclerView.ViewHolder holder, Article item, int position) {
         ArticleViewHolder h = (ArticleViewHolder) holder;
-        h.proteins.setAnimationDuration(1000);
-        h.proteins.setCharacterList(TickerUtils.getDefaultNumberList());
-        h.fats.setAnimationDuration(1000);
-        h.fats.setCharacterList(TickerUtils.getDefaultNumberList());
-        h.carbo.setAnimationDuration(1000);
-        h.carbo.setCharacterList(TickerUtils.getDefaultNumberList());
-
-        h.proteins.setText(Integer.toString(0), false);
-        h.fats.setText(Integer.toString(0), false);
-        h.carbo.setText(Integer.toString(0), false);
-
-        //Helper.logObjectToJson(item);
-//        Helper.log("=============Start check==============");
-        if(item.getDate() != null) {
-//            Helper.log("Pushed item");
-            h.calendarCardEmpty.setVisibility(View.GONE);
-            h.calendarCard.setVisibility(View.VISIBLE);
-            h.header.setText(item.getHeader());
-            h.header.setTextColor(item.getColor());
-
-            h.date.setText(item.getTime() + ", " + item.getDate().getDate() + " " + months.get(item.getDate().getMonth()) + " " + (item.getDate().getYear()));
-            h.image.setImageDrawable(item.getImage());
-            h.colorView.setBackgroundColor(item.getColor());
-
-            h.wrapperCategories.removeAllViews();
-            for(int i = 0; i<item.getListDish().size(); i++) {
-                h.wrapperCategories.addView(new CardDish(MainMenu.getInstance().getBaseContext(), dishTypes.get(item.getListDish().get(i).getDishType()), item.getListDish().get(i).getName(), item.getColor()));
+        if(mapState.get(h) == null) {
+            mapState.put(h,true);
+            if(h.skeletonScreen == null && isNew) {
+                h.skeletonScreen = Skeleton.bind(h.calendarCard).load(R.layout.component_calendar_card_skeleton).color(R.color.colorPrimary).angle(20).show();
             }
+            h.proteins.setAnimationDuration(1000);
+            h.proteins.setCharacterList(TickerUtils.getDefaultNumberList());
+            h.fats.setAnimationDuration(1000);
+            h.fats.setCharacterList(TickerUtils.getDefaultNumberList());
+            h.carbo.setAnimationDuration(1000);
+            h.carbo.setCharacterList(TickerUtils.getDefaultNumberList());
 
-            h.toggle_text.setText("More");
-            h.lyt_expand_text.setVisibility(View.GONE);
-            h.bt_toggle_text.setOnClickListener(view -> toggleSectionText(h, true));
-            h.calendarCard.setOnClickListener(view -> toggleSectionText(h, false));
-        } else {
-//            Helper.log("Empty item");
-            h.calendarCard.setVisibility(View.GONE);
-            h.calendarCardEmpty.setVisibility(View.VISIBLE);
+            h.proteins.setText(Integer.toString(0), false);
+            h.fats.setText(Integer.toString(0), false);
+            h.carbo.setText(Integer.toString(0), false);
+
+            if(item.getDate() != null) {
+                h.calendarCardEmpty.setVisibility(View.GONE);
+                h.calendarCard.setVisibility(View.VISIBLE);
+                h.header.setText(item.getHeader());
+                h.header.setTextColor(item.getColor());
+
+                h.date.setText(item.getTime() + ", " + item.getDate().getDate() + " " + months.get(item.getDate().getMonth()) + " " + (item.getDate().getYear()));
+                h.image.setImageDrawable(item.getImage());
+                h.colorView.setBackgroundColor(item.getColor());
+
+                h.wrapperCategories.removeAllViews();
+                for(int i = 0; i<item.getListDish().size(); i++) {
+                    h.wrapperCategories.addView(new CardDish(MainMenu.getInstance().getBaseContext(), dishTypes.get(item.getListDish().get(i).getDishType()), item.getListDish().get(i).getName(), item.getColor()));
+                }
+
+                h.toggle_text.setText("More");
+                h.lyt_expand_text.setVisibility(View.GONE);
+                h.bt_toggle_text.setOnClickListener(view -> toggleSectionText(h, true));
+                h.calendarCard.setOnClickListener(view -> toggleSectionText(h, false));
+            } else {
+                h.calendarCard.setVisibility(View.GONE);
+                h.calendarCardEmpty.setVisibility(View.VISIBLE);
+            }
+            if(h.skeletonScreen != null) {
+                new Handler().postDelayed(() -> h.skeletonScreen.hide(), 1000);
+            }
         }
-
 
 
     }
@@ -94,6 +108,7 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
         private TickerView proteins, fats, carbo;
 
         private LinearLayout bt_toggle_text;
+        private SkeletonScreen skeletonScreen = null;
         private View lyt_expand_text;
         private TextView toggle_text;
         boolean clickExpand = false;
@@ -114,6 +129,7 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
             bt_toggle_text = itemView.findViewById(R.id.bt_toggle_text);
             lyt_expand_text = itemView.findViewById(R.id.lyt_expand_text);
             toggle_text = itemView.findViewById(R.id.toggle_text);
+            mapState = new HashMap<>();
         }
     }
 
@@ -172,6 +188,7 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
         Helper.log("toggleSectionText isAnimate: " + isAnimate);
         if(!isAnimate) {
             isAnimate = true;
+            int duration =  ViewAnimation.getDuration(h.lyt_expand_text);
             if (isToggleButton) {
                 if (!h.show) {
                     h.show = true;
@@ -183,13 +200,11 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
                         h. proteins.setText(Integer.toString(74), true);
                         h.fats.setText(Integer.toString(36), true);
                         h.carbo.setText(Integer.toString(171), true);
-                        isAnimate = false;
                     });
                 } else {
                     h.show = false;
                     h.toggle_text.setText("More");
                     ViewAnimation.collapse(h.lyt_expand_text);
-                    isAnimate = false;
                 }
             } else {
                 if (!h.show) {
@@ -202,14 +217,11 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
                         h. proteins.setText(Integer.toString(74), true);
                         h.fats.setText(Integer.toString(36), true);
                         h.carbo.setText(Integer.toString(171), true);
-                        isAnimate = false;
                     });
-                } else {
-                    isAnimate = false;
                 }
             }
+            new Handler().postDelayed(() -> isAnimate = false, duration+100);
         }
-
     }
 
 }

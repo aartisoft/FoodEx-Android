@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#f3f3f3"
-            android:paddingBottom="15dp"
+            android:paddingBottom="@dimen/spacing_large"
             android:paddingTop="20dp">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -60,9 +60,9 @@
                         android:textSize="13sp" />
                 </LinearLayout>
                 <ImageView
-                    android:layout_width="15dp"
+                    android:layout_width="@dimen/spacing_large"
                     android:layout_centerVertical="true"
-                    android:layout_height="15dp"
+                    android:layout_height="@dimen/spacing_large"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/profile_arrow" />

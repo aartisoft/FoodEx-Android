@@ -14,7 +14,7 @@
 
     <tab
         drawable="@drawable/menu_purchases"
-        text="@string/payment" />
+        text="@string/purchaces" />
 
     <tab
         drawable="@drawable/menu_profile"

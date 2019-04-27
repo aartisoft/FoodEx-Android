@@ -1,8 +1,10 @@
 package com.korlab.foodex;
 
+import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.korlab.foodex.Data.User;
@@ -16,7 +18,8 @@ public class ProfileSettings extends AppCompatActivity {
     public static ProfileSettings getInstance() {
         return instance;
     }
-    private LinearLayout toolbarContainer, toolbarLeft;
+    private ImageView toolbarLeft;
+    private LinearLayout toolbarContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,7 @@ public class ProfileSettings extends AppCompatActivity {
         findView();
         toolbarContainer.addView(new Toolbar(getInstance(), false, "Settings",
                 getInstance().getDrawable(R.drawable.toolbar_arrow_left), null));
-        toolbarLeft = findViewById(R.id.toolbar_left);
+        toolbarLeft = findViewById(R.id.toolbar_left_icon);
         toolbarLeft.setOnClickListener(v -> super.finish());
     }
 

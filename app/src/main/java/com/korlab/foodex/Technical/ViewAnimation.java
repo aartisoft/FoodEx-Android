@@ -38,7 +38,7 @@ public class ViewAnimation {
             protected void applyTransformation(float interpolatedTime, Transformation t) {
                 v.getLayoutParams().height = interpolatedTime == 1
                         ? LayoutParams.WRAP_CONTENT
-                        : (int) (targtetHeight * interpolatedTime);
+                        : (int) ((targtetHeight) * interpolatedTime * 0.55);
                 v.requestLayout();
             }
 
@@ -75,6 +75,10 @@ public class ViewAnimation {
 
         a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density));
         v.startAnimation(a);
+    }
+
+    public static int getDuration(View v) {
+        return (int) (v.getMeasuredHeight() / v.getContext().getResources().getDisplayMetrics().density);
     }
 
     public interface AnimListener {

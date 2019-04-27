@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.haibin.calendarview.Calendar;
@@ -29,12 +31,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import discretescrollview.DSVOrientation;
+import discretescrollview.DiscreteScrollView;
+import discretescrollview.Example.Item;
+import discretescrollview.Example.Shop;
+import discretescrollview.Example.ShopAdapter;
+import discretescrollview.transform.ScaleTransformer;
+
 public class FragmentHome extends Fragment {
     public static final String ARG_PAGE_HOME = "ARG_PAGE_HOME";
 
     private int mPage;
     private Map<Date, ProgramDay> programDays;
-    boolean isVisibleAll = false;
+    private boolean isVisibleAll = false;
+    private ShopAdapter shopAdapter;
 
     public static FragmentHome newInstance(int page) {
         Bundle args = new Bundle();
@@ -123,6 +133,28 @@ public class FragmentHome extends Fragment {
         switch (mPage) {
             case 1:
                 view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+                List<Item> data;
+                Shop shop;
+                TextView currentItemName;
+                TextView currentItemPrice;
+                DiscreteScrollView itemPicker;
+                currentItemName = view.findViewById(R.id.item_name);
+                currentItemPrice = view.findViewById(R.id.item_price);
+                shop = Shop.get();
+                data = shop.getData();
+                itemPicker = view.findViewById(R.id.item_picker);
+                ShopAdapter shopAdapter = new ShopAdapter(data, view, itemPicker);
+                itemPicker.setAdapter(shopAdapter);
+                itemPicker.addOnItemChangedListener((viewHolder, adapterPosition) -> {
+                    shopAdapter.setCurrent(adapterPosition);
+                    currentItemName.setText(data.get(adapterPosition).getName());
+                    currentItemPrice.setText(data.get(adapterPosition).getPrice());
+                });
+                itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
+                itemPicker.setItemTransitionTimeMillis(150);
+                itemPicker.setItemTransformer(new ScaleTransformer.Builder().setMinScale(0.8f).build());
+
+
                 break;
             case 2:
                 view = inflater.inflate(R.layout.fragment_home_history, container, false);
@@ -136,6 +168,7 @@ public class FragmentHome extends Fragment {
                 updateDayCardsHistory(root, isVisibleAll);
 
                 buttonAllHistory.setOnClickListener(v -> {
+                    buttonAllHistory.setVisibility(View.GONE);
                     isVisibleAll = !isVisibleAll;
                     updateDayCardsHistory(root, isVisibleAll);
                 });
@@ -179,14 +212,15 @@ public class FragmentHome extends Fragment {
 
                 mCalendarLayout = view.findViewById(R.id.calendarLayout);
                 mCalendarView.setOnYearChangeListener(year -> {
-                    mTextMonthDay.setText(String.valueOf(year));
                     mYear = year;
                     mMonth = mCalendarView.getSelectedCalendar().getMonth();
+                    mTextMonthDay.setText(String.valueOf(mMonth));
                     initProgramsDays(mYear, mMonth);
                 });
                 mCalendarView.setOnMonthChangeListener((year, month) -> {
                     mYear = year;
                     mMonth = month;
+                    mTextMonthDay.setText(String.valueOf(mMonth));
                     initProgramsDays(mYear, mMonth);
                 });
                 mCalendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
@@ -250,37 +284,6 @@ public class FragmentHome extends Fragment {
                 Helper.log("For " + year + " " + month + " " + i + " program not found");
             }
         }
-//
-//        map.put(getSchemeCalendar(year, month, 1, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 1, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 4, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 4, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 6, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 6, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 7, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 7, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 8, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 8, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 12, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 12, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 14, 0x99ff0000, "Раз").toString(),
-//                getSchemeCalendar(year, month, 14, 0x99ff0000, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 15, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 15, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 16, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 16, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 19, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 19, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 21, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 21, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 22, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 22, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 23, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 23, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 24, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 24, 0x993ecd8e, "Раз"));
-//        map.put(getSchemeCalendar(year, month, 25, 0x993ecd8e, "Раз").toString(),
-//                getSchemeCalendar(year, month, 25, 0x993ecd8e, "Раз"));
         mCalendarView.setSchemeDate(map);
     }
 

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,7 +42,7 @@ public class ProfileEdit extends AppCompatActivity {
     private LinearLayout inputMan, inputWoman, buttonDelivery, buttonBirthday;
     private TextView inputDeliveryType;
 
-    private LinearLayout toolbarLeft, toolbarRight;
+    private ImageView toolbarLeft, toolbarRight;
     private List<String> arrayMonth;
     private String[] deliveryTypeArray = {"Package", "Bag", "Other"};
 
@@ -73,8 +74,8 @@ public class ProfileEdit extends AppCompatActivity {
         findView();
         toolbarContainer.addView(new Toolbar(getInstance(), false, "Edit Profile",
                 getInstance().getDrawable(R.drawable.toolbar_arrow_left), getInstance().getDrawable(R.drawable.toolbar_check)));
-        toolbarLeft = findViewById(R.id.toolbar_left);
-        toolbarRight = findViewById(R.id.toolbar_right);
+        toolbarLeft = findViewById(R.id.toolbar_left_icon);
+        toolbarRight = findViewById(R.id.toolbar_right_icon);
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
 
         dateBirthday = new int[]{user.getBirthdayDay(), user.getBirthdayMonth(), user.getBirthdayYear()};

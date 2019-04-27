@@ -30,7 +30,7 @@
         android:layout_alignParentBottom="true"
         app:animationDuration="0"
         app:shadowAlpha="0.99"
-        app:shadowOffsetY="-10">
+        app:shadowOffsetY="-5">
 
         <LinearLayout
             android:layout_width="match_parent"

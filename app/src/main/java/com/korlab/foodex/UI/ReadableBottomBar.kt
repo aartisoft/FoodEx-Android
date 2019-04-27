@@ -3,6 +3,7 @@ package com.korlab.foodex.UI;
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
@@ -67,10 +68,11 @@ class ReadableBottomBar @JvmOverloads constructor(context: Context, attrs: Attri
         tabInitialSelectedIndex = typedArray.getInt(R.styleable.ReadableBottomBar_rbb_initialIndex, 0)
 
         val textSize = typedArray.getDimension(R.styleable.ReadableBottomBar_rbb_textSize, 15f)
-        val textTypeface = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val textTypeface =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             typedArray.getFont(R.styleable.ReadableBottomBar_rbb_textTypeface)
         } else {
-            TODO("VERSION.SDK_INT < O")
+            Typeface.DEFAULT
         }
         val textColor = typedArray.getColor(R.styleable.ReadableBottomBar_rbb_textColor, Color.BLACK)
         val activeItemType = ItemType.getType(typedArray.getInt(R.styleable.ReadableBottomBar_rbb_activeItemType, ItemType.Icon.value))

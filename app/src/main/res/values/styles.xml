@@ -64,4 +64,9 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="ClickableImageView">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+    </style>
+
 </resources>

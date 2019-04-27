@@ -593,8 +593,15 @@ public class MaterialEditText extends AppCompatEditText {
             Layout.Alignment alignment = (getGravity() & Gravity.RIGHT) == Gravity.RIGHT || isRTL() ?
                     Layout.Alignment.ALIGN_OPPOSITE : (getGravity() & Gravity.LEFT) == Gravity.LEFT ?
                     Layout.Alignment.ALIGN_NORMAL : Layout.Alignment.ALIGN_CENTER;
-            textLayout = new StaticLayout(tempErrorText != null ? tempErrorText : helperText, textPaint, getWidth() - getBottomTextLeftOffset() - getBottomTextRightOffset() - getPaddingLeft() - getPaddingRight(), alignment, 1.0f, 0.0f, true);
-            destBottomLines = Math.max(textLayout.getLineCount(), minBottomTextLines);
+            try {
+                textLayout = new StaticLayout(tempErrorText != null ? tempErrorText : helperText, textPaint, getWidth() - getBottomTextLeftOffset() - getBottomTextRightOffset() - getPaddingLeft() - getPaddingRight(), alignment, 1.0f, 0.0f, true);
+            } catch (Exception e) {
+                textLayout = null;
+            }
+            if(textLayout != null)
+                destBottomLines = Math.max(textLayout.getLineCount(), minBottomTextLines);
+            else
+                destBottomLines = Math.max(1, minBottomTextLines);
         } else {
             destBottomLines = minBottomLines;
         }

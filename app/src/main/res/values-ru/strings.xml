@@ -3,7 +3,7 @@
     <string name="home">ГЛАВНАЯ</string>
     <string name="weight">ВЕС</string>
     <string name="manager">МЕНЕДЖЕР</string>
-    <string name="payment">ОПЛАТА</string>
+    <string name="purchaces">ОПЛАТА</string>
     <string name="profile">ПРОФИЛЬ</string>
 
     <!--DishType-->

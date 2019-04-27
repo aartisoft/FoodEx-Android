@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Html;
@@ -63,7 +64,6 @@ public class HistoryCard extends LinearLayout {
         toggle_text.setText("More");
 
         lyt_expand_text.setVisibility(View.GONE);
-//        bt_toggle_text.setVisibility(View.GONE);
         bt_toggle_text.setOnClickListener(view -> toggleSectionText(true));
         toggle_to_more.setOnClickListener(view -> toggleSectionText(false));
 
@@ -83,49 +83,6 @@ public class HistoryCard extends LinearLayout {
         carbo.setText(Integer.toString(0), false);
     }
 
-//    private void showDialog() {
-//        final Dialog dialog = new Dialog(History.getInstance());
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(R.layout.component_dialog_feedback);
-//        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.transparent);
-//        dialog.setCancelable(true);
-//        AnimationSet shake;
-//        Animation shakeView;
-//        shakeView = AnimationUtils.loadAnimation(History.getInstance(), R.anim.shake_view);
-//        shake = new AnimationSet(false);
-//        shake.addAnimation(shakeView);
-//
-//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-//        lp.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
-//        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-//        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-//
-//        RatingBar ratingBar = dialog.findViewById(R.id.ratingbar);
-//        EditText textFeedback = dialog.findViewById(R.id.text_feedback);
-//        EditText textFeedbackPositive = dialog.findViewById(R.id.text_feedback_positive);
-//        EditText textFeedbackNegative = dialog.findViewById(R.id.text_feedback_negative);
-//        AppCompatButton btnSend = dialog.findViewById(R.id.bt_send);
-//        ratingBar.setStar(rating);
-//        ratingBar.setOnRatingChangeListener(
-//                ratingCount -> {
-//                    rating = (int) ratingCount;
-//                    Log.d("UIDebug", "new rating: " + rating);
-//                }
-//        );
-//        btnSend.setOnClickListener((v) -> {
-//            showFeedback = true;
-//            mRatingBar.setmClickable(false);
-//            if (textFeedback.getText().length() > 5) {
-//                sendFeedback(rating, textFeedback.getText().toString(), textFeedbackPositive.getText().toString(), textFeedbackNegative.getText().toString());
-//                dialog.dismiss();
-//            } else {
-//                textFeedback.startAnimation(shake);
-//            }
-//        });
-//        dialog.show();
-//        dialog.getWindow().setAttributes(lp);
-//    }
-
 
     boolean clickExpand = false;
 
@@ -133,6 +90,7 @@ public class HistoryCard extends LinearLayout {
     private void toggleSectionText(boolean isToggleButton) {
         if(!isAnimate) {
             isAnimate = true;
+            int duration = ViewAnimation.getDuration(lyt_expand_text);
             if (isToggleButton) {
                 if (!show) {
                     show = true;
@@ -145,13 +103,11 @@ public class HistoryCard extends LinearLayout {
                         proteins.setText(Integer.toString(74), true);
                         fats.setText(Integer.toString(36), true);
                         carbo.setText(Integer.toString(171), true);
-                        isAnimate = false;
                     });
                 } else {
                     show = false;
                     toggle_text.setText("More");
                     ViewAnimation.collapse(lyt_expand_text);
-                    isAnimate = false;
                 }
             } else {
                 if (!show) {
@@ -165,12 +121,10 @@ public class HistoryCard extends LinearLayout {
                         proteins.setText(Integer.toString(74), true);
                         fats.setText(Integer.toString(36), true);
                         carbo.setText(Integer.toString(171), true);
-                        isAnimate = false;
                     });
-                } else {
-                    isAnimate = false;
                 }
             }
+            new Handler().postDelayed(() -> isAnimate = false, duration+100);
         }
     }
 
