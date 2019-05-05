@@ -121,48 +121,48 @@
                     android:layout_width="wrap_content"
                     android:layout_height="24dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:id="@+id/item_btn_comment"
-                        style="@style/ClickableImageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:src="@drawable/profile_arrow"
-                        android:tint="#84ceca" />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/item_btn_comment"-->
+                        <!--style="@style/ClickableImageView"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:padding="8dp"-->
+                        <!--android:src="@drawable/profile_arrow"-->
+                        <!--android:tint="#84ceca" />-->
 
-                    <Space
-                        android:layout_width="16dp"
-                        android:layout_height="wrap_content" />
+                    <!--<Space-->
+                        <!--android:layout_width="16dp"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/item_btn_buy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/profile_arrow"
-                        android:tint="@android:color/white"
-                        app:rippleColor="#51b2ac"
-                        app:useCompatPadding="true" />
+                    <!--<android.support.design.widget.FloatingActionButton-->
+                        <!--android:id="@+id/item_btn_buy"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:src="@drawable/profile_arrow"-->
+                        <!--android:tint="@android:color/white"-->
+                        <!--app:rippleColor="#51b2ac"-->
+                        <!--app:useCompatPadding="true" />-->
 
-                    <Space
-                        android:layout_width="16dp"
-                        android:layout_height="wrap_content" />
+                    <!--<Space-->
+                        <!--android:layout_width="16dp"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                    <ImageView
-                        android:id="@+id/item_btn_rate"
-                        style="@style/ClickableImageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:src="@drawable/profile_arrow"
-                        android:tint="#84ceca" />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/item_btn_rate"-->
+                        <!--style="@style/ClickableImageView"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:padding="8dp"-->
+                        <!--android:src="@drawable/profile_arrow"-->
+                        <!--android:tint="#84ceca" />-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"

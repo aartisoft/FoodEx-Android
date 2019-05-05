@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -19,22 +18,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.korlab.foodex.Data.Program;
+import com.korlab.foodex.Data.Promo;
 import com.korlab.foodex.Program.ProgramAdapter;
-import com.korlab.foodex.Promo.PromoItem;
-import com.korlab.foodex.Promo.Promo;
 import com.korlab.foodex.Promo.PromoAdapter;
 import com.korlab.foodex.Technical.Helper;
+import com.korlab.foodex.UI.CustomPagerTransformer;
 import com.korlab.foodex.UI.CustomViewPager;
 import com.korlab.foodex.UI.MenuRow;
 import com.korlab.foodex.UI.NavigationTabStrip;
 import com.korlab.foodex.UI.Toolbar;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import discretescrollview.DSVOrientation;
-import discretescrollview.DiscreteScrollView;
-import discretescrollview.transform.ScaleTransformer;
 import spencerstudios.com.bungeelib.Bungee;
 
 
@@ -69,7 +66,7 @@ public class FragmentMainMenu extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
         LinearLayout toolbarContainer;
-        activity = (MainMenu) getActivity();
+        activity = MainMenu.getInstance();
         switch (mPage) {
             case 1:
                 view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -89,16 +86,8 @@ public class FragmentMainMenu extends Fragment {
                 navigationTabStrip.setStripColor(getResources().getColor(R.color.colorPrimary));
                 navigationTabStrip.setTypeface("fonts/rns_bold.otf");
                 navigationTabStrip.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
-                    @Override
-                    public void onStartTabSelected(String title, int index) {
-                        Helper.log("======Top Bar Index: " + index);
-                        viewPagerHome.setCurrentItem(index);
-                    }
-
-                    @Override
-                    public void onEndTabSelected(String title, int index) {
-
-                    }
+                    @Override public void onStartTabSelected(String title, int index) { viewPagerHome.setCurrentItem(index); }
+                    @Override public void onEndTabSelected(String title, int index) { }
                 });
 
                 break;
@@ -120,31 +109,26 @@ public class FragmentMainMenu extends Fragment {
                 view = inflater.inflate(R.layout.fragment_purchaces, container, false);
                 toolbarContainer = view.findViewById(R.id.toolbar_container);
                 toolbarContainer.addView(new Toolbar(activity, false, "Purchases", null, activity.getDrawable(R.drawable.toolbar_basket)).getView());
-                List<PromoItem> data;
-                Promo promo;
-                TextView currentItemName;
-                TextView currentItemPrice;
-                DiscreteScrollView itemPicker;
-//                currentItemName = view.findViewById(R.id.item_name);
-//                currentItemPrice = view.findViewById(R.id.item_price);
-                promo = Promo.get();
-                data = promo.getData();
-                itemPicker = view.findViewById(R.id.item_picker);
-                PromoAdapter promoAdapter = new PromoAdapter(data, view, itemPicker);
-                itemPicker.setAdapter(promoAdapter);
-                itemPicker.addOnItemChangedListener((viewHolder, adapterPosition) -> {
-                    promoAdapter.setCurrent(adapterPosition);
-//                    currentItemName.setText(data.get(adapterPosition).getName());
-//                    currentItemPrice.setText(data.get(adapterPosition).getPrice());
-                });
-                itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
-                itemPicker.setItemTransitionTimeMillis(150);
-                itemPicker.setItemTransformer(new ScaleTransformer.Builder().setMinScale(0.8f).build());
+
+                ViewPager viewPager;
+                viewPager = view.findViewById(R.id.promo_view_pager);
+                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity));
+                List<Promo> pagerArr = new ArrayList<>();
+
+                pagerArr.add(new Promo(1, "+100 UAH to your account for every kilogram dropped!", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_1)).getBitmap()));
+                pagerArr.add(new Promo(2, "Loyalty Club FoodEx", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_2)).getBitmap()));
+                pagerArr.add(new Promo(3, "Order delivery of 2 programs to one address - get a discount!", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_3)).getBitmap()));
+                pagerArr.add(new Promo(4, "Invite Friends - get +150 UAH from each order!", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_4)).getBitmap()));
+                pagerArr.add(new Promo(5, "Order 3 salads +1 salad for free!", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_5)).getBitmap()));
+                pagerArr.add(new Promo(6, "Become a FoodEx Partner", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_6)).getBitmap()));
+                viewPager.setAdapter(new PromoAdapter(activity.getLayoutInflater(), pagerArr));
+
+//                Slide
+//                slidePromoPage(viewPager, pagerArr.size());
+
 
                 ListView listProgram = view.findViewById(R.id.list_program);
-
                 List<Program> programs = new ArrayList<>();
-
                 programs.add(new Program("Express Program of Loosing Weight",
                         "To get the result in the shortest term.",
                         ((BitmapDrawable) activity.getDrawable(R.drawable.program_1)).getBitmap()));
@@ -201,7 +185,6 @@ public class FragmentMainMenu extends Fragment {
                         ((BitmapDrawable) activity.getDrawable(R.drawable.program_18)).getBitmap()));
 
 
-
                 ProgramAdapter adapter = new ProgramAdapter(programs, getActivity().getBaseContext());
 
                 listProgram.setAdapter(adapter);
@@ -212,9 +195,6 @@ public class FragmentMainMenu extends Fragment {
                     return false;
                 });
                 setListViewHeightBasedOnChildren(listProgram);
-
-
-
 
 
                 break;
@@ -262,6 +242,14 @@ public class FragmentMainMenu extends Fragment {
 
         return view;
     }
+
+    private void slidePromoPage(ViewPager viewPager, int size) {
+        new Handler().postDelayed(() -> {
+            viewPager.setCurrentItem(size>viewPager.getCurrentItem()+2 ? viewPager.getCurrentItem()+1 : 0,true);
+            slidePromoPage(viewPager, size);
+        }, 5000);
+    }
+
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)
@@ -282,8 +270,9 @@ public class FragmentMainMenu extends Fragment {
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
     }
+
     private void processClickMenu(View v) {
-        if(!isClickDelay) {
+        if (!isClickDelay) {
             isClickDelay = true;
             Helper.log("processClickMenu: " + v.getClass().getSimpleName());
             switch (v.getTag().toString()) {
@@ -313,7 +302,7 @@ public class FragmentMainMenu extends Fragment {
                     break;
 
             }
-            new Handler().postDelayed(() -> isClickDelay = false,1000);
+            new Handler().postDelayed(() -> isClickDelay = false, 1000);
         }
     }
 }
