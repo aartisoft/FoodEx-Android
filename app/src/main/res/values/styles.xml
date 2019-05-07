@@ -69,4 +69,9 @@
         <item name="android:background">?android:selectableItemBackgroundBorderless</item>
     </style>
 
+    <style name="MultiLineEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColorHint">@color/white_text</item>
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="fontFamily">@font/rns_regular</item>
+    </style>
 </resources>

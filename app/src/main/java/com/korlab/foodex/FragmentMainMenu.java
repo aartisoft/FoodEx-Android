@@ -216,7 +216,7 @@ public class FragmentMainMenu extends Fragment {
                         "Discount",
                         "Blog",
                         "Allergies and Antipathies",
-                        "Exit"
+                        "Logout"
                 };
                 Drawable[] menuIcon = {
                         activity.getDrawable(R.drawable.profile_feedback),
@@ -284,9 +284,24 @@ public class FragmentMainMenu extends Fragment {
                     break;
                 case "1":
                     Helper.log("click: " + "profile_feedback");
+                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_feedback, null), this::onPositive, this::onNegative);
                     break;
                 case "2":
                     Helper.log("click: " + "profile_friends");
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBody = "I invite you to join FoodEx!\n\n" +
+                            "Join FoodEx Extra and you will be as happy and full of energy as I am." +
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
+                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." +
+                            "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n\n" +
+                            "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n" +
+                            "Link: https://foodexhub.com.ua";
+//                    sharingIntent.putExtra(Intent.EXTRA_TITLE, "I invite you to join FoodEx!");
+                    sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+//                    sharingIntent.putExtra(Intent.EXTRA_STREAM, "https://foodexhub.com.ua/dist/images/logo_foodex.png");
+//                    sharingIntent.setType("image/*");
+                    startActivity(Intent.createChooser(sharingIntent, "Share via"));
                     break;
                 case "3":
                     Helper.log("click: " + "profile_discount");
@@ -296,13 +311,23 @@ public class FragmentMainMenu extends Fragment {
                     break;
                 case "5":
                     Helper.log("click: " + "profile_allergies");
+                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_allergies, null), this::onPositive, this::onNegative);
                     break;
                 case "6":
                     Helper.log("click: " + "profile_exit");
+                    activity.finish();
                     break;
 
             }
             new Handler().postDelayed(() -> isClickDelay = false, 1000);
         }
+    }
+
+    private void onPositive(Object o) {
+        Helper.log("onPositive");
+    }
+
+    private void onNegative(Object o) {
+        Helper.log("onNegative");
     }
 }

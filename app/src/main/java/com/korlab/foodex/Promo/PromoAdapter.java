@@ -89,7 +89,6 @@ public class PromoAdapter extends PagerAdapter {
 //                .into(image);
 //        promoName.setText(position+"");
 
-
         return view;
     }
 
