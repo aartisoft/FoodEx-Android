@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="500dp"
     app:cardBackgroundColor="#242738"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="8dp"
+    app:cardElevation="@dimen/dp4"
+    app:cardCornerRadius="@dimen/dp8"
     android:layout_gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/image"
         android:scaleType="centerCrop"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp0"
         android:layout_height="match_parent" />
 
 </android.support.v7.widget.CardView>

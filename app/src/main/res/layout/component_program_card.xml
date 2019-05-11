@@ -7,14 +7,14 @@
     <android.support.v7.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="135dp"
+        android:layout_height="@dimen/dp135"
         android:layout_marginLeft="@dimen/space_2x"
         android:layout_marginRight="@dimen/space_2x"
         android:layout_marginTop="@dimen/space_1x"
         android:layout_marginBottom="@dimen/space_1x"
         android:layout_gravity="center"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+        app:cardCornerRadius="@dimen/dp8"
+        app:cardElevation="@dimen/dp4">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,11 +22,11 @@
             android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
-                android:layout_width="135dp"
-                android:layout_height="135dp"
+                android:layout_width="@dimen/dp135"
+                android:layout_height="@dimen/dp135"
                 android:layout_gravity="center"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="0dp">
+                app:cardCornerRadius="@dimen/dp8"
+                app:cardElevation="@dimen/dp0">
 
                 <ImageView
                     android:id="@+id/image"
@@ -43,7 +43,7 @@
                 android:paddingTop="@dimen/space_2x"
                 android:paddingLeft="@dimen/space_2x"
                 android:paddingRight="@dimen/space_2x"
-                android:paddingBottom="0dp"
+                android:paddingBottom="@dimen/dp0"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -55,15 +55,15 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:text="Smooth Loosing Weight"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:fontFamily="@font/rns_regular"
                         android:textColor="#747474" />
                     <TextView
                         android:id="@+id/small_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:textSize="13sp"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:textSize="@dimen/sp13"
                         android:fontFamily="@font/rns_regular"
                         android:text="For comfortable loosing weight. For those with active life style and intensive gym trainings"
                         android:textColor="#747474" />
@@ -79,27 +79,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$6.32"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/sp14"
                         android:layout_marginBottom="@dimen/space_3x"
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/rns_regular"
                         android:textColor="#e1101b" />
                     <com.korlab.foodex.UI.MaterialButton
                         android:id="@+id/button_switch_email_phone"
-                        android:layout_width="80dp"
+                        android:layout_width="@dimen/dp80"
                         android:layout_alignParentRight="true"
-                        android:layout_height="25dp"
+                        android:layout_height="@dimen/dp25"
                         android:layout_marginBottom="@dimen/space_3x"
                         android:layout_centerVertical="true"
                         app:mb_borderColor="#e1101b"
-                        app:mb_borderWidth="1dp"
+                        app:mb_borderWidth="@dimen/dp1"
                         app:mb_buttonColor="@color/white"
                         app:mb_buttonType="raised"
-                        app:mb_cornerRadius="30dp"
+                        app:mb_cornerRadius="@dimen/dp30"
                         app:mb_rippleColor="@color/ripple_color"
                         app:mb_text="Buy"
                         app:mb_textColor="#e1101b"
-                        app:mb_textSize="19sp" />
+                        app:mb_textSize="@dimen/sp19" />
                 </RelativeLayout>
 
             </RelativeLayout>

@@ -24,13 +24,13 @@
             android:orientation="vertical"
             android:background="#f3f3f3"
             android:paddingBottom="@dimen/spacing_large"
-            android:paddingTop="20dp">
+            android:paddingTop="@dimen/dp20">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp">
+                android:paddingLeft="@dimen/dp25"
+                android:paddingRight="@dimen/dp25">
                 <ImageView
                     android:id="@+id/icon"
                     android:layout_width="wrap_content"
@@ -39,32 +39,32 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/dp2"
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="@dimen/dp50"
                         android:fontFamily="@font/rns_bold"
                         android:textColor="@color/black"
                         android:text="John Doe"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/sp16" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="@dimen/dp50"
                         android:fontFamily="@font/rns_light"
                         android:textColor="@color/black_light"
                         android:text="click for edit"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/sp13" />
                 </LinearLayout>
                 <ImageView
                     android:layout_width="@dimen/spacing_large"
                     android:layout_centerVertical="true"
                     android:layout_height="@dimen/spacing_large"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="@dimen/dp5"
                     android:src="@drawable/profile_arrow" />
             </RelativeLayout>
         </LinearLayout>

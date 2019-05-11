@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/topView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/dp0"
+        android:layout_height="@dimen/dp0"
         android:background="@color/colorPrimary"
         android:gravity="center"
 
@@ -26,8 +26,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="196dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/dp196"
+                android:layout_height="@dimen/dp100"
                 android:src="@drawable/logo" />
 
         </LinearLayout>
@@ -37,10 +37,10 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dp0"
         android:background="#ffffff"
         android:orientation="vertical"
-        android:padding="38dp"
+        android:padding="@dimen/dp38"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.72"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
             android:text="Sign in or Sign up to continue"
             android:textColor="@color/dark_text"
             android:textScaleX="1.09"
-            android:textSize="16sp" />
+            android:textSize="@dimen/sp16" />
 
         <LinearLayout
             android:id="@+id/input_wrapper_ph"
@@ -66,7 +66,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="@dimen/dp45"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
                 app:theme="@style/MyTheme.Design.TextInputLayout">
@@ -78,12 +78,12 @@
                     android:layout_height="wrap_content"
                     android:digits="+123456789 0"
                     android:drawableLeft="@drawable/input_phone"
-                    android:drawablePadding="7dp"
+                    android:drawablePadding="@dimen/dp7"
                     android:hint="Mobile Phоne"
                     android:inputType="number"
                     android:maxLength="17"
                     android:textCursorDrawable="@drawable/text_cursor"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     app:met_baseColor="@color/black"
                     app:met_floatingLabelTextColor="@color/dark_text"
                     app:met_primaryColor="@color/colorPrimary"
@@ -103,7 +103,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="@dimen/dp45"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
                 app:theme="@style/MyTheme.Design.TextInputLayout">
@@ -113,12 +113,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="7dp"
+                    android:drawablePadding="@dimen/dp7"
                     android:hint="Emаil"
                     android:inputType="textEmailAddress"
                     android:maxLength="50"
                     android:textCursorDrawable="@drawable/text_cursor"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     app:met_baseColor="@color/black"
                     app:met_floatingLabelTextColor="@color/dark_text"
                     app:met_primaryColor="@color/colorPrimary"
@@ -137,12 +137,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_password"
-                    android:drawablePadding="7dp"
+                    android:drawablePadding="@dimen/dp7"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:maxLength="50"
                     android:textCursorDrawable="@drawable/text_cursor"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     app:met_baseColor="@color/black"
                     app:met_floatingLabelTextColor="@color/dark_text"
                     app:met_primaryColor="@color/colorPrimary"
@@ -161,7 +161,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="@dimen/dp45"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
                 app:theme="@style/MyTheme.Design.TextInputLayout">
@@ -171,12 +171,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="7dp"
+                    android:drawablePadding="@dimen/dp7"
                     android:hint="Emаil"
                     android:inputType="textEmailAddress"
                     android:maxLength="50"
                     android:textCursorDrawable="@drawable/text_cursor"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     app:met_baseColor="@color/black"
                     app:met_floatingLabelTextColor="@color/dark_text"
                     app:met_primaryColor="@color/colorPrimary"
@@ -189,30 +189,30 @@
         <com.korlab.foodex.UI.MaterialButton
             android:id="@+id/button_continue"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginRight="3dp"
+            android:layout_height="@dimen/dp48"
+            android:layout_marginLeft="@dimen/dp3"
+            android:layout_marginTop="@dimen/dp24"
+            android:layout_marginRight="@dimen/dp3"
             app:mb_borderColor="@color/colorPrimary"
-            app:mb_borderWidth="40dp"
+            app:mb_borderWidth="@dimen/dp40"
             app:mb_buttonColor="@color/colorPrimary"
             app:mb_buttonType="flat"
-            app:mb_cornerRadius="30dp"
+            app:mb_cornerRadius="@dimen/dp30"
             app:mb_rippleColor="@color/colorPrimaryVeryLight"
             app:mb_text="Continue"
             app:mb_textColor="#ffffff"
-            app:mb_textSize="19sp" />
+            app:mb_textSize="@dimen/sp19" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="@dimen/dp10">
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp">
+                android:padding="@dimen/dp5">
 
                 <View
                     android:id="@+id/element_center"
@@ -232,25 +232,25 @@
                     android:text="Or Continue With"
                     android:textColor="@color/white_text"
                     android:textScaleX="1.05"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/sp16" />
 
                 <View
                     android:id="@+id/leftLine"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="@dimen/dp1"
                     android:layout_alignLeft="@id/element_center"
                     android:layout_alignTop="@id/or"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/dp10"
                     android:layout_toLeftOf="@id/or"
                     android:background="@color/white_text" />
 
                 <View
                     android:id="@+id/rightLine"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="@dimen/dp1"
                     android:layout_alignTop="@id/or"
                     android:layout_alignRight="@id/element_center"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/dp10"
                     android:layout_toRightOf="@id/or"
                     android:background="@color/white_text" />
 
@@ -268,38 +268,38 @@
             <com.korlab.foodex.UI.MaterialButton
                 android:id="@+id/button_switch_email_phone"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="5dp"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp24"
+                android:layout_marginRight="@dimen/dp5"
                 android:layout_weight="40"
                 app:mb_borderColor="@color/email"
-                app:mb_borderWidth="1dp"
+                app:mb_borderWidth="@dimen/dp1"
                 app:mb_buttonColor="@color/white"
                 app:mb_buttonType="raised"
-                app:mb_cornerRadius="30dp"
+                app:mb_cornerRadius="@dimen/dp30"
                 app:mb_rippleColor="@color/ripple_color"
                 app:mb_text="Email"
                 app:mb_textColor="@color/email"
-                app:mb_textSize="19sp" />
+                app:mb_textSize="@dimen/sp19" />
 
             <com.korlab.foodex.UI.MaterialButton
                 android:id="@+id/button_google"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="5dp"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp24"
+                android:layout_marginRight="@dimen/dp5"
                 android:layout_weight="40"
                 app:mb_borderColor="@color/google"
-                app:mb_borderWidth="1dp"
+                app:mb_borderWidth="@dimen/dp1"
                 app:mb_buttonColor="@color/white"
                 app:mb_buttonType="raised"
-                app:mb_cornerRadius="30dp"
+                app:mb_cornerRadius="@dimen/dp30"
                 app:mb_rippleColor="@color/ripple_color"
                 app:mb_text="Google+"
                 app:mb_textColor="@color/google"
-                app:mb_textSize="19sp" />
+                app:mb_textSize="@dimen/sp19" />
         </LinearLayout>
 
 
@@ -307,13 +307,13 @@
             android:id="@+id/button_recovery_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/dp5"
             android:fontFamily="@font/rns_medium"
             android:gravity="center_horizontal"
             android:text="Recover password via email"
             android:textColor="@color/colorPrimary"
             android:textScaleX="1.09"
-            android:textSize="16sp" />
+            android:textSize="@dimen/sp16" />
 
     </LinearLayout>
 

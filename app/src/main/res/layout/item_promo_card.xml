@@ -7,12 +7,12 @@
     <android.support.v7.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/dp196"
         android:layout_gravity="center"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+        android:layout_marginLeft="@dimen/dp6"
+        android:layout_marginRight="@dimen/dp6"
+        app:cardCornerRadius="@dimen/dp8"
+        app:cardElevation="@dimen/dp4">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,12 +26,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="@dimen/dp52"
                 android:layout_alignParentBottom="true"
                 android:background="#aa222222"
                 android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingLeft="@dimen/dp10"
+                android:paddingRight="@dimen/dp10">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -40,17 +40,17 @@
 
                     <TextView
                         android:id="@+id/promo_name"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/rns_regular"
                         android:text="Stoneware + Porcelain Plate. Stoneware + Porcelain Plate."
                         android:textColor="#f0f0f0"
                         android:layout_weight="70"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/sp16" />
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="30"
@@ -61,12 +61,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginBottom="@dimen/dp5"
                             android:fontFamily="@font/rns_light"
                             android:text="17 Apr"
                             android:layout_gravity="right"
                             android:textColor="#f0f0f0"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/sp14" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                             android:fontFamily="@font/rns_light"
                             android:text="Click to open"
                             android:textColor="#f0f0f0"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/sp14" />
 
                     </LinearLayout>
                 </LinearLayout>

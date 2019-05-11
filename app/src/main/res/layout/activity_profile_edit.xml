@@ -26,17 +26,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="30dp"
+                android:padding="@dimen/dp30"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_gravity="center_horizontal"
-                    android:padding="20dp">
+                    android:padding="@dimen/dp20">
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="@dimen/dp90"
+                        android:layout_height="@dimen/dp90"
                         android:src="@drawable/profile_icon"
                         android:layout_gravity="center_horizontal"/>
 
@@ -47,8 +47,8 @@
                         android:fontFamily="@font/rns_light"
                         android:textColor="@color/black_light"
                         android:text="click for edit"
-                        android:textSize="13sp"
-                        android:layout_marginBottom="10dp" />
+                        android:textSize="@dimen/sp13"
+                        android:layout_marginBottom="@dimen/dp10" />
                 </LinearLayout>
 
 
@@ -60,7 +60,7 @@
                     android:fontFamily="@font/rns_medium"
                     android:textColor="@color/dark_text"
                     android:text="Delivery info"
-                    android:textSize="19sp" />
+                    android:textSize="@dimen/sp19" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                     android:fontFamily="@font/rns_medium"
                     android:textColor="@color/input_text"
                     android:text="On weekdays:"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/sp16" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,9 +77,9 @@
 
                     <EditText
                         android:id="@+id/input_weekdays_street"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/dp10"
                         android:hint="Street"
                         android:maxLength="30"
                         android:layout_weight="60"
@@ -88,9 +88,9 @@
 
                     <EditText
                         android:id="@+id/input_weekdays_house"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/dp10"
                         android:hint="h."
                         android:layout_weight="20"
                         android:lines="1"
@@ -99,7 +99,7 @@
 
                     <EditText
                         android:id="@+id/input_weekdays_apartment"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:hint="ap."
                         android:layout_weight="20"
@@ -117,7 +117,7 @@
                     android:fontFamily="@font/rns_medium"
                     android:textColor="@color/input_text"
                     android:text="On weekends:"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/sp16" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -127,9 +127,9 @@
 
                     <EditText
                         android:id="@+id/input_weekends_street"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/dp10"
                         android:hint="Street"
                         android:maxLength="30"
                         android:layout_weight="60"
@@ -138,9 +138,9 @@
 
                     <EditText
                         android:id="@+id/input_weekends_house"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/dp10"
                         android:hint="h."
                         android:maxLength="10"
                         android:layout_weight="20"
@@ -149,7 +149,7 @@
 
                     <EditText
                         android:id="@+id/input_weekends_apartment"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:hint="h."
                         android:maxLength="10"
@@ -169,12 +169,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/dp10"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/rns_medium"
                         android:textColor="@color/input_text"
                         android:text="Deliver food delivery in:"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/sp16" />
                     <TextView
                         android:id="@+id/input_delivery_type"
                         android:layout_width="wrap_content"
@@ -182,8 +182,8 @@
                         android:text="Package"
                         android:fontFamily="@font/rns_medium"
                         android:textColor="@color/dark_text"
-                        android:layout_marginRight="10dp"
-                        android:textSize="16sp"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:textSize="@dimen/sp16"
                         android:layout_gravity="center_vertical"/>
 
                 </LinearLayout>
@@ -193,8 +193,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_large"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:hint="Note (example: There is intercom)"
                     android:maxLength="200"
                     android:lines="5"
@@ -209,14 +209,14 @@
                     android:fontFamily="@font/rns_medium"
                     android:textColor="@color/dark_text"
                     android:text="Personal info"
-                    android:textSize="19sp" />
+                    android:textSize="@dimen/sp19" />
 
                 <EditText
                     android:id="@+id/input_n"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:hint="Name"
                     android:maxLength="30"
                     style="@style/EditTextFoodex"
@@ -227,8 +227,8 @@
                     android:id="@+id/input_l"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:hint="Surname"
                     android:maxLength="30"
                     style="@style/EditTextFoodex"
@@ -238,8 +238,8 @@
                     android:id="@+id/input_m"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:hint="Middlename"
                     android:maxLength="30"
                     style="@style/EditTextFoodex"
@@ -252,9 +252,9 @@
                     <EditText
                         android:id="@+id/input_birthday"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_height="@dimen/dp40"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp5"
                         android:hint="Birthday"
                         style="@style/EditTextFoodex"
                         android:inputType="text"/>
@@ -262,7 +262,7 @@
                     <LinearLayout
                         android:id="@+id/button_birthday"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="@dimen/dp40"
                         android:orientation="horizontal"/>
                 </RelativeLayout>
 
@@ -270,8 +270,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:weightSum="2">
                     <TextView
                         android:layout_width="wrap_content"
@@ -279,9 +279,9 @@
                         android:fontFamily="@font/rns_medium"
                         android:textColor="@color/input_text"
                         android:text="Sex:"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/dp10"
                         android:layout_gravity="center_vertical"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/sp16" />
 
                     <LinearLayout
                         android:id="@+id/input_man"
@@ -292,15 +292,15 @@
                         android:layout_weight="1">
                         <com.uniquestudio.library.CircleCheckBox
                             android:id="@+id/input_man_checkbox"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_width="@dimen/dp38"
+                            android:layout_height="@dimen/dp38"
+                            android:layout_marginRight="@dimen/dp10"
                             android:layout_centerInParent="true"
-                            app:border_width="2dp"
+                            app:border_width="@dimen/dp2"
                             app:background_color="#F5F5F5"
                             app:border_color="#F5F5F5"
                             app:tick_color="@color/colorPrimary"
-                            app:tick_width="2dp"/>
+                            app:tick_width="@dimen/dp2"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -317,15 +317,15 @@
                         android:layout_weight="1">
                         <com.uniquestudio.library.CircleCheckBox
                             android:id="@+id/input_woman_checkbox"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_width="@dimen/dp38"
+                            android:layout_height="@dimen/dp38"
+                            android:layout_marginRight="@dimen/dp10"
                             android:layout_centerInParent="true"
-                            app:border_width="2dp"
+                            app:border_width="@dimen/dp2"
                             app:background_color="#F5F5F5"
                             app:border_color="#F5F5F5"
                             app:tick_color="@color/colorPrimary"
-                            app:tick_width="2dp"/>
+                            app:tick_width="@dimen/dp2"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -339,8 +339,8 @@
                     android:id="@+id/input_growth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:hint="Growth"
                     android:maxLength="17"
                     style="@style/EditTextFoodex"
@@ -349,8 +349,8 @@
                     android:id="@+id/input_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:hint="Weight"
                     android:maxLength="17"
                     style="@style/EditTextFoodex"
@@ -364,14 +364,14 @@
                     android:fontFamily="@font/rns_medium"
                     android:textColor="@color/dark_text"
                     android:text="Contact info"
-                    android:textSize="19sp" />
+                    android:textSize="@dimen/sp19" />
 
                 <EditText
                     android:id="@+id/input_e"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:hint="Email"
                     android:maxLength="40"
                     style="@style/EditTextFoodex"
@@ -381,8 +381,8 @@
                     android:id="@+id/input_p"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:hint="Phone"
                     android:maxLength="13"
                     style="@style/EditTextFoodex"

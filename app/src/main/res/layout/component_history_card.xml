@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="@dimen/dp1"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:background="?colorPrimary" />
@@ -36,8 +36,8 @@
         android:layout_marginBottom="@dimen/spacing_medium"
         android:visibility="visible"
         app:cardBackgroundColor="#ffffff"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="1dp">
+        app:cardCornerRadius="@dimen/dp4"
+        app:cardElevation="@dimen/dp1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
 
                 <View
                     android:layout_width="@dimen/spacing_large"
-                    android:layout_height="0dp" />
+                    android:layout_height="@dimen/dp0" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -119,17 +119,17 @@
                     android:layout_marginBottom="@dimen/spacing_smlarge"
                     android:visibility="visible"
                     app:cardBackgroundColor="@color/colorPrimary"
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="1dp">
+                    app:cardCornerRadius="@dimen/dp4"
+                    app:cardElevation="@dimen/dp1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:paddingLeft="40dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="40dp"
-                        android:paddingBottom="10dp">
+                        android:paddingLeft="@dimen/dp40"
+                        android:paddingTop="@dimen/dp10"
+                        android:paddingRight="@dimen/dp40"
+                        android:paddingBottom="@dimen/dp10">
 
                         <com.robinhood.ticker.TickerView
                             android:id="@+id/calories"
@@ -139,13 +139,13 @@
                             android:gravity="center_horizontal"
                             android:text="0"
                             android:textColor="@color/white"
-                            android:textSize="18sp" />
+                            android:textSize="@dimen/sp18" />
                         <!--<TextView-->
                         <!--android:layout_width="match_parent"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:gravity="center_horizontal"-->
                         <!--android:text="calories"-->
-                        <!--android:textSize="18sp"-->
+                        <!--android:textSize="@dimen/sp18"-->
                         <!--android:textColor="@color/white"-->
                         <!--android:visibility="visible" />-->
                         <TextView
@@ -155,7 +155,7 @@
                             android:text="Calories received"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:textColor="#E9E9E9"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/sp12"
                             android:visibility="visible" />
 
 
@@ -171,7 +171,7 @@
                     android:weightSum="99">
 
                     <android.support.v7.widget.CardView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="@dimen/spacing_middle"
@@ -181,15 +181,15 @@
                         android:layout_weight="33"
                         android:visibility="visible"
                         app:cardBackgroundColor="@color/light_white"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="0dp">
+                        app:cardCornerRadius="@dimen/dp4"
+                        app:cardElevation="@dimen/dp0">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp">
+                            android:paddingTop="@dimen/dp5"
+                            android:paddingBottom="@dimen/dp5">
                             <com.robinhood.ticker.TickerView
                                 android:id="@+id/proteins"
                                 android:layout_width="wrap_content"
@@ -198,7 +198,7 @@
                                 android:gravity="center_horizontal"
                                 android:text="0"
                                 android:textColor="@color/black_light"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/sp16" />
 
 
                             <TextView
@@ -208,7 +208,7 @@
                                 android:text="Proteins"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/dark_text"
-                                android:textSize="11sp"
+                                android:textSize="@dimen/sp11"
                                 android:visibility="visible" />
 
 
@@ -217,7 +217,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="@dimen/spacing_middle"
@@ -227,15 +227,15 @@
                         android:layout_weight="33"
                         android:visibility="visible"
                         app:cardBackgroundColor="@color/light_white"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="0dp">
+                        app:cardCornerRadius="@dimen/dp4"
+                        app:cardElevation="@dimen/dp0">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp">
+                            android:paddingTop="@dimen/dp5"
+                            android:paddingBottom="@dimen/dp5">
 
 
                             <com.robinhood.ticker.TickerView
@@ -246,7 +246,7 @@
                                 android:gravity="center_horizontal"
                                 android:text="0"
                                 android:textColor="@color/black_light"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/sp16" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -255,7 +255,7 @@
                                 android:text="Fats"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/dark_text"
-                                android:textSize="11sp"
+                                android:textSize="@dimen/sp11"
                                 android:visibility="visible" />
 
 
@@ -264,7 +264,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="@dimen/spacing_middle"
@@ -274,15 +274,15 @@
                         android:layout_weight="33"
                         android:visibility="visible"
                         app:cardBackgroundColor="@color/light_white"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="0dp">
+                        app:cardCornerRadius="@dimen/dp4"
+                        app:cardElevation="@dimen/dp0">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp">
+                            android:paddingTop="@dimen/dp5"
+                            android:paddingBottom="@dimen/dp5">
 
                             <com.robinhood.ticker.TickerView
                                 android:id="@+id/carbo"
@@ -292,7 +292,7 @@
                                 android:gravity="center_horizontal"
                                 android:text="0"
                                 android:textColor="@color/black_light"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/sp16" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -301,7 +301,7 @@
                                 android:text="Carbohydrates"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/dark_text"
-                                android:textSize="11sp"
+                                android:textSize="@dimen/sp11"
                                 android:visibility="visible" />
 
 
@@ -329,7 +329,7 @@
                             <!--android:id="@+id/header"-->
                             <!--android:layout_width="wrap_content"-->
                             <!--android:layout_height="wrap_content"-->
-                            <!--android:lineSpacingExtra="4dp"-->
+                            <!--android:lineSpacingExtra="@dimen/dp4"-->
                             <!--android:text="Title Title Title Title Title Title"-->
                             <!--android:textAllCaps="true"-->
                             <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
@@ -351,15 +351,15 @@
                             <!--android:layout_height="wrap_content"-->
                             <!--android:layout_marginLeft="@dimen/spacing_large"-->
                             <!--android:layout_marginRight="@dimen/spacing_small"-->
-                            <!--android:lineSpacingExtra="4dp"-->
+                            <!--android:lineSpacingExtra="@dimen/dp4"-->
                             <!--android:text="2789"-->
                             <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
                             <!--android:textColor="@color/dark_text"-->
                             <!--android:visibility="visible" />-->
 
                         <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="13dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="13dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="@dimen/dp13"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="@dimen/dp13"&ndash;&gt;-->
                         <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
                         <!--&lt;!&ndash;android:src="@drawable/money"/>&ndash;&gt;-->
 
@@ -369,15 +369,15 @@
                             <!--android:layout_height="wrap_content"-->
                             <!--android:layout_marginLeft="@dimen/spacing_large"-->
                             <!--android:layout_marginRight="@dimen/spacing_small"-->
-                            <!--android:lineSpacingExtra="4dp"-->
+                            <!--android:lineSpacingExtra="@dimen/dp4"-->
                             <!--android:text="27"-->
                             <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
                             <!--android:textColor="@color/dark_text"-->
                             <!--android:visibility="visible" />-->
 
                         <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="10dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="10dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="@dimen/dp10"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="@dimen/dp10"&ndash;&gt;-->
                         <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
                         <!--&lt;!&ndash;android:src="@drawable/coins"/>&ndash;&gt;-->
                     <!--</LinearLayout>-->
@@ -393,7 +393,7 @@
                     android:layout_marginTop="@dimen/spacing_large"
                     android:layout_marginRight="@dimen/spacing_large"
                     android:layout_marginBottom="@dimen/spacing_medium"
-                    android:lineSpacingExtra="4dp"
+                    android:lineSpacingExtra="@dimen/dp4"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/dark_text"
                     android:visibility="gone" />

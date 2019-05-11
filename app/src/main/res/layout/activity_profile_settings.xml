@@ -38,7 +38,7 @@
                     android:fontFamily="@font/rns_medium"
                     android:text="Notifications"
                     android:textColor="@color/dark_text"
-                    android:textSize="19sp" />
+                    android:textSize="@dimen/sp19" />
 
                 <com.balysv.materialripple.MaterialRippleLayout
                     android:id="@+id/wrapper_promo"
@@ -60,16 +60,16 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="@dimen/dp10"
                             android:fontFamily="@font/rns_medium"
                             android:text="Promo notifications"
                             android:textColor="@color/input_text"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/sp16" />
 
                         <com.suke.widget.SwitchButton
                             android:id="@+id/toggle_promo"
-                            android:layout_width="55dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp55"
+                            android:layout_height="@dimen/dp30"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             app:sb_background="@color/white_text"
@@ -81,7 +81,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/dp1"
                     android:background="@color/дивайдер" />
 
                 <com.balysv.materialripple.MaterialRippleLayout
@@ -104,16 +104,16 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="@dimen/dp10"
                             android:fontFamily="@font/rns_medium"
                             android:text="New program notifications"
                             android:textColor="@color/input_text"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/sp16" />
 
                         <com.suke.widget.SwitchButton
                             android:id="@+id/toggle_program"
-                            android:layout_width="55dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp55"
+                            android:layout_height="@dimen/dp30"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             app:sb_background="@color/white_text"
@@ -124,7 +124,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/dp1"
                     android:background="@color/дивайдер" />
 
                 <com.balysv.materialripple.MaterialRippleLayout
@@ -147,16 +147,16 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="@dimen/dp10"
                             android:fontFamily="@font/rns_medium"
                             android:text="Notifications from managers"
                             android:textColor="@color/input_text"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/sp16" />
 
                         <com.suke.widget.SwitchButton
                             android:id="@+id/toggle_managers"
-                            android:layout_width="55dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp55"
+                            android:layout_height="@dimen/dp30"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             app:sb_background="@color/white_text"
@@ -167,7 +167,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/dp1"
                     android:background="@color/дивайдер" />
 
                 <com.balysv.materialripple.MaterialRippleLayout
@@ -190,16 +190,16 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="@dimen/dp10"
                             android:fontFamily="@font/rns_medium"
                             android:text="Meal notifications"
                             android:textColor="@color/input_text"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/sp16" />
 
                         <com.suke.widget.SwitchButton
                             android:id="@+id/toggle_meal"
-                            android:layout_width="55dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp55"
+                            android:layout_height="@dimen/dp30"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             app:sb_background="@color/white_text"
@@ -226,7 +226,7 @@
                     android:fontFamily="@font/rns_medium"
                     android:text="Type"
                     android:textColor="@color/dark_text"
-                    android:textSize="19sp" />
+                    android:textSize="@dimen/sp19" />
 
                 <com.balysv.materialripple.MaterialRippleLayout
                     android:id="@+id/wrapper_vibrations"
@@ -248,16 +248,16 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="@dimen/dp10"
                             android:fontFamily="@font/rns_medium"
                             android:text="Vibrations"
                             android:textColor="@color/input_text"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/sp16" />
 
                         <com.suke.widget.SwitchButton
                             android:id="@+id/toggle_vibrations"
-                            android:layout_width="55dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp55"
+                            android:layout_height="@dimen/dp30"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             app:sb_background="@color/white_text"
@@ -268,7 +268,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/dp1"
                     android:background="@color/дивайдер" />
 
                 <com.balysv.materialripple.MaterialRippleLayout
@@ -291,16 +291,16 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="@dimen/dp10"
                             android:fontFamily="@font/rns_medium"
                             android:text="Sounds"
                             android:textColor="@color/input_text"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/sp16" />
 
                         <com.suke.widget.SwitchButton
                             android:id="@+id/toggle_sounds"
-                            android:layout_width="55dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp55"
+                            android:layout_height="@dimen/dp30"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             app:sb_background="@color/white_text"
