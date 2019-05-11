@@ -54,7 +54,6 @@ public class AuthorizeVerification extends AppCompatActivity {
         }
         textPhone.setText(user.getPhone());
 
-        new Handler().postDelayed(() -> Helper.showKeyboard(getInstance(), inputCodeLayout), 100);
         countDownTimer(TIME_OUT);
         inputCodeLayout.setOnInputCompleteListener(code -> {
             Helper.log(code);

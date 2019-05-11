@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.widget.EditText;
 
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
@@ -26,8 +27,7 @@ public class InfoFullName extends AppCompatActivity {
         return instance;
     }
 
-    private MaterialEditText inputFirstName, inputLastName, inputMiddleName;
-    private TextInputLayout inputLayoutFirstName, inputLayoutLastName, inputLayoutMiddleName;
+    private EditText inputSurname, inputName, inputMiddle;
     private MaterialButton buttonNext;
 
     private User user;
@@ -46,31 +46,31 @@ public class InfoFullName extends AppCompatActivity {
         Helper.setStatusBarIconWhite(getWindow());
         findView();
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
-        int red = ResourcesCompat.getColor(getResources(), R.color.google, null);
-        Helper.setUpHintColor(inputFirstName, inputLayoutFirstName, red);
-        Helper.setUpHintColor(inputLastName, inputLayoutLastName, red);
-        Helper.setUpHintColor(inputMiddleName, inputLayoutMiddleName, red);
+
+        Helper.addRedAsterisk(inputSurname);
+        Helper.addRedAsterisk(inputName);
+        Helper.addRedAsterisk(inputMiddle);
 
         Helper.disableButton(getInstance(), buttonNext);
 
         buttonNext.setOnClickListener((v) -> {
-            user.setFirstName(inputFirstName.getText().toString());
-            user.setLastName(inputLastName.getText().toString());
-            user.setMiddleName(inputMiddleName.getText().toString());
+            user.setFirstName(inputSurname.getText().toString());
+            user.setLastName(inputName.getText().toString());
+            user.setMiddleName(inputMiddle.getText().toString());
             startActivity(new Intent(getInstance(), InfoGender.class).putExtra("user", Helper.toJson(user)));
             Bungee.slideLeft(getInstance());
         });
-        inputFirstName.addTextChangedListener(new TextWatcher() {
+        inputSurname.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override public void afterTextChanged(Editable s) { validateInput(); }
         });
-        inputLastName.addTextChangedListener(new TextWatcher() {
+        inputName.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override public void afterTextChanged(Editable s) { validateInput(); }
         });
-        inputMiddleName.addTextChangedListener(new TextWatcher() {
+        inputMiddle.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override public void afterTextChanged(Editable s) { validateInput(); }
@@ -78,17 +78,14 @@ public class InfoFullName extends AppCompatActivity {
     }
 
     private void findView() {
-        inputFirstName = findViewById(R.id.input_f);
-        inputLastName = findViewById(R.id.input_l);
-        inputMiddleName = findViewById(R.id.input_m);
-        inputLayoutFirstName = findViewById(R.id.input_layout_f);
-        inputLayoutLastName = findViewById(R.id.input_layout_l);
-        inputLayoutMiddleName = findViewById(R.id.input_layout_m);
         buttonNext = findViewById(R.id.next);
+        inputSurname = findViewById(R.id.input_s);
+        inputName = findViewById(R.id.input_n);
+        inputMiddle = findViewById(R.id.input_m);
     }
 
     private void validateInput() {
-        if(inputFirstName.length() >= 2 && inputLastName.length() >=2 && inputMiddleName.length() >= 2)
+        if(inputSurname.length() >= 2 && inputName.length() >=2 && inputMiddle.length() >= 2)
             Helper.enableButton(getInstance(), buttonNext);
         else
             Helper.disableButton(getInstance(), buttonNext);

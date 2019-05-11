@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -25,7 +26,6 @@ import com.korlab.foodex.Data.Address;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
-import com.korlab.foodex.UI.MaterialEditText;
 import com.korlab.foodex.UI.Toolbar;
 import com.uniquestudio.library.CircleCheckBox;
 
@@ -36,8 +36,8 @@ import java.util.Objects;
 public class ProfileEdit extends AppCompatActivity {
     private LinearLayout toolbarContainer;
 
-    private MaterialEditText inputName, inputLastname, inputMiddlename, inputBirthday, inputGrowth, inputWeight, inputEmail, inputPhone, inputNote;
-    private MaterialEditText inputWeekdaysStreet, inputWeekdaysHouse, inputWeekdaysApartment, inputWeekendsStreet, inputWeekendsHouse, inputWeekendsApartment;
+    private EditText inputName, inputLastname, inputMiddlename, inputBirthday, inputGrowth, inputWeight, inputEmail, inputPhone, inputNote;
+    private EditText inputWeekdaysStreet, inputWeekdaysHouse, inputWeekdaysApartment, inputWeekendsStreet, inputWeekendsHouse, inputWeekendsApartment;
     private CircleCheckBox inputManCheckbox, inputWomanCheckbox;
     private LinearLayout inputMan, inputWoman, buttonDelivery, buttonBirthday;
     private TextView inputDeliveryType;
@@ -192,7 +192,7 @@ public class ProfileEdit extends AppCompatActivity {
         Helper.log("onNegative");
     }
 
-    private void checkMask(Editable e, MaterialEditText inputEdit, String metricsEdit) {
+    private void checkMask(Editable e, EditText inputEdit, String metricsEdit) {
         String s = e.toString();
         if (s.length() > 0) {
             if (!s.endsWith(" " + metricsEdit)) {

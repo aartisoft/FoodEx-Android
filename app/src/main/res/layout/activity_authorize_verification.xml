@@ -31,14 +31,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:fontFamily="@font/rns_medium"
-                android:gravity="center_horizontal"
                 android:text="Activate your account"
-                android:textColor="@color/dark_text"
-                android:textScaleX="1.03"
-                android:textSize="20sp" />
-
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:gravity="center_horizontal"
+                android:fontFamily="@font/rns_regular"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +81,9 @@
                 app:icl_textColor="@color/colorPrimaryDark"
                 app:icl_textSize="22sp"
                 app:icl_unFocusBackground="@drawable/bg_edit_un_focus"
-                app:icl_width="42dp" />
+                app:icl_width="42dp" >
+                <requestFocus/>
+            </com.korlab.foodex.UI.InputCodeLayout>
 
             <TextView
                 android:layout_width="match_parent"

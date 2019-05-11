@@ -237,24 +237,16 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/dark_text" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/name_text_input"
-                android:layout_marginTop="@dimen/space_2x"
-                style="@style/MultiLineEditText"
+
+
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:hint="Your comments (optional)"
+                android:lines="4"
+                android:maxLength="300"
+                style="@style/EditTextFoodex"/>
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/name_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="3"
-                    android:gravity="top"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textColor="@color/very_dark_text"/>
-
-            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 

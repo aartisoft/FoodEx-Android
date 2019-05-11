@@ -85,7 +85,7 @@
             app:nts_size="15sp"
             app:nts_type="line"
 
-            app:nts_typeface="fonts/rns_bold.otf"
+            app:nts_typeface="fonts/rns_bold"
             app:nts_weight="3dp" />
     </LinearLayout>
 

@@ -74,67 +74,39 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="100">
-                    <com.korlab.foodex.UI.MaterialEditText
+
+                    <EditText
                         android:id="@+id/input_weekdays_street"
-                        android:imeOptions="actionNext"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="70"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/input_text"
-                        app:met_baseColor="@color/black"
-                        app:met_primaryColor="@color/dark_text"
-                        android:textCursorDrawable="@drawable/text_cursor"
-                        app:met_singleLineEllipsis="true"
+                        android:layout_marginRight="10dp"
+                        android:hint="Street"
                         android:maxLength="30"
-                        app:met_helperText="Street"
-                        app:met_helperTextAlwaysShown="true"
-                        app:met_helperTextColor="#999999"
-                        app:met_bottomTextSize="14sp"
-                        android:inputType="text"/>
-                    <com.korlab.foodex.UI.MaterialEditText
+                        android:layout_weight="60"
+                        android:lines="1"
+                        style="@style/EditTextFoodex"/>
+
+                    <EditText
                         android:id="@+id/input_weekdays_house"
-                        android:imeOptions="actionNext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="15"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/input_text"
-                        app:met_baseColor="@color/black"
-                        app:met_primaryColor="@color/dark_text"
-                        android:textCursorDrawable="@drawable/text_cursor"
-                        app:met_singleLineEllipsis="true"
+                        android:hint="h."
+                        android:layout_weight="20"
+                        android:lines="1"
                         android:maxLength="10"
-                        app:met_helperText="h."
-                        app:met_helperTextAlwaysShown="true"
-                        app:met_helperTextColor="#999999"
-                        app:met_bottomTextSize="14sp"
-                        android:inputType="text"/>
-                    <com.korlab.foodex.UI.MaterialEditText
+                        style="@style/EditTextFoodex"/>
+
+                    <EditText
                         android:id="@+id/input_weekdays_apartment"
-                        android:imeOptions="actionNext"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="15"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/input_text"
-                        app:met_baseColor="@color/black"
-                        app:met_primaryColor="@color/dark_text"
-                        android:textCursorDrawable="@drawable/text_cursor"
-                        app:met_singleLineEllipsis="true"
+                        android:hint="ap."
+                        android:layout_weight="20"
+                        android:lines="1"
                         android:maxLength="10"
-                        app:met_helperText="ap."
-                        app:met_helperTextAlwaysShown="true"
-                        app:met_helperTextColor="#999999"
-                        app:met_bottomTextSize="14sp"
-                        android:inputType="text"/>
+                        style="@style/EditTextFoodex"/>
+
                 </LinearLayout>
 
 
@@ -152,67 +124,39 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="100">
-                    <com.korlab.foodex.UI.MaterialEditText
+
+                    <EditText
                         android:id="@+id/input_weekends_street"
-                        android:imeOptions="actionNext"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="70"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/input_text"
-                        app:met_baseColor="@color/black"
-                        app:met_primaryColor="@color/dark_text"
-                        android:textCursorDrawable="@drawable/text_cursor"
-                        app:met_singleLineEllipsis="true"
+                        android:layout_marginRight="10dp"
+                        android:hint="Street"
                         android:maxLength="30"
-                        app:met_helperText="Street"
-                        app:met_helperTextAlwaysShown="true"
-                        app:met_helperTextColor="#999999"
-                        app:met_bottomTextSize="14sp"
-                        android:inputType="text"/>
-                    <com.korlab.foodex.UI.MaterialEditText
+                        android:layout_weight="60"
+                        android:lines="1"
+                        style="@style/EditTextFoodex"/>
+
+                    <EditText
                         android:id="@+id/input_weekends_house"
-                        android:imeOptions="actionNext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="15"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/input_text"
-                        app:met_baseColor="@color/black"
-                        app:met_primaryColor="@color/dark_text"
-                        android:textCursorDrawable="@drawable/text_cursor"
-                        app:met_singleLineEllipsis="true"
+                        android:hint="h."
                         android:maxLength="10"
-                        app:met_helperText="h."
-                        app:met_helperTextAlwaysShown="true"
-                        app:met_helperTextColor="#999999"
-                        app:met_bottomTextSize="14sp"
-                        android:inputType="text"/>
-                    <com.korlab.foodex.UI.MaterialEditText
+                        android:layout_weight="20"
+                        android:lines="1"
+                        style="@style/EditTextFoodex"/>
+
+                    <EditText
                         android:id="@+id/input_weekends_apartment"
-                        android:imeOptions="actionDone"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="15"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/input_text"
-                        app:met_baseColor="@color/black"
-                        app:met_primaryColor="@color/dark_text"
-                        android:textCursorDrawable="@drawable/text_cursor"
-                        app:met_singleLineEllipsis="true"
+                        android:hint="h."
                         android:maxLength="10"
-                        app:met_helperText="ap."
-                        app:met_helperTextAlwaysShown="true"
-                        app:met_helperTextColor="#999999"
-                        app:met_bottomTextSize="14sp"
-                        android:inputType="text"/>
+                        android:layout_weight="20"
+                        android:lines="1"
+                        style="@style/EditTextFoodex"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -244,29 +188,17 @@
 
                 </LinearLayout>
 
-                <com.korlab.foodex.UI.MaterialEditText
+                <EditText
                     android:id="@+id/input_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_large"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_weight="70"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLength="100"
-                    android:textColor="@color/input_text"
-                    android:textCursorDrawable="@drawable/text_cursor"
-                    android:textSize="16sp"
-                    app:met_baseColor="@color/black"
-                    app:met_bottomTextSize="14sp"
-                    app:met_helperText="Note (example: There is intercom)"
-                    app:met_helperTextAlwaysShown="true"
-                    app:met_helperTextColor="#999999"
-                    app:met_primaryColor="@color/dark_text"
-                    app:met_singleLineEllipsis="true" />
-
-
+                    android:hint="Note (example: There is intercom)"
+                    android:maxLength="200"
+                    android:lines="5"
+                    style="@style/EditTextFoodex"/>
 
 
                 <TextView
@@ -279,89 +211,58 @@
                     android:text="Personal info"
                     android:textSize="19sp" />
 
-                <com.korlab.foodex.UI.MaterialEditText
+                <EditText
                     android:id="@+id/input_n"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/input_text"
-                    app:met_baseColor="@color/black"
-                    app:met_primaryColor="@color/dark_text"
-                    android:textCursorDrawable="@drawable/text_cursor"
-                    app:met_singleLineEllipsis="true"
-                    android:maxLength="17"
-                    app:met_helperText="Name"
-                    app:met_helperTextAlwaysShown="true"
-                    app:met_helperTextColor="#999999"
-                    app:met_bottomTextSize="14sp"
+                    android:hint="Name"
+                    android:maxLength="30"
+                    style="@style/EditTextFoodex"
                     android:inputType="text"/>
 
 
-                <com.korlab.foodex.UI.MaterialEditText
+                <EditText
                     android:id="@+id/input_l"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/input_text"
-                    app:met_baseColor="@color/black"
-                    app:met_primaryColor="@color/dark_text"
-                    android:textCursorDrawable="@drawable/text_cursor"
-                    app:met_singleLineEllipsis="true"
-                    android:maxLength="17"
-                    app:met_helperText="Surname"
-                    app:met_helperTextAlwaysShown="true"
-                    app:met_helperTextColor="#999999"
-                    app:met_bottomTextSize="14sp"
+                    android:hint="Surname"
+                    android:maxLength="30"
+                    style="@style/EditTextFoodex"
                     android:inputType="text"/>
 
-                <com.korlab.foodex.UI.MaterialEditText
+                <EditText
                     android:id="@+id/input_m"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/input_text"
-                    app:met_baseColor="@color/black"
-                    app:met_primaryColor="@color/dark_text"
-                    android:textCursorDrawable="@drawable/text_cursor"
-                    app:met_singleLineEllipsis="true"
-                    android:maxLength="17"
-                    app:met_helperText="Middlename"
-                    app:met_helperTextAlwaysShown="true"
-                    app:met_helperTextColor="#999999"
-                    app:met_bottomTextSize="14sp"
+                    android:hint="Middlename"
+                    android:maxLength="30"
+                    style="@style/EditTextFoodex"
                     android:inputType="text"/>
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <com.korlab.foodex.UI.MaterialEditText
+                    <EditText
                         android:id="@+id/input_birthday"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="40dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/input_text"
-                        app:met_baseColor="@color/black"
-                        app:met_primaryColor="@color/dark_text"
-                        android:textCursorDrawable="@drawable/text_cursor"
-                        app:met_singleLineEllipsis="true"
-                        android:maxLength="17"
-                        app:met_helperText="Birthday"
-                        app:met_helperTextAlwaysShown="true"
-                        app:met_helperTextColor="#999999"
-                        app:met_bottomTextSize="14sp"
+                        android:hint="Birthday"
+                        style="@style/EditTextFoodex"
                         android:inputType="text"/>
+
                     <LinearLayout
                         android:id="@+id/button_birthday"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="40dp"
                         android:orientation="horizontal"/>
                 </RelativeLayout>
 
@@ -432,44 +333,27 @@
 
                     </LinearLayout>
                 </LinearLayout>
-                <com.korlab.foodex.UI.MaterialEditText
+
+
+                <EditText
                     android:id="@+id/input_growth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/input_text"
-                    app:met_baseColor="@color/black"
-                    app:met_primaryColor="@color/dark_text"
-                    android:textCursorDrawable="@drawable/text_cursor"
-                    app:met_singleLineEllipsis="true"
+                    android:hint="Growth"
                     android:maxLength="17"
-                    android:text=""
-                    app:met_helperText="Growth"
-                    app:met_helperTextAlwaysShown="true"
-                    app:met_helperTextColor="#999999"
-                    app:met_bottomTextSize="14sp"
-                    android:digits="1234567890"
+                    style="@style/EditTextFoodex"
                     android:inputType="number"/>
-                <com.korlab.foodex.UI.MaterialEditText
+                <EditText
                     android:id="@+id/input_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/input_text"
-                    app:met_baseColor="@color/black"
-                    app:met_primaryColor="@color/dark_text"
-                    android:textCursorDrawable="@drawable/text_cursor"
-                    app:met_singleLineEllipsis="true"
+                    android:hint="Weight"
                     android:maxLength="17"
-                    app:met_helperText="Weight"
-                    app:met_helperTextAlwaysShown="true"
-                    app:met_helperTextColor="#999999"
-                    app:met_bottomTextSize="14sp"
-                    android:digits="1234567890"
+                    style="@style/EditTextFoodex"
                     android:inputType="number"/>
 
                 <TextView
@@ -481,43 +365,28 @@
                     android:textColor="@color/dark_text"
                     android:text="Contact info"
                     android:textSize="19sp" />
-                <com.korlab.foodex.UI.MaterialEditText
+
+                <EditText
                     android:id="@+id/input_e"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/input_text"
-                    app:met_baseColor="@color/black"
-                    app:met_primaryColor="@color/dark_text"
-                    android:textCursorDrawable="@drawable/text_cursor"
-                    app:met_singleLineEllipsis="true"
+                    android:hint="Email"
                     android:maxLength="40"
-                    app:met_helperText="Email"
-                    app:met_helperTextAlwaysShown="true"
-                    app:met_helperTextColor="#999999"
-                    app:met_bottomTextSize="14sp"
+                    style="@style/EditTextFoodex"
                     android:inputType="textEmailAddress"/>
-                <com.korlab.foodex.UI.MaterialEditText
+
+                <EditText
                     android:id="@+id/input_p"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/input_text"
-                    app:met_baseColor="@color/black"
-                    app:met_primaryColor="@color/dark_text"
-                    android:textCursorDrawable="@drawable/text_cursor"
-                    app:met_singleLineEllipsis="true"
+                    android:hint="Phone"
                     android:maxLength="13"
-                    app:met_helperText="Phone"
-                    app:met_helperTextAlwaysShown="true"
-                    app:met_helperTextColor="#999999"
-                    app:met_bottomTextSize="14sp"
+                    style="@style/EditTextFoodex"
                     android:inputType="textEmailAddress"/>
-
 
             </LinearLayout>
         </LinearLayout>

@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -303,6 +304,18 @@ public class Helper {
             editText.setHint(hintWithAsterisk);
         }
         setOnFocuschangeListener(editText, textInputLayout, hintWithAsterisk);
+    }
+    public static void addRedAsterisk(EditText editText){
+        String text = editText.getHint().toString();
+        String asterisk = " *";
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(text);
+        int start = builder.length();
+        builder.append(asterisk);
+        int end = builder.length();
+        builder.setSpan(new ForegroundColorSpan(Color.RED), start, end,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        editText.setHint(builder);
     }
 
     private static void setOnFocuschangeListener(final EditText editText, final TextInputLayout textInputLayout, final SpannableStringBuilder hintWithAsterisk) {
