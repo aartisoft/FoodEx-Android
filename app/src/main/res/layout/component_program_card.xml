@@ -8,10 +8,10 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp135"
-        android:layout_marginLeft="@dimen/space_2x"
-        android:layout_marginRight="@dimen/space_2x"
-        android:layout_marginTop="@dimen/space_1x"
-        android:layout_marginBottom="@dimen/space_1x"
+        android:layout_marginLeft="@dimen/dp14"
+        android:layout_marginRight="@dimen/dp14"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginBottom="@dimen/dp8"
         android:layout_gravity="center"
         app:cardCornerRadius="@dimen/dp8"
         app:cardElevation="@dimen/dp4">
@@ -40,9 +40,9 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/space_2x"
-                android:paddingLeft="@dimen/space_2x"
-                android:paddingRight="@dimen/space_2x"
+                android:paddingTop="@dimen/dp14"
+                android:paddingLeft="@dimen/dp14"
+                android:paddingRight="@dimen/dp14"
                 android:paddingBottom="@dimen/dp0"
                 android:orientation="vertical">
                 <LinearLayout
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:text="$6.32"
                         android:textSize="@dimen/sp14"
-                        android:layout_marginBottom="@dimen/space_3x"
+                        android:layout_marginBottom="@dimen/dp24"
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/rns_regular"
                         android:textColor="#e1101b" />
@@ -89,7 +89,7 @@
                         android:layout_width="@dimen/dp80"
                         android:layout_alignParentRight="true"
                         android:layout_height="@dimen/dp25"
-                        android:layout_marginBottom="@dimen/space_3x"
+                        android:layout_marginBottom="@dimen/dp24"
                         android:layout_centerVertical="true"
                         app:mb_borderColor="#e1101b"
                         app:mb_borderWidth="@dimen/dp1"

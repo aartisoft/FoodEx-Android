@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/dp14"
             android:fontFamily="@font/rns_medium"
             android:gravity="center_horizontal"
             android:text="Sign in or Sign up to continue"
@@ -95,10 +95,10 @@
 
         <LinearLayout
             android:id="@+id/input_wrapper_em"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -153,10 +153,10 @@
 
         <LinearLayout
             android:id="@+id/input_wrapper_recovery_em"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -225,9 +225,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/element_center"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="@dimen/spacing_large"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:layout_marginRight="@dimen/spacing_large"
+                    android:layout_marginLeft="@dimen/dp14"
+                    android:layout_marginTop="@dimen/dp14"
+                    android:layout_marginRight="@dimen/dp14"
                     android:fontFamily="@font/rns_light"
                     android:text="Or Continue With"
                     android:textColor="@color/white_text"

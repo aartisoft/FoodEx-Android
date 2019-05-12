@@ -73,16 +73,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp30"
                 android:gravity="center"
-                app:icl_divideWidth="@dimen/dp10"
+                app:icl_divideWidth="@dimen/dp10InputCodeLayout"
                 app:icl_focusBackground="@drawable/bg_edit_focus"
-                app:icl_height="@dimen/dp42"
+                app:icl_height="@dimen/dp42InputCodeLayout"
                 app:icl_number="6"
                 app:icl_showMode="normal"
                 app:icl_textColor="@color/colorPrimaryDark"
-                app:icl_textSize="@dimen/sp22"
+                app:icl_textSize="@dimen/sp22InputCodeLayout"
                 app:icl_unFocusBackground="@drawable/bg_edit_un_focus"
-                app:icl_width="@dimen/dp42" >
-                <requestFocus/>
+                app:icl_width="@dimen/dp42InputCodeLayout" >
             </com.korlab.foodex.UI.InputCodeLayout>
 
             <TextView
@@ -109,7 +108,7 @@
                     <com.korlab.foodex.UI.MaterialButton
                         android:id="@+id/button_resend"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp20"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         app:mb_borderColor="@color/white"
                         app:mb_borderWidth="@dimen/dp1"

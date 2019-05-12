@@ -35,8 +35,8 @@
                 android:textSize="@dimen/sp16" />
 
             <ImageView
-                android:layout_width="@dimen/spacing_large"
-                android:layout_height="@dimen/spacing_large"
+                android:layout_width="@dimen/dp14"
+                android:layout_height="@dimen/dp14"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/dp5"
                 android:src="@drawable/profile_arrow" />
@@ -47,8 +47,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp1"
-            android:layout_marginLeft="@dimen/spacing_large"
-            android:layout_marginRight="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/dp14"
+            android:layout_marginRight="@dimen/dp14"
             android:background="@color/дивайдер" />
     </LinearLayout>
 

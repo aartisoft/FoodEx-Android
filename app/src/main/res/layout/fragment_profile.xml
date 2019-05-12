@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#f3f3f3"
-            android:paddingBottom="@dimen/spacing_large"
+            android:paddingBottom="@dimen/dp14"
             android:paddingTop="@dimen/dp20">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -33,6 +33,7 @@
                 android:paddingRight="@dimen/dp25">
                 <ImageView
                     android:id="@+id/icon"
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/profile_icon"/>
@@ -60,9 +61,9 @@
                         android:textSize="@dimen/sp13" />
                 </LinearLayout>
                 <ImageView
-                    android:layout_width="@dimen/spacing_large"
-                    android:layout_centerVertical="true"
-                    android:layout_height="@dimen/spacing_large"
+                    android:layout_width="@dimen/dp14"
+                    android:layout_centerInParent="true"
+                    android:layout_height="@dimen/dp14"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/dp5"
                     android:src="@drawable/profile_arrow" />

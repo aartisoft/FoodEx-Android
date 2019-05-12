@@ -28,18 +28,21 @@
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:weightSum="100">
             <ImageView
                 android:id="@+id/man"
-                android:layout_width="@dimen/dp120"
-                android:layout_height="@dimen/dp120"
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/dp20"
                 android:src="@drawable/man_disable"/>
 
             <ImageView
                 android:id="@+id/woman"
-                android:layout_width="@dimen/dp120"
-                android:layout_height="@dimen/dp120"
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/dp20"
                 android:src="@drawable/woman_disable"/>
         </LinearLayout>

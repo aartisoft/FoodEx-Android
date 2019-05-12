@@ -28,13 +28,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingTop="@dimen/spacing_large">
+                android:paddingTop="@dimen/dp14">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/spacing_large"
+                    android:layout_marginBottom="@dimen/dp14"
                     android:fontFamily="@font/rns_medium"
                     android:text="Notifications"
                     android:textColor="@color/dark_text"
@@ -45,10 +45,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:mrl_rippleColor="@color/colorPrimary"
-                    android:paddingLeft="@dimen/space_4x"
-                    android:paddingTop="@dimen/spacing_middle"
-                    android:paddingRight="@dimen/space_4x"
-                    android:paddingBottom="@dimen/spacing_middle">
+                    android:paddingLeft="@dimen/dp32"
+                    android:paddingTop="@dimen/dp10"
+                    android:paddingRight="@dimen/dp32"
+                    android:paddingBottom="@dimen/dp10">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -89,10 +89,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:mrl_rippleColor="@color/colorPrimary"
-                    android:paddingLeft="@dimen/space_4x"
-                    android:paddingTop="@dimen/spacing_middle"
-                    android:paddingRight="@dimen/space_4x"
-                    android:paddingBottom="@dimen/spacing_middle">
+                    android:paddingLeft="@dimen/dp32"
+                    android:paddingTop="@dimen/dp10"
+                    android:paddingRight="@dimen/dp32"
+                    android:paddingBottom="@dimen/dp10">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -132,10 +132,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:mrl_rippleColor="@color/colorPrimary"
-                    android:paddingLeft="@dimen/space_4x"
-                    android:paddingTop="@dimen/spacing_middle"
-                    android:paddingRight="@dimen/space_4x"
-                    android:paddingBottom="@dimen/spacing_middle">
+                    android:paddingLeft="@dimen/dp32"
+                    android:paddingTop="@dimen/dp10"
+                    android:paddingRight="@dimen/dp32"
+                    android:paddingBottom="@dimen/dp10">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -175,10 +175,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:mrl_rippleColor="@color/colorPrimary"
-                    android:paddingLeft="@dimen/space_4x"
-                    android:paddingTop="@dimen/spacing_middle"
-                    android:paddingRight="@dimen/space_4x"
-                    android:paddingBottom="@dimen/spacing_middle">
+                    android:paddingLeft="@dimen/dp32"
+                    android:paddingTop="@dimen/dp10"
+                    android:paddingRight="@dimen/dp32"
+                    android:paddingBottom="@dimen/dp10">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -216,13 +216,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingTop="@dimen/spacing_large">
+                android:paddingTop="@dimen/dp14">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/spacing_large"
+                    android:layout_marginBottom="@dimen/dp14"
                     android:fontFamily="@font/rns_medium"
                     android:text="Type"
                     android:textColor="@color/dark_text"
@@ -233,10 +233,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:mrl_rippleColor="@color/colorPrimary"
-                    android:paddingLeft="@dimen/space_4x"
-                    android:paddingTop="@dimen/spacing_middle"
-                    android:paddingRight="@dimen/space_4x"
-                    android:paddingBottom="@dimen/spacing_middle">
+                    android:paddingLeft="@dimen/dp32"
+                    android:paddingTop="@dimen/dp10"
+                    android:paddingRight="@dimen/dp32"
+                    android:paddingBottom="@dimen/dp10">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -276,10 +276,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:mrl_rippleColor="@color/colorPrimary"
-                    android:paddingLeft="@dimen/space_4x"
-                    android:paddingTop="@dimen/spacing_middle"
-                    android:paddingRight="@dimen/space_4x"
-                    android:paddingBottom="@dimen/spacing_middle">
+                    android:paddingLeft="@dimen/dp32"
+                    android:paddingTop="@dimen/dp10"
+                    android:paddingRight="@dimen/dp32"
+                    android:paddingBottom="@dimen/dp10">
 
                     <RelativeLayout
                         android:layout_width="match_parent"

@@ -13,14 +13,14 @@
             android:layout_width="@dimen/dp8"
             android:layout_height="match_parent"
             android:background="#12000000"
-            android:layout_marginRight="@dimen/spacing_large"/>
+            android:layout_marginRight="@dimen/dp14"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:layout_marginRight="@dimen/spacing_large"
-            android:layout_marginBottom="@dimen/spacing_medium">
+            android:layout_marginTop="@dimen/dp14"
+            android:layout_marginRight="@dimen/dp14"
+            android:layout_marginBottom="@dimen/dp5">
 
 
 
@@ -58,7 +58,7 @@
                     android:layout_height="@dimen/dp16"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/spacing_small"
+                    android:layout_marginTop="@dimen/dp3"
                     android:gravity="center_vertical"
                     android:background="#12000000" />
 

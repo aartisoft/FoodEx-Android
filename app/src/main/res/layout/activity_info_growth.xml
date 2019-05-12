@@ -28,14 +28,15 @@
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+
             android:gravity="center_horizontal">
+
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="@dimen/dp120"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp20"
                 android:src="@drawable/man_growth"/>
-
             <com.cncoderx.wheelview.Wheel3DView
                 android:id="@+id/wv_growth"
                 android:layout_width="wrap_content"
@@ -51,6 +52,9 @@
                 app:visibleItems="7"
                 app:toward="left"
                 style="@style/WheelViewStyle"/>
+
+
+
 
         </LinearLayout>
     </RelativeLayout>

@@ -22,7 +22,7 @@
             android:gravity="center_vertical"
             android:paddingStart="@dimen/dp16"
             android:textColor="#333333"
-            android:textSize="@dimen/sp26"
+            android:textSize="@dimen/dp25"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />
 
@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="#333333"
-                android:textSize="@dimen/sp10" />
+                android:textSize="@dimen/dp10" />
 
             <TextView
                 android:id="@+id/tv_lunar"
@@ -53,7 +53,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="#333333"
-                android:textSize="@dimen/sp10"/>
+                android:textSize="@dimen/dp10"/>
         </LinearLayout>
 
         <FrameLayout
@@ -116,11 +116,12 @@
             app:week_text_color="#333333"
             app:week_view="com.korlab.foodex.UI.CalendarWeekView"
             app:year_view_day_text_color="#333333"
-            app:year_view_day_text_size="@dimen/sp9"
+            app:year_view_day_text_size="@dimen/dp8"
             app:year_view_month_text_color="#3ecd8e"
-            app:year_view_month_text_size="@dimen/sp20"
+            app:year_view_month_text_size="@dimen/dp20"
             app:current_day_lunar_text_color="#333333"
-            app:current_day_text_color="#3ecd8e"/>
+            app:current_day_text_color="#3ecd8e"
+            app:day_text_size="@dimen/dp18"/>
 
         <!--<com.korlab.foodex.UI.group.GroupRecyclerView-->
             <!--android:id="@+id/recyclerView"-->

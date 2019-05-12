@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/spacing_middle"
-    android:layout_marginTop="@dimen/spacing_middle"
-    android:layout_marginRight="@dimen/spacing_middle"
+    android:layout_marginLeft="@dimen/dp10"
+    android:layout_marginTop="@dimen/dp10"
+    android:layout_marginRight="@dimen/dp10"
     android:visibility="visible"
     app:cardBackgroundColor="#ffffff"
     app:cardCornerRadius="@dimen/dp8"
@@ -34,7 +34,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:paddingBottom="@dimen/spacing_middle">
+                android:paddingBottom="@dimen/dp10">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -65,21 +65,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/spacing_middle">
+                android:paddingBottom="@dimen/dp10">
 
                 <LinearLayout
                     android:id="@+id/toggle_to_more"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:layout_marginRight="@dimen/spacing_large"
-                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/dp14"
+                    android:layout_marginRight="@dimen/dp14"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
 
                     <View
-                        android:layout_width="@dimen/spacing_large"
+                        android:layout_width="@dimen/dp14"
                         android:layout_height="@dimen/dp0" />
 
                     <LinearLayout
@@ -125,7 +125,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginTop="@dimen/spacing_small"
+                                android:layout_marginTop="@dimen/dp3"
                                 android:fontFamily="@font/rns_regular"
                                 android:gravity="center_vertical"
                                 android:text="8:00"
@@ -147,10 +147,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingLeft="@dimen/spacing_large"
-                    android:paddingTop="@dimen/spacing_medium"
-                    android:paddingRight="@dimen/spacing_large"
-                    android:paddingBottom="@dimen/spacing_medium">
+                    android:paddingLeft="@dimen/dp14"
+                    android:paddingTop="@dimen/dp5"
+                    android:paddingRight="@dimen/dp14"
+                    android:paddingBottom="@dimen/dp5">
 
 
                     <LinearLayout
@@ -176,10 +176,10 @@
                                 android:layout_width="@dimen/dp0"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginLeft="@dimen/spacing_middle"
-                                android:layout_marginTop="@dimen/spacing_medium"
-                                android:layout_marginRight="@dimen/spacing_middle"
-                                android:layout_marginBottom="@dimen/spacing_medium"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_weight="33"
                                 android:visibility="visible"
                                 app:cardBackgroundColor="@color/light_white"
@@ -222,10 +222,10 @@
                                 android:layout_width="@dimen/dp0"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginLeft="@dimen/spacing_middle"
-                                android:layout_marginTop="@dimen/spacing_medium"
-                                android:layout_marginRight="@dimen/spacing_middle"
-                                android:layout_marginBottom="@dimen/spacing_medium"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_weight="33"
                                 android:visibility="visible"
                                 app:cardBackgroundColor="@color/light_white"
@@ -269,10 +269,10 @@
                                 android:layout_width="@dimen/dp0"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginLeft="@dimen/spacing_middle"
-                                android:layout_marginTop="@dimen/spacing_medium"
-                                android:layout_marginRight="@dimen/spacing_middle"
-                                android:layout_marginBottom="@dimen/spacing_medium"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_weight="33"
                                 android:visibility="visible"
                                 app:cardBackgroundColor="@color/light_white"
@@ -300,7 +300,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:gravity="center_horizontal"
-                                        android:text="Carbohydrates"
+                                        android:text="Carbo"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/dark_text"
                                         android:textSize="@dimen/sp11"
@@ -326,11 +326,11 @@
                         android:id="@+id/toggle_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/spacing_medium"
+                        android:layout_margin="@dimen/dp5"
                         android:gravity="center_horizontal"
                         android:text="More"
                         android:textColor="@color/dark_text"
-                        android:textSize="@dimen/spacing_middle" />
+                        android:textSize="@dimen/sp10" />
 
                 </LinearLayout>
 

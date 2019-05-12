@@ -15,16 +15,6 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <!--<style dayTime="InputStyle" parent="@android:style/TextAppearance">-->
-    <!--<item dayTime="android:textColor">@color/black</item>-->
-    <!--<item dayTime="android:textColorHint">@color/white_text</item>-->
-    <!--<item dayTime="colorAccent">@color/white_text</item>-->
-    <!--<item dayTime="android:textSize">14sp</item>-->
-
-    <!--<item dayTime="colorControlNormal">@color/white_text</item>-->
-    <!--<item dayTime="colorControlActivated">@color/white_text</item>-->
-    <!--<item dayTime="colorControlHighlight">@color/white_text</item>-->
-    <!--</style>-->
 
     <style name="MyTheme.Design.TextInputLayout" parent="Widget.Design.TextInputLayout">
         <item name="colorControlActivated">@color/dark_text</item>
@@ -83,7 +73,7 @@
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:padding">10dp</item>
-        <item name="android:layout_marginTop">@dimen/spacing_medium</item>
+        <item name="android:layout_marginTop">@dimen/dp5</item>
         <item name="android:fontFamily">@font/rns_regular</item>
         <item name="android:background">@drawable/rounded_edit_text</item>
         <item name="android:textColorHint">@color/very_dark_text</item>

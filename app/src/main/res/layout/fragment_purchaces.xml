@@ -31,9 +31,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_3x"
-                    android:layout_marginTop="@dimen/space_1x"
-                    android:layout_marginBottom="@dimen/space_1x"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:layout_marginBottom="@dimen/dp8"
                     android:fontFamily="@font/rns_regular"
                     android:textColor="#777777"
                     android:text="Our Promo"
@@ -41,9 +41,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp1"
-                    android:layout_marginLeft="@dimen/space_3x"
-                    android:layout_marginRight="@dimen/space_3x"
-                    android:layout_marginBottom="@dimen/spacing_large"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginRight="@dimen/dp24"
+                    android:layout_marginBottom="@dimen/dp14"
                     android:background="@color/дивайдер"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -68,9 +68,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_3x"
-                    android:layout_marginTop="@dimen/space_3x"
-                    android:layout_marginBottom="@dimen/space_1x"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginTop="@dimen/dp24"
+                    android:layout_marginBottom="@dimen/dp8"
                     android:fontFamily="@font/rns_regular"
                     android:textColor="#777777"
                     android:text="Programs"
@@ -78,8 +78,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp1"
-                    android:layout_marginLeft="@dimen/space_3x"
-                    android:layout_marginRight="@dimen/space_3x"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginRight="@dimen/dp24"
                     android:background="@color/дивайдер"/>
                 <ListView
                     android:id="@+id/list_program"

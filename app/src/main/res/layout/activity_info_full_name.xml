@@ -63,7 +63,8 @@
                 android:hint="Middlename"
                 android:maxLength="30"
                 style="@style/EditTextFoodex"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:imeOptions="actionDone"/>
 
 
             <LinearLayout

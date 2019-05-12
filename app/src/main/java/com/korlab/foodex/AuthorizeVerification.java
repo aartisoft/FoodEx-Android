@@ -53,7 +53,6 @@ public class AuthorizeVerification extends AppCompatActivity {
             finish();
         }
         textPhone.setText(user.getPhone());
-
         countDownTimer(TIME_OUT);
         inputCodeLayout.setOnInputCompleteListener(code -> {
             Helper.log(code);
@@ -62,6 +61,8 @@ public class AuthorizeVerification extends AppCompatActivity {
             Bungee.slideLeft(getInstance());
             finish();
         });
+//        inputCodeLayout.requestFocus();
+//        Helper.showKeyboard(getInstance(), inputCodeLayout);
         buttonWrong.setOnClickListener(v -> super.finish());
         buttonResend.setOnClickListener(v -> resendSms());
     }

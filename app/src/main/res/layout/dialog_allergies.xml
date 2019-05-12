@@ -37,7 +37,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_2x"
+                    android:layout_marginTop="@dimen/dp14"
                     android:fontFamily="@font/rns_medium"
                     android:text="Allergies"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -61,7 +61,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_2x"
+                    android:layout_marginTop="@dimen/dp14"
                     android:fontFamily="@font/rns_medium"
                     android:text="Dislikes"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -96,7 +96,7 @@
             <com.korlab.foodex.UI.MaterialButton
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp20"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 app:mb_borderColor="@color/white"
                 app:mb_borderWidth="@dimen/dp1"
@@ -112,7 +112,7 @@
             <com.korlab.foodex.UI.MaterialButton
                 android:id="@+id/ok"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp20"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 app:mb_borderColor="@color/white"
                 app:mb_borderWidth="@dimen/dp1"

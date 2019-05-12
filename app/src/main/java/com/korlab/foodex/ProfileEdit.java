@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -79,7 +80,13 @@ public class ProfileEdit extends AppCompatActivity {
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
 
         dateBirthday = new int[]{user.getBirthdayDay(), user.getBirthdayMonth(), user.getBirthdayYear()};
-        buttonBirthday.setOnClickListener((v) -> showCalendarDialog(getInstance(), dateBirthday));
+
+        inputBirthday.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                showCalendarDialog(getInstance(), dateBirthday);
+            }
+            return true;
+        });
         toolbarLeft.setOnClickListener(v -> Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_without_saving, null),
                 this::onPositive, this::onNegative));
         toolbarRight.setOnClickListener(v -> {
@@ -272,7 +279,7 @@ public class ProfileEdit extends AppCompatActivity {
         inputName = findViewById(R.id.input_n);
         inputLastname = findViewById(R.id.input_l);
         inputMiddlename = findViewById(R.id.input_m);
-        buttonBirthday = findViewById(R.id.button_birthday);
+//        buttonBirthday = findViewById(R.id.button_birthday);
         inputBirthday = findViewById(R.id.input_birthday);
         inputManCheckbox = findViewById(R.id.input_man_checkbox);
         inputWomanCheckbox = findViewById(R.id.input_woman_checkbox);
