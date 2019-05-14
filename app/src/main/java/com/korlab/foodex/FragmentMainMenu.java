@@ -112,17 +112,18 @@ public class FragmentMainMenu extends Fragment {
 
                 ViewPager viewPager;
                 viewPager = view.findViewById(R.id.promo_view_pager);
-                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity));
                 List<Promo> pagerArr = new ArrayList<>();
 
-                pagerArr.add(new Promo(1, "+100 UAH to your account for every kilogram dropped!", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_1)).getBitmap()));
-                pagerArr.add(new Promo(2, "Loyalty Club FoodEx", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_2)).getBitmap()));
-                pagerArr.add(new Promo(3, "Order delivery of 2 programs to one address - get a discount!", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_3)).getBitmap()));
-                pagerArr.add(new Promo(4, "Invite Friends - get +150 UAH from each order!", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_4)).getBitmap()));
-                pagerArr.add(new Promo(5, "Order 3 salads +1 salad for free!", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_5)).getBitmap()));
-                pagerArr.add(new Promo(6, "Become a FoodEx Partner", new Date(2019, 3, 14), ((BitmapDrawable) activity.getDrawable(R.drawable.promo_6)).getBitmap()));
-                viewPager.setAdapter(new PromoAdapter(activity.getLayoutInflater(), pagerArr));
+                pagerArr.add(new Promo(1, "+100 UAH to your account for every kilogram dropped!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/2.jpg"));
+                pagerArr.add(new Promo(2, "Loyalty Club FoodEx", new Date(2019, 3, 14), "https://foodexhub.com.ua/images/oldpromo/14877871_325929737775565_251872099_n.jpg"));
+                pagerArr.add(new Promo(3, "Order delivery of 2 programs to one address - get a discount!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/summer_ration.jpg"));
+                pagerArr.add(new Promo(4, "Invite Friends - get +150 UAH from each order!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/petrushka.jpg"));
+                pagerArr.add(new Promo(5, "Order 3 salads +1 salad for free!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/stakan-v-mashine.jpg"));
+                pagerArr.add(new Promo(6, "Become a FoodEx Partner", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/sale.jpg"));
 
+                viewPager.setAdapter(new PromoAdapter(LayoutInflater.from(getActivity()), pagerArr));
+                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity));
+//                viewPager.setOffscreenPageLimit(10);
 //                Slide
 //                slidePromoPage(viewPager, pagerArr.size());
 

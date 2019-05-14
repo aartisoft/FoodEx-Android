@@ -83,11 +83,10 @@ public class PromoAdapter extends PagerAdapter {
 
         name.setText(item.getName());
         date.setText(item.getDate().getDay() + " " + Helper.getTranslate(Helper.Translate.months, MainMenu.getInstance()).get(item.getDate().getMonth() - 1));
-        image.setImageBitmap(item.getImage());
-//        Glide.with(view.getContext())
-//                .load(item.getImage())
-//                .into(image);
+//        image.setImageBitmap(item.getImage());
 //        promoName.setText(position+"");
+        Helper.log(item.getImage());
+        Glide.with(MainMenu.getInstance().getBaseContext()).load(item.getImage()).into(image);
 
         return view;
     }
