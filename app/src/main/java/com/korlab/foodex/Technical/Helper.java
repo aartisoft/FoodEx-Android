@@ -268,6 +268,7 @@ public class Helper {
         dialog.setContentView(dialogId);
         dialog.setCancelable(true);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.transparent);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
@@ -291,20 +292,9 @@ public class Helper {
         dialog.getWindow().setAttributes(lp);
         Window window = dialog.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         dialog.show();
     }
 
-    public static void setUpHintColor(EditText editText, TextInputLayout textInputLayout, int color) {
-        textInputLayout.setHintTextAppearance(0);
-        String hint = textInputLayout.getHint().toString();
-        final SpannableStringBuilder hintWithAsterisk = getHintWithAsterisk(hint, color);
-        if (!editText.hasFocus()) {
-            textInputLayout.setHint(null);
-            editText.setHint(hintWithAsterisk);
-        }
-        setOnFocuschangeListener(editText, textInputLayout, hintWithAsterisk);
-    }
     public static void addRedAsterisk(EditText editText){
         String text = editText.getHint().toString();
         String asterisk = " *";
@@ -316,33 +306,6 @@ public class Helper {
         builder.setSpan(new ForegroundColorSpan(Color.RED), start, end,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         editText.setHint(builder);
-    }
-
-    private static void setOnFocuschangeListener(final EditText editText, final TextInputLayout textInputLayout, final SpannableStringBuilder hintWithAsterisk) {
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    textInputLayout.setHint(hintWithAsterisk);
-                    editText.setHint(null);
-                } else if (editText.getText().toString().length() == 0) {
-                    textInputLayout.setHint(null);
-                    editText.setHint(hintWithAsterisk);
-                }
-            }
-        });
-    }
-
-    private static SpannableStringBuilder getHintWithAsterisk(String hint, int color) {
-        String asterisk = " *";
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(hint);
-        int start = builder.length();
-        builder.append(asterisk);
-        int end = builder.length();
-        builder.setSpan(new ForegroundColorSpan(color), start, end,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return builder;
     }
 
     public static void enableButton(Activity activity, MaterialButton button) {
@@ -359,7 +322,7 @@ public class Helper {
     }
 
     public static boolean isEmailValid(String email) {
-        String regExpn =
+        String regExp =
                 "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
                         + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
                         + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
@@ -368,7 +331,7 @@ public class Helper {
                         + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
 
         CharSequence inputStr = email;
-        Pattern pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(regExp, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(inputStr);
         if (matcher.matches())
             return true;

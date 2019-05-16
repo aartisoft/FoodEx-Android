@@ -50,7 +50,7 @@
                 app:rbb_indicatorHeight="@dimen/dp2"
                 app:rbb_tabs="@xml/tabs"
                 app:rbb_textColor="#C1C1C1"
-                app:rbb_textSize="6sp" />
+                app:rbb_textSize="@dimen/sp9" />
 
         </LinearLayout>
 

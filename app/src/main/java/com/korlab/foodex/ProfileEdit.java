@@ -71,6 +71,7 @@ public class ProfileEdit extends AppCompatActivity {
         arrayMonth = Helper.getTranslate(Helper.Translate.months, getInstance());
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         Helper.setStatusBarIconWhite(getWindow());
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         findView();
         toolbarContainer.addView(new Toolbar(getInstance(), false, "Edit Profile",
@@ -157,7 +158,6 @@ public class ProfileEdit extends AppCompatActivity {
         dialog.getWindow().setAttributes(lp);
         Window window = dialog.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         dialog.show();
     }
 
@@ -387,7 +387,6 @@ public class ProfileEdit extends AppCompatActivity {
         dialog.getWindow().setAttributes(lp);
         Window window = dialog.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         dialog.show();
     }
     @SuppressWarnings("all")

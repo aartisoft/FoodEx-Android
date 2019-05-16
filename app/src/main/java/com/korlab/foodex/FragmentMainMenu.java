@@ -132,58 +132,58 @@ public class FragmentMainMenu extends Fragment {
                 List<Program> programs = new ArrayList<>();
                 programs.add(new Program("Express Program of Loosing Weight",
                         "To get the result in the shortest term.",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_1)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/ekspress1.jpg"));
                 programs.add(new Program("Smooth Loosing Weight",
                         "For comfortable loosing weight",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_2)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/plavnoe1.jpg"));
                 programs.add(new Program("Sports Menu",
                         "For those with active life style and intensive gym trainings",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_3)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/sport1.jpg"));
                 programs.add(new Program("Sport-PRO",
                         "For those with active life style, hard trainings and sports",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_4)).getBitmap()));
+                        "https://media.foodexhub.com.ua/admin/sport-pro-1.jpg"));
                 programs.add(new Program("Balanced Eating",
                         "To maintain good physical form and stick to healthy eating",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_5)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/balans1.jpg"));
                 programs.add(new Program("Meat-free Menu",
                         "The ration is saturated with vegetable food including seafood",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_6)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/bezmyasa1.jpg"));
                 programs.add(new Program("Vegetarian Menu",
                         "Balanced eating for vegetarians",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_7)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/vegan1.jpg"));
                 programs.add(new Program("Individual Menu",
                         "Developed specially for YOU by doctor-dietician and the Chef",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_8)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/ind1.jpg"));
                 programs.add(new Program("Smart Lunch",
                         "Healthy food in your office",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_9)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/smart1.jpg"));
                 programs.add(new Program("2 weeks with Discipline",
                         "Impressive loose of weight during 14 days (right eating + trainings)",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_10)).getBitmap()));
+                        "https://media.foodexhub.com.ua/programList/sofia1.png"));
                 programs.add(new Program("Diet No 5",
                         "Well-balanced program according to the diet “Table No 5”",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_11)).getBitmap()));
+                        "https://media.foodexhub.com.ua/admin/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BC%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%81%D1%82%D1%8B.jpg"));
                 programs.add(new Program("Diabetes Mellitus",
                         "Well-balanced program according to the diet “Table No 9”",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_12)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/stol51.jpg"));
                 programs.add(new Program("Gluten-free Menu",
                         "For those with medical prescriptions or personal desire to stick to gluten-free diet",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_13)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/diabet1.jpg"));
                 programs.add(new Program("Lactose Free",
                         "Lactose-free ration for people with a lactose intolerance",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_14)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/bezgluten11.jpg"));
                 programs.add(new Program("For pregnant women and nursing mothers",
                         "Well-balanced eating during pregnancy and breast feeding",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_15)).getBitmap()));
+                        "https://media.foodexhub.com.ua/programList/lacto1.jpg"));
                 programs.add(new Program("Kids’ Menu “Smart Kids”",
                         "For business parents who care about full-scale healthy eating of a child",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_16)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/berem1.jpg"));
                 programs.add(new Program("Gift certificate",
                         "Gift certificate FoodEx for your friends",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_17)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/detskoe1.jpg"));
                 programs.add(new Program("theBODYology",
                         "Online weight loss program for women in the menu on the dietitian + video training",
-                        ((BitmapDrawable) activity.getDrawable(R.drawable.program_18)).getBitmap()));
+                        "https://media.foodexhub.com.ua/images/smi/thebodyology1.jpg"));
 
 
                 ProgramAdapter adapter = new ProgramAdapter(programs, getActivity().getBaseContext());

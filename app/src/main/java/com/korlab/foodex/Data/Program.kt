@@ -2,10 +2,10 @@ package com.korlab.foodex.Data
 
 import android.graphics.Bitmap
 
-class Program(name: String, smallDescription: String, image: Bitmap) {
+class Program(name: String, smallDescription: String, image: String) {
     var name: String = ""
     var smallDescription: String = ""
-    var image: Bitmap? = null
+    var image: String? = null
 
     var price: Int = 0
 

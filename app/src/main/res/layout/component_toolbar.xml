@@ -74,7 +74,7 @@
         <com.korlab.foodex.UI.NavigationTabStrip
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp50"
+            android:layout_height="@dimen/dp42"
             app:nts_active_color="?colorPrimary"
             app:nts_animation_duration="250"
             app:nts_color="#000"
@@ -82,7 +82,7 @@
             app:nts_factor="1.5"
             app:nts_gravity="bottom"
             app:nts_inactive_color="#939393"
-            app:nts_size="@dimen/sp14"
+            app:nts_size="@dimen/sp13"
             app:nts_type="line"
             app:nts_typeface="fonts/rns_bold"
             app:nts_weight="@dimen/dp3" />
