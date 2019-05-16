@@ -3,6 +3,7 @@ package com.korlab.foodex;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,9 +21,13 @@ import com.korlab.foodex.Components.HistoryCard;
 import com.korlab.foodex.Data.Dish;
 import com.korlab.foodex.Data.Meal;
 import com.korlab.foodex.Data.ProgramDay;
+import com.korlab.foodex.Data.Promo;
+import com.korlab.foodex.Promo.PromoAdapter;
 import com.korlab.foodex.Technical.Helper;
+import com.korlab.foodex.UI.CustomPagerTransformer;
 import com.korlab.foodex.UI.group.GroupItemDecoration;
 import com.korlab.foodex.UI.group.GroupRecyclerView;
+import com.korlab.foodex.Week.WeekAdapter;
 
 import java.util.ArrayList;
 import java.sql.Date;
@@ -125,36 +130,119 @@ public class FragmentHome extends Fragment {
             dishListDinner.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
             dishListDinner.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
             mealList.add(new Meal(5, dishListDinner));
-            Date date = new Date(2019, 4, i + 1);
+            Date date = new Date(2019, 3, i + 1);
+            Date date2 = new Date(2019, 4, i + 1);
+            Date date3 = new Date(2019, 5, i + 1);
             programDays.put(date, new ProgramDay(date, mealList));
-            programDays.put(new Date(2019, 3, i + 1), new ProgramDay(new Date(2019, 3, i + 1), mealList));
+            programDays.put(date2, new ProgramDay(date2, mealList));
+            programDays.put(date3, new ProgramDay(date3, mealList));
+//            programDays.put(new Date(2019, 3, i + 1), new ProgramDay(new Date(2019, 3, i + 1), mealList));
         }
 
         switch (mPage) {
             case 1:
                 view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
-                List<Item> data;
-                Shop shop;
-                TextView currentItemName;
-                TextView currentItemPrice;
-                DiscreteScrollView itemPicker;
-                currentItemName = view.findViewById(R.id.item_name);
-                currentItemPrice = view.findViewById(R.id.item_price);
-                shop = Shop.get();
-                data = shop.getData();
-                itemPicker = view.findViewById(R.id.item_picker);
-                ShopAdapter shopAdapter = new ShopAdapter(data, view, itemPicker);
-                itemPicker.setAdapter(shopAdapter);
-                itemPicker.addOnItemChangedListener((viewHolder, adapterPosition) -> {
-                    shopAdapter.setCurrent(adapterPosition);
-                    currentItemName.setText(data.get(adapterPosition).getName());
-                    currentItemPrice.setText(data.get(adapterPosition).getPrice());
+//                List<Item> data;
+//                Shop shop;
+//                TextView currentItemName;
+//                TextView currentItemPrice;
+//                DiscreteScrollView itemPicker;
+//                currentItemName = view.findViewById(R.id.item_name);
+//                currentItemPrice = view.findViewById(R.id.item_price);
+//                shop = Shop.get();
+//                data = shop.getData();
+//                itemPicker = view.findViewById(R.id.item_picker);
+//                ShopAdapter shopAdapter = new ShopAdapter(data, view, itemPicker);
+//                itemPicker.setAdapter(shopAdapter);
+//                itemPicker.addOnItemChangedListener((viewHolder, adapterPosition) -> {
+//                    shopAdapter.setCurrent(adapterPosition);
+//                    currentItemName.setText(data.get(adapterPosition).getName());
+//                    currentItemPrice.setText(data.get(adapterPosition).getPrice());
+//                });
+//                itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
+//                itemPicker.setItemTransitionTimeMillis(150);
+//                itemPicker.setItemTransformer(new ScaleTransformer.Builder().setMinScale(0.8f).build());
+                ViewPager viewPager;
+                viewPager = view.findViewById(R.id.week_view_pager);
+                TextView weekDay = view.findViewById(R.id.week_day);
+                TextView weekDate = view.findViewById(R.id.week_date);
+                ImageView prev = view.findViewById(R.id.prev);
+                ImageView next = view.findViewById(R.id.next);
+                List<ProgramDay> pagerArr = new ArrayList<>();
+
+                java.util.Calendar calendar = java.util.Calendar.getInstance();
+                calendar.set(java.util.Calendar.DAY_OF_WEEK, java.util.Calendar.MONDAY);
+
+                for(int i=0; i<7; i++) {
+                    if(i != 0) {
+                        calendar.add(java.util.Calendar.DATE, 1);
+                    }
+                    Date date = new Date(calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH),  calendar.get(java.util.Calendar.DATE));
+                    if(programDays.get(date) != null) {
+                        pagerArr.add(programDays.get(date));
+                    } else {
+                        // TODO: 5/16/2019
+//                        pagerArr.add(programDays.get(date));
+                    }
+                    Helper.log("getTime " + date.toString());
+                }
+                Helper.logObjectToJson("pagerArr " + pagerArr);
+//
+                viewPager.setAdapter(new WeekAdapter(LayoutInflater.from(getActivity()), pagerArr));
+                viewPager.setPageTransformer(false, new CustomPagerTransformer(getActivity()));
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override public void onPageScrolled(int i, float v, int i1) { }
+                    @Override
+                    public void onPageSelected(int i) {
+                        Helper.log("position: " + i);
+                        Date date = new Date(pagerArr.get(i).getDate().getTime());
+                        date.setYear(date.getYear());
+
+                        java.util.Calendar calendar = java.util.Calendar.getInstance();
+                        calendar.setTime(date);
+                        calendar.set(java.util.Calendar.YEAR, calendar.get(java.util.Calendar.YEAR)-1900);
+                        calendar.setFirstDayOfWeek(java.util.Calendar.MONDAY);
+
+                        Helper.log("YEAR "+calendar.get(java.util.Calendar.YEAR));
+                        Helper.log("MONTH "+calendar.get(java.util.Calendar.MONTH));
+                        Helper.log("DATE "+calendar.get(java.util.Calendar.DATE));
+
+                        int dayOfWeek = calendar.get(java.util.Calendar.DAY_OF_WEEK);
+
+                        switch (dayOfWeek) {
+                            case java.util.Calendar.MONDAY:
+                                dayOfWeek = 0;
+                                break;
+                            case java.util.Calendar.TUESDAY:
+                                dayOfWeek = 1;
+                                break;
+                            case java.util.Calendar.WEDNESDAY:
+                                dayOfWeek = 2;
+                                break;
+                            case java.util.Calendar.THURSDAY:
+                                dayOfWeek = 3;
+                                break;
+                            case java.util.Calendar.FRIDAY:
+                                dayOfWeek = 4;
+                                break;
+                            case java.util.Calendar.SATURDAY:
+                                dayOfWeek = 5;
+                                break;
+                            case java.util.Calendar.SUNDAY:
+                                dayOfWeek = 6;
+                                break;
+                        }
+                        weekDay.setText(""+weekDays.get(dayOfWeek));
+                        weekDate.setText(date.getDate() + " " + months.get(date.getMonth()) + ", " + date.getYear());
+                    }
+                    @Override public void onPageScrollStateChanged(int i) { }
                 });
-                itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
-                itemPicker.setItemTransitionTimeMillis(150);
-                itemPicker.setItemTransformer(new ScaleTransformer.Builder().setMinScale(0.8f).build());
-
-
+                prev.setOnClickListener(v->{
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+                });
+                next.setOnClickListener(v->{
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                });
                 break;
             case 2:
                 view = inflater.inflate(R.layout.fragment_home_history, container, false);
@@ -214,13 +302,13 @@ public class FragmentHome extends Fragment {
                 mCalendarView.setOnYearChangeListener(year -> {
                     mYear = year;
                     mMonth = mCalendarView.getSelectedCalendar().getMonth();
-                    mTextMonthDay.setText(String.valueOf(mMonth));
+//                    mTextMonthDay.setText(" " + months.get(mMonth - 1));
                     initProgramsDays(mYear, mMonth);
                 });
                 mCalendarView.setOnMonthChangeListener((year, month) -> {
                     mYear = year;
                     mMonth = month;
-                    mTextMonthDay.setText(String.valueOf(mMonth));
+//                    mTextMonthDay.setText(" " + months.get(mMonth - 1));
                     initProgramsDays(mYear, mMonth);
                 });
                 mCalendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
@@ -295,6 +383,7 @@ public class FragmentHome extends Fragment {
     private CalendarView mCalendarView;
     private int mYear, mMonth;
     private List<String> months = Helper.getTranslate(Helper.Translate.months, MainMenu.getInstance());
+    private List<String> weekDays = Helper.getTranslate(Helper.Translate.weekDays, MainMenu.getInstance());
     private CalendarLayout mCalendarLayout;
 
 

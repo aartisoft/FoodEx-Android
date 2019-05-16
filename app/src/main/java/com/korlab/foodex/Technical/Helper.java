@@ -345,10 +345,10 @@ public class Helper {
     }
 
 
-    public enum Translate { months, dishTypes }
+    public enum Translate { months, weekDays, dishTypes }
     enum DishTypes { salad, soup, hotter, garnish, drink }
     enum Months { january, february, march, april, may, june, july, august, september, october, november, december }
-
+    enum WeekDays { monday, tuesday, wednesday, thursday, friday, saturday, sunday }
 
     public static List<String> getTranslate(Translate translate, Activity a) {
         List<String> res = new ArrayList<>();
@@ -359,6 +359,10 @@ public class Helper {
                 break;
             case months:
                 for (Months dir : Months.values())
+                    res.add(a.getResources().getString(a.getResources().getIdentifier(dir.name(), "string", a.getPackageName())));
+                break;
+            case weekDays:
+                for (WeekDays dir : WeekDays.values())
                     res.add(a.getResources().getString(a.getResources().getIdentifier(dir.name(), "string", a.getPackageName())));
                 break;
         }
