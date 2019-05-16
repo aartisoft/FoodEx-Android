@@ -11,7 +11,6 @@ import android.view.ViewTreeObserver
 import android.widget.LinearLayout
 import com.iammert.library.readablebottombar.ConfigurationXmlParser
 import com.korlab.foodex.R
-import java.lang.IllegalArgumentException
 
 class ReadableBottomBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : LinearLayout(context, attrs, defStyleAttr) {
@@ -69,10 +68,11 @@ class ReadableBottomBar @JvmOverloads constructor(context: Context, attrs: Attri
         tabInitialSelectedIndex = typedArray.getInt(R.styleable.ReadableBottomBar_rbb_initialIndex, 0)
 
         val textSize = typedArray.getDimension(R.styleable.ReadableBottomBar_rbb_textSize, 15f)
-        val textTypeface = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val textTypeface =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             typedArray.getFont(R.styleable.ReadableBottomBar_rbb_textTypeface)
         } else {
-            TODO("VERSION.SDK_INT < O")
+            Typeface.DEFAULT
         }
         val textColor = typedArray.getColor(R.styleable.ReadableBottomBar_rbb_textColor, Color.BLACK)
         val activeItemType = ItemType.getType(typedArray.getInt(R.styleable.ReadableBottomBar_rbb_activeItemType, ItemType.Icon.value))

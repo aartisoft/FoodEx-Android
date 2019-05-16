@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp10"
+    android:layout_marginTop="@dimen/dp10"
+    android:layout_marginRight="@dimen/dp10"
+    android:visibility="visible"
+    app:cardBackgroundColor="#ffffff"
+    app:cardCornerRadius="@dimen/dp8"
+    app:cardElevation="@dimen/dp3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/calendar_card_empty"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp120"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="@dimen/dp8"
+                android:layout_height="match_parent"
+                android:background="@color/dark_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:paddingBottom="@dimen/dp10">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/rns_regular"
+                    android:gravity="center_horizontal"
+                    android:text="No data for selected day"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/dark_text"
+                    android:textSize="@dimen/sp28" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/calendar_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/color_view"
+                android:layout_width="@dimen/dp8"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dp10">
+
+                <LinearLayout
+                    android:id="@+id/toggle_to_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp14"
+                    android:layout_marginRight="@dimen/dp14"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <View
+                        android:layout_width="@dimen/dp14"
+                        android:layout_height="@dimen/dp0" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/image"
+                                    android:layout_width="@dimen/dp48"
+                                    android:layout_height="@dimen/dp48"
+                                    android:layout_marginRight="@dimen/dp10"
+                                    android:src="@drawable/diet_card_brunch" />
+
+                                <TextView
+                                    android:id="@+id/header"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/rns_regular"
+                                    android:gravity="center_vertical"
+                                    android:text="Brunch"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                    android:textColor="?colorPrimary"
+                                    android:textSize="@dimen/sp16"
+                                    android:visibility="visible" />
+                            </LinearLayout>
+
+
+                            <TextView
+                                android:id="@+id/date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="@dimen/dp3"
+                                android:fontFamily="@font/rns_regular"
+                                android:gravity="center_vertical"
+                                android:text="8:00"
+                                android:textColor="@color/dark_text"
+                                android:textSize="@dimen/sp12"
+                                android:visibility="visible" />
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <!--Content-->
+
+                <LinearLayout
+                    android:id="@+id/lyt_expand_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dp14"
+                    android:paddingTop="@dimen/dp5"
+                    android:paddingRight="@dimen/dp14"
+                    android:paddingBottom="@dimen/dp5">
+
+
+                    <LinearLayout
+                        android:id="@+id/wrapper_categories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="@dimen/dp10">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="99">
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/dp5"
+                                android:layout_weight="33"
+                                android:visibility="visible"
+                                app:cardBackgroundColor="@color/light_white"
+                                app:cardCornerRadius="@dimen/dp4"
+                                app:cardElevation="@dimen/dp0">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:paddingTop="@dimen/dp5"
+                                    android:paddingBottom="@dimen/dp5">
+                                    <com.robinhood.ticker.TickerView
+                                        android:id="@+id/proteins"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:gravity="center_horizontal"
+                                        android:text="0"
+                                        android:textColor="@color/black_light"
+                                        android:textSize="@dimen/sp16" />
+
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center_horizontal"
+                                        android:text="Proteins"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:textColor="@color/dark_text"
+                                        android:textSize="@dimen/sp11"
+                                        android:visibility="visible" />
+
+
+                                </LinearLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/dp5"
+                                android:layout_weight="33"
+                                android:visibility="visible"
+                                app:cardBackgroundColor="@color/light_white"
+                                app:cardCornerRadius="@dimen/dp4"
+                                app:cardElevation="@dimen/dp0">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:paddingTop="@dimen/dp5"
+                                    android:paddingBottom="@dimen/dp5">
+
+
+                                    <com.robinhood.ticker.TickerView
+                                        android:id="@+id/fats"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:gravity="center_horizontal"
+                                        android:text="0"
+                                        android:textColor="@color/black_light"
+                                        android:textSize="@dimen/sp16" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center_horizontal"
+                                        android:text="Fats"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:textColor="@color/dark_text"
+                                        android:textSize="@dimen/sp11"
+                                        android:visibility="visible" />
+
+
+                                </LinearLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/dp5"
+                                android:layout_weight="33"
+                                android:visibility="visible"
+                                app:cardBackgroundColor="@color/light_white"
+                                app:cardCornerRadius="@dimen/dp4"
+                                app:cardElevation="@dimen/dp0">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:paddingTop="@dimen/dp5"
+                                    android:paddingBottom="@dimen/dp5">
+
+                                    <com.robinhood.ticker.TickerView
+                                        android:id="@+id/carbo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:gravity="center_horizontal"
+                                        android:text="0"
+                                        android:textColor="@color/black_light"
+                                        android:textSize="@dimen/sp16" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center_horizontal"
+                                        android:text="Carbo"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:textColor="@color/dark_text"
+                                        android:textSize="@dimen/sp11"
+                                        android:visibility="visible" />
+
+
+                                </LinearLayout>
+
+                            </android.support.v7.widget.CardView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!--Toogle-->
+                <LinearLayout
+                    android:id="@+id/bt_toggle_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/toggle_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp5"
+                        android:gravity="center_horizontal"
+                        android:text="More"
+                        android:textColor="@color/dark_text"
+                        android:textSize="@dimen/sp10" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp50">
+
+    <LinearLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:layout_marginBottom="@dimen/dp8"
+                    android:fontFamily="@font/rns_regular"
+                    android:textColor="#777777"
+                    android:text="Our Promo"
+                    android:textSize="@dimen/sp16" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp1"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginRight="@dimen/dp24"
+                    android:layout_marginBottom="@dimen/dp14"
+                    android:background="@color/дивайдер"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/promo_view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp180"
+                        android:layout_alignParentBottom="true"
+                        android:clipToPadding="false"
+                        android:paddingEnd="@dimen/dp18"
+                        android:paddingLeft="@dimen/dp18"
+                        android:paddingRight="@dimen/dp18"
+                        android:paddingStart="@dimen/dp18"/>
+                </RelativeLayout>
+
+                <!--<discretescrollview.DiscreteScrollView-->
+                    <!--android:id="@+id/item_picker"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginTop="@dimen/dp24"
+                    android:layout_marginBottom="@dimen/dp8"
+                    android:fontFamily="@font/rns_regular"
+                    android:textColor="#777777"
+                    android:text="Programs"
+                    android:textSize="@dimen/sp16" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp1"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginRight="@dimen/dp24"
+                    android:background="@color/дивайдер"/>
+                <ListView
+                    android:id="@+id/list_program"
+                    android:listSelector="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

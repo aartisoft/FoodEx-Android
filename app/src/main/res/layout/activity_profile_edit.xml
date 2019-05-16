@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ProfileEdit"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+
+
+    <LinearLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/dp30"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="@dimen/dp20">
+                    <ImageView
+                        android:layout_width="@dimen/dp90"
+                        android:layout_height="@dimen/dp90"
+                        android:src="@drawable/profile_icon"
+                        android:layout_gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/rns_light"
+                        android:textColor="@color/black_light"
+                        android:text="click for edit"
+                        android:textSize="@dimen/sp13"
+                        android:layout_marginBottom="@dimen/dp10" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp14"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/dark_text"
+                    android:text="Delivery info"
+                    android:textSize="@dimen/sp19" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/input_text"
+                    android:text="On weekdays:"
+                    android:textSize="@dimen/sp16" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/input_weekdays_street"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:hint="Street"
+                        android:maxLength="30"
+                        android:layout_weight="60"
+                        android:lines="1"
+                        style="@style/EditTextFoodex"/>
+
+                    <EditText
+                        android:id="@+id/input_weekdays_house"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:hint="h."
+                        android:layout_weight="20"
+                        android:lines="1"
+                        android:maxLength="10"
+                        style="@style/EditTextFoodex"/>
+
+                    <EditText
+                        android:id="@+id/input_weekdays_apartment"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:hint="ap."
+                        android:layout_weight="20"
+                        android:lines="1"
+                        android:maxLength="10"
+                        style="@style/EditTextFoodex"/>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp14"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/input_text"
+                    android:text="On weekends:"
+                    android:textSize="@dimen/sp16" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <EditText
+                        android:id="@+id/input_weekends_street"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:hint="Street"
+                        android:maxLength="30"
+                        android:layout_weight="60"
+                        android:lines="1"
+                        style="@style/EditTextFoodex"/>
+
+                    <EditText
+                        android:id="@+id/input_weekends_house"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:hint="h."
+                        android:maxLength="10"
+                        android:layout_weight="20"
+                        android:lines="1"
+                        style="@style/EditTextFoodex"/>
+
+                    <EditText
+                        android:id="@+id/input_weekends_apartment"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:hint="h."
+                        android:maxLength="10"
+                        android:layout_weight="20"
+                        android:lines="1"
+                        style="@style/EditTextFoodex"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/button_delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dp14">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/rns_medium"
+                        android:textColor="@color/input_text"
+                        android:text="Deliver food delivery in:"
+                        android:textSize="@dimen/sp16" />
+                    <TextView
+                        android:id="@+id/input_delivery_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Package"
+                        android:fontFamily="@font/rns_medium"
+                        android:textColor="@color/dark_text"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:textSize="@dimen/sp16"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/input_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp14"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:hint="Note (example: There is intercom)"
+                    android:maxLength="200"
+                    android:lines="5"
+                    style="@style/EditTextFoodex"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp14"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/dark_text"
+                    android:text="Personal info"
+                    android:textSize="@dimen/sp19" />
+
+                <EditText
+                    android:id="@+id/input_n"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:hint="Name"
+                    android:maxLength="30"
+                    style="@style/EditTextFoodex"
+                    android:inputType="text"/>
+
+
+                <EditText
+                    android:id="@+id/input_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:hint="Surname"
+                    android:maxLength="30"
+                    style="@style/EditTextFoodex"
+                    android:inputType="text"/>
+
+                <EditText
+                    android:id="@+id/input_m"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:hint="Middlename"
+                    android:maxLength="30"
+                    style="@style/EditTextFoodex"
+                    android:inputType="text"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/input_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:hint="Birthday"
+                        style="@style/EditTextFoodex"
+                        android:inputType="text"/>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rns_medium"
+                        android:textColor="@color/input_text"
+                        android:text="Sex:"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp16" />
+
+                    <LinearLayout
+                        android:id="@+id/input_man"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1">
+                        <com.uniquestudio.library.CircleCheckBox
+                            android:id="@+id/input_man_checkbox"
+                            android:layout_width="@dimen/dp38"
+                            android:layout_height="@dimen/dp38"
+                            android:layout_marginRight="@dimen/dp10"
+                            android:layout_centerInParent="true"
+                            app:border_width="@dimen/dp2"
+                            app:background_color="#F5F5F5"
+                            app:border_color="#F5F5F5"
+                            app:tick_color="@color/colorPrimary"
+                            app:tick_width="@dimen/dp2"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Man"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/input_woman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1">
+                        <com.uniquestudio.library.CircleCheckBox
+                            android:id="@+id/input_woman_checkbox"
+                            android:layout_width="@dimen/dp38"
+                            android:layout_height="@dimen/dp38"
+                            android:layout_marginRight="@dimen/dp10"
+                            android:layout_centerInParent="true"
+                            app:border_width="@dimen/dp2"
+                            app:background_color="#F5F5F5"
+                            app:border_color="#F5F5F5"
+                            app:tick_color="@color/colorPrimary"
+                            app:tick_width="@dimen/dp2"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Woman"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/input_growth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:hint="Growth"
+                    android:maxLength="17"
+                    style="@style/EditTextFoodex"
+                    android:inputType="number"/>
+                <EditText
+                    android:id="@+id/input_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:hint="Weight"
+                    android:maxLength="17"
+                    style="@style/EditTextFoodex"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp14"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/rns_medium"
+                    android:textColor="@color/dark_text"
+                    android:text="Contact info"
+                    android:textSize="@dimen/sp19" />
+
+                <EditText
+                    android:id="@+id/input_e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:hint="Email"
+                    android:maxLength="40"
+                    style="@style/EditTextFoodex"
+                    android:inputType="textEmailAddress"/>
+
+                <EditText
+                    android:id="@+id/input_p"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:hint="Phone"
+                    android:maxLength="13"
+                    style="@style/EditTextFoodex"
+                    android:inputType="textEmailAddress"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

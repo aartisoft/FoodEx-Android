@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/dp10"
+    app:cardElevation="@dimen/dp3"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp25"
+            android:paddingBottom="@dimen/dp25"
+            android:paddingLeft="@dimen/dp30"
+            android:paddingRight="@dimen/dp30"
+            android:paddingStart="@dimen/dp30"
+            android:paddingEnd="@dimen/dp30">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rns_medium"
+                    android:text="Rate our service"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/very_dark_text" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:fontFamily="@font/rns_light"
+                    android:text="Rate our service in the following areas"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/dark_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:weightSum="100">
+                <TextView
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rns_medium"
+                    android:text="Delivery"
+                    android:layout_marginRight="@dimen/dp14"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/very_dark_text"
+                    android:layout_weight="30"/>
+                <com.hedgehog.ratingbar.RatingBar
+                    android:id="@+id/rating_delivery"
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:clickable="true"
+                    app:halfstart="false"
+                    app:starCount="5"
+                    app:starEmpty="@drawable/star"
+                    app:starFill="@drawable/star_fill"
+                    app:starImageHeight="@dimen/dp40"
+                    app:starImageSize="@dimen/dp10"
+                    app:starImagePadding="@dimen/dp20"
+                    app:starImageWidth="@dimen/dp40"
+                    android:layout_weight="70" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:weightSum="100">
+                <TextView
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rns_medium"
+                    android:text="Food"
+                    android:layout_marginRight="@dimen/dp14"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/very_dark_text"
+                    android:layout_weight="30"/>
+                <com.hedgehog.ratingbar.RatingBar
+                    android:id="@+id/rating_food"
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:clickable="true"
+                    app:halfstart="false"
+                    app:starCount="5"
+                    app:starEmpty="@drawable/star"
+                    app:starFill="@drawable/star_fill"
+                    app:starImageHeight="@dimen/dp40"
+                    app:starImageSize="@dimen/dp10"
+                    app:starImagePadding="@dimen/dp20"
+                    app:starImageWidth="@dimen/dp40"
+                    android:layout_weight="70" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:weightSum="100">
+                <TextView
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rns_medium"
+                    android:text="Manager"
+                    android:layout_marginRight="@dimen/dp14"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/very_dark_text"
+                    android:layout_weight="30"/>
+                <com.hedgehog.ratingbar.RatingBar
+                    android:id="@+id/rating_manager"
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:clickable="true"
+                    app:halfstart="false"
+                    app:starCount="5"
+                    app:starEmpty="@drawable/star"
+                    app:starFill="@drawable/star_fill"
+                    app:starImageHeight="@dimen/dp40"
+                    app:starImageSize="@dimen/dp10"
+                    app:starImagePadding="@dimen/dp20"
+                    app:starImageWidth="@dimen/dp40"
+                    android:layout_weight="70" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:weightSum="100">
+                <TextView
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rns_medium"
+                    android:text="App"
+                    android:layout_marginRight="@dimen/dp14"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/very_dark_text"
+                    android:layout_weight="30"/>
+                <com.hedgehog.ratingbar.RatingBar
+                    android:id="@+id/rating_app"
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:clickable="true"
+                    app:halfstart="false"
+                    app:starCount="5"
+                    app:starEmpty="@drawable/star"
+                    app:starFill="@drawable/star_fill"
+                    app:starImageHeight="@dimen/dp40"
+                    app:starImageSize="@dimen/dp10"
+                    app:starImagePadding="@dimen/dp20"
+                    app:starImageWidth="@dimen/dp40"
+                    android:layout_weight="70" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:weightSum="100">
+                <TextView
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rns_medium"
+                    android:text="Site"
+                    android:layout_marginRight="@dimen/dp14"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/very_dark_text"
+                    android:layout_weight="30"/>
+                <com.hedgehog.ratingbar.RatingBar
+                    android:id="@+id/rating_site"
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:clickable="true"
+                    app:halfstart="false"
+                    app:starCount="5"
+                    app:starEmpty="@drawable/star"
+                    app:starFill="@drawable/star_fill"
+                    app:starImageHeight="@dimen/dp40"
+                    app:starImageSize="@dimen/dp10"
+                    app:starImagePadding="@dimen/dp20"
+                    app:starImageWidth="@dimen/dp40"
+                    android:layout_weight="70" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp14"
+                android:fontFamily="@font/rns_light"
+                android:text="If you want, you can leave a comment :)"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/dark_text" />
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your comments (optional)"
+                android:lines="4"
+                android:maxLength="300"
+                style="@style/EditTextFoodex"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp18"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <com.korlab.foodex.UI.MaterialButton
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                app:mb_borderColor="@color/white"
+                app:mb_borderWidth="@dimen/dp1"
+                app:mb_buttonColor="@color/white"
+                app:mb_buttonType="flat"
+                app:mb_cornerRadius="@dimen/dp30"
+                app:mb_rippleColor="@color/ripple_color"
+                app:mb_text="CANCEL"
+                app:mb_textColor="@color/dark_text"
+                app:mb_textSize="@dimen/sp14"
+                android:layout_marginRight="@dimen/dp20"/>
+
+            <com.korlab.foodex.UI.MaterialButton
+                android:id="@+id/ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                app:mb_borderColor="@color/white"
+                app:mb_borderWidth="@dimen/dp1"
+                app:mb_buttonColor="@color/white"
+                app:mb_buttonType="flat"
+                app:mb_cornerRadius="@dimen/dp30"
+                app:mb_rippleColor="@color/ripple_color"
+                app:mb_text="SEND"
+                app:mb_textColor="@color/colorPrimaryDark"
+                app:mb_textSize="@dimen/sp14" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:paddingBottom="@dimen/dp50">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_tool"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp52"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_month_day"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp16"
+                android:textColor="#333333"
+                android:textSize="@dimen/dp25"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/tv_month_day"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp6"
+                android:paddingTop="@dimen/dp12"
+                android:paddingRight="@dimen/dp6"
+                android:paddingBottom="@dimen/dp12"
+                tools:ignore="RelativeOverlap">
+
+                <TextView
+                    android:id="@+id/tv_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp0"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/dp10" />
+
+                <TextView
+                    android:id="@+id/tv_lunar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp0"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/dp10"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_current"
+                android:layout_width="@dimen/dp32"
+                android:layout_height="@dimen/dp32"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp12"
+                android:background="@drawable/bg_ripple">
+
+                <ImageView
+                    android:id="@+id/ib_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_calendar"
+                    android:tint="#333333" />
+
+                <TextView
+                    android:id="@+id/tv_current_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp2"
+                    android:gravity="center"
+                    android:text="13"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sp12" />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <com.haibin.calendarview.CalendarLayout
+            android:id="@+id/calendarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:orientation="vertical"
+            app:calendar_content_view_id="@+id/recyclerView">
+
+            <com.haibin.calendarview.CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                app:calendar_height="@dimen/dp46"
+                app:calendar_padding="@dimen/dp10"
+                app:current_day_lunar_text_color="#333333"
+                app:current_day_text_color="#3ecd8e"
+                app:current_month_lunar_text_color="#CFCFCF"
+                app:current_month_text_color="#333333"
+                app:min_year="1900"
+                app:month_view="com.korlab.foodex.UI.CalendarMonthView"
+                app:other_month_text_color="#e1e1e1"
+                app:scheme_text_color="#333"
+                app:scheme_theme_color="#333"
+                app:selected_text_color="#fff"
+                app:selected_theme_color="#3ecd8e"
+                app:week_background="#fff"
+                app:week_start_with="mon"
+                app:week_text_color="#333333"
+                app:week_view="com.korlab.foodex.UI.CalendarWeekView"
+                app:year_view_day_text_color="#333333"
+                app:year_view_day_text_size="@dimen/dp8"
+                app:year_view_month_text_color="#3ecd8e"
+                app:year_view_month_text_size="@dimen/dp20"
+                app:day_text_size="@dimen/dp18"/>
+
+
+            <com.korlab.foodex.UI.group.GroupRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:group_background="#f2f2f2"
+                app:group_center="false"
+                app:group_has_header="false"
+                app:group_height="@dimen/dp42"
+                android:background="#f2f2f2"
+                app:group_padding_left="@dimen/dp16"
+                app:group_padding_right="@dimen/dp16"
+                app:group_text_color="#555555"
+                app:group_text_size="@dimen/sp14">
+
+
+            </com.korlab.foodex.UI.group.GroupRecyclerView>
+            　
+
+
+
+        </com.haibin.calendarview.CalendarLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

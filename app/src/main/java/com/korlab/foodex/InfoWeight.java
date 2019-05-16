@@ -15,16 +15,19 @@ import com.korlab.foodex.UI.MaterialButton;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class InfoWeight extends AppCompatActivity {
-    private InfoWeight instance;
-    public InfoWeight getInstance() {
+    private static InfoWeight instance;
+
+    public static InfoWeight getInstance() {
         return instance;
     }
+
     private User user;
     private MaterialButton buttonNext;
     private ImageView image;
     private WheelView wvWeight, wvWeightMetrics;
     private int mWeight, mWeightMetrics;
     private String weightStringKg[], weightStringLb[];
+    private double kgLbFactor = 2.2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class InfoWeight extends AppCompatActivity {
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         findView();
         user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
-        changeImage(user.isMale());
+        changeImage(user.getGender());
 
         weightStringKg = new String[400];
         weightStringLb = new String[880];
@@ -57,15 +60,13 @@ public class InfoWeight extends AppCompatActivity {
         buttonNext.setOnClickListener((v) -> {
             user.setWeight(mWeight);
             user.setWeightMetrics((mWeightMetrics != 0));
-            Intent intent = new Intent(getInstance(), InfoGrowth.class);
-            intent.putExtra("user", Helper.toJson(user));
-            startActivity(intent);
+            startActivity(new Intent(getInstance(), InfoGrowth.class).putExtra("user", Helper.toJson(user)));
             Bungee.slideLeft(getInstance());
         });
     }
 
-    private void changeImage(boolean isMale) {
-        if (isMale) {
+    private void changeImage(boolean gender) {
+        if (!gender) {
             image.setImageDrawable(getDrawable(R.drawable.man_weight));
         } else {
             image.setImageDrawable(getDrawable(R.drawable.woman_weight));
@@ -74,12 +75,12 @@ public class InfoWeight extends AppCompatActivity {
 
     private void changeMetrics(int value, int newIndex) {
         if (newIndex == 0) {
-            int newValue = (int) Math.ceil(value / 2.2);
+            int newValue = (int) Math.ceil(value / kgLbFactor);
             Helper.log("change to KG: " + value + " lb => " + newValue + " kg");
             wvWeight.setEntries(weightStringKg);
             wvWeight.setCurrentIndex(newValue - 1, true);
         } else {
-            int newValue = (int) Math.floor(value * 2.2);
+            int newValue = (int) Math.floor(value * kgLbFactor);
             Helper.log("change to LB: " + value + " kg => " + newValue + " lb");
             wvWeight.setEntries(weightStringLb);
             wvWeight.setCurrentIndex(newValue - 1, true);

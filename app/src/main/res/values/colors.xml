@@ -3,19 +3,27 @@
     <color name="colorPrimaryVeryLight">#A6E4B5</color>
     <color name="colorPrimaryLight">#7dcc90</color>
     <color name="colorPrimary">#3ecd8e</color>
+    <color name="colorPrimaryDisabled">#72dbae</color>
     <color name="colorPrimaryDark">#35aa72</color>
 
     <color name="colorAccent">#CACACA</color>
     <color name="white">#FFFFFF</color>
     <color name="bottom_menu_background">#F5F5F5</color>
-    <color name="light_white">#F0F0F0</color>
+    <color name="light_white">#F7F7F7</color>
     <color name="dark_white">#e6e3e5</color>
     <color name="dark">#24344a</color>
     <color name="white_text">#CACACA</color>
     <color name="dark_text">#AAAAAA</color>
     <color name="very_dark_text">#969696</color>
-    <color name="black">#333333</color>
-    <color name="facebook">#621fcf</color>
+    <color name="black_light">#BF444444</color>
+    <color name="black">#444444</color>
+    <color name="дивайдер">#0F444444</color>
+    <color name="email">#621fcf</color>
     <color name="google">#ea3555</color>
     <color name="transparent">#00000000</color>
+    <color name="ripple_color">#f8f8f8</color>
+    <color name="ripple_dark_color">#C8C8C8</color>
+    <color name="input_text">#222222</color>
+
+
 </resources>

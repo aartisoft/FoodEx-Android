@@ -3,22 +3,20 @@
     package="com.korlab.foodex">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme">
-
         </activity>
-
         <activity
             android:name=".Authorize"
             android:screenOrientation="portrait" >
@@ -28,39 +26,38 @@
         <activity
             android:name=".AuthorizeVerification"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".InfoFullName"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
-
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name=".InfoGender"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".InfoWeight"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".InfoGrowth"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".InfoBirthday"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".MainMenu"
+        <activity
+            android:name=".ProfileEdit"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".MainMenu"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
+        <activity android:name=".ProfileSettings"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"></activity>
 
     </application>
-
 
 </manifest>

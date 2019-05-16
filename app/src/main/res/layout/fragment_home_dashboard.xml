@@ -1,21 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/google"
-    android:orientation="vertical">
+    android:paddingBottom="@dimen/dp50"
+    android:background="#ffffff">
 
-    <TextView
-        android:id="@+id/fragment_home_dashboard_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="fragment_home_text" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                tools:context=".promo.ShopActivity">
 
-</LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp30"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp30"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <ImageView
+                            android:id="@+id/prev"
+                            style="@style/ClickableImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_margin="@dimen/dp8"
+                            android:padding="@dimen/dp8"
+                            android:src="@drawable/toolbar_arrow_left" />
+
+
+                       <LinearLayout
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_centerHorizontal="true"
+                           android:orientation="vertical">
+                           <TextView
+                               android:id="@+id/item_name"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_gravity="center_horizontal"
+                               android:fontFamily="sans-serif-light"
+                               android:textColor="@android:color/black"
+                               android:textSize="@dimen/sp16"
+                               android:textStyle="bold"
+                               tools:text="Stoneware + Porcelain Plate" />
+
+                           <Space
+                               android:layout_width="wrap_content"
+                               android:layout_height="@dimen/dp4" />
+
+                           <TextView
+                               android:id="@+id/item_price"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_gravity="center_horizontal"
+                               android:textColor="#84ceca"
+                               android:textStyle="bold"
+                               tools:text="$24.00 USD" />
+                           <Space
+                               android:layout_width="wrap_content"
+                               android:layout_height="@dimen/dp16" />
+                       </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/toolbar_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/dp10">
+
+                            <ImageView
+                                android:id="@+id/next"
+                                style="@style/ClickableImageView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:rotation="180"
+                                android:layout_gravity="start"
+                                android:layout_margin="@dimen/dp8"
+                                android:padding="@dimen/dp8"
+                                android:src="@drawable/toolbar_arrow_left" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+
+
+                <discretescrollview.DiscreteScrollView
+                    android:id="@+id/item_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp24" />
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/item_btn_comment"-->
+                        <!--style="@style/ClickableImageView"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:padding="@dimen/dp8"-->
+                        <!--android:src="@drawable/profile_arrow"-->
+                        <!--android:tint="#84ceca" />-->
+
+                    <!--<Space-->
+                        <!--android:layout_width="@dimen/dp16"-->
+                        <!--android:layout_height="wrap_content" />-->
+
+                    <!--<android.support.design.widget.FloatingActionButton-->
+                        <!--android:id="@+id/item_btn_buy"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:src="@drawable/profile_arrow"-->
+                        <!--android:tint="@android:color/white"-->
+                        <!--app:rippleColor="#51b2ac"-->
+                        <!--app:useCompatPadding="true" />-->
+
+                    <!--<Space-->
+                        <!--android:layout_width="@dimen/dp16"-->
+                        <!--android:layout_height="wrap_content" />-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/item_btn_rate"-->
+                        <!--style="@style/ClickableImageView"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:padding="@dimen/dp8"-->
+                        <!--android:src="@drawable/profile_arrow"-->
+                        <!--android:tint="#84ceca" />-->
+
+                <!--</LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp0"
+                    android:layout_weight="20"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</ScrollView>

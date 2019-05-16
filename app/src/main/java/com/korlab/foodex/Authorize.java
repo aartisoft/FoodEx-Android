@@ -3,10 +3,15 @@ package com.korlab.foodex;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
@@ -18,18 +23,21 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class Authorize extends AppCompatActivity {
 
-    private Authorize instance;
-    public Authorize getInstance() {
+    private static Authorize instance;
+    public static Authorize getInstance() {
         return instance;
     }
-    private MaterialEditText inputPhone;
-    private MaterialButton buttonContinue, buttonFacebook, buttonGoogle;
+
+    private TextView buttonRecoveryPassword;
+    private LinearLayout inputWrapperEmail, inputWrapperRecoveryEmail, inputWrapperPhone;
+    private MaterialEditText inputPhone, inputEmail, inputRecoveryEmail, inputPassword;
+    private MaterialButton buttonContinue, buttomSwitchEmailPhone, buttonGoogle;
+    private boolean isEmail = false, isRecovery = false;
     private User user;
 
     @Override
-    public void onBackPressed()
-    {
-        Helper.showExitDialog(getInstance());
+    public void onBackPressed() {
+        Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_exit, null), (v)-> this.finishAffinity(), null);
     }
 
     @Override
@@ -41,24 +49,36 @@ public class Authorize extends AppCompatActivity {
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
         findView();
         user = new User();
+        Helper.disableButton(getInstance(), buttonContinue);
+        buttonContinue.setOnClickListener((v) -> {
+            if(isRecovery) {
+                // TODO: 4/15/2019 recovery password By email
+            } else {
+                if(isEmail) {
+                    user.setEmail(inputEmail.getText().toString().replace(" ", ""));
+                } else {
+                    user.setPhone(inputPhone.getText().toString().replace(" ", ""));
+                }
+                startActivity(new Intent(getInstance(), AuthorizeVerification.class).putExtra("user", Helper.toJson(user)));
+                Bungee.slideLeft(getInstance());
+            }
+        });
+        buttomSwitchEmailPhone.setOnClickListener((v) -> switchButton());
+        buttonGoogle.setOnClickListener((v) -> {
+            // TODO: 4/15/2019 authorize by gmail
+        });
 
-        buttonContinue.setOnClickListener((v)->{
-            user.setPhone(inputPhone.getText().toString());
-            Intent intent = new Intent(getInstance(), AuthorizeVerification.class);
-            intent.putExtra("user", Helper.toJson(user));
-            startActivity(intent);
-            Bungee.slideLeft(getInstance());
-            finish();
-        });
-        buttonFacebook.setOnClickListener((v)->{
-            startActivity(new Intent(getInstance(), AuthorizeVerification.class));
-            Bungee.slideLeft(getInstance());
-            finish();
-        });
-        buttonGoogle.setOnClickListener((v)->{
-            startActivity(new Intent(getInstance(), AuthorizeVerification.class));
-            Bungee.slideLeft(getInstance());
-            finish();
+        inputPhone.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                if (inputPhone.getText().toString().length() == 0) {
+                    new Handler().postDelayed(() -> {
+                        inputPhone.setText("+380 ");
+                        inputPhone.setSelection(inputPhone.getText().toString().length());
+                    }, 250);
+                }
+            } else {
+                inputPhone.setText("");
+            }
         });
 
         inputPhone.addTextChangedListener(new TextWatcher() {
@@ -128,27 +148,109 @@ public class Authorize extends AppCompatActivity {
                 if (start >= 0)
                     inputPhone.setSelection((start <= inputPhone.length()) ? start : inputPhone.getText().toString().length());
                 lock = false;
+                validateInput();
+            }
+        });
+        inputEmail.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateInput();
+            }
+        });
+        inputPassword.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateInput();
+            }
+        });
+        inputRecoveryEmail.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateInput();
             }
         });
 
-        inputPhone.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                if (inputPhone.getText().toString().length() == 0) {
-                    new Handler().postDelayed(() -> {
-                        inputPhone.setText("+380 ");
-                        inputPhone.setSelection(inputPhone.getText().toString().length());
-                    }, 250);
-                }
+
+        buttonRecoveryPassword.setOnClickListener(v -> switchRecoveryPassword());
+    }
+
+    private void switchRecoveryPassword() {
+        isRecovery = !isRecovery;
+        if(isRecovery) {
+            buttonRecoveryPassword.setText("Back to the login form");
+            buttonContinue.setText("Send recovery email");
+            inputWrapperRecoveryEmail.setVisibility(View.VISIBLE);
+            inputWrapperPhone.setVisibility(View.GONE);
+            inputWrapperEmail.setVisibility(View.GONE);
+        } else {
+            buttonContinue.setText("Continue");
+            inputWrapperRecoveryEmail.setVisibility(View.GONE);
+            if(isEmail) {
+                inputWrapperEmail.setVisibility(View.VISIBLE);
             } else {
-                inputPhone.setText("");
+                inputWrapperPhone.setVisibility(View.VISIBLE);
             }
-        });
+        }
+        validateInput();
+    }
+
+    private void switchButton() {
+        isEmail = !isEmail;
+        if(isEmail) {
+            inputWrapperEmail.setVisibility(View.VISIBLE);
+            inputWrapperPhone.setVisibility(View.GONE);
+            buttomSwitchEmailPhone.setText("Phone");
+        } else {
+            inputWrapperEmail.setVisibility(View.GONE);
+            inputWrapperPhone.setVisibility(View.VISIBLE);
+            buttomSwitchEmailPhone.setText("Email");
+        }
+        validateInput();
     }
 
     private void findView() {
+        inputWrapperPhone = findViewById(R.id.input_wrapper_ph);
+        inputWrapperEmail = findViewById(R.id.input_wrapper_em);
+        inputWrapperRecoveryEmail = findViewById(R.id.input_wrapper_recovery_em);
         inputPhone = findViewById(R.id.input_ph);
+        inputEmail = findViewById(R.id.input_em);
+        inputRecoveryEmail = findViewById(R.id.input_recovery_em);
+        inputPassword = findViewById(R.id.input_password);
         buttonContinue = findViewById(R.id.button_continue);
-        buttonFacebook = findViewById(R.id.button_facebook);
+        buttomSwitchEmailPhone = findViewById(R.id.button_switch_email_phone);
         buttonGoogle = findViewById(R.id.button_google);
+        buttonRecoveryPassword = findViewById(R.id.button_recovery_password);
     }
+
+    private void validateInput() {
+        Helper.log("validateInput");
+        if(isRecovery) {
+            Helper.log("isRecovery");
+            if(inputRecoveryEmail.length() >= 5 && Helper.isEmailValid(inputRecoveryEmail.getText().toString()))
+                Helper.enableButton(getInstance(), buttonContinue);
+            else
+                Helper.disableButton(getInstance(), buttonContinue);
+        } else {
+            if(isEmail) {
+                if(inputEmail.length() >= 5 && inputPassword.length() >= 6 && Helper.isEmailValid(inputEmail.getText().toString()))
+                    Helper.enableButton(getInstance(), buttonContinue);
+                else
+                    Helper.disableButton(getInstance(), buttonContinue);
+            } else {
+                if(inputPhone.length() >= 17)
+                    Helper.enableButton(getInstance(), buttonContinue);
+                else
+                    Helper.disableButton(getInstance(), buttonContinue);
+            }
+        }
+
+    }
+
+
 }

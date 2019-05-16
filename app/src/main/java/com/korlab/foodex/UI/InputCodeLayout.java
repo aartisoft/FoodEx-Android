@@ -17,21 +17,16 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 import com.korlab.foodex.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-/**
- * @author airsaid
- */
 public class InputCodeLayout extends RelativeLayout implements TextWatcher, View.OnKeyListener {
 
     @IntDef({NORMAL, PASSWORD})
@@ -104,7 +99,6 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
         mEdtCode.setCursorVisible(false);
         mEdtCode.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
-//        mEdtCode.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         mEdtCode.setBackgroundResource(android.R.color.transparent);
         mEdtCode.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
         addView(mEdtCode);
@@ -137,49 +131,32 @@ public class InputCodeLayout extends RelativeLayout implements TextWatcher, View
         return false;
     }
 
-    /**
-     * 设置验证码。
-     *
-     * @param code 验证码
-     */
     private void setCode(String code) {
         if (TextUtils.isEmpty(code)) return;
 
         for (int i = 0; i < mTextViews.length; i++) {
             TextView textView = mTextViews[i];
-            // 如果没设置文本则设置
             if (TextUtils.isEmpty(textView.getText().toString())) {
                 textView.setText(code);
-                // 取消焦点
                 textView.setBackgroundResource(mUnFocusBackground);
-                // 有下一个输入框则设置下一个输入框焦点
                 if (i < mTextViews.length - 1)
                     mTextViews[i + 1].setBackgroundResource(mFocusBackground);
-                // 设置输入完成回调
                 if (i == mTextViews.length - 1 && mOnInputCompleteCallback != null)
                     mOnInputCompleteCallback.onInputCompleteListener(getCode());
-                // 跳出
                 break;
             }
         }
         mEdtCode.setText("");
     }
 
-    /**
-     * 删除验证码。
-     */
     private void deleteCode() {
         for (int i = mTextViews.length - 1; i >= 0; i--) {
             TextView textView = mTextViews[i];
-            // 如果有设置文本则删除
             if (!TextUtils.isEmpty(textView.getText().toString())) {
                 textView.setText("");
-                // 设置焦点
                 textView.setBackgroundResource(mFocusBackground);
-                // 有下一个输入框则取消下一个输入框的焦点
                 if (i < mTextViews.length - 1)
                     mTextViews[i + 1].setBackgroundResource(mUnFocusBackground);
-                // 跳出
                 break;
             }
         }

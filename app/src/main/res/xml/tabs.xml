@@ -6,15 +6,15 @@
 
     <tab
         drawable="@drawable/menu_weight"
-        text="@string/search" />
+        text="@string/weight" />
 
     <tab
         drawable="@drawable/menu_manager"
-        text="@string/bag" />
+        text="@string/manager" />
 
     <tab
         drawable="@drawable/menu_purchases"
-        text="@string/favorite" />
+        text="@string/purchaces" />
 
     <tab
         drawable="@drawable/menu_profile"

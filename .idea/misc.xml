@@ -5,13 +5,6 @@
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-nodpi/ic_account_circle_menu.xml" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-nodpi/ic_favorite_menu.xml" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-nodpi/ic_home_menu.xml" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-nodpi/ic_shopping_basket_menu.xml" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_user.xml" />
-  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

@@ -1,20 +1,26 @@
 package com.korlab.foodex;
 
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CustomViewPager;
-import com.korlab.foodex.UI.NavigationTabStrip;
 import com.korlab.foodex.UI.ReadableBottomBar;
 
 public class MainMenu extends AppCompatActivity {
-    private MainMenu instance;
-    public MainMenu getInstance() {
+    private static MainMenu instance;
+
+    public static MainMenu getInstance() {
         return instance;
     }
+
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
+    }
+
     private ReadableBottomBar bottomBar;
 
     @Override
@@ -24,19 +30,18 @@ public class MainMenu extends AppCompatActivity {
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         Helper.setStatusBarIconWhite(getWindow());
-
         findView();
 
-
-
-
-        CustomViewPager viewPager = findViewById(R.id.viewpagerMainMenu);
+        CustomViewPager viewPager = findViewById(R.id.viewpager_main_menu);
         viewPager.setAdapter(new FragmentMainMenuAdapter(getSupportFragmentManager(), MainMenu.this));
-//        viewPager.setOnTouchListener((v, event) -> true);
         viewPager.setPagingEnabled(false);
+        viewPager.setOffscreenPageLimit(10);
+
         bottomBar.setOnItemSelectListener(index -> {
             Helper.log("Bottom Bar index: " + index);
-            viewPager.setCurrentItem(index);
+            viewPager.setCurrentItem(index, false);
+            viewPager.invalidate();
+
         });
     }
 

@@ -9,7 +9,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -18,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
@@ -49,8 +50,20 @@ dependencies {
     implementation 'com.sdsmdg.harjot:materialshadows:1.2.5'
 //    implementation 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
     implementation 'com.balysv:material-ripple:1.0.2'
+    implementation 'com.uniquestudio:checkbox:1.0.10'
+    implementation 'com.haibin:calendarview:3.6.0'
+    implementation 'com.robinhood.ticker:ticker:1.1.1'
+
+    implementation 'com.ethanhua:skeleton:1.1.2'
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0' //??
+//    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.hedgehog.ratingbar:app:1.1.2'
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+//    implementation 'com.patrickpissurno:ripple-effect:1.3.1'
 
 }
+
 repositories {
     mavenCentral()
 }

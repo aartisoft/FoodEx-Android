@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dp18"
+        android:layout_marginLeft="@dimen/dp18"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="@dimen/dp1"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="?colorPrimary" />
+
+        <ImageView
+            android:layout_width="@dimen/dp10"
+            android:layout_height="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp38"
+            android:background="@drawable/shape_round_solid" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp5"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp5"
+        android:visibility="visible"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="@dimen/dp4"
+        app:cardElevation="@dimen/dp1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp10">
+
+            <LinearLayout
+                android:id="@+id/toggle_to_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp14"
+                android:layout_marginTop="@dimen/dp14"
+                android:layout_marginRight="@dimen/dp14"
+                android:layout_marginBottom="@dimen/dp5"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <View
+                    android:layout_width="@dimen/dp14"
+                    android:layout_height="@dimen/dp0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/header"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="Ivan Taranov did the job some work some work some work some work"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="?colorPrimary"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp3"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/dark_text"
+                        android:textSize="@dimen/dp12"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--Content-->
+
+            <LinearLayout
+                android:id="@+id/lyt_expand_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp14"
+                android:paddingTop="@dimen/dp5"
+                android:paddingRight="@dimen/dp14"
+                android:paddingBottom="@dimen/dp5">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:layout_marginBottom="@dimen/dp18"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="@dimen/dp4"
+                    app:cardElevation="@dimen/dp1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/dp40"
+                        android:paddingTop="@dimen/dp10"
+                        android:paddingRight="@dimen/dp40"
+                        android:paddingBottom="@dimen/dp10">
+
+                        <com.robinhood.ticker.TickerView
+                            android:id="@+id/calories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center_horizontal"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp18" />
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center_horizontal"-->
+                        <!--android:text="calories"-->
+                        <!--android:textSize="@dimen/sp18"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:visibility="visible" />-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="Calories received"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="#E9E9E9"
+                            android:textSize="@dimen/sp12"
+                            android:visibility="visible" />
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="99">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:layout_weight="33"
+                        android:visibility="visible"
+                        app:cardBackgroundColor="@color/light_white"
+                        app:cardCornerRadius="@dimen/dp4"
+                        app:cardElevation="@dimen/dp0">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:paddingTop="@dimen/dp5"
+                            android:paddingBottom="@dimen/dp5">
+                            <com.robinhood.ticker.TickerView
+                                android:id="@+id/proteins"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:text="0"
+                                android:textColor="@color/black_light"
+                                android:textSize="@dimen/sp16" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="Proteins"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textColor="@color/dark_text"
+                                android:textSize="@dimen/sp11"
+                                android:visibility="visible" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:layout_weight="33"
+                        android:visibility="visible"
+                        app:cardBackgroundColor="@color/light_white"
+                        app:cardCornerRadius="@dimen/dp4"
+                        app:cardElevation="@dimen/dp0">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:paddingTop="@dimen/dp5"
+                            android:paddingBottom="@dimen/dp5">
+
+
+                            <com.robinhood.ticker.TickerView
+                                android:id="@+id/fats"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:text="0"
+                                android:textColor="@color/black_light"
+                                android:textSize="@dimen/sp16" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="Fats"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textColor="@color/dark_text"
+                                android:textSize="@dimen/sp11"
+                                android:visibility="visible" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:layout_weight="33"
+                        android:visibility="visible"
+                        app:cardBackgroundColor="@color/light_white"
+                        app:cardCornerRadius="@dimen/dp4"
+                        app:cardElevation="@dimen/dp0">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:paddingTop="@dimen/dp5"
+                            android:paddingBottom="@dimen/dp5">
+
+                            <com.robinhood.ticker.TickerView
+                                android:id="@+id/carbo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:text="0"
+                                android:textColor="@color/black_light"
+                                android:textSize="@dimen/sp16" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="Carbo"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textColor="@color/dark_text"
+                                android:textSize="@dimen/sp11"
+                                android:visibility="visible" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="15">
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:orientation="horizontal">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/header"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:lineSpacingExtra="@dimen/dp4"-->
+                            <!--android:text="Title Title Title Title Title Title"-->
+                            <!--android:textAllCaps="true"-->
+                            <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
+                            <!--android:textColor="@color/dark_text"-->
+
+                            <!--android:visibility="visible" />-->
+                    <!--</LinearLayout>-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="10"-->
+                        <!--android:gravity="right"-->
+                        <!--android:orientation="horizontal">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/cost"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="@dimen/dp14"-->
+                            <!--android:layout_marginRight="@dimen/dp3"-->
+                            <!--android:lineSpacingExtra="@dimen/dp4"-->
+                            <!--android:text="2789"-->
+                            <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
+                            <!--android:textColor="@color/dark_text"-->
+                            <!--android:visibility="visible" />-->
+
+                        <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="@dimen/dp13"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="@dimen/dp13"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:src="@drawable/money"/>&ndash;&gt;-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/bonuses"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="@dimen/dp14"-->
+                            <!--android:layout_marginRight="@dimen/dp3"-->
+                            <!--android:lineSpacingExtra="@dimen/dp4"-->
+                            <!--android:text="27"-->
+                            <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
+                            <!--android:textColor="@color/dark_text"-->
+                            <!--android:visibility="visible" />-->
+
+                        <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="@dimen/dp10"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="@dimen/dp10"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:src="@drawable/coins"/>&ndash;&gt;-->
+                    <!--</LinearLayout>-->
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp14"
+                    android:layout_marginTop="@dimen/dp14"
+                    android:layout_marginRight="@dimen/dp14"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:lineSpacingExtra="@dimen/dp4"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/dark_text"
+                    android:visibility="gone" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fillViewport="false"
+                    android:foregroundGravity="left">
+
+                    <LinearLayout
+                        android:id="@+id/selected_photos_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:animateLayoutChanges="true"
+                        android:gravity="left"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+
+                        <!-- images will be added dynamicall to this layout -->
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/feedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="This is comment to work #1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="?colorPrimary"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/positive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wow. This is very good."
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="?colorPrimary"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/negative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hmmm. This is very bad."
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="?colorPrimary"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--Toogle-->
+            <LinearLayout
+                android:id="@+id/bt_toggle_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/toggle_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp5"
+                    android:gravity="center_horizontal"
+                    android:text="More"
+                    android:textColor="@color/dark_text"
+                    android:textSize="@dimen/sp10" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

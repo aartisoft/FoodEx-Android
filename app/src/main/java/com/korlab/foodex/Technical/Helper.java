@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -17,9 +15,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.annotation.ColorInt;
 import android.support.design.widget.TextInputLayout;
-import android.text.Html;
+import android.support.v4.util.Consumer;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -33,13 +30,11 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-
 import com.google.gson.Gson;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
-import com.korlab.foodex.UI.InputCodeLayout;
 import com.korlab.foodex.UI.MaterialButton;
-import com.korlab.foodex.UI.MaterialEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,10 +44,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Helper {
     private static Gson gson = new Gson();
@@ -112,12 +111,12 @@ public class Helper {
                 }
             }
         }
-        if(!outcome && !isCheck) {
+        if (!outcome && !isCheck) {
 //            Intent intent = new Intent(activity, NoInternet.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            activity.startActivity(intent);
 //            activity.finish();
-        } else if(outcome && isCheck) {
+        } else if (outcome && isCheck) {
 //            Intent intent = new Intent(activity, Login.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            activity.startActivity(intent);
@@ -144,6 +143,7 @@ public class Helper {
         }
         return directory.getAbsolutePath();
     }
+
     public static Bitmap resizeBitmap(Bitmap bm, int newWidth, int newHeight) {
         int width = bm.getWidth();
         int height = bm.getHeight();
@@ -191,21 +191,20 @@ public class Helper {
         window.setStatusBarColor(color);
     }
 
-    public static int mixTwoColors( int color1, int color2, float amount )
-    {
+    public static int mixTwoColors(int color1, int color2, float amount) {
         final byte ALPHA_CHANNEL = 24;
-        final byte RED_CHANNEL   = 16;
-        final byte GREEN_CHANNEL =  8;
-        final byte BLUE_CHANNEL  =  0;
+        final byte RED_CHANNEL = 16;
+        final byte GREEN_CHANNEL = 8;
+        final byte BLUE_CHANNEL = 0;
         final float inverseAmount = 1.0f - amount;
-        int a = ((int)(((float)(color1 >> ALPHA_CHANNEL & 0xff )*amount) +
-                ((float)(color2 >> ALPHA_CHANNEL & 0xff )*inverseAmount))) & 0xff;
-        int r = ((int)(((float)(color1 >> RED_CHANNEL & 0xff )*amount) +
-                ((float)(color2 >> RED_CHANNEL & 0xff )*inverseAmount))) & 0xff;
-        int g = ((int)(((float)(color1 >> GREEN_CHANNEL & 0xff )*amount) +
-                ((float)(color2 >> GREEN_CHANNEL & 0xff )*inverseAmount))) & 0xff;
-        int b = ((int)(((float)(color1 & 0xff )*amount) +
-                ((float)(color2 & 0xff )*inverseAmount))) & 0xff;
+        int a = ((int) (((float) (color1 >> ALPHA_CHANNEL & 0xff) * amount) +
+                ((float) (color2 >> ALPHA_CHANNEL & 0xff) * inverseAmount))) & 0xff;
+        int r = ((int) (((float) (color1 >> RED_CHANNEL & 0xff) * amount) +
+                ((float) (color2 >> RED_CHANNEL & 0xff) * inverseAmount))) & 0xff;
+        int g = ((int) (((float) (color1 >> GREEN_CHANNEL & 0xff) * amount) +
+                ((float) (color2 >> GREEN_CHANNEL & 0xff) * inverseAmount))) & 0xff;
+        int b = ((int) (((float) (color1 & 0xff) * amount) +
+                ((float) (color2 & 0xff) * inverseAmount))) & 0xff;
         return a << ALPHA_CHANNEL | r << RED_CHANNEL | g << GREEN_CHANNEL | b << BLUE_CHANNEL;
     }
 
@@ -219,7 +218,7 @@ public class Helper {
 
     public static Activity getInstance(String activityName) {
         Activity activity = mapInstance.get(activityName);
-        if(activity != null) {
+        if (activity != null) {
             log("Return instance " + activityName);
             return activity;
         } else {
@@ -246,9 +245,9 @@ public class Helper {
 
     public static void showKeyboard(Activity activity, View view) {
         InputMethodManager inputMethodManager =
-                (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-        inputMethodManager.toggleSoftInputFromWindow(view.getApplicationWindowToken(),     InputMethodManager.SHOW_FORCED, 0);
+                (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        inputMethodManager.toggleSoftInputFromWindow(view.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
         view.requestFocus();
     }
 
@@ -259,73 +258,110 @@ public class Helper {
     }
 
     public static void hideKeyboard(Activity activity, View view) {
-        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public static void showExitDialog(Activity activity) {
+    public static void showDialog(Activity activity, View dialogId, Consumer onPositive, Consumer onNegative) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_exit);
+        dialog.setContentView(dialogId);
         dialog.setCancelable(true);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.transparent);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
-        MaterialButton exit = dialog.findViewById(R.id.exit);
+        MaterialButton ok = dialog.findViewById(R.id.ok);
         MaterialButton cancel = dialog.findViewById(R.id.cancel);
 
-        exit.setOnClickListener((v) -> {
-            activity.finish();
+        ok.setOnClickListener((v) -> {
+            log("ok");
+            if (onPositive != null) onPositive.accept(v);
+            dialog.dismiss();
+        });
+        cancel.setOnClickListener(v -> {
+            log("cancel");
+            if (onNegative != null) onNegative.accept(v);
             dialog.dismiss();
         });
 
-        cancel.setOnClickListener(v -> dialog.dismiss());
         dialog.getWindow().setAttributes(lp);
         Window window = dialog.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         dialog.show();
     }
 
-    public static void setUpHintColor(EditText editText, TextInputLayout textInputLayout, int color){
-        textInputLayout.setHintTextAppearance(0);
-        String hint = textInputLayout.getHint().toString();
-        final SpannableStringBuilder hintWithAsterisk = getHintWithAsterisk(hint, color);
-        if(!editText.hasFocus()){
-            textInputLayout.setHint(null);
-            editText.setHint(hintWithAsterisk);
-        }
-        setOnFocuschangeListener(editText, textInputLayout, hintWithAsterisk);
-    }
-
-    private static void setOnFocuschangeListener(final EditText editText, final TextInputLayout textInputLayout, final SpannableStringBuilder hintWithAsterisk){
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    textInputLayout.setHint(hintWithAsterisk);
-                    editText.setHint(null);
-                } else if(editText.getText().toString().length()==0){
-                    textInputLayout.setHint(null);
-                    editText.setHint(hintWithAsterisk);
-                }
-            }
-        });
-    }
-
-    private static SpannableStringBuilder getHintWithAsterisk(String hint, int color){
+    public static void addRedAsterisk(EditText editText){
+        String text = editText.getHint().toString();
         String asterisk = " *";
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(hint);
+        builder.append(text);
         int start = builder.length();
         builder.append(asterisk);
         int end = builder.length();
-        builder.setSpan(new ForegroundColorSpan(color), start, end,
+        builder.setSpan(new ForegroundColorSpan(Color.RED), start, end,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return builder;
+        editText.setHint(builder);
+    }
+
+    public static void enableButton(Activity activity, MaterialButton button) {
+        button.setEnabled(true);
+        button.setButtonColor(activity.getResources().getColor(R.color.colorPrimary));
+        button.setBorderColor(activity.getResources().getColor(R.color.colorPrimary));
+
+    }
+
+    public static void disableButton(Activity activity, MaterialButton button) {
+        button.setEnabled(false);
+        button.setButtonColor(activity.getResources().getColor(R.color.colorPrimaryDisabled));
+        button.setBorderColor(activity.getResources().getColor(R.color.colorPrimaryDisabled));
+    }
+
+    public static boolean isEmailValid(String email) {
+        String regExp =
+                "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                        + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                        + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                        + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
+
+        CharSequence inputStr = email;
+        Pattern pattern = Pattern.compile(regExp, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches())
+            return true;
+        else
+            return false;
+    }
+
+    public static int getMaxNumbersInMonth(int year, int month) {
+        Calendar calendar = new GregorianCalendar(year, month, 1);
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+
+    public enum Translate { months, dishTypes }
+    enum DishTypes { salad, soup, hotter, garnish, drink }
+    enum Months { january, february, march, april, may, june, july, august, september, october, november, december }
+
+
+    public static List<String> getTranslate(Translate translate, Activity a) {
+        List<String> res = new ArrayList<>();
+        switch (translate) {
+            case dishTypes:
+                for (DishTypes dir : DishTypes.values())
+                    res.add(a.getResources().getString(a.getResources().getIdentifier(dir.name(), "string", a.getPackageName())));
+                break;
+            case months:
+                for (Months dir : Months.values())
+                    res.add(a.getResources().getString(a.getResources().getIdentifier(dir.name(), "string", a.getPackageName())));
+                break;
+        }
+        return res;
     }
 }

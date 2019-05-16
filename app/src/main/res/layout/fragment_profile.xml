@@ -2,14 +2,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <include layout="@layout/component_toolbar" />
-
-    <TextView
-        android:id="@+id/textFragmentProfile"
+    <LinearLayout
+        android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mrl_rippleColor="@color/black">
+        <LinearLayout
+            android:id="@+id/button_profile_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#f3f3f3"
+            android:paddingBottom="@dimen/dp14"
+            android:paddingTop="@dimen/dp20">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp25"
+                android:paddingRight="@dimen/dp25">
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/profile_icon"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp2"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp50"
+                        android:fontFamily="@font/rns_bold"
+                        android:textColor="@color/black"
+                        android:text="John Doe"
+                        android:textSize="@dimen/sp16" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp50"
+                        android:fontFamily="@font/rns_light"
+                        android:textColor="@color/black_light"
+                        android:text="click for edit"
+                        android:textSize="@dimen/sp13" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="@dimen/dp14"
+                    android:layout_centerInParent="true"
+                    android:layout_height="@dimen/dp14"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:src="@drawable/profile_arrow" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

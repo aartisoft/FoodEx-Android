@@ -7,87 +7,95 @@
     tools:context=".InfoBirthday"
     android:background="@color/white">
 
-    <LinearLayout
+    <RelativeLayout
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="match_parent">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Your Birthday"
-            android:textSize="28sp"
+            android:textSize="@dimen/sp28"
             android:textColor="@color/black"
             android:gravity="center_horizontal"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="@dimen/dp60"
             android:fontFamily="@font/rns_light"/>
-
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_marginTop="90dp"
-            android:src="@drawable/birthday"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            >
+            <ImageView
+                android:id="@+id/image"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="@dimen/dp170"
+                android:layout_height="@dimen/dp170"
+                android:src="@drawable/birthday"/>
 
-            <com.cncoderx.wheelview.Wheel3DView
-                android:id="@+id/wv_day"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:visibleItems="9"
-                app:toward="left"
-                app:cyclic="true"
-                style="@style/WheelViewStyleSmall"/>
-            <com.cncoderx.wheelview.Wheel3DView
-                android:id="@+id/wv_month"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:visibleItems="9"
-                app:toward="left"
-                app:cyclic="true"
-                style="@style/WheelViewStyleSmall"/>
-            <com.cncoderx.wheelview.Wheel3DView
-                android:id="@+id/wv_year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:visibleItems="9"
-                app:toward="left"
-                style="@style/WheelViewStyleSmall"/>
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <com.cncoderx.wheelview.Wheel3DView
+                    android:id="@+id/wv_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:visibleItems="9"
+                    app:toward="left"
+                    app:cyclic="true"
+                    style="@style/WheelViewStyleSmall"/>
+                <com.cncoderx.wheelview.Wheel3DView
+                    android:id="@+id/wv_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:visibleItems="9"
+                    app:toward="left"
+                    app:cyclic="true"
+                    style="@style/WheelViewStyleSmall"/>
+                <com.cncoderx.wheelview.Wheel3DView
+                    android:id="@+id/wv_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:visibleItems="9"
+                    app:toward="left"
+                    style="@style/WheelViewStyleSmall"/>
 
 
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+
+    </RelativeLayout>
 
     <LinearLayout
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:paddingBottom="190dp"
+        android:paddingBottom="@dimen/dp190"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <com.korlab.foodex.UI.MaterialButton
             android:id="@+id/next"
-            android:layout_width="280dp"
+            android:layout_width="@dimen/dp280"
             android:layout_gravity="center_horizontal"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
+            android:layout_height="@dimen/dp48"
+            android:layout_marginTop="@dimen/dp24"
             app:mb_borderColor="@color/colorPrimary"
-            app:mb_borderWidth="40dp"
+            app:mb_borderWidth="@dimen/dp40"
             app:mb_buttonColor="@color/colorPrimary"
             app:mb_buttonType="flat"
-            app:mb_cornerRadius="30dp"
+            app:mb_cornerRadius="@dimen/dp30"
             app:mb_rippleColor="@color/colorPrimaryVeryLight"
             app:mb_text="NEXT"
             app:mb_textColor="#ffffff"
-            app:mb_textSize="19sp" />
+            app:mb_textSize="@dimen/sp19" />
     </LinearLayout>
 
 

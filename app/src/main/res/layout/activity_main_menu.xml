@@ -11,18 +11,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
 
 
         <com.korlab.foodex.UI.CustomViewPager
-            android:id="@+id/viewpagerMainMenu"
+            android:id="@+id/viewpager_main_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/darker_gray"
-            />
+            android:layout_weight="1" />
 
 
     </LinearLayout>
@@ -33,27 +30,27 @@
         android:layout_alignParentBottom="true"
         app:animationDuration="0"
         app:shadowAlpha="0.99"
-        app:shadowOffsetY="-10">
+        app:shadowOffsetY="-5">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:elevation="2dp"
+            android:layout_marginTop="@dimen/dp10"
+            android:elevation="@dimen/dp2"
             android:orientation="vertical">
 
             <com.korlab.foodex.UI.ReadableBottomBar
                 android:id="@+id/bottom_bar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/dp50"
                 app:rbb_textTypeface="@font/rns_medium"
                 app:rbb_activeItemType="icon"
                 app:rbb_backgroundColor="#ffffff"
                 app:rbb_indicatorColor="@color/colorPrimary"
-                app:rbb_indicatorHeight="2dp"
+                app:rbb_indicatorHeight="@dimen/dp2"
                 app:rbb_tabs="@xml/tabs"
                 app:rbb_textColor="#C1C1C1"
-                app:rbb_textSize="5dp" />
+                app:rbb_textSize="@dimen/sp9" />
 
         </LinearLayout>
 
