@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,41 +14,34 @@ import android.widget.TextView;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
-import com.korlab.foodex.Components.Article;
-import com.korlab.foodex.Components.ArticleAdapter;
+import com.korlab.foodex.Components.CalendarMeal;
+import com.korlab.foodex.Components.CalendarMealAdapter;
 import com.korlab.foodex.Components.HistoryCard;
 import com.korlab.foodex.Data.Dish;
 import com.korlab.foodex.Data.Meal;
 import com.korlab.foodex.Data.ProgramDay;
-import com.korlab.foodex.Data.Promo;
-import com.korlab.foodex.Promo.PromoAdapter;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CustomPagerTransformer;
+import com.korlab.foodex.UI.WrapContentHeightViewPager;
 import com.korlab.foodex.UI.group.GroupItemDecoration;
 import com.korlab.foodex.UI.group.GroupRecyclerView;
-import com.korlab.foodex.Week.WeekAdapter;
+import com.korlab.foodex.Day.DayAdapter;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;
 import java.sql.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import discretescrollview.DSVOrientation;
-import discretescrollview.DiscreteScrollView;
-import discretescrollview.Example.Item;
-import discretescrollview.Example.Shop;
-import discretescrollview.Example.ShopAdapter;
-import discretescrollview.transform.ScaleTransformer;
 
 public class FragmentHome extends Fragment {
     public static final String ARG_PAGE_HOME = "ARG_PAGE_HOME";
 
     private int mPage;
+    private MainMenu activity;
     private Map<Date, ProgramDay> programDays;
     private boolean isVisibleAll = false;
-    private ShopAdapter shopAdapter;
 
     public static FragmentHome newInstance(int page) {
         Bundle args = new Bundle();
@@ -73,8 +65,8 @@ public class FragmentHome extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
         programDays = new HashMap<>();
-
-        for (int i = 0; i < 29; i+=3) {
+        activity = MainMenu.getInstance();
+        for (int i = 0; i < 29; i += 3) {
             List<Meal> mealList = new ArrayList<>();
             List<Dish> dishListBreakfast = new ArrayList<>();
             // Breakfast
@@ -83,7 +75,7 @@ public class FragmentHome extends Fragment {
             dishListBreakfast.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
             dishListBreakfast.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
             dishListBreakfast.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
-            mealList.add(new Meal(0, dishListBreakfast));
+            mealList.add(new Meal(Meal.Type.BREAKFAST, dishListBreakfast));
 
             // Brunch
             List<Dish> dishListBrunch = new ArrayList<>();
@@ -92,7 +84,7 @@ public class FragmentHome extends Fragment {
             dishListBrunch.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
             dishListBrunch.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
             dishListBrunch.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
-            mealList.add(new Meal(1, dishListBrunch));
+            mealList.add(new Meal(Meal.Type.BRUNCH, dishListBrunch));
 
             // Lunch
             List<Dish> dishListLunch = new ArrayList<>();
@@ -101,7 +93,7 @@ public class FragmentHome extends Fragment {
             dishListLunch.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
             dishListLunch.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
             dishListLunch.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
-            mealList.add(new Meal(2, dishListLunch));
+            mealList.add(new Meal(Meal.Type.LUNCH, dishListLunch));
 
             // Afternoon meals
             List<Dish> dishListAfternoonMeals = new ArrayList<>();
@@ -110,7 +102,7 @@ public class FragmentHome extends Fragment {
             dishListAfternoonMeals.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
             dishListAfternoonMeals.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
             dishListAfternoonMeals.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
-            mealList.add(new Meal(3, dishListAfternoonMeals));
+            mealList.add(new Meal(Meal.Type.AFTERNOONMEALS, dishListAfternoonMeals));
 
             // Second afternoon meals
             List<Dish> dishListSecondAfternoonMeals = new ArrayList<>();
@@ -119,7 +111,7 @@ public class FragmentHome extends Fragment {
             dishListSecondAfternoonMeals.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
             dishListSecondAfternoonMeals.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
             dishListSecondAfternoonMeals.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
-            mealList.add(new Meal(4, dishListSecondAfternoonMeals));
+            mealList.add(new Meal(Meal.Type.SECONDAFTERNOONMEALS, dishListSecondAfternoonMeals));
 
             // Dinner
             List<Dish> dishListDinner = new ArrayList<>();
@@ -129,120 +121,50 @@ public class FragmentHome extends Fragment {
             dishListDinner.add(new Dish("Veal tongue with asparagus in cream sauce", 2, 187, 23, 34, 56));
             dishListDinner.add(new Dish("Rice mix with vegetables", 3, 187, 23, 34, 56));
             dishListDinner.add(new Dish("Wellness Natural Balance", 4, 187, 23, 34, 56));
-            mealList.add(new Meal(5, dishListDinner));
+            mealList.add(new Meal(Meal.Type.DINNER, dishListDinner));
             Date date = new Date(2019, 3, i + 1);
             Date date2 = new Date(2019, 4, i + 1);
             Date date3 = new Date(2019, 5, i + 1);
             programDays.put(date, new ProgramDay(date, mealList));
             programDays.put(date2, new ProgramDay(date2, mealList));
             programDays.put(date3, new ProgramDay(date3, mealList));
-//            programDays.put(new Date(2019, 3, i + 1), new ProgramDay(new Date(2019, 3, i + 1), mealList));
         }
 
         switch (mPage) {
             case 1:
                 view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
-//                List<Item> data;
-//                Shop shop;
-//                TextView currentItemName;
-//                TextView currentItemPrice;
-//                DiscreteScrollView itemPicker;
-//                currentItemName = view.findViewById(R.id.item_name);
-//                currentItemPrice = view.findViewById(R.id.item_price);
-//                shop = Shop.get();
-//                data = shop.getData();
-//                itemPicker = view.findViewById(R.id.item_picker);
-//                ShopAdapter shopAdapter = new ShopAdapter(data, view, itemPicker);
-//                itemPicker.setAdapter(shopAdapter);
-//                itemPicker.addOnItemChangedListener((viewHolder, adapterPosition) -> {
-//                    shopAdapter.setCurrent(adapterPosition);
-//                    currentItemName.setText(data.get(adapterPosition).getName());
-//                    currentItemPrice.setText(data.get(adapterPosition).getPrice());
-//                });
-//                itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
-//                itemPicker.setItemTransitionTimeMillis(150);
-//                itemPicker.setItemTransformer(new ScaleTransformer.Builder().setMinScale(0.8f).build());
-                ViewPager viewPager;
+                WrapContentHeightViewPager viewPager;
                 viewPager = view.findViewById(R.id.week_view_pager);
-                TextView weekDay = view.findViewById(R.id.week_day);
-                TextView weekDate = view.findViewById(R.id.week_date);
+                TextView meal = view.findViewById(R.id.meal);
+                TextView mealTime = view.findViewById(R.id.meal_time);
                 ImageView prev = view.findViewById(R.id.prev);
                 ImageView next = view.findViewById(R.id.next);
-                List<ProgramDay> pagerArr = new ArrayList<>();
+                DotsIndicator dotsIndicator = view.findViewById(R.id.dots_indicator);
 
+                ProgramDay programDay;
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
-                calendar.set(java.util.Calendar.DAY_OF_WEEK, java.util.Calendar.MONDAY);
 
-                for(int i=0; i<7; i++) {
-                    if(i != 0) {
-                        calendar.add(java.util.Calendar.DATE, 1);
-                    }
-                    Date date = new Date(calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH),  calendar.get(java.util.Calendar.DATE));
-                    if(programDays.get(date) != null) {
-                        pagerArr.add(programDays.get(date));
-                    } else {
-                        // TODO: 5/16/2019
-//                        pagerArr.add(programDays.get(date));
-                    }
-                    Helper.log("getTime " + date.toString());
+                Date date = new Date(calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DATE));
+                Helper.log("getTime " + date.toString());
+
+                if (programDays.get(date) != null) {
+                    programDay = programDays.get(date);
+                } else {
+                    calendar.add(java.util.Calendar.DATE, -1);
+                    date = new Date(calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DATE));
+                    programDay = programDays.get(date);
                 }
-                Helper.logObjectToJson("pagerArr " + pagerArr);
-//
-                viewPager.setAdapter(new WeekAdapter(LayoutInflater.from(getActivity()), pagerArr));
-                viewPager.setPageTransformer(false, new CustomPagerTransformer(getActivity()));
+                drawText(programDay.getMeals().get(0), meal, mealTime);
+                viewPager.setAdapter(new DayAdapter(LayoutInflater.from(getActivity()), programDay));
+                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity, 150));
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override public void onPageScrolled(int i, float v, int i1) { }
-                    @Override
-                    public void onPageSelected(int i) {
-                        Helper.log("position: " + i);
-                        Date date = new Date(pagerArr.get(i).getDate().getTime());
-                        date.setYear(date.getYear());
-
-                        java.util.Calendar calendar = java.util.Calendar.getInstance();
-                        calendar.setTime(date);
-                        calendar.set(java.util.Calendar.YEAR, calendar.get(java.util.Calendar.YEAR)-1900);
-                        calendar.setFirstDayOfWeek(java.util.Calendar.MONDAY);
-
-                        Helper.log("YEAR "+calendar.get(java.util.Calendar.YEAR));
-                        Helper.log("MONTH "+calendar.get(java.util.Calendar.MONTH));
-                        Helper.log("DATE "+calendar.get(java.util.Calendar.DATE));
-
-                        int dayOfWeek = calendar.get(java.util.Calendar.DAY_OF_WEEK);
-
-                        switch (dayOfWeek) {
-                            case java.util.Calendar.MONDAY:
-                                dayOfWeek = 0;
-                                break;
-                            case java.util.Calendar.TUESDAY:
-                                dayOfWeek = 1;
-                                break;
-                            case java.util.Calendar.WEDNESDAY:
-                                dayOfWeek = 2;
-                                break;
-                            case java.util.Calendar.THURSDAY:
-                                dayOfWeek = 3;
-                                break;
-                            case java.util.Calendar.FRIDAY:
-                                dayOfWeek = 4;
-                                break;
-                            case java.util.Calendar.SATURDAY:
-                                dayOfWeek = 5;
-                                break;
-                            case java.util.Calendar.SUNDAY:
-                                dayOfWeek = 6;
-                                break;
-                        }
-                        weekDay.setText(""+weekDays.get(dayOfWeek));
-                        weekDate.setText(date.getDate() + " " + months.get(date.getMonth()) + ", " + date.getYear());
-                    }
+                    @Override public void onPageSelected(int i) { drawText(programDay.getMeals().get(i), meal, mealTime); }
                     @Override public void onPageScrollStateChanged(int i) { }
                 });
-                prev.setOnClickListener(v->{
-                    viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
-                });
-                next.setOnClickListener(v->{
-                    viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
-                });
+                dotsIndicator.setViewPager(viewPager);
+                prev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1));
+                next.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() + 1));
                 break;
             case 2:
                 view = inflater.inflate(R.layout.fragment_home_history, container, false);
@@ -272,7 +194,7 @@ public class FragmentHome extends Fragment {
                 LinearLayoutManager manager = new LinearLayoutManager(getActivity().getBaseContext());
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(manager);
-                recyclerView.addItemDecoration(new GroupItemDecoration<String, Article>());
+                recyclerView.addItemDecoration(new GroupItemDecoration<String, CalendarMeal>());
 
                 mTextMonthDay = view.findViewById(R.id.tv_month_day);
                 mTextYear = view.findViewById(R.id.tv_year);
@@ -312,7 +234,10 @@ public class FragmentHome extends Fragment {
                     initProgramsDays(mYear, mMonth);
                 });
                 mCalendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
-                    @Override public void onCalendarOutOfRange(Calendar calendar) {}
+                    @Override
+                    public void onCalendarOutOfRange(Calendar calendar) {
+                    }
+
                     @Override
                     public void onCalendarSelect(Calendar calendar, boolean isClick) {
                         mTextLunar.setVisibility(View.VISIBLE);
@@ -342,6 +267,11 @@ public class FragmentHome extends Fragment {
         return view;
     }
 
+    private void drawText(Meal meal, TextView mealText, TextView mealTime) {
+        mealText.setText("" + meal.getDayTime().name());
+        mealTime.setText("" + meal.getDayTime().getTime());
+    }
+
     private void updateDayCardsHistory(ViewGroup root, boolean isVisibleAll) {
         root.removeAllViews();
         for (int i = programDays.size(); i > (isVisibleAll ? 0 : programDays.size() - 5); i--) {
@@ -363,9 +293,9 @@ public class FragmentHome extends Fragment {
         Map<String, Calendar> map = new HashMap<>();
 
 
-        for(int i=1; i<Helper.getMaxNumbersInMonth(year, month); i++) {
+        for (int i = 1; i < Helper.getMaxNumbersInMonth(year, month); i++) {
             try {
-                int day = programDays.get(new Date(year,month,i)).getDate().getDate();
+                int day = programDays.get(new Date(year, month, i)).getDate().getDate();
                 map.put(getSchemeCalendar(year, month, day, 0x993ecd8e, "Раз").toString(),
                         getSchemeCalendar(year, month, day, 0x993ecd8e, "Раз"));
             } catch (Exception e) {
@@ -399,9 +329,9 @@ public class FragmentHome extends Fragment {
     }
 
     private void updateDayCardsCalendar(Date date) {
-        ArticleAdapter articleAdapter = new ArticleAdapter(getActivity().getBaseContext());
-        articleAdapter.init(programDays.get(date));
-        recyclerView.setAdapter(articleAdapter);
+        CalendarMealAdapter calendarMealAdapter = new CalendarMealAdapter(getActivity().getBaseContext());
+        calendarMealAdapter.init(programDays.get(date));
+        recyclerView.setAdapter(calendarMealAdapter);
         recyclerView.notifyDataSetChanged();
     }
 }

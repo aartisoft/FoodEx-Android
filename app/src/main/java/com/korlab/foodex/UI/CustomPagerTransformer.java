@@ -5,8 +5,8 @@ import android.view.View;
 public class CustomPagerTransformer implements ViewPager.PageTransformer {
     private int maxTranslateOffsetX;
     private ViewPager viewPager;
-    public CustomPagerTransformer(Context context) {
-        this.maxTranslateOffsetX = dp2px(context, 180);
+    public CustomPagerTransformer(Context context, int dipValue) {
+        this.maxTranslateOffsetX = dp2px(context, dipValue); //180
     }
     public void transformPage(View view, float position) {
         if (viewPager == null)

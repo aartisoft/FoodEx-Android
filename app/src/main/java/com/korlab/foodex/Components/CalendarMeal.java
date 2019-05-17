@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.util.List;
 
 @SuppressWarnings("all")
-public class Article implements Serializable {
+public class CalendarMeal implements Serializable {
     private int id;
     private String header;
     private String time;

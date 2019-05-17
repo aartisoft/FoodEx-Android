@@ -1,7 +1,7 @@
 package com.korlab.foodex.Data
 
-class Meal(dayTime: Int, dishList: List<Dish>) {
-    var dayTime: Int = 0
+class Meal(dayTime: Type, dishList: MutableList<Dish>) {
+    var dayTime: Type? = null
     var dishList: List<Dish>? = null
 //    var calories: Int = 0
 
@@ -16,5 +16,13 @@ class Meal(dayTime: Int, dishList: List<Dish>) {
 //        this.proteins = proteins
 //        this.fats = fats
 //        this.carbo = carbo
+    }
+    enum class Type(val time: String, val second: Int) {
+        BREAKFAST("8:00", 1),
+        BRUNCH("10:00", 1),
+        LUNCH("12:00", 1),
+        AFTERNOONMEALS("15:00", 1),
+        SECONDAFTERNOONMEALS("17:00", 1),
+        DINNER("19:00", 1),
     }
 }

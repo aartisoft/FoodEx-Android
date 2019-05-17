@@ -27,6 +27,7 @@ import com.korlab.foodex.UI.CustomViewPager;
 import com.korlab.foodex.UI.MenuRow;
 import com.korlab.foodex.UI.NavigationTabStrip;
 import com.korlab.foodex.UI.Toolbar;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -112,6 +113,7 @@ public class FragmentMainMenu extends Fragment {
 
                 ViewPager viewPager;
                 viewPager = view.findViewById(R.id.promo_view_pager);
+                DotsIndicator dotsIndicator = view.findViewById(R.id.dots_indicator);
                 List<Promo> pagerArr = new ArrayList<>();
 
                 pagerArr.add(new Promo(1, "+100 UAH to your account for every kilogram dropped!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/2.jpg"));
@@ -122,7 +124,9 @@ public class FragmentMainMenu extends Fragment {
                 pagerArr.add(new Promo(6, "Become a FoodEx Partner", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/sale.jpg"));
 
                 viewPager.setAdapter(new PromoAdapter(LayoutInflater.from(getActivity()), pagerArr));
-                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity));
+                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity, 180));
+                dotsIndicator.setViewPager(viewPager);
+
 //                viewPager.setOffscreenPageLimit(10);
 //                Slide
 //                slidePromoPage(viewPager, pagerArr.size());

@@ -22,8 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
-                android:orientation="vertical"
-                tools:context=".promo.ShopActivity">
+                android:orientation="vertical">
 
 
 
@@ -60,7 +59,7 @@
                            android:layout_centerHorizontal="true"
                            android:orientation="vertical">
                            <TextView
-                               android:id="@+id/week_day"
+                               android:id="@+id/meal"
                                android:layout_width="wrap_content"
                                android:layout_height="wrap_content"
                                android:layout_gravity="center_horizontal"
@@ -68,20 +67,20 @@
                                android:textColor="@android:color/black"
                                android:textSize="@dimen/sp16"
                                android:textStyle="bold"
-                               tools:text="Stoneware + Porcelain Plate" />
+                               tools:text="Breakfast" />
 
                            <Space
                                android:layout_width="wrap_content"
                                android:layout_height="@dimen/dp4" />
 
                            <TextView
-                               android:id="@+id/week_date"
+                               android:id="@+id/meal_time"
                                android:layout_width="wrap_content"
                                android:layout_height="wrap_content"
                                android:layout_gravity="center_horizontal"
                                android:textColor="#84ceca"
                                android:textStyle="bold"
-                               tools:text="$24.00 USD" />
+                               tools:text="8:00" />
                            <Space
                                android:layout_width="wrap_content"
                                android:layout_height="@dimen/dp16" />
@@ -116,19 +115,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <android.support.v4.view.ViewPager
+                    <com.korlab.foodex.UI.WrapContentHeightViewPager
                         android:id="@+id/week_view_pager"
                         android:layout_width="match_parent"
-                        android:layout_height="500dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="0dp"
                         android:clipToPadding="false"
-                        android:paddingStart="@dimen/dp18"
-                        android:paddingLeft="@dimen/dp18"
-                        android:paddingEnd="@dimen/dp18"
-                        android:paddingRight="@dimen/dp18" />
-                </RelativeLayout>
+                        android:paddingTop="@dimen/dp2"
+                        android:paddingBottom="@dimen/dp2"
+                        android:paddingEnd="@dimen/dp22"
+                        android:paddingLeft="@dimen/dp22"
+                        android:paddingRight="@dimen/dp22"
+                        android:paddingStart="@dimen/dp22" />
 
+                </RelativeLayout>
+                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                    android:id="@+id/dots_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
+                    app:dotsColor="#F4F4F4"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="8dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsWidthFactor="2.5"
+                    app:selectedDotColor="@color/dark_white"
+                    app:progressMode="false"
+                    />
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp24" />
