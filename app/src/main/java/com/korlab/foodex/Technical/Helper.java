@@ -184,9 +184,9 @@ public class Helper {
 //        return gson.toJson(obj);
 //    }
 //
-//    public static User fromJson(String json, Object object) {
-//        return gson.fromJson(json, (Type) object);
-//    }
+    public static User fromJson(String json, Object object) {
+        return gson.fromJson(json, (Type) object);
+    }
 
 //    public static void showKeyboard(Activity activity, View view) {
 //        InputMethodManager inputMethodManager =

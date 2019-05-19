@@ -282,8 +282,8 @@ public class FragmentMainMenu extends Fragment {
             Helper.log("processClickMenu: " + v.getClass().getSimpleName());
             switch (v.getTag().toString()) {
                 case "0":
-                    String json = "{\"birthdayDay\":9,\"birthdayMonth\":11,\"birthdayYear\":1998,\"deliveryType\":1,\"email\":\"xom9ik.code@gmail.com\",\"firstName\":\"Maxim\",\"gender\":false,\"growth\":170,\"growthMetrics\":false,\"lastName\":\"Romanyuta\",\"middleName\":\"Olegovich\",\"phone\":\"+380959483523\",\"weekdaysAddress\":{\"apartment\":\"2/F\",\"house\":\"77\",\"street\":\"Universitetksa\"},\"weekendsAddress\":{\"apartment\":\"1\",\"house\":\"30\",\"street\":\"Aprel`ska\"},\"weight\":60,\"weightMetrics\":false}";
-                    startActivity(new Intent(activity, ProfileEdit.class).putExtra("user", json));
+                    Helper.setUserData(MainMenu.getInstance().user);
+                    startActivity(new Intent(activity, ProfileEdit.class));
                     Bungee.slideLeft(activity);
                     Helper.log("click: " + "profile_edit");
                     break;

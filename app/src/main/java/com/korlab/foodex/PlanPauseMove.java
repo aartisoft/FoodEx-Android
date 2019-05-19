@@ -123,12 +123,12 @@ public class PlanPauseMove extends AppCompatActivity {
                     + " to " + months.get(dateMoveTo.getMonth() - 1) + " " + dateMoveTo.getDate() + "?");
         }
 
-
         ok.setOnClickListener((v) -> {
             restoreButtonAndCalendar(dateMoveFrom);
             dialog.dismiss();
             super.finish();
         });
+
         cancel.setOnClickListener(v -> {
             restoreButtonAndCalendar(dateMoveFrom);
             dialog.dismiss();
