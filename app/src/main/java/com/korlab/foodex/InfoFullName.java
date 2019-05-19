@@ -45,7 +45,7 @@ public class InfoFullName extends AppCompatActivity {
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         Helper.setStatusBarIconWhite(getWindow());
         findView();
-        user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
+        user = Helper.getUserData();
 
         Helper.addRedAsterisk(inputSurname);
         Helper.addRedAsterisk(inputName);
@@ -57,7 +57,8 @@ public class InfoFullName extends AppCompatActivity {
             user.setFirstName(inputSurname.getText().toString());
             user.setLastName(inputName.getText().toString());
             user.setMiddleName(inputMiddle.getText().toString());
-            startActivity(new Intent(getInstance(), InfoGender.class).putExtra("user", Helper.toJson(user)));
+            Helper.setUserData(user);
+            startActivity(new Intent(getInstance(), InfoGender.class));
             Bungee.slideLeft(getInstance());
         });
         inputSurname.addTextChangedListener(new TextWatcher() {

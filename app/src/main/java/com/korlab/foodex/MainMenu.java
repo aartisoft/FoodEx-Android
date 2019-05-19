@@ -5,12 +5,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
+import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CustomViewPager;
 import com.korlab.foodex.UI.ReadableBottomBar;
 
 public class MainMenu extends AppCompatActivity {
     private static MainMenu instance;
+    public User user;
 
     public static MainMenu getInstance() {
         return instance;
@@ -30,6 +32,7 @@ public class MainMenu extends AppCompatActivity {
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         Helper.setStatusBarIconWhite(getWindow());
+        user = Helper.getUserData();
         findView();
 
         CustomViewPager viewPager = findViewById(R.id.viewpager_main_menu);

@@ -48,6 +48,7 @@ public class DayAdapter extends PagerAdapter {
 
     private ProgramDay programDay;
     private ImageView image;
+    private LinearLayout dishList, noData;
     private CardView card;
     private TextView header, date;
     private View colorViewLeft,colorViewRight;
@@ -105,8 +106,23 @@ public class DayAdapter extends PagerAdapter {
             colorViewRight.setBackgroundColor(calendarMeal.getColor());
             wrapperCategories.removeAllViews();
             for(int i = 0; i<calendarMeal.getListDish().size(); i++) {
-                wrapperCategories.addView(new CardDish(MainMenu.getInstance().getBaseContext(), dishTypes.get(calendarMeal.getListDish().get(i).getDishType()), calendarMeal.getListDish().get(i).getName(), calendarMeal.getColor()));
+                wrapperCategories.addView(
+                        new CardDish(MainMenu.getInstance().getBaseContext(),
+                                dishTypes.get(calendarMeal.getListDish().get(i).getDishType()),
+                                calendarMeal.getListDish().get(i).getName(),
+                                calendarMeal.getColor())
+                        );
             }
+            if(calendarMeal.getListDish().size() == 0) {
+                Helper.log("Dish List Visible");
+                dishList.setVisibility(View.GONE);
+                noData.setVisibility(View.VISIBLE);
+            } else {
+                Helper.log("No Data Visible");
+                dishList.setVisibility(View.VISIBLE);
+                noData.setVisibility(View.GONE);
+            }
+
             proteins.setAnimationDuration(1000);
             proteins.setCharacterList(TickerUtils.getDefaultNumberList());
             fats.setAnimationDuration(1000);
@@ -156,6 +172,8 @@ public class DayAdapter extends PagerAdapter {
         colorViewLeft = view.findViewById(R.id.color_view_left);
         colorViewRight = view.findViewById(R.id.color_view_right);
         wrapperCategories = view.findViewById(R.id.wrapper_categories);
+        dishList = view.findViewById(R.id.dish_list);
+        noData = view.findViewById(R.id.no_data);
         proteins = view.findViewById(R.id.proteins);
         fats = view.findViewById(R.id.fats);
         carbo = view.findViewById(R.id.carbo);

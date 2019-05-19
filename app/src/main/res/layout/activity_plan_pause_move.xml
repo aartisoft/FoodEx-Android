@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:paddingBottom="@dimen/dp50">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_tool"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp52"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_month_day"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp16"
+                android:textColor="#333333"
+                android:textSize="@dimen/dp25"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/tv_month_day"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp6"
+                android:paddingTop="@dimen/dp12"
+                android:paddingRight="@dimen/dp6"
+                android:paddingBottom="@dimen/dp12"
+                tools:ignore="RelativeOverlap">
+
+                <TextView
+                    android:id="@+id/tv_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp0"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/dp10" />
+
+                <TextView
+                    android:id="@+id/tv_lunar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp0"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/dp10" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_current"
+                android:layout_width="@dimen/dp32"
+                android:layout_height="@dimen/dp32"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp12"
+                android:background="@drawable/bg_ripple">
+
+                <ImageView
+                    android:id="@+id/ib_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_calendar"
+                    android:tint="#333333" />
+
+                <TextView
+                    android:id="@+id/tv_current_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp2"
+                    android:gravity="center"
+                    android:text="13"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sp12" />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <com.haibin.calendarview.CalendarLayout
+            android:id="@+id/calendarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:orientation="vertical"
+            app:calendar_content_view_id="@+id/recyclerView">
+
+            <com.haibin.calendarview.CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                app:calendar_height="@dimen/dp46"
+                app:calendar_padding="@dimen/dp10"
+                app:current_day_lunar_text_color="#333333"
+                app:current_day_text_color="#3ecd8e"
+                app:current_month_lunar_text_color="#CFCFCF"
+                app:current_month_text_color="#333333"
+                app:day_text_size="@dimen/dp18"
+                app:min_year="1900"
+                app:month_view="com.korlab.foodex.UI.CalendarMonthView"
+                app:other_month_text_color="#e1e1e1"
+                app:scheme_text_color="#333"
+                app:scheme_theme_color="#333"
+                app:selected_text_color="#fff"
+                app:selected_theme_color="#3ecd8e"
+                app:week_background="#fff"
+                app:week_start_with="mon"
+                app:week_text_color="#333333"
+                app:week_view="com.korlab.foodex.UI.CalendarWeekView"
+                app:year_view_day_text_color="#333333"
+                app:year_view_day_text_size="@dimen/dp8"
+                app:year_view_month_text_color="#3ecd8e"
+                app:year_view_month_text_size="@dimen/dp20" />
+
+
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:padding="@dimen/dp30">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:fontFamily="@font/rns_medium"
+                    android:text="Plan control information"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp16" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:fontFamily="@font/rns_regular"
+                        android:text="Pause plan"
+                        android:textColor="#9c9c9c"
+                        android:textSize="@dimen/sp16" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:fontFamily="@font/rns_regular"
+                        android:text="To pause the plan, click the Pause button"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp16" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:fontFamily="@font/rns_regular"
+                        android:text="Move plan"
+                        android:textColor="#9c9c9c"
+                        android:textSize="@dimen/sp16" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:fontFamily="@font/rns_regular"
+                        android:text="To transfer the plan, select the start date, click the transfer button and select the date to which the plan will be transferred."
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:orientation="horizontal">
+
+                    <com.korlab.foodex.UI.MaterialButton
+                        android:id="@+id/button_pause"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp48"
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:layout_marginTop="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_weight="40"
+                        app:mb_borderColor="@color/email"
+                        app:mb_borderWidth="@dimen/dp1"
+                        app:mb_buttonColor="@color/white"
+                        app:mb_buttonType="raised"
+                        app:mb_cornerRadius="@dimen/dp30"
+                        app:mb_rippleColor="@color/ripple_color"
+                        app:mb_text="Pause"
+                        app:mb_textColor="@color/email"
+                        app:mb_textSize="@dimen/sp19" />
+
+                    <com.korlab.foodex.UI.MaterialButton
+                        android:id="@+id/button_move_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp48"
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:layout_marginTop="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_weight="40"
+                        app:mb_borderColor="@color/google"
+                        app:mb_borderWidth="@dimen/dp1"
+                        app:mb_buttonColor="@color/white"
+                        app:mb_buttonType="raised"
+                        app:mb_cornerRadius="@dimen/dp30"
+                        app:mb_rippleColor="@color/ripple_color"
+                        app:mb_text="Move from"
+                        app:mb_textColor="@color/google"
+                        app:mb_textSize="@dimen/sp19" />
+
+                    <com.korlab.foodex.UI.MaterialButton
+                        android:id="@+id/button_move_to"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp48"
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:layout_marginTop="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_weight="40"
+                        app:mb_borderColor="@color/google"
+                        app:mb_borderWidth="@dimen/dp1"
+                        app:mb_buttonColor="@color/white"
+                        app:mb_buttonType="raised"
+                        app:mb_cornerRadius="@dimen/dp30"
+                        app:mb_rippleColor="@color/ripple_color"
+                        app:mb_text="Move to"
+                        app:mb_textColor="@color/google"
+                        app:mb_textSize="@dimen/sp19" />
+                </LinearLayout>
+
+            </LinearLayout>
+            　
+
+
+        </com.haibin.calendarview.CalendarLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

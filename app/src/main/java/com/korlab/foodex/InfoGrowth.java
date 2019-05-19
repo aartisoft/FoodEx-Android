@@ -36,7 +36,7 @@ public class InfoGrowth extends AppCompatActivity {
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         findView();
-        user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
+        user = Helper.getUserData();
         changeImage(user.getGender());
         growthStringCm = new String[300];
         growthStringInch = new String[118];
@@ -60,7 +60,8 @@ public class InfoGrowth extends AppCompatActivity {
             user.setGrowth(mGrowth);
             user.setGrowthMetrics((mGrowthMetrics != 0));
             Helper.logObjectToJson(user);
-            startActivity(new Intent(getInstance(), InfoBirthday.class).putExtra("user", Helper.toJson(user)));
+            Helper.setUserData(user);
+            startActivity(new Intent(getInstance(), InfoBirthday.class));
             Bungee.slideLeft(getInstance());
         });
     }

@@ -78,7 +78,7 @@ public class ProfileEdit extends AppCompatActivity {
                 getInstance().getDrawable(R.drawable.toolbar_arrow_left), getInstance().getDrawable(R.drawable.toolbar_check)));
         toolbarLeft = findViewById(R.id.toolbar_left_icon);
         toolbarRight = findViewById(R.id.toolbar_right_icon);
-        user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
+        user = Helper.getUserData();
 
         dateBirthday = new int[]{user.getBirthdayDay(), user.getBirthdayMonth(), user.getBirthdayYear()};
 

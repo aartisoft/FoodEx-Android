@@ -1,5 +1,6 @@
 package com.korlab.foodex;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.korlab.foodex.Data.Meal;
 import com.korlab.foodex.Data.ProgramDay;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CustomPagerTransformer;
+import com.korlab.foodex.UI.MaterialButton;
 import com.korlab.foodex.UI.WrapContentHeightViewPager;
 import com.korlab.foodex.UI.group.GroupItemDecoration;
 import com.korlab.foodex.UI.group.GroupRecyclerView;
@@ -66,7 +68,7 @@ public class FragmentHome extends Fragment {
         View view = null;
         programDays = new HashMap<>();
         activity = MainMenu.getInstance();
-        for (int i = 0; i < 29; i += 3) {
+        for (int i = 0; i < 29; i += 5) {
             List<Meal> mealList = new ArrayList<>();
             List<Dish> dishListBreakfast = new ArrayList<>();
             // Breakfast
@@ -128,6 +130,7 @@ public class FragmentHome extends Fragment {
             programDays.put(date, new ProgramDay(date, mealList));
             programDays.put(date2, new ProgramDay(date2, mealList));
             programDays.put(date3, new ProgramDay(date3, mealList));
+            Helper.setProgramDaysData(programDays);
         }
 
         switch (mPage) {
@@ -140,31 +143,43 @@ public class FragmentHome extends Fragment {
                 ImageView prev = view.findViewById(R.id.prev);
                 ImageView next = view.findViewById(R.id.next);
                 DotsIndicator dotsIndicator = view.findViewById(R.id.dots_indicator);
+                MaterialButton buttonPlanControl = view.findViewById(R.id.button_plan_control);
 
                 ProgramDay programDay;
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
 
                 Date date = new Date(calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DATE));
                 Helper.log("getTime " + date.toString());
+                Helper.log("programDays.get(date) " + programDays.get(date));
 
                 if (programDays.get(date) != null) {
                     programDay = programDays.get(date);
                 } else {
-                    calendar.add(java.util.Calendar.DATE, -1);
-                    date = new Date(calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DATE));
-                    programDay = programDays.get(date);
+                    Helper.log("push empty data");
+                    List<Meal> mealList = new ArrayList<>();
+                    mealList.add(new Meal(Meal.Type.BREAKFAST, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.BRUNCH, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.LUNCH, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.AFTERNOONMEALS, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.SECONDAFTERNOONMEALS, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.DINNER, new ArrayList<>()));
+                    programDay = new ProgramDay(date, mealList);
                 }
-                drawText(programDay.getMeals().get(0), meal, mealTime);
+                drawText(programDay.getMeals().get(0), date, meal, mealTime);
                 viewPager.setAdapter(new DayAdapter(LayoutInflater.from(getActivity()), programDay));
-                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity, 150));
+                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity, 130));
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override public void onPageScrolled(int i, float v, int i1) { }
-                    @Override public void onPageSelected(int i) { drawText(programDay.getMeals().get(i), meal, mealTime); }
+                    @Override public void onPageSelected(int i) { drawText(programDay.getMeals().get(i), date, meal, mealTime); }
                     @Override public void onPageScrollStateChanged(int i) { }
                 });
                 dotsIndicator.setViewPager(viewPager);
-                prev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1));
-                next.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() + 1));
+                prev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
+                next.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true));
+                buttonPlanControl.setOnClickListener(v->{
+                    Helper.setUserData(MainMenu.getInstance().user);
+                    startActivity(new Intent(MainMenu.getInstance(), PlanPauseMove.class));
+                });
                 break;
             case 2:
                 view = inflater.inflate(R.layout.fragment_home_history, container, false);
@@ -195,19 +210,13 @@ public class FragmentHome extends Fragment {
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(manager);
                 recyclerView.addItemDecoration(new GroupItemDecoration<String, CalendarMeal>());
-
                 mTextMonthDay = view.findViewById(R.id.tv_month_day);
                 mTextYear = view.findViewById(R.id.tv_year);
                 mTextLunar = view.findViewById(R.id.tv_lunar);
                 mCalendarView = view.findViewById(R.id.calendarView);
                 mTextCurrentDay = view.findViewById(R.id.tv_current_day);
                 mCalendarView.setSelectSingleMode();
-//                mCalendarView.getSelectedCalendar().setDay(dateBirthday[0]);
-//                mCalendarView.getSelectedCalendar().setMonth(dateBirthday[1]);
-//                mCalendarView.getSelectedCalendar().setYear(dateBirthday[2]);
-//                mCalendarView.scrollToCalendar(dateBirthday[2],dateBirthday[1],dateBirthday[0]);
                 updateDayCardsCalendar(new Date(mCalendarView.getCurYear(), mCalendarView.getCurMonth(), mCalendarView.getCurDay()));
-
                 mTextMonthDay.setOnClickListener(v -> {
                     if (!mCalendarLayout.isExpand()) {
                         mCalendarLayout.expand();
@@ -219,7 +228,6 @@ public class FragmentHome extends Fragment {
                     mTextMonthDay.setText(String.valueOf(mYear));
                 });
                 view.findViewById(R.id.fl_current).setOnClickListener(v -> mCalendarView.scrollToCurrent());
-
                 mCalendarLayout = view.findViewById(R.id.calendarLayout);
                 mCalendarView.setOnYearChangeListener(year -> {
                     mYear = year;
@@ -234,9 +242,7 @@ public class FragmentHome extends Fragment {
                     initProgramsDays(mYear, mMonth);
                 });
                 mCalendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
-                    @Override
-                    public void onCalendarOutOfRange(Calendar calendar) {
-                    }
+                    @Override public void onCalendarOutOfRange(Calendar calendar) { }
 
                     @Override
                     public void onCalendarSelect(Calendar calendar, boolean isClick) {
@@ -251,13 +257,11 @@ public class FragmentHome extends Fragment {
                     }
                 });
                 mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
-
                 mYear = mCalendarView.getSelectedCalendar().getYear();
                 mMonth = mCalendarView.getSelectedCalendar().getMonth();
                 mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
                 mTextLunar.setText("Year");
                 mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
-
                 initProgramsDays(mYear, mMonth);
                 //////////////////////////////
                 break;
@@ -267,8 +271,8 @@ public class FragmentHome extends Fragment {
         return view;
     }
 
-    private void drawText(Meal meal, TextView mealText, TextView mealTime) {
-        mealText.setText("" + meal.getDayTime().name());
+    private void drawText(Meal meal, Date date, TextView mealText, TextView mealTime) {
+        mealText.setText(date.getDate() + " " + months.get(date.getMonth()-1));
         mealTime.setText("" + meal.getDayTime().getTime());
     }
 
