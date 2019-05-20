@@ -20,6 +20,7 @@ import java.util.List;
 public class ChatsAdapter extends ArrayAdapter<Chat> {
 
     Context mContext;
+    List<Chat> data;
 
     private static class ViewHolder {
         ImageView image;
@@ -33,6 +34,7 @@ public class ChatsAdapter extends ArrayAdapter<Chat> {
     public ChatsAdapter(List<Chat> data, Context context) {
         super(context, R.layout.component_chat, data);
         this.mContext = context;
+        this.data = data;
     }
 
     @Override
@@ -64,4 +66,5 @@ public class ChatsAdapter extends ArrayAdapter<Chat> {
         viewHolder.previewMessage.setText(item.getPreviewMessage());
         return convertView;
     }
+
 }

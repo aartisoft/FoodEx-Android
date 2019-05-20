@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.korlab.foodex.Chats.ChatsAdapter;
 import com.korlab.foodex.Data.Chat;
@@ -113,16 +114,22 @@ public class FragmentMainMenu extends Fragment {
                 listChats.setAdapter(chatsAdapter);
                 listChats.setDivider(null);
                 listChats.setDividerHeight(0);
-                listChats.setOnItemClickListener((parent, view1, position, id) -> {
-                    switch (position) {
-                        case 1:
-                            
-                            break;
-                        case 2:
-
-                            break;
+                listChats.setItemsCanFocus(false);
+                listChats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                        Helper.log("click: " + position);
+                        Helper.setUserData(MainMenu.getInstance().user);
+                        switch(position) {
+                            case 0:
+                                startActivity(new Intent(MainMenu.getInstance(), BotManagerChat.class));
+                                break;
+                            case 1:
+                                startActivity(new Intent(MainMenu.getInstance(), BotManagerChat.class));
+                                break;
+                        }
                     }
                 });
+
                 break;
             case 4:
                 view = inflater.inflate(R.layout.fragment_purchaces, container, false);
