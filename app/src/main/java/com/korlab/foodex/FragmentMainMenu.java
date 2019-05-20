@@ -11,12 +11,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.korlab.foodex.Chats.ChatsAdapter;
+import com.korlab.foodex.Data.Chat;
 import com.korlab.foodex.Data.Program;
 import com.korlab.foodex.Data.Promo;
 import com.korlab.foodex.Program.ProgramAdapter;
@@ -90,21 +93,36 @@ public class FragmentMainMenu extends Fragment {
                     @Override public void onStartTabSelected(String title, int index) { viewPagerHome.setCurrentItem(index); }
                     @Override public void onEndTabSelected(String title, int index) { }
                 });
-
                 break;
             case 2:
                 view = inflater.inflate(R.layout.fragment_weight, container, false);
-                TextView textFragmentWeight = view.findViewById(R.id.textFragmentWeight);
-                textFragmentWeight.setText("Fragment Weight#" + mPage);
                 toolbarContainer = view.findViewById(R.id.toolbar_container);
                 toolbarContainer.addView(new Toolbar(activity, false, "Weight Control", null, activity.getDrawable(R.drawable.toolbar_share)).getView());
                 break;
             case 3:
                 view = inflater.inflate(R.layout.fragment_manager, container, false);
-                TextView textFragmentManager = view.findViewById(R.id.textFragmentManager);
-                textFragmentManager.setText("Fragment Manager#" + mPage);
                 toolbarContainer = view.findViewById(R.id.toolbar_container);
-                toolbarContainer.addView(new Toolbar(activity, false, "Personal Manager", null, activity.getDrawable(R.drawable.toolbar_filter)).getView());
+                toolbarContainer.addView(new Toolbar(activity, false, "Personal Manager", null, null).getView());
+                ListView listChats = view.findViewById(R.id.list_chat);
+
+                Date d = new Date(2019,10,10);
+                List<Chat> listChat = new ArrayList<>();
+                listChat.add(new Chat("FoodEx Bot","Notifications and tickets", d, "Here you can make ticket", 7, R.drawable.robot));
+                listChat.add(new Chat("Manager","Personal manager", d, "Help with any question", 2, R.drawable.manager));
+                ChatsAdapter chatsAdapter = new ChatsAdapter(listChat, getActivity().getBaseContext());
+                listChats.setAdapter(chatsAdapter);
+                listChats.setDivider(null);
+                listChats.setDividerHeight(0);
+                listChats.setOnItemClickListener((parent, view1, position, id) -> {
+                    switch (position) {
+                        case 1:
+                            
+                            break;
+                        case 2:
+
+                            break;
+                    }
+                });
                 break;
             case 4:
                 view = inflater.inflate(R.layout.fragment_purchaces, container, false);
@@ -190,9 +208,9 @@ public class FragmentMainMenu extends Fragment {
                         "https://media.foodexhub.com.ua/images/smi/thebodyology1.jpg"));
 
 
-                ProgramAdapter adapter = new ProgramAdapter(programs, getActivity().getBaseContext());
+                ProgramAdapter programAdapter = new ProgramAdapter(programs, getActivity().getBaseContext());
 
-                listProgram.setAdapter(adapter);
+                listProgram.setAdapter(programAdapter);
                 listProgram.setDivider(null);
                 listProgram.setDividerHeight(0);
                 listProgram.setOnTouchListener((v, event) -> {

@@ -1,5 +1,7 @@
 package com.korlab.foodex.Data
 
+
+
 class Address(street: String, house: String, apartment: String) {
 
     var street: String = ""
