@@ -115,18 +115,16 @@ public class FragmentMainMenu extends Fragment {
                 listChats.setDivider(null);
                 listChats.setDividerHeight(0);
                 listChats.setItemsCanFocus(false);
-                listChats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                        Helper.log("click: " + position);
-                        Helper.setUserData(MainMenu.getInstance().user);
-                        switch(position) {
-                            case 0:
-                                startActivity(new Intent(MainMenu.getInstance(), BotManagerChat.class));
-                                break;
-                            case 1:
-                                startActivity(new Intent(MainMenu.getInstance(), BotManagerChat.class));
-                                break;
-                        }
+                listChats.setOnItemClickListener((parent, v, position, id) -> {
+                    Helper.log("click: " + position);
+                    Helper.setUserData(MainMenu.getInstance().user);
+                    switch(position) {
+                        case 0:
+                            startActivity(new Intent(MainMenu.getInstance(), BotManagerChat.class));
+                            break;
+                        case 1:
+                            startActivity(new Intent(MainMenu.getInstance(), BotManagerChat.class));
+                            break;
                     }
                 });
 
