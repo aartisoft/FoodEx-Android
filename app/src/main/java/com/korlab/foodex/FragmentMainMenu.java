@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.korlab.foodex.Chats.ChatsAdapter;
 import com.korlab.foodex.Data.Chat;
+import com.korlab.foodex.Data.Message;
 import com.korlab.foodex.Data.Program;
 import com.korlab.foodex.Data.Promo;
 import com.korlab.foodex.Program.ProgramAdapter;
@@ -107,16 +108,29 @@ public class FragmentMainMenu extends Fragment {
                 ListView listChats = view.findViewById(R.id.list_chat);
 
                 Date d = new Date(2019,10,10);
-                List<Chat> listChat = new ArrayList<>();
-                listChat.add(new Chat("FoodEx Bot","Notifications and tickets", d, "Here you can make ticket", 7, R.drawable.robot));
-                listChat.add(new Chat("Manager","Personal manager", d, "Help with any question", 2, R.drawable.manager));
-                ChatsAdapter chatsAdapter = new ChatsAdapter(listChat, getActivity().getBaseContext());
+                MainMenu.getInstance().listChat = new ArrayList<>();
+
+                Chat botChat = new Chat("FoodEx Bot","Notifications and tickets", d, "Here you can make ticket", 7, R.drawable.robot);
+                List<Message> messagesBotChat = new ArrayList<>();
+                messagesBotChat.add(new Message(Message.Sender.BOT, new Date(2019,5,29),"First message from bot"));
+                messagesBotChat.add(new Message(Message.Sender.BOT, new Date(2019,5,29),"Second message from bot"));
+                messagesBotChat.add(new Message(Message.Sender.CLIENT, new Date(2019,5,29),"Wow, thank you"));
+                messagesBotChat.add(new Message(Message.Sender.BOT, new Date(2019,5,29),"I can help you again?"));
+                messagesBotChat.add(new Message(Message.Sender.BOT, new Date(2019,5,29),"Okay. Good evening ;)"));
+                botChat.setMessages(messagesBotChat);
+
+                MainMenu.getInstance().listChat = new ArrayList<>();
+                MainMenu.getInstance().listChat.add(botChat);
+
+                MainMenu.getInstance().listChat.add(new Chat("Manager","Personal manager", d, "Help with any question", 2, R.drawable.manager));
+                ChatsAdapter chatsAdapter = new ChatsAdapter(MainMenu.getInstance().listChat, getActivity().getBaseContext());
                 listChats.setAdapter(chatsAdapter);
                 listChats.setDivider(null);
                 listChats.setDividerHeight(0);
                 listChats.setItemsCanFocus(false);
                 listChats.setOnItemClickListener((parent, v, position, id) -> {
                     Helper.log("click: " + position);
+                    Helper.log( MainMenu.getInstance().listChat.get(0).getMessages().get(0).getText());
                     Helper.setUserData(MainMenu.getInstance().user);
                     switch(position) {
                         case 0:

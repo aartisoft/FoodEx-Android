@@ -5,10 +5,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
+import com.korlab.foodex.Data.Chat;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CustomViewPager;
 import com.korlab.foodex.UI.ReadableBottomBar;
+
+import java.util.List;
 
 public class MainMenu extends AppCompatActivity {
     private static MainMenu instance;
@@ -17,6 +20,7 @@ public class MainMenu extends AppCompatActivity {
     public static MainMenu getInstance() {
         return instance;
     }
+    public List<Chat> listChat;
 
     @Override
     public void onBackPressed() {

@@ -17,7 +17,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
+            android:id="@+id/background_chat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/irongrip_repeating"
@@ -25,108 +27,204 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:cardBackgroundColor="#fafafa"
-            android:layout_marginLeft="@dimen/dp4"
-            android:layout_marginRight="@dimen/dp4"
-            app:cardCornerRadius="@dimen/dp4"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:visibility="gone"
+                android:id="@+id/bot_attach_menu"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="@dimen/dp20">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/dp14"
-                    android:fontFamily="@font/rns_medium"
-                    android:text="Please choose what interests you"
-                    android:textColor="@color/dark_text"
-                    android:textSize="@dimen/sp19" />
-                <RadioGroup
-                    android:id="@+id/input_radio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp4"
+                android:layout_marginRight="@dimen/dp4"
+                app:cardBackgroundColor="#fafafa"
+                app:cardCornerRadius="@dimen/dp4"
+                app:cardElevation="4dp"
+                android:layout_marginTop="-2dp">
 
-                    <RadioButton
-                        android:id="@+id/radio_manager_recall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="Ask manager to recall"
-                        style="@style/radionbutton"/>
-
-                    <RadioButton
-                        android:id="@+id/radio_courier_recall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ask courier to recall"
-                        style="@style/radionbutton"/>
-
-                    <RadioButton
-                        android:id="@+id/radio_postpone_delivery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Postpone delivery"
-                        style="@style/radionbutton" />
-
-                    <RadioButton
-                        android:id="@+id/radio_change_delivery_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Change delivery location"
-                        style="@style/radionbutton" />
-
-                    <RadioButton
-                        android:id="@+id/radio_change_current_plan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Change current plan"
-                        style="@style/radionbutton" />
-
-                    <RadioButton
-                        android:id="@+id/radio_cancel_delivery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cancel delivery"
-                        style="@style/radionbutton" />
-
-                </RadioGroup>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:weightSum="100">
-                    <com.korlab.foodex.UI.MaterialButton
-                        android:id="@+id/button_continue"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/dp48"
-                        android:layout_weight="50"
-                        android:layout_marginTop="@dimen/dp10"
-                        app:mb_borderColor="@color/colorPrimary"
-                        app:mb_borderWidth="@dimen/dp40"
-                        app:mb_buttonColor="@color/colorPrimary"
-                        app:mb_buttonType="flat"
-                        app:mb_cornerRadius="@dimen/dp30"
-                        app:mb_rippleColor="@color/colorPrimaryVeryLight"
-                        app:mb_text="Continue"
-                        app:mb_textColor="#ffffff"
-                        app:mb_textSize="@dimen/sp19" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp20">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/dp14"
+                        android:fontFamily="@font/rns_medium"
+                        android:text="Please choose what interests you"
+                        android:textColor="@color/dark_text"
+                        android:textSize="@dimen/sp19" />
+
+                    <RadioGroup
+                        android:id="@+id/input_radio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary">
+
+                        <RadioButton
+                            android:id="@+id/radio_manager_recall"
+                            style="@style/radionbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="Ask manager to recall" />
+
+                        <RadioButton
+                            android:id="@+id/radio_courier_recall"
+                            style="@style/radionbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ask courier to recall" />
+
+                        <RadioButton
+                            android:id="@+id/radio_postpone_delivery"
+                            style="@style/radionbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Postpone delivery" />
+
+                        <RadioButton
+                            android:id="@+id/radio_change_delivery_location"
+                            style="@style/radionbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Change delivery location" />
+
+                        <RadioButton
+                            android:id="@+id/radio_change_current_plan"
+                            style="@style/radionbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Change current plan" />
+
+                        <RadioButton
+                            android:id="@+id/radio_cancel_delivery"
+                            style="@style/radionbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cancel delivery" />
+
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="#fefefe"
+                            android:layout_margin="@dimen/dp10"
+                            app:cardCornerRadius="@dimen/dp4"
+                            android:elevation="@dimen/dp1"
+                            android:layout_weight="50">
+                            <com.balysv.materialripple.MaterialRippleLayout
+                                android:id="@+id/button_cancel"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:mrl_rippleColor="@color/ripple_dark_color">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp10"
+                                android:text="Back"
+                                android:fontFamily="@font/rns_medium"
+                                android:layout_gravity="center"/>
+                            </com.balysv.materialripple.MaterialRippleLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/colorPrimary"
+                            android:layout_margin="@dimen/dp10"
+                            app:cardCornerRadius="@dimen/dp4"
+                            android:elevation="@dimen/dp1"
+                            android:layout_weight="50">
+                            <com.balysv.materialripple.MaterialRippleLayout
+                                android:id="@+id/button_continue"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:mrl_rippleColor="@color/ripple_color">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp10"
+                                    android:text="Continue"
+                                    android:fontFamily="@font/rns_medium"
+                                    android:textColor="@color/white"
+                                    android:layout_gravity="center"/>
+                            </com.balysv.materialripple.MaterialRippleLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-        </android.support.v7.widget.CardView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:id="@+id/button_attach"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        app:mrl_rippleColor="@color/ripple_dark_color"
+                        android:paddingLeft="@dimen/dp20"
+                        android:paddingRight="@dimen/dp20">
+                        <ImageView
+                            android:layout_width="@dimen/dp22"
+                            android:layout_height="@dimen/dp22"
+                            android:layout_gravity="center"
+                            android:src="@drawable/attachment"/>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <EditText
+                        android:id="@+id/input_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/dp45"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/rns_medium"
+                        android:hint="Enter the message..."
+                        android:inputType="text"
+                        android:maxLength="300"
+                        android:textColorHint="@color/dark_text"
+                        android:textSize="@dimen/sp16" />
+                </LinearLayout>
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:id="@+id/button_send"
+                    android:layout_width="@dimen/dp45"
+                    android:layout_height="@dimen/dp45"
+                    android:layout_alignParentRight="true"
+                    app:mrl_rippleColor="@color/ripple_dark_color">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp45"
+                        android:layout_height="@dimen/dp45"
+                        android:padding="@dimen/dp12"
+                        android:src="@drawable/send" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
 
     </RelativeLayout>

@@ -11,6 +11,8 @@ class Chat(name: String, subject: String, dateLastMessage: Date, previewMessage:
     var previewMessage: String? = null
     var countUnreadMessage: Int? = 0
     var image: Int? = null
+    var messages: List<Message> = ArrayList()
+
     init {
         this.name = name
         this.subject = subject
