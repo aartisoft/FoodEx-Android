@@ -43,9 +43,10 @@
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp2"
+            android:gravity="right"
             android:text="10:27 PM"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@color/dark_text"
