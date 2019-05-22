@@ -58,23 +58,27 @@ public class MessageCard extends LinearLayout {
             case BOT:
                 setPosition(container, Gravity.LEFT);
                 setPosition(date, Gravity.LEFT);
+                setPosition(backgroundMessage, Gravity.LEFT);
                 backgroundMessage.setCardBackgroundColor(getResources().getColor(R.color.white));
                 text.setTextColor(getResources().getColor(R.color.dark_text));
                 break;
             case MANAGER:
                 setPosition(container, Gravity.LEFT);
                 setPosition(date, Gravity.LEFT);
+                setPosition(backgroundMessage, Gravity.LEFT);
                 backgroundMessage.setCardBackgroundColor(getResources().getColor(R.color.white));
                 text.setTextColor(getResources().getColor(R.color.dark_text));
                 break;
             case CLIENT:
                 setPosition(container, Gravity.RIGHT);
                 setPosition(date, Gravity.RIGHT);
+                setPosition(backgroundMessage, Gravity.RIGHT);
                 backgroundMessage.setCardBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 text.setTextColor(getResources().getColor(R.color.white));
                 break;
         }
     }
+
     private void setPosition(View view, int position) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.gravity = position;

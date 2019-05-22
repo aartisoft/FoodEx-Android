@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.korlab.foodex.Data.Chat;
-import com.korlab.foodex.Data.Program;
 import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
 import com.korlab.foodex.UI.CircleTransform;
