@@ -126,6 +126,8 @@ public class PlanPauseMove extends AppCompatActivity {
         ok.setOnClickListener((v) -> {
             restoreButtonAndCalendar(dateMoveFrom);
             dialog.dismiss();
+            BotManagerChat.getInstance().botMoveMessage = "The application for the transfer of the day of food from "+months.get(dateMoveFrom.getMonth() - 1)+" "+dateMoveFrom.getDate()
+                    +" to "+months.get(dateMoveTo.getMonth() - 1)+" "+dateMoveTo.getDate()+" accepted";
             super.finish();
         });
 
