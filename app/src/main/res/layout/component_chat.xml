@@ -88,13 +88,13 @@
                             android:id="@+id/count_unread_messages"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_gravity="right|end|top"
+                            android:paddingBottom="@dimen/dp4"
                             android:background="@drawable/badge_circle"
                             android:fontFamily="@font/rns_regular"
                             android:gravity="center"
                             android:text="3"
                             android:textColor="@color/white"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/dp12" />
                     </LinearLayout>
                 </LinearLayout>
 
