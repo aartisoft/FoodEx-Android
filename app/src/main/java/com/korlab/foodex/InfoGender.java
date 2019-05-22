@@ -42,7 +42,7 @@ public class InfoGender extends AppCompatActivity {
 
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         findView();
-        user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
+        user = Helper.getUserData();
         Helper.logObjectToJson(user);
 
         Helper.disableButton(getInstance(), buttonNext);
@@ -52,7 +52,8 @@ public class InfoGender extends AppCompatActivity {
 
         buttonNext.setOnClickListener((v) -> {
             user.setGender(gender);
-            startActivity(new Intent(getInstance(), InfoWeight.class).putExtra("user", Helper.toJson(user)));
+            Helper.setUserData(user);
+            startActivity(new Intent(getInstance(), InfoWeight.class));
             Bungee.slideLeft(getInstance());
         });
     }

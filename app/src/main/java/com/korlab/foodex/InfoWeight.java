@@ -36,7 +36,7 @@ public class InfoWeight extends AppCompatActivity {
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         findView();
-        user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
+        user = Helper.getUserData();
         changeImage(user.getGender());
 
         weightStringKg = new String[400];
@@ -60,7 +60,8 @@ public class InfoWeight extends AppCompatActivity {
         buttonNext.setOnClickListener((v) -> {
             user.setWeight(mWeight);
             user.setWeightMetrics((mWeightMetrics != 0));
-            startActivity(new Intent(getInstance(), InfoGrowth.class).putExtra("user", Helper.toJson(user)));
+            Helper.setUserData(user);
+            startActivity(new Intent(getInstance(), InfoGrowth.class));
             Bungee.slideLeft(getInstance());
         });
     }

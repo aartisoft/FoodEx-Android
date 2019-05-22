@@ -59,7 +59,8 @@ public class Authorize extends AppCompatActivity {
                 } else {
                     user.setPhone(inputPhone.getText().toString().replace(" ", ""));
                 }
-                startActivity(new Intent(getInstance(), AuthorizeVerification.class).putExtra("user", Helper.toJson(user)));
+                Helper.setUserData(user);
+                startActivity(new Intent(getInstance(), AuthorizeVerification.class));
                 Bungee.slideLeft(getInstance());
             }
         });

@@ -31,6 +31,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.korlab.foodex.Data.ProgramDay;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
@@ -43,6 +44,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -55,23 +57,8 @@ import java.util.regex.Pattern;
 
 public class Helper {
     private static Gson gson = new Gson();
-
-
-    public static int getPrimaryColorFromTheme(Context context) {
-        TypedValue typedValue = new TypedValue();
-        TypedArray a = context.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorPrimary});
-        int color = a.getColor(0, 0);
-        a.recycle();
-        return color;
-    }
-
-    public static void setTransparentStatusBar(Window w) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        }
-    }
+    private static User user;
+    private static Map<Date, ProgramDay> programDays;
 
     public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
@@ -90,12 +77,6 @@ public class Helper {
     public static Bitmap decodeBase64(String input) {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-    }
-
-    public static void setMaxBrightness(Window w) {
-        WindowManager.LayoutParams layout = w.getAttributes();
-        layout.screenBrightness = 1F;
-        w.setAttributes(layout);
     }
 
     public static void checkInternet(Activity activity, boolean isCheck) {
@@ -191,42 +172,6 @@ public class Helper {
         window.setStatusBarColor(color);
     }
 
-    public static int mixTwoColors(int color1, int color2, float amount) {
-        final byte ALPHA_CHANNEL = 24;
-        final byte RED_CHANNEL = 16;
-        final byte GREEN_CHANNEL = 8;
-        final byte BLUE_CHANNEL = 0;
-        final float inverseAmount = 1.0f - amount;
-        int a = ((int) (((float) (color1 >> ALPHA_CHANNEL & 0xff) * amount) +
-                ((float) (color2 >> ALPHA_CHANNEL & 0xff) * inverseAmount))) & 0xff;
-        int r = ((int) (((float) (color1 >> RED_CHANNEL & 0xff) * amount) +
-                ((float) (color2 >> RED_CHANNEL & 0xff) * inverseAmount))) & 0xff;
-        int g = ((int) (((float) (color1 >> GREEN_CHANNEL & 0xff) * amount) +
-                ((float) (color2 >> GREEN_CHANNEL & 0xff) * inverseAmount))) & 0xff;
-        int b = ((int) (((float) (color1 & 0xff) * amount) +
-                ((float) (color2 & 0xff) * inverseAmount))) & 0xff;
-        return a << ALPHA_CHANNEL | r << RED_CHANNEL | g << GREEN_CHANNEL | b << BLUE_CHANNEL;
-    }
-
-    private static Map<String, Activity> mapInstance = new HashMap<>();
-
-    public static void setInstance(Activity activity) {
-        String activityName = activity.getClass().getSimpleName();
-        log("Set instance for " + activityName);
-        mapInstance.put(activityName, activity);
-    }
-
-    public static Activity getInstance(String activityName) {
-        Activity activity = mapInstance.get(activityName);
-        if (activity != null) {
-            log("Return instance " + activityName);
-            return activity;
-        } else {
-            log("No activity for the " + activityName);
-            return null;
-        }
-    }
-
     public static void log(String message) {
         Log.d("FoodexDebug", message);
     }
@@ -235,21 +180,21 @@ public class Helper {
         log("Object \n\tName: " + obj.getClass().getSimpleName() + "\n\tFields: " + gson.toJson(obj));
     }
 
-    public static String toJson(Object obj) {
-        return gson.toJson(obj);
-    }
-
+//    public static String toJson(Object obj) {
+//        return gson.toJson(obj);
+//    }
+//
     public static User fromJson(String json, Object object) {
         return gson.fromJson(json, (Type) object);
     }
 
-    public static void showKeyboard(Activity activity, View view) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-        inputMethodManager.toggleSoftInputFromWindow(view.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
-        view.requestFocus();
-    }
+//    public static void showKeyboard(Activity activity, View view) {
+//        InputMethodManager inputMethodManager =
+//                (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+//        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+//        inputMethodManager.toggleSoftInputFromWindow(view.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+//        view.requestFocus();
+//    }
 
     public static void setStatusBarIconWhite(Window window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -345,10 +290,10 @@ public class Helper {
     }
 
 
-    public enum Translate { months, dishTypes }
+    public enum Translate { months, weekDays, dishTypes }
     enum DishTypes { salad, soup, hotter, garnish, drink }
     enum Months { january, february, march, april, may, june, july, august, september, october, november, december }
-
+    enum WeekDays { monday, tuesday, wednesday, thursday, friday, saturday, sunday }
 
     public static List<String> getTranslate(Translate translate, Activity a) {
         List<String> res = new ArrayList<>();
@@ -361,7 +306,25 @@ public class Helper {
                 for (Months dir : Months.values())
                     res.add(a.getResources().getString(a.getResources().getIdentifier(dir.name(), "string", a.getPackageName())));
                 break;
+            case weekDays:
+                for (WeekDays dir : WeekDays.values())
+                    res.add(a.getResources().getString(a.getResources().getIdentifier(dir.name(), "string", a.getPackageName())));
+                break;
         }
         return res;
+    }
+
+    public static void setUserData(User user) {
+        Helper.user = user;
+    }
+    public static User getUserData() {
+        return Helper.user;
+    }
+
+    public static void setProgramDaysData(Map<Date, ProgramDay> programDays) {
+        Helper.programDays = programDays;
+    }
+    public static Map<Date, ProgramDay> getProgramDaysData() {
+        return Helper.programDays;
     }
 }

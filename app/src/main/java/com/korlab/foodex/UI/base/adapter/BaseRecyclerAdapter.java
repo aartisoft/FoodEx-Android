@@ -21,12 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ethanhua.skeleton.Skeleton;
-import com.ethanhua.skeleton.SkeletonScreen;
-import com.korlab.foodex.Components.Article;
-import com.korlab.foodex.Components.ArticleAdapter;
-import com.korlab.foodex.R;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,9 +1,7 @@
 package com.korlab.foodex.Components;
 
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
@@ -32,13 +30,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
+public class CalendarMealAdapter extends GroupRecyclerAdapter<String, CalendarMeal> {
 
     private boolean isAnimate = false;
     private boolean isNew = true;
     private Map<ArticleViewHolder, Boolean> mapState;
 
-    public ArticleAdapter(Context context) {
+    public CalendarMealAdapter(Context context) {
         super(context);
     }
 
@@ -50,7 +48,7 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
     }
 
     @Override
-    protected void onBindViewHolder(RecyclerView.ViewHolder holder, Article item, int position) {
+    protected void onBindViewHolder(RecyclerView.ViewHolder holder, CalendarMeal item, int position) {
         ArticleViewHolder h = (ArticleViewHolder) holder;
         if(mapState.get(h) == null) {
             mapState.put(h,true);
@@ -149,29 +147,29 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
 
     List<String> months = Helper.getTranslate(Helper.Translate.months, MainMenu.getInstance());
 
-    public List<Article> init(ProgramDay programDay) {
-        LinkedHashMap<String, List<Article>> map = new LinkedHashMap<>();
-        List<Article> list = new ArrayList<>();
+    public List<CalendarMeal> init(ProgramDay programDay) {
+        LinkedHashMap<String, List<CalendarMeal>> map = new LinkedHashMap<>();
+        List<CalendarMeal> list = new ArrayList<>();
         if(programDay != null) {
             for (int i = 0; i < programDay.getMeals().size(); i++) {
-                Article article = new Article();
-                article.setHeader(dayTimesName[programDay.getMeals().get(i).getDayTime()]);
+                CalendarMeal calendarMeal = new CalendarMeal();
+                calendarMeal.setHeader(dayTimesName[programDay.getMeals().get(i).getDayTime().ordinal()]);
 
                 int sumCalorie = 0;
                 for (int j = 0; j < programDay.getMeals().get(i).getDishList().size(); j++) {
                     sumCalorie += programDay.getMeals().get(i).getDishList().get(j).getCalories();
                 }
-                article.setCalorie(sumCalorie);
-                article.setListDish(programDay.getMeals().get(i).getDishList());
+                calendarMeal.setCalorie(sumCalorie);
+                calendarMeal.setListDish(programDay.getMeals().get(i).getDishList());
 
-                article.setTime(dayTimes[programDay.getMeals().get(i).getDayTime()]);
-                article.setDate(programDay.getDate());
-                article.setImage(dayTimesImage[programDay.getMeals().get(i).getDayTime()]);
-                article.setColor(dayTimesColor[programDay.getMeals().get(i).getDayTime()]);
-                list.add(article);
+                calendarMeal.setTime(dayTimes[programDay.getMeals().get(i).getDayTime().ordinal()]);
+                calendarMeal.setDate(programDay.getDate());
+                calendarMeal.setImage(dayTimesImage[programDay.getMeals().get(i).getDayTime().ordinal()]);
+                calendarMeal.setColor(dayTimesColor[programDay.getMeals().get(i).getDayTime().ordinal()]);
+                list.add(calendarMeal);
             }
         } else {
-            list.add(new Article());
+            list.add(new CalendarMeal());
         }
 
 //        Helper.logObjectToJson(list);

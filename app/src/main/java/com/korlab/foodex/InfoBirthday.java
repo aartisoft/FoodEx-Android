@@ -36,7 +36,7 @@ public class InfoBirthday extends AppCompatActivity {
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         findView();
-        user = Helper.fromJson(getIntent().getStringExtra("user"), User.class);
+        user = Helper.getUserData();
 
         String[] birthdayStringYear = new String[119];
         for (int i = 0; i <= 118; i++) birthdayStringYear[i] = String.valueOf(i + 1900);
@@ -60,7 +60,8 @@ public class InfoBirthday extends AppCompatActivity {
             user.setBirthdayMonth(mMonth);
             user.setBirthdayYear(mYear);
             Helper.logObjectToJson(user);
-            startActivity(new Intent(getInstance(), MainMenu.class).putExtra("user", Helper.toJson(user)));
+            Helper.setUserData(user);
+            startActivity(new Intent(getInstance(), MainMenu.class));
             Bungee.slideLeft(getInstance());
             super.finish();
             InfoGrowth.getInstance().finish();

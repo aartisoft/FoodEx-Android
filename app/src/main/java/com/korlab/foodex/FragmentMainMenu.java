@@ -11,12 +11,17 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.korlab.foodex.Chats.ChatsAdapter;
+import com.korlab.foodex.Data.Chat;
+import com.korlab.foodex.Data.Message;
 import com.korlab.foodex.Data.Program;
 import com.korlab.foodex.Data.Promo;
 import com.korlab.foodex.Program.ProgramAdapter;
@@ -27,6 +32,7 @@ import com.korlab.foodex.UI.CustomViewPager;
 import com.korlab.foodex.UI.MenuRow;
 import com.korlab.foodex.UI.NavigationTabStrip;
 import com.korlab.foodex.UI.Toolbar;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -42,6 +48,7 @@ public class FragmentMainMenu extends Fragment {
     private NavigationTabStrip navigationTabStrip;
 
     private List<MenuRow> menuRows;
+    private List<Program> programs;
     private MainMenu activity;
     private ImageView toolbarRight;
     private boolean isClickDelay = false;
@@ -89,21 +96,32 @@ public class FragmentMainMenu extends Fragment {
                     @Override public void onStartTabSelected(String title, int index) { viewPagerHome.setCurrentItem(index); }
                     @Override public void onEndTabSelected(String title, int index) { }
                 });
-
                 break;
             case 2:
                 view = inflater.inflate(R.layout.fragment_weight, container, false);
-                TextView textFragmentWeight = view.findViewById(R.id.textFragmentWeight);
-                textFragmentWeight.setText("Fragment Weight#" + mPage);
                 toolbarContainer = view.findViewById(R.id.toolbar_container);
                 toolbarContainer.addView(new Toolbar(activity, false, "Weight Control", null, activity.getDrawable(R.drawable.toolbar_share)).getView());
                 break;
             case 3:
                 view = inflater.inflate(R.layout.fragment_manager, container, false);
-                TextView textFragmentManager = view.findViewById(R.id.textFragmentManager);
-                textFragmentManager.setText("Fragment Manager#" + mPage);
                 toolbarContainer = view.findViewById(R.id.toolbar_container);
-                toolbarContainer.addView(new Toolbar(activity, false, "Personal Manager", null, activity.getDrawable(R.drawable.toolbar_filter)).getView());
+                toolbarContainer.addView(new Toolbar(activity, false, "Personal Manager", null, null).getView());
+                ListView listChats = view.findViewById(R.id.list_chat);
+
+                initListChat();
+
+                ChatsAdapter chatsAdapter = new ChatsAdapter(MainMenu.getInstance().listChat, getActivity().getBaseContext());
+                listChats.setAdapter(chatsAdapter);
+                listChats.setDivider(null);
+                listChats.setDividerHeight(0);
+                listChats.setItemsCanFocus(false);
+                listChats.setOnItemClickListener((parent, v, position, id) -> {
+                    Helper.log("click: " + position);
+                    Helper.log( MainMenu.getInstance().listChat.get(0).getMessages().get(0).getText());
+                    Helper.setUserData(MainMenu.getInstance().user);
+                    startActivity(new Intent(MainMenu.getInstance(), BotManagerChat.class).putExtra("chatPosition",position));
+                });
+
                 break;
             case 4:
                 view = inflater.inflate(R.layout.fragment_purchaces, container, false);
@@ -112,6 +130,7 @@ public class FragmentMainMenu extends Fragment {
 
                 ViewPager viewPager;
                 viewPager = view.findViewById(R.id.promo_view_pager);
+                DotsIndicator dotsIndicator = view.findViewById(R.id.dots_indicator);
                 List<Promo> pagerArr = new ArrayList<>();
 
                 pagerArr.add(new Promo(1, "+100 UAH to your account for every kilogram dropped!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/2.jpg"));
@@ -122,73 +141,21 @@ public class FragmentMainMenu extends Fragment {
                 pagerArr.add(new Promo(6, "Become a FoodEx Partner", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/sale.jpg"));
 
                 viewPager.setAdapter(new PromoAdapter(LayoutInflater.from(getActivity()), pagerArr));
-                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity));
+                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity, 180));
+                dotsIndicator.setViewPager(viewPager);
+
 //                viewPager.setOffscreenPageLimit(10);
 //                Slide
 //                slidePromoPage(viewPager, pagerArr.size());
 
 
                 ListView listProgram = view.findViewById(R.id.list_program);
-                List<Program> programs = new ArrayList<>();
-                programs.add(new Program("Express Program of Loosing Weight",
-                        "To get the result in the shortest term.",
-                        "https://media.foodexhub.com.ua/images/smi/ekspress1.jpg"));
-                programs.add(new Program("Smooth Loosing Weight",
-                        "For comfortable loosing weight",
-                        "https://media.foodexhub.com.ua/images/smi/plavnoe1.jpg"));
-                programs.add(new Program("Sports Menu",
-                        "For those with active life style and intensive gym trainings",
-                        "https://media.foodexhub.com.ua/images/smi/sport1.jpg"));
-                programs.add(new Program("Sport-PRO",
-                        "For those with active life style, hard trainings and sports",
-                        "https://media.foodexhub.com.ua/admin/sport-pro-1.jpg"));
-                programs.add(new Program("Balanced Eating",
-                        "To maintain good physical form and stick to healthy eating",
-                        "https://media.foodexhub.com.ua/images/smi/balans1.jpg"));
-                programs.add(new Program("Meat-free Menu",
-                        "The ration is saturated with vegetable food including seafood",
-                        "https://media.foodexhub.com.ua/images/smi/bezmyasa1.jpg"));
-                programs.add(new Program("Vegetarian Menu",
-                        "Balanced eating for vegetarians",
-                        "https://media.foodexhub.com.ua/images/smi/vegan1.jpg"));
-                programs.add(new Program("Individual Menu",
-                        "Developed specially for YOU by doctor-dietician and the Chef",
-                        "https://media.foodexhub.com.ua/images/smi/ind1.jpg"));
-                programs.add(new Program("Smart Lunch",
-                        "Healthy food in your office",
-                        "https://media.foodexhub.com.ua/images/smi/smart1.jpg"));
-                programs.add(new Program("2 weeks with Discipline",
-                        "Impressive loose of weight during 14 days (right eating + trainings)",
-                        "https://media.foodexhub.com.ua/programList/sofia1.png"));
-                programs.add(new Program("Diet No 5",
-                        "Well-balanced program according to the diet “Table No 5”",
-                        "https://media.foodexhub.com.ua/admin/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BC%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%81%D1%82%D1%8B.jpg"));
-                programs.add(new Program("Diabetes Mellitus",
-                        "Well-balanced program according to the diet “Table No 9”",
-                        "https://media.foodexhub.com.ua/images/smi/stol51.jpg"));
-                programs.add(new Program("Gluten-free Menu",
-                        "For those with medical prescriptions or personal desire to stick to gluten-free diet",
-                        "https://media.foodexhub.com.ua/images/smi/diabet1.jpg"));
-                programs.add(new Program("Lactose Free",
-                        "Lactose-free ration for people with a lactose intolerance",
-                        "https://media.foodexhub.com.ua/images/smi/bezgluten11.jpg"));
-                programs.add(new Program("For pregnant women and nursing mothers",
-                        "Well-balanced eating during pregnancy and breast feeding",
-                        "https://media.foodexhub.com.ua/programList/lacto1.jpg"));
-                programs.add(new Program("Kids’ Menu “Smart Kids”",
-                        "For business parents who care about full-scale healthy eating of a child",
-                        "https://media.foodexhub.com.ua/images/smi/berem1.jpg"));
-                programs.add(new Program("Gift certificate",
-                        "Gift certificate FoodEx for your friends",
-                        "https://media.foodexhub.com.ua/images/smi/detskoe1.jpg"));
-                programs.add(new Program("theBODYology",
-                        "Online weight loss program for women in the menu on the dietitian + video training",
-                        "https://media.foodexhub.com.ua/images/smi/thebodyology1.jpg"));
+                initListProgram();
 
 
-                ProgramAdapter adapter = new ProgramAdapter(programs, getActivity().getBaseContext());
+                ProgramAdapter programAdapter = new ProgramAdapter(programs, getActivity().getBaseContext());
 
-                listProgram.setAdapter(adapter);
+                listProgram.setAdapter(programAdapter);
                 listProgram.setDivider(null);
                 listProgram.setDividerHeight(0);
                 listProgram.setOnTouchListener((v, event) -> {
@@ -244,6 +211,92 @@ public class FragmentMainMenu extends Fragment {
         return view;
     }
 
+    private void initListProgram() {
+        programs = new ArrayList<>();
+        programs.add(new Program("Express Program of Loosing Weight",
+                "To get the result in the shortest term.",
+                "https://media.foodexhub.com.ua/images/smi/ekspress1.jpg"));
+        programs.add(new Program("Smooth Loosing Weight",
+                "For comfortable loosing weight",
+                "https://media.foodexhub.com.ua/images/smi/plavnoe1.jpg"));
+        programs.add(new Program("Sports Menu",
+                "For those with active life style and intensive gym trainings",
+                "https://media.foodexhub.com.ua/images/smi/sport1.jpg"));
+        programs.add(new Program("Sport-PRO",
+                "For those with active life style, hard trainings and sports",
+                "https://media.foodexhub.com.ua/admin/sport-pro-1.jpg"));
+        programs.add(new Program("Balanced Eating",
+                "To maintain good physical form and stick to healthy eating",
+                "https://media.foodexhub.com.ua/images/smi/balans1.jpg"));
+        programs.add(new Program("Meat-free Menu",
+                "The ration is saturated with vegetable food including seafood",
+                "https://media.foodexhub.com.ua/images/smi/bezmyasa1.jpg"));
+        programs.add(new Program("Vegetarian Menu",
+                "Balanced eating for vegetarians",
+                "https://media.foodexhub.com.ua/images/smi/vegan1.jpg"));
+        programs.add(new Program("Individual Menu",
+                "Developed specially for YOU by doctor-dietician and the Chef",
+                "https://media.foodexhub.com.ua/images/smi/ind1.jpg"));
+        programs.add(new Program("Smart Lunch",
+                "Healthy food in your office",
+                "https://media.foodexhub.com.ua/images/smi/smart1.jpg"));
+        programs.add(new Program("2 weeks with Discipline",
+                "Impressive loose of weight during 14 days (right eating + trainings)",
+                "https://media.foodexhub.com.ua/programList/sofia1.png"));
+        programs.add(new Program("Diet No 5",
+                "Well-balanced program according to the diet “Table No 5”",
+                "https://media.foodexhub.com.ua/admin/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BC%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%81%D1%82%D1%8B.jpg"));
+        programs.add(new Program("Diabetes Mellitus",
+                "Well-balanced program according to the diet “Table No 9”",
+                "https://media.foodexhub.com.ua/images/smi/stol51.jpg"));
+        programs.add(new Program("Gluten-free Menu",
+                "For those with medical prescriptions or personal desire to stick to gluten-free diet",
+                "https://media.foodexhub.com.ua/images/smi/diabet1.jpg"));
+        programs.add(new Program("Lactose Free",
+                "Lactose-free ration for people with a lactose intolerance",
+                "https://media.foodexhub.com.ua/images/smi/bezgluten11.jpg"));
+        programs.add(new Program("For pregnant women and nursing mothers",
+                "Well-balanced eating during pregnancy and breast feeding",
+                "https://media.foodexhub.com.ua/programList/lacto1.jpg"));
+        programs.add(new Program("Kids’ Menu “Smart Kids”",
+                "For business parents who care about full-scale healthy eating of a child",
+                "https://media.foodexhub.com.ua/images/smi/berem1.jpg"));
+        programs.add(new Program("Gift certificate",
+                "Gift certificate FoodEx for your friends",
+                "https://media.foodexhub.com.ua/images/smi/detskoe1.jpg"));
+        programs.add(new Program("theBODYology",
+                "Online weight loss program for women in the menu on the dietitian + video training",
+                "https://media.foodexhub.com.ua/images/smi/thebodyology1.jpg"));
+    }
+
+    private void initListChat() {
+        java.sql.Date d = new Date(2019,10,10);
+        MainMenu.getInstance().listChat = new ArrayList<>();
+
+        Chat botChat = new Chat("FoodEx Bot","Notifications and tickets", d, "Here you can make ticket", 7, R.drawable.robot, Message.Sender.BOT);
+        List<Message> messagesBotChat = new ArrayList<>();
+        messagesBotChat.add(new Message(Message.Sender.BOT, d,"First message from bot"));
+        messagesBotChat.add(new Message(Message.Sender.BOT, d,"Second message from bot"));
+        messagesBotChat.add(new Message(Message.Sender.CLIENT, d,"Wow, thank you"));
+        messagesBotChat.add(new Message(Message.Sender.BOT, d,"I can help you again?"));
+        messagesBotChat.add(new Message(Message.Sender.BOT, d,"Okay. Good evening ;)"));
+        botChat.setMessages(messagesBotChat);
+
+        MainMenu.getInstance().listChat.add(botChat);
+
+
+        Chat managerChat = new Chat("FoodEx Manager","Online help", d, "Here you can ask any question", 3, R.drawable.robot, Message.Sender.MANAGER);
+        List<Message> messagesManagerChat = new ArrayList<>();
+        messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"1"));
+        messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"Second message from bot"));
+        messagesManagerChat.add(new Message(Message.Sender.CLIENT, d,"Wow, thank you"));
+        messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"I can help you again?"));
+        messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"Okay. Good evening ;)"));
+        managerChat.setMessages(messagesManagerChat);
+
+        MainMenu.getInstance().listChat.add(managerChat);
+    }
+
     private void slidePromoPage(ViewPager viewPager, int size) {
         new Handler().postDelayed(() -> {
             viewPager.setCurrentItem(size>viewPager.getCurrentItem()+2 ? viewPager.getCurrentItem()+1 : 0,true);
@@ -278,8 +331,8 @@ public class FragmentMainMenu extends Fragment {
             Helper.log("processClickMenu: " + v.getClass().getSimpleName());
             switch (v.getTag().toString()) {
                 case "0":
-                    String json = "{\"birthdayDay\":9,\"birthdayMonth\":11,\"birthdayYear\":1998,\"deliveryType\":1,\"email\":\"xom9ik.code@gmail.com\",\"firstName\":\"Maxim\",\"gender\":false,\"growth\":170,\"growthMetrics\":false,\"lastName\":\"Romanyuta\",\"middleName\":\"Olegovich\",\"phone\":\"+380959483523\",\"weekdaysAddress\":{\"apartment\":\"2/F\",\"house\":\"77\",\"street\":\"Universitetksa\"},\"weekendsAddress\":{\"apartment\":\"1\",\"house\":\"30\",\"street\":\"Aprel`ska\"},\"weight\":60,\"weightMetrics\":false}";
-                    startActivity(new Intent(activity, ProfileEdit.class).putExtra("user", json));
+                    Helper.setUserData(MainMenu.getInstance().user);
+                    startActivity(new Intent(activity, ProfileEdit.class));
                     Bungee.slideLeft(activity);
                     Helper.log("click: " + "profile_edit");
                     break;

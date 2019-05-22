@@ -19,7 +19,7 @@
         <LinearLayout
             android:id="@+id/calendar_card_empty"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp120"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -45,7 +45,15 @@
                     android:text="No data for selected day"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/dark_text"
-                    android:textSize="@dimen/sp28" />
+                    android:textSize="@dimen/sp28"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:layout_marginBottom="@dimen/dp30"
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/no_data_calendar"
+                    android:layout_marginBottom="@dimen/dp30"/>
             </LinearLayout>
         </LinearLayout>
 
