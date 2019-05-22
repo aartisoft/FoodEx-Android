@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
+import com.korlab.foodex.Chats.ChatsAdapter;
 import com.korlab.foodex.Data.Chat;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
@@ -21,6 +22,7 @@ public class MainMenu extends AppCompatActivity {
         return instance;
     }
     public List<Chat> listChat;
+    public ChatsAdapter chatsAdapter;
 
     @Override
     public void onBackPressed() {

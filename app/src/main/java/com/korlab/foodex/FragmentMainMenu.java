@@ -110,8 +110,8 @@ public class FragmentMainMenu extends Fragment {
 
                 initListChat();
 
-                ChatsAdapter chatsAdapter = new ChatsAdapter(MainMenu.getInstance().listChat, getActivity().getBaseContext());
-                listChats.setAdapter(chatsAdapter);
+                MainMenu.getInstance().chatsAdapter = new ChatsAdapter(MainMenu.getInstance().listChat, getActivity().getBaseContext());
+                listChats.setAdapter(MainMenu.getInstance().chatsAdapter);
                 listChats.setDivider(null);
                 listChats.setDividerHeight(0);
                 listChats.setItemsCanFocus(false);
@@ -273,25 +273,26 @@ public class FragmentMainMenu extends Fragment {
         java.sql.Date d = new Date(2019,10,10);
         MainMenu.getInstance().listChat = new ArrayList<>();
 
-        Chat botChat = new Chat("FoodEx Bot","Notifications and tickets", d, "Here you can make ticket", 7, R.drawable.robot, Message.Sender.BOT);
         List<Message> messagesBotChat = new ArrayList<>();
         messagesBotChat.add(new Message(Message.Sender.BOT, d,"First message from bot"));
         messagesBotChat.add(new Message(Message.Sender.BOT, d,"Second message from bot"));
         messagesBotChat.add(new Message(Message.Sender.CLIENT, d,"Wow, thank you"));
         messagesBotChat.add(new Message(Message.Sender.BOT, d,"I can help you again?"));
         messagesBotChat.add(new Message(Message.Sender.BOT, d,"Okay. Good evening ;)"));
+        Chat botChat = new Chat("FoodEx Bot","Notifications and tickets", d, "Here you can make ticket", R.drawable.robot, Message.Sender.BOT);
+
         botChat.setMessages(messagesBotChat);
 
         MainMenu.getInstance().listChat.add(botChat);
 
-
-        Chat managerChat = new Chat("FoodEx Manager","Online help", d, "Here you can ask any question", 3, R.drawable.robot, Message.Sender.MANAGER);
         List<Message> messagesManagerChat = new ArrayList<>();
         messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"1"));
         messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"Second message from bot"));
         messagesManagerChat.add(new Message(Message.Sender.CLIENT, d,"Wow, thank you"));
         messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"I can help you again?"));
         messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"Okay. Good evening ;)"));
+        Chat managerChat = new Chat("FoodEx Manager","Online help", d, "Here you can ask any question", R.drawable.robot, Message.Sender.MANAGER);
+
         managerChat.setMessages(messagesManagerChat);
 
         MainMenu.getInstance().listChat.add(managerChat);

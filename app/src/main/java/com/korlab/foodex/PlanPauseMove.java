@@ -37,12 +37,14 @@ public class PlanPauseMove extends AppCompatActivity {
     private Map<Date, ProgramDay> programDays;
 
     private static PlanPauseMove instance;
+
     public static PlanPauseMove getInstance() {
         return instance;
     }
+
     private LinearLayout toolbarContainer;
     private ImageView toolbarLeft;
-    private MaterialButton buttonPause, buttonMoveFrom,buttonMoveTo;
+    private MaterialButton buttonPause, buttonMoveFrom, buttonMoveTo;
     private Date datePause, dateMoveFrom, dateMoveTo;
 
     private TextView mTextMonthDay;
@@ -53,6 +55,7 @@ public class PlanPauseMove extends AppCompatActivity {
     private int mYear, mMonth;
     private List<String> months = Helper.getTranslate(Helper.Translate.months, MainMenu.getInstance());
     private CalendarLayout mCalendarLayout;
+    private boolean isPause;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +64,29 @@ public class PlanPauseMove extends AppCompatActivity {
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         Helper.setStatusBarIconWhite(getWindow());
+
         user = Helper.getUserData();
         programDays = Helper.getProgramDaysData();
         findView();
+        isPause = getIntent().getExtras().getBoolean("isPause");
+        Helper.log("isPause: " + isPause);
+        if (isPause) {
+            buttonPause.setVisibility(View.VISIBLE);
+            buttonMoveFrom.setVisibility(View.GONE);
+        } else {
+            buttonMoveFrom.setVisibility(View.VISIBLE);
+            buttonPause.setVisibility(View.GONE);
+        }
         toolbarContainer.addView(new Toolbar(getInstance(), false, "Plan Control",
                 getInstance().getDrawable(R.drawable.toolbar_arrow_left), null));
         toolbarLeft = findViewById(R.id.toolbar_left_icon);
         toolbarLeft.setOnClickListener(v -> super.finish());
 
-        buttonPause.setOnClickListener(v->{
+        buttonPause.setOnClickListener(v -> {
             datePause = new Date(mCalendarView.getSelectedCalendar().getYear(), mCalendarView.getSelectedCalendar().getMonth(), mCalendarView.getSelectedCalendar().getDay());
             showConfirmationDialog(datePause, null, null);
         });
-        buttonMoveFrom.setOnClickListener(v->{
+        buttonMoveFrom.setOnClickListener(v -> {
             int year = mCalendarView.getSelectedCalendar().getYear();
             int month = mCalendarView.getSelectedCalendar().getMonth();
             int day = mCalendarView.getSelectedCalendar().getDay();
@@ -89,7 +102,7 @@ public class PlanPauseMove extends AppCompatActivity {
                     getSchemeCalendar(year, month, day, 0x99ff0000, "Раз"));
             mCalendarView.setSchemeDate(map);
         });
-        buttonMoveTo.setOnClickListener(v->{
+        buttonMoveTo.setOnClickListener(v -> {
             dateMoveTo = new Date(mCalendarView.getSelectedCalendar().getYear(), mCalendarView.getSelectedCalendar().getMonth(), mCalendarView.getSelectedCalendar().getDay());
             showConfirmationDialog(null, dateMoveFrom, dateMoveTo);
         });
@@ -114,9 +127,9 @@ public class PlanPauseMove extends AppCompatActivity {
         MaterialButton ok = dialog.findViewById(R.id.ok);
         MaterialButton cancel = dialog.findViewById(R.id.cancel);
 
-        if(datePause != null) {
+        if (datePause != null) {
             dialogHeader.setText("Pause plan");
-            dialogContent.setText("Do you really want to suspend the plan from "+months.get(datePause.getMonth() - 1)+" "+datePause.getDate()+"?");
+            dialogContent.setText("Do you really want to suspend the plan from " + months.get(datePause.getMonth() - 1) + " " + datePause.getDate() + "?");
         } else {
             dialogHeader.setText("Move plan");
             dialogContent.setText("Do you really want to postpone the day of food from " + months.get(dateMoveFrom.getMonth() - 1) + " " + dateMoveFrom.getDate()
@@ -126,8 +139,13 @@ public class PlanPauseMove extends AppCompatActivity {
         ok.setOnClickListener((v) -> {
             restoreButtonAndCalendar(dateMoveFrom);
             dialog.dismiss();
-            BotManagerChat.getInstance().botMoveMessage = "The application for the transfer of the day of food from "+months.get(dateMoveFrom.getMonth() - 1)+" "+dateMoveFrom.getDate()
-                    +" to "+months.get(dateMoveTo.getMonth() - 1)+" "+dateMoveTo.getDate()+" accepted";
+            if (datePause != null) {
+                BotManagerChat.getInstance().botMoveMessage = "The application for a pause of the current plan has been accepted since " + months.get(datePause.getMonth() - 1) + " " + datePause.getDate();
+            } else {
+                BotManagerChat.getInstance().botMoveMessage = "The application for the transfer of the day of food from " + months.get(dateMoveFrom.getMonth() - 1) + " " + dateMoveFrom.getDate()
+                        + " to " + months.get(dateMoveTo.getMonth() - 1) + " " + dateMoveTo.getDate() + " accepted";
+            }
+
             super.finish();
         });
 
@@ -149,7 +167,7 @@ public class PlanPauseMove extends AppCompatActivity {
         buttonPause.setEnabled(true);
         buttonPause.setTextColor(getResources().getColor(R.color.email));
         buttonPause.setBorderColor(getResources().getColor(R.color.email));
-        if(dateMoveFrom != null) {
+        if (dateMoveFrom != null) {
             Helper.log(dateMoveFrom.getYear() + " " + dateMoveFrom.getMonth());
             initProgramsDays(dateMoveFrom.getYear(), dateMoveFrom.getMonth());
         }
@@ -181,7 +199,9 @@ public class PlanPauseMove extends AppCompatActivity {
             initProgramsDays(mYear, mMonth);
         });
         mCalendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
-            @Override public void onCalendarOutOfRange(Calendar calendar) { }
+            @Override
+            public void onCalendarOutOfRange(Calendar calendar) {
+            }
 
             @Override
             public void onCalendarSelect(Calendar calendar, boolean isClick) {
@@ -211,6 +231,7 @@ public class PlanPauseMove extends AppCompatActivity {
         buttonMoveFrom = findViewById(R.id.button_move_from);
         buttonMoveTo = findViewById(R.id.button_move_to);
     }
+
     private void initProgramsDays(int year, int month) {
 //        Helper.log("initProgramsDays======================================");
         Map<String, Calendar> map = new HashMap<>();
@@ -225,6 +246,7 @@ public class PlanPauseMove extends AppCompatActivity {
         }
         mCalendarView.setSchemeDate(map);
     }
+
     @SuppressWarnings("all")
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
         Calendar calendar = new Calendar();

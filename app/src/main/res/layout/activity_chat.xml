@@ -97,25 +97,32 @@
                             android:text="Move date delivery" />
 
                         <RadioButton
+                            android:id="@+id/radio_pause_plan"
+                            style="@style/radionbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pause current plan" />
+
+                        <RadioButton
                             android:id="@+id/radio_change_delivery_location"
                             style="@style/radionbutton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Change delivery location" />
 
-                        <RadioButton
-                            android:id="@+id/radio_change_current_plan"
-                            style="@style/radionbutton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Change current plan" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/radio_change_current_plan"-->
+                            <!--style="@style/radionbutton"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Change current plan" />-->
 
-                        <RadioButton
-                            android:id="@+id/radio_cancel_delivery"
-                            style="@style/radionbutton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Cancel delivery" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/radio_cancel_delivery"-->
+                            <!--style="@style/radionbutton"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Cancel delivery" />-->
 
                     </RadioGroup>
 
