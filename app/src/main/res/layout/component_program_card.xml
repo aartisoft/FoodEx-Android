@@ -85,7 +85,7 @@
                         android:fontFamily="@font/rns_regular"
                         android:textColor="#e1101b" />
                     <com.korlab.foodex.UI.MaterialButton
-                        android:id="@+id/button_switch_email_phone"
+                        android:id="@+id/button_buy"
                         android:layout_width="@dimen/dp80"
                         android:layout_alignParentRight="true"
                         android:layout_height="@dimen/dp25"

@@ -74,6 +74,7 @@ public class AuthorizeVerification extends AppCompatActivity {
             isButtonResend = false;
             buttonResend.setTextColor(getResources().getColor(R.color.dark_text));
             countDownTimer(TIME_OUT);
+            // TODO: 5/24/2019 resend sms from firebase
         }
     }
 

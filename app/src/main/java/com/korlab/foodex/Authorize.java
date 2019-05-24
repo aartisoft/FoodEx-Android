@@ -52,12 +52,14 @@ public class Authorize extends AppCompatActivity {
         Helper.disableButton(getInstance(), buttonContinue);
         buttonContinue.setOnClickListener((v) -> {
             if(isRecovery) {
-                // TODO: 4/15/2019 recovery password By email
+                // TODO: 4/15/2019 recovery password by Email
             } else {
                 if(isEmail) {
                     user.setEmail(inputEmail.getText().toString().replace(" ", ""));
+                    // TODO: 5/24/2019 Authorize by Email
                 } else {
                     user.setPhone(inputPhone.getText().toString().replace(" ", ""));
+                    // TODO: 5/24/2019 Authorize by phone
                 }
                 Helper.setUserData(user);
                 startActivity(new Intent(getInstance(), AuthorizeVerification.class));
@@ -66,7 +68,7 @@ public class Authorize extends AppCompatActivity {
         });
         buttomSwitchEmailPhone.setOnClickListener((v) -> switchButton());
         buttonGoogle.setOnClickListener((v) -> {
-            // TODO: 4/15/2019 authorize by gmail
+            // TODO: 4/15/2019 authorize by Gmail
         });
 
         inputPhone.setOnFocusChangeListener((v, hasFocus) -> {
@@ -190,11 +192,14 @@ public class Authorize extends AppCompatActivity {
             inputWrapperPhone.setVisibility(View.GONE);
             inputWrapperEmail.setVisibility(View.GONE);
         } else {
+            buttonRecoveryPassword.setText("Recover password via email");
             buttonContinue.setText("Continue");
             inputWrapperRecoveryEmail.setVisibility(View.GONE);
             if(isEmail) {
                 inputWrapperEmail.setVisibility(View.VISIBLE);
+                inputWrapperPhone.setVisibility(View.GONE);
             } else {
+                inputWrapperEmail.setVisibility(View.GONE);
                 inputWrapperPhone.setVisibility(View.VISIBLE);
             }
         }
@@ -203,6 +208,8 @@ public class Authorize extends AppCompatActivity {
 
     private void switchButton() {
         isEmail = !isEmail;
+        if(isRecovery)
+            switchRecoveryPassword();
         if(isEmail) {
             inputWrapperEmail.setVisibility(View.VISIBLE);
             inputWrapperPhone.setVisibility(View.GONE);
@@ -250,8 +257,5 @@ public class Authorize extends AppCompatActivity {
                     Helper.disableButton(getInstance(), buttonContinue);
             }
         }
-
     }
-
-
 }

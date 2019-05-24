@@ -61,6 +61,7 @@ public class InfoBirthday extends AppCompatActivity {
             user.setBirthdayYear(mYear);
             Helper.logObjectToJson(user);
             Helper.setUserData(user);
+            // TODO: 5/24/2019 send userData to firebase
             startActivity(new Intent(getInstance(), MainMenu.class));
             Bungee.slideLeft(getInstance());
             super.finish();

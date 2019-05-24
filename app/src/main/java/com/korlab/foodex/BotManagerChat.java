@@ -84,6 +84,7 @@ public class BotManagerChat extends AppCompatActivity {
         MainMenu.getInstance().listChat.get(chatPosition).setReadAll();
 
         MainMenu.getInstance().chatsAdapter.updateListChats(MainMenu.getInstance().listChat);
+        // // TODO: 5/24/2019 send read status for all message in ***listChat*** to firebase
         buttonAttach.setOnClickListener(v -> toggleMenu());
         buttonContinue.setOnClickListener(v -> {
             hideMenu();
@@ -177,6 +178,7 @@ public class BotManagerChat extends AppCompatActivity {
         Message message = new Message(sender, new Date(2019, 10, 2), text);
         MainMenu.getInstance().listChat.get(chatPosition).getMessages().add(message);
         drawMessages(MainMenu.getInstance().listChat.get(chatPosition).getMessages().size() - 1);
+        // TODO: 5/24/2019 send message to firebase
     }
 
     private void scrollToBottom() {

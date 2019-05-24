@@ -133,12 +133,12 @@ public class FragmentMainMenu extends Fragment {
                 DotsIndicator dotsIndicator = view.findViewById(R.id.dots_indicator);
                 List<Promo> pagerArr = new ArrayList<>();
 
-                pagerArr.add(new Promo(1, "+100 UAH to your account for every kilogram dropped!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/2.jpg"));
-                pagerArr.add(new Promo(2, "Loyalty Club FoodEx", new Date(2019, 3, 14), "https://foodexhub.com.ua/images/oldpromo/14877871_325929737775565_251872099_n.jpg"));
-                pagerArr.add(new Promo(3, "Order delivery of 2 programs to one address - get a discount!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/summer_ration.jpg"));
-                pagerArr.add(new Promo(4, "Invite Friends - get +150 UAH from each order!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/petrushka.jpg"));
-                pagerArr.add(new Promo(5, "Order 3 salads +1 salad for free!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/stakan-v-mashine.jpg"));
-                pagerArr.add(new Promo(6, "Become a FoodEx Partner", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/sale.jpg"));
+                pagerArr.add(new Promo(1, "+100 UAH to your account for every kilogram dropped!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/2.jpg", "https://foodexhub.com.ua/promo/kilogram"));
+                pagerArr.add(new Promo(2, "Loyalty Club FoodEx", new Date(2019, 3, 14), "https://foodexhub.com.ua/images/oldpromo/14877871_325929737775565_251872099_n.jpg", "https://foodexhub.com.ua/promo/club"));
+                pagerArr.add(new Promo(3, "Order delivery of 2 programs to one address - get a discount!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/summer_ration.jpg", "https://foodexhub.com.ua/promo/address"));
+                pagerArr.add(new Promo(4, "Invite Friends - get +150 UAH from each order!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/petrushka.jpg","https://foodexhub.com.ua/promo/friends"));
+                pagerArr.add(new Promo(5, "Order 3 salads +1 salad for free!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/stakan-v-mashine.jpg", "https://foodexhub.com.ua/promo/salat_v_podarok"));
+                pagerArr.add(new Promo(6, "Become a FoodEx Partner", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/sale.jpg", "https://foodexhub.com.ua/promo/partner"));
 
                 viewPager.setAdapter(new PromoAdapter(LayoutInflater.from(getActivity()), pagerArr));
                 viewPager.setPageTransformer(false, new CustomPagerTransformer(activity, 180));
@@ -215,58 +215,84 @@ public class FragmentMainMenu extends Fragment {
         programs = new ArrayList<>();
         programs.add(new Program("Express Program of Loosing Weight",
                 "To get the result in the shortest term.",
-                "https://media.foodexhub.com.ua/images/smi/ekspress1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/ekspress1.jpg",
+                "https://foodexhub.com.ua/kiev/express-pohudeniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Smooth Loosing Weight",
                 "For comfortable loosing weight",
-                "https://media.foodexhub.com.ua/images/smi/plavnoe1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/plavnoe1.jpg",
+                "https://foodexhub.com.ua/kiev/plavnoe-pohudeniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Sports Menu",
                 "For those with active life style and intensive gym trainings",
-                "https://media.foodexhub.com.ua/images/smi/sport1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/sport1.jpg",
+                "https://foodexhub.com.ua/kiev/sportivnoe-pitaniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Sport-PRO",
                 "For those with active life style, hard trainings and sports",
-                "https://media.foodexhub.com.ua/admin/sport-pro-1.jpg"));
+                "https://media.foodexhub.com.ua/admin/sport-pro-1.jpg",
+                "https://foodexhub.com.ua/kiev/sport-pro"
+        ));
         programs.add(new Program("Balanced Eating",
                 "To maintain good physical form and stick to healthy eating",
-                "https://media.foodexhub.com.ua/images/smi/balans1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/balans1.jpg",
+                "https://foodexhub.com.ua/kiev/sbalansirovannoye-pitaniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Meat-free Menu",
                 "The ration is saturated with vegetable food including seafood",
-                "https://media.foodexhub.com.ua/images/smi/bezmyasa1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/bezmyasa1.jpg",
+                "https://foodexhub.com.ua/kiev/pitaniye-bez-myasa-dlya-muzhchin"
+                ));
         programs.add(new Program("Vegetarian Menu",
                 "Balanced eating for vegetarians",
-                "https://media.foodexhub.com.ua/images/smi/vegan1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/vegan1.jpg",
+                "https://foodexhub.com.ua/kiev/postnoe-menu-dlya-muzhchin"
+                ));
         programs.add(new Program("Individual Menu",
                 "Developed specially for YOU by doctor-dietician and the Chef",
-                "https://media.foodexhub.com.ua/images/smi/ind1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/ind1.jpg",
+                "https://foodexhub.com.ua/kiev/individualnoe-pitaniye-dlya-muzhchin"
+                ));
         programs.add(new Program("Smart Lunch",
                 "Healthy food in your office",
-                "https://media.foodexhub.com.ua/images/smi/smart1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/smart1.jpg",
+                "https://foodexhub.com.ua/kiev/smart-pitaniye-dlya-muzhchin"
+                ));
         programs.add(new Program("2 weeks with Discipline",
                 "Impressive loose of weight during 14 days (right eating + trainings)",
-                "https://media.foodexhub.com.ua/programList/sofia1.png"));
+                "https://media.foodexhub.com.ua/programList/sofia1.png",
+                "https://foodexhub.com.ua/kiev/express-korrektsiya-figuri-dlya-muzhchin"
+                ));
         programs.add(new Program("Diet No 5",
                 "Well-balanced program according to the diet “Table No 5”",
-                "https://media.foodexhub.com.ua/admin/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BC%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%81%D1%82%D1%8B.jpg"));
+                "https://media.foodexhub.com.ua/admin/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BC%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%81%D1%82%D1%8B.jpg",
+                "https://foodexhub.com.ua/kiev/stol-5-pitaniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Diabetes Mellitus",
                 "Well-balanced program according to the diet “Table No 9”",
-                "https://media.foodexhub.com.ua/images/smi/stol51.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/stol51.jpg",
+                "https://foodexhub.com.ua/kiev/pitaniye-pri-diabete-dlya-muzhchin"
+                ));
         programs.add(new Program("Gluten-free Menu",
                 "For those with medical prescriptions or personal desire to stick to gluten-free diet",
-                "https://media.foodexhub.com.ua/images/smi/diabet1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/diabet1.jpg",
+                "https://foodexhub.com.ua/kiev/gluten-free--dlya-muzhchin"
+                ));
         programs.add(new Program("Lactose Free",
                 "Lactose-free ration for people with a lactose intolerance",
-                "https://media.foodexhub.com.ua/images/smi/bezgluten11.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/bezgluten11.jpg",
+                "https://foodexhub.com.ua/kiev/lactose-free-dlya-muzhchin"
+                ));
         programs.add(new Program("For pregnant women and nursing mothers",
                 "Well-balanced eating during pregnancy and breast feeding",
-                "https://media.foodexhub.com.ua/programList/lacto1.jpg"));
-        programs.add(new Program("Kids’ Menu “Smart Kids”",
-                "For business parents who care about full-scale healthy eating of a child",
-                "https://media.foodexhub.com.ua/images/smi/berem1.jpg"));
+                "https://media.foodexhub.com.ua/programList/lacto1.jpg",
+                "https://foodexhub.com.ua/kiev/pitaniye-dlya-beremennykh"
+                ));
         programs.add(new Program("Gift certificate",
                 "Gift certificate FoodEx for your friends",
-                "https://media.foodexhub.com.ua/images/smi/detskoe1.jpg"));
-        programs.add(new Program("theBODYology",
-                "Online weight loss program for women in the menu on the dietitian + video training",
-                "https://media.foodexhub.com.ua/images/smi/thebodyology1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/detskoe1.jpg",
+                "https://foodexhub.com.ua/kiev/zdorovoe-pitaniye-podarochnyy-sertificat"
+                ));
     }
 
     private void initListChat() {
