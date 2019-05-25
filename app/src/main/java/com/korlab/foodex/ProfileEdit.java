@@ -1,5 +1,6 @@
 package com.korlab.foodex;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -63,6 +64,7 @@ public class ProfileEdit extends AppCompatActivity {
         Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_without_saving, null), this::onPositive, this::onNegative);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +97,7 @@ public class ProfileEdit extends AppCompatActivity {
             super.finish();
         });
 
-        buttonDelivery.setOnClickListener(v -> {
-            showDeliveryTypeDialog();
-        });
+        buttonDelivery.setOnClickListener(v -> showDeliveryTypeDialog());
 
         inputGrowth.addTextChangedListener(new TextWatcher() {
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
@@ -188,6 +188,7 @@ public class ProfileEdit extends AppCompatActivity {
         user.setWeekendsAddress(addressWeekends);
         user.setDeliveryType(deliveryType);
         Helper.logObjectToJson(user);
+        Helper.setUserData(user);
     }
 
     private void onPositive(Object o) {

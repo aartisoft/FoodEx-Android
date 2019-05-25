@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/dp50"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:paddingBottom="@dimen/dp50">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/root"
             android:layout_width="match_parent"
@@ -23,7 +24,6 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
                 android:orientation="vertical">
-
 
 
                 <LinearLayout
@@ -53,46 +53,49 @@
                             android:src="@drawable/toolbar_arrow_left" />
 
 
-                       <LinearLayout
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="@dimen/dp10"
-                           android:layout_centerHorizontal="true"
-                           android:orientation="vertical">
-                           <TextView
-                               android:id="@+id/meal"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:layout_gravity="center_horizontal"
-                               android:fontFamily="sans-serif-light"
-                               android:textColor="@android:color/black"
-                               android:textSize="@dimen/sp16"
-                               android:textStyle="bold"
-                               tools:text="Breakfast" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:orientation="vertical">
 
-                           <Space
-                               android:layout_width="wrap_content"
-                               android:layout_height="@dimen/dp4" />
+                            <TextView
+                                android:id="@+id/date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-light"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/sp16"
+                                android:textStyle="bold"
+                                tools:text="25 May" />
 
-                           <TextView
-                               android:id="@+id/meal_time"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:layout_gravity="center_horizontal"
-                               android:textColor="#84ceca"
-                               android:textStyle="bold"
-                               tools:text="8:00" />
-                           <Space
-                               android:layout_width="wrap_content"
-                               android:layout_height="@dimen/dp16" />
-                       </LinearLayout>
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/dp4" />
+
+                            <TextView
+                                android:id="@+id/meal_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="#84ceca"
+                                android:textStyle="bold"
+                                tools:text="8:00" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/dp16" />
+                        </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/toolbar_right"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:orientation="horizontal"
                             android:padding="@dimen/dp10">
 
                             <ImageView
@@ -100,16 +103,14 @@
                                 style="@style/ClickableImageView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:rotation="180"
                                 android:layout_gravity="start"
                                 android:layout_margin="@dimen/dp8"
                                 android:padding="@dimen/dp8"
+                                android:rotation="180"
                                 android:src="@drawable/toolbar_arrow_left" />
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
-
-
 
 
                 <RelativeLayout
@@ -122,214 +123,245 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:clipToPadding="false"
-                        android:paddingTop="@dimen/dp2"
-                        android:paddingBottom="@dimen/dp2"
-                        android:paddingEnd="@dimen/dp22"
+                        android:paddingStart="@dimen/dp22"
                         android:paddingLeft="@dimen/dp22"
+                        android:paddingTop="@dimen/dp2"
+                        android:paddingEnd="@dimen/dp22"
                         android:paddingRight="@dimen/dp22"
-                        android:paddingStart="@dimen/dp22" />
+                        android:paddingBottom="@dimen/dp2" />
 
                 </RelativeLayout>
+
                 <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
                     android:id="@+id/dots_indicator"
                     android:layout_width="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp10"
+                    android:gravity="center_horizontal"
                     app:dotsColor="#F4F4F4"
                     app:dotsCornerRadius="8dp"
                     app:dotsSize="8dp"
                     app:dotsSpacing="4dp"
                     app:dotsWidthFactor="2.5"
-                    app:selectedDotColor="@color/dark_white"
                     app:progressMode="false"
-                    />
+                    app:selectedDotColor="@color/dark_white" />
+
                 <Space
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp10" />
+                    android:layout_height="@dimen/dp10"
+                    android:layout_marginBottom="@dimen/dp30" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/dp30"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/dp30"
+                    android:paddingLeft="@dimen/dp30"
+                    android:paddingEnd="@dimen/dp30"
+                    android:paddingRight="@dimen/dp30">
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp1"
-                        android:background="@color/дивайдер"
-                        android:layout_marginBottom="@dimen/dp10"/>
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@color/дивайдер" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
                         android:fontFamily="@font/rns_medium"
-                        android:textColor="@color/black"
                         android:text="Delivery information"
-                        android:textSize="@dimen/sp16"
-                        android:layout_marginBottom="@dimen/dp10" />
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp16" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
                         android:orientation="horizontal"
-                        android:weightSum="100"
-                        android:layout_marginBottom="@dimen/dp10">
+                        android:weightSum="100">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="@dimen/dp10"
+                            android:layout_weight="40"
                             android:fontFamily="@font/rns_regular"
-                            android:textColor="#9c9c9c"
                             android:text="Address"
-                            android:layout_marginRight="@dimen/dp10"
-                            android:layout_gravity="center_vertical"
-                            android:textSize="@dimen/sp16"
-                            android:layout_weight="40"/>
+                            android:textColor="#9c9c9c"
+                            android:textSize="@dimen/sp16" />
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="@dimen/dp10"
+                            android:layout_weight="60"
                             android:fontFamily="@font/rns_regular"
-                            android:textColor="@color/black"
+                            android:gravity="right"
                             android:text="Street Universitetska, house 30, apartment 19"
-                            android:gravity="right"
-                            android:layout_marginRight="@dimen/dp10"
-                            android:layout_gravity="center_vertical"
-                            android:textSize="@dimen/sp16"
-                            android:layout_weight="60"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="100"
-                        android:layout_marginBottom="@dimen/dp10">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/rns_regular"
-                            android:textColor="#9c9c9c"
-                            android:text="Delivery type"
-                            android:layout_marginRight="@dimen/dp10"
-                            android:layout_gravity="center_vertical"
-                            android:textSize="@dimen/sp16"
-                            android:layout_weight="40"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:fontFamily="@font/rns_regular"
                             android:textColor="@color/black"
-                            android:text="Bag"
-                            android:gravity="right"
-                            android:layout_marginRight="@dimen/dp10"
-                            android:layout_gravity="center_vertical"
-                            android:textSize="@dimen/sp16"
-                            android:layout_weight="60"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="100"
-                        android:layout_marginBottom="@dimen/dp10">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/rns_regular"
-                            android:textColor="#9c9c9c"
-                            android:text="Time"
-                            android:layout_marginRight="@dimen/dp10"
-                            android:layout_gravity="center_vertical"
-                            android:textSize="@dimen/sp16"
-                            android:layout_weight="40"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:fontFamily="@font/rns_regular"
-                            android:textColor="@color/black"
-                            android:text="10:00"
-                            android:gravity="right"
-                            android:layout_marginRight="@dimen/dp10"
-                            android:layout_gravity="center_vertical"
-                            android:textSize="@dimen/sp16"
-                            android:layout_weight="60"/>
+                            android:textSize="@dimen/sp16" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <com.korlab.foodex.UI.MaterialButton
-                            android:id="@+id/button_plan_control"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp48"
-                            android:layout_marginLeft="@dimen/dp30"
-                            android:layout_marginTop="@dimen/dp24"
-                            android:layout_marginBottom="@dimen/dp24"
-                            android:layout_marginRight="@dimen/dp30"
-                            app:mb_borderColor="@color/colorPrimary"
-                            app:mb_borderWidth="@dimen/dp1"
-                            app:mb_buttonColor="@color/white"
-                            app:mb_buttonType="raised"
-                            app:mb_cornerRadius="@dimen/dp30"
-                            app:mb_rippleColor="@color/ripple_color"
-                            app:mb_text="Plan control"
-                            app:mb_textColor="@color/colorPrimary"
-                            app:mb_textSize="@dimen/sp19" />
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="@dimen/dp10"
+                            android:layout_weight="40"
+                            android:fontFamily="@font/rns_regular"
+                            android:text="Delivery type"
+                            android:textColor="#9c9c9c"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="@dimen/dp10"
+                            android:layout_weight="60"
+                            android:fontFamily="@font/rns_regular"
+                            android:gravity="right"
+                            android:text="Bag"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="@dimen/dp10"
+                            android:layout_weight="40"
+                            android:fontFamily="@font/rns_regular"
+                            android:text="Time"
+                            android:textColor="#9c9c9c"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="@dimen/dp10"
+                            android:layout_weight="60"
+                            android:fontFamily="@font/rns_regular"
+                            android:gravity="right"
+                            android:text="10:00"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp16" />
                     </LinearLayout>
 
                 </LinearLayout>
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:gravity="center"-->
-                    <!--android:orientation="horizontal">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/item_btn_comment"-->
-                        <!--style="@style/ClickableImageView"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:padding="@dimen/dp8"-->
-                        <!--android:src="@drawable/profile_arrow"-->
-                        <!--android:tint="#84ceca" />-->
-
-                    <!--<Space-->
-                        <!--android:layout_width="@dimen/dp16"-->
-                        <!--android:layout_height="wrap_content" />-->
-
-                    <!--<android.support.design.widget.FloatingActionButton-->
-                        <!--android:id="@+id/item_btn_buy"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:src="@drawable/profile_arrow"-->
-                        <!--android:tint="@android:color/white"-->
-                        <!--app:rippleColor="#51b2ac"-->
-                        <!--app:useCompatPadding="true" />-->
-
-                    <!--<Space-->
-                        <!--android:layout_width="@dimen/dp16"-->
-                        <!--android:layout_height="wrap_content" />-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/item_btn_rate"-->
-                        <!--style="@style/ClickableImageView"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:padding="@dimen/dp8"-->
-                        <!--android:src="@drawable/profile_arrow"-->
-                        <!--android:tint="#84ceca" />-->
-
-                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp0"
-                    android:layout_weight="20"
-                    android:gravity="bottom"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/dp30"
+                    android:paddingLeft="@dimen/dp30"
+                    android:paddingEnd="@dimen/dp30"
+                    android:paddingRight="@dimen/dp30">
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp1"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@color/дивайдер" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:fontFamily="@font/rns_medium"
+                        android:text="Help us"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp16" />
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:fontFamily="@font/rns_regular"-->
+                    <!--android:textColor="#9c9c9c"-->
+                    <!--android:text="Leave feedback on the day of the program"-->
+                    <!--android:layout_marginRight="@dimen/dp10"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:textSize="@dimen/sp16"/>-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="@dimen/dp10"
+                            android:fontFamily="@font/rns_regular"
+                            android:text="You can help us in the development of our service by simply setting a rating for the current day supply. This can be done once every 24 hours."
+                            android:textColor="#9c9c9c"
+                            android:textSize="@dimen/sp16" />
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/colorPrimary"
+                            android:layout_marginTop="@dimen/dp10"
+                            app:cardCornerRadius="@dimen/dp4"
+                            android:elevation="@dimen/dp1"
+                            android:layout_gravity="center_horizontal">
+                            <com.balysv.materialripple.MaterialRippleLayout
+                                android:id="@+id/button_feedback"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:mrl_rippleColor="@color/ripple_color">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp10"
+                                    android:text="Leave feedback"
+                                    android:fontFamily="@font/rns_medium"
+                                    android:textColor="@color/white"
+                                    android:layout_gravity="center"/>
+                            </com.balysv.materialripple.MaterialRippleLayout>
+                        </android.support.v7.widget.CardView>
+                        <!--<com.korlab.foodex.UI.MaterialButton-->
+                            <!--android:id="@+id/button_feedback"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="@dimen/dp10"-->
+                            <!--app:mb_borderColor="@color/white_text"-->
+                            <!--app:mb_borderWidth="@dimen/dp1"-->
+                            <!--app:mb_buttonColor="@color/white_text"-->
+                            <!--app:mb_buttonType="flat"-->
+                            <!--app:mb_cornerRadius="@dimen/dp30"-->
+                            <!--app:mb_rippleColor="@color/ripple_color"-->
+                            <!--app:mb_text="Send Feedback"-->
+                            <!--app:mb_textColor="@color/dark_text"-->
+                            <!--app:mb_textSize="@dimen/sp19" />-->
+                    </LinearLayout>
 
 
                 </LinearLayout>
@@ -340,7 +372,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </ScrollView>

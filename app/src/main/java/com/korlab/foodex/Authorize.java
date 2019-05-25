@@ -18,12 +18,15 @@ import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
 
 import com.korlab.foodex.UI.MaterialEditText;
+import com.korlab.garage.sharedcode.fireserver.Auth;
 
+import kotlin.Unit;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class Authorize extends AppCompatActivity {
 
     private static Authorize instance;
+
     public static Authorize getInstance() {
         return instance;
     }
@@ -37,7 +40,7 @@ public class Authorize extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_exit, null), (v)-> this.finishAffinity(), null);
+        Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_exit, null), (v) -> this.finishAffinity(), null);
     }
 
     @Override
@@ -51,19 +54,17 @@ public class Authorize extends AppCompatActivity {
         user = new User();
         Helper.disableButton(getInstance(), buttonContinue);
         buttonContinue.setOnClickListener((v) -> {
-            if(isRecovery) {
+            if (isRecovery) {
                 // TODO: 4/15/2019 recovery password by Email
             } else {
-                if(isEmail) {
+                if (isEmail) {
                     user.setEmail(inputEmail.getText().toString().replace(" ", ""));
                     // TODO: 5/24/2019 Authorize by Email
                 } else {
                     user.setPhone(inputPhone.getText().toString().replace(" ", ""));
                     // TODO: 5/24/2019 Authorize by phone
+                    new Thread(() -> startAuthPhone(user.getPhone())).start();
                 }
-                Helper.setUserData(user);
-                startActivity(new Intent(getInstance(), AuthorizeVerification.class));
-                Bungee.slideLeft(getInstance());
             }
         });
         buttomSwitchEmailPhone.setOnClickListener((v) -> switchButton());
@@ -155,24 +156,42 @@ public class Authorize extends AppCompatActivity {
             }
         });
         inputEmail.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 validateInput();
             }
         });
         inputPassword.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 validateInput();
             }
         });
         inputRecoveryEmail.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 validateInput();
@@ -185,7 +204,7 @@ public class Authorize extends AppCompatActivity {
 
     private void switchRecoveryPassword() {
         isRecovery = !isRecovery;
-        if(isRecovery) {
+        if (isRecovery) {
             buttonRecoveryPassword.setText("Back to the login form");
             buttonContinue.setText("Send recovery email");
             inputWrapperRecoveryEmail.setVisibility(View.VISIBLE);
@@ -195,7 +214,7 @@ public class Authorize extends AppCompatActivity {
             buttonRecoveryPassword.setText("Recover password via email");
             buttonContinue.setText("Continue");
             inputWrapperRecoveryEmail.setVisibility(View.GONE);
-            if(isEmail) {
+            if (isEmail) {
                 inputWrapperEmail.setVisibility(View.VISIBLE);
                 inputWrapperPhone.setVisibility(View.GONE);
             } else {
@@ -208,9 +227,9 @@ public class Authorize extends AppCompatActivity {
 
     private void switchButton() {
         isEmail = !isEmail;
-        if(isRecovery)
+        if (isRecovery)
             switchRecoveryPassword();
-        if(isEmail) {
+        if (isEmail) {
             inputWrapperEmail.setVisibility(View.VISIBLE);
             inputWrapperPhone.setVisibility(View.GONE);
             buttomSwitchEmailPhone.setText("Phone");
@@ -238,24 +257,45 @@ public class Authorize extends AppCompatActivity {
 
     private void validateInput() {
         Helper.log("validateInput");
-        if(isRecovery) {
+        if (isRecovery) {
             Helper.log("isRecovery");
-            if(inputRecoveryEmail.length() >= 5 && Helper.isEmailValid(inputRecoveryEmail.getText().toString()))
+            if (inputRecoveryEmail.length() >= 5 && Helper.isEmailValid(inputRecoveryEmail.getText().toString()))
                 Helper.enableButton(getInstance(), buttonContinue);
             else
                 Helper.disableButton(getInstance(), buttonContinue);
         } else {
-            if(isEmail) {
-                if(inputEmail.length() >= 5 && inputPassword.length() >= 6 && Helper.isEmailValid(inputEmail.getText().toString()))
+            if (isEmail) {
+                if (inputEmail.length() >= 5 && inputPassword.length() >= 6 && Helper.isEmailValid(inputEmail.getText().toString()))
                     Helper.enableButton(getInstance(), buttonContinue);
                 else
                     Helper.disableButton(getInstance(), buttonContinue);
             } else {
-                if(inputPhone.length() >= 17)
+                if (inputPhone.length() >= 17)
                     Helper.enableButton(getInstance(), buttonContinue);
                 else
                     Helper.disableButton(getInstance(), buttonContinue);
             }
         }
+    }
+
+    private void startAuthPhone(String phone) {
+        Auth.INSTANCE.authPhone(phone, this::onCorrectCodeGot, this::onFailCodeGot, AuthorizeVerification::onRightSms, AuthorizeVerification::onWrongSms);
+    }
+
+    private kotlin.Unit onCorrectCodeGot() {
+        Helper.log("Success send sms to: " + user.getPhone());
+        launchNextActivity();
+        return Unit.INSTANCE;
+    }
+
+    private kotlin.Unit onFailCodeGot(String error) {
+        Helper.log("Fail send sms to: " + user.getPhone());
+        return Unit.INSTANCE;
+    }
+
+    private void launchNextActivity() {
+        Helper.setUserData(user);
+        startActivity(new Intent(getInstance(), AuthorizeVerification.class));
+        Bungee.slideLeft(getInstance());
     }
 }

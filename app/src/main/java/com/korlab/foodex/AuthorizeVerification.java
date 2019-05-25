@@ -15,6 +15,7 @@ import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.InputCodeLayout;
 import com.korlab.foodex.UI.MaterialButton;
 
+import kotlin.Unit;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class AuthorizeVerification extends AppCompatActivity {
@@ -104,5 +105,22 @@ public class AuthorizeVerification extends AppCompatActivity {
                 try { Thread.sleep(1000); } catch (InterruptedException ignored) { }
             }
         }).start();
+    }
+
+    public static Unit onRightSms() { Helper.log("Right sms code"); User.Companion.getData(AuthorizeVerification::onSuccessGotUser, AuthorizeVerification::onFailGotUser); return Unit.INSTANCE; }
+    public static Unit onWrongSms() { Helper.log("Wrong sms code"); return Unit.INSTANCE; }
+
+    // Check registered user
+    private static kotlin.Unit onSuccessGotUser(User user) {
+        Helper.log("Success find user in DB. Phone: " + user.getPhone());
+        Helper.setUserData(user);
+        getInstance().startActivity(new Intent(getInstance(), MainMenu.class));
+        getInstance().finish();
+        return Unit.INSTANCE;
+    }
+
+    private static kotlin.Unit onFailGotUser() {
+        Helper.log("Fail find this user in DB. Start process register");
+        return Unit.INSTANCE;
     }
 }

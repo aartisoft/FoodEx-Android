@@ -1,20 +1,27 @@
 package com.korlab.foodex;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Consumer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
+import com.hedgehog.ratingbar.RatingBar;
 import com.korlab.foodex.Components.CalendarMeal;
 import com.korlab.foodex.Components.CalendarMealAdapter;
 import com.korlab.foodex.Components.HistoryCard;
@@ -35,6 +42,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class FragmentHome extends Fragment {
@@ -68,7 +76,181 @@ public class FragmentHome extends Fragment {
         View view = null;
         programDays = new HashMap<>();
         activity = MainMenu.getInstance();
-        for (int i = 0; i < 29; i += 5) {
+        initProgramDays();
+
+        switch (mPage) {
+            case 1:
+                view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+                WrapContentHeightViewPager viewPager;
+                viewPager = view.findViewById(R.id.week_view_pager);
+                TextView dateText = view.findViewById(R.id.date);
+                TextView mealTime = view.findViewById(R.id.meal_time);
+                ImageView prev = view.findViewById(R.id.prev);
+                ImageView next = view.findViewById(R.id.next);
+                DotsIndicator dotsIndicator = view.findViewById(R.id.dots_indicator);
+                MaterialRippleLayout buttonFeedback = view.findViewById(R.id.button_feedback);
+
+                ProgramDay programDay;
+                java.util.Calendar calendar = java.util.Calendar.getInstance();
+
+                Date date = new Date(calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DATE));
+                Helper.log("getTime " + date.toString());
+                Helper.log("programDays.get(date) " + programDays.get(date));
+
+                if (programDays.get(date) != null) {
+                    programDay = programDays.get(date);
+                } else {
+                    Helper.log("push empty data");
+                    List<Meal> mealList = new ArrayList<>();
+                    mealList.add(new Meal(Meal.Type.BREAKFAST, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.BRUNCH, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.LUNCH, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.AFTERNOONMEALS, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.SECONDAFTERNOONMEALS, new ArrayList<>()));
+                    mealList.add(new Meal(Meal.Type.DINNER, new ArrayList<>()));
+                    programDay = new ProgramDay(date, mealList);
+                }
+                drawText(programDay.getMeals().get(0), date, dateText, mealTime);
+                viewPager.setAdapter(new DayAdapter(LayoutInflater.from(getActivity()), programDay));
+                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity, 130));
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override public void onPageScrolled(int i, float v, int i1) { }
+                    @Override public void onPageSelected(int i) { drawText(programDay.getMeals().get(i), date, dateText, mealTime); }
+                    @Override public void onPageScrollStateChanged(int i) { }
+                });
+                dotsIndicator.setViewPager(viewPager);
+                prev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
+                next.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true));
+                buttonFeedback.setOnClickListener(v->{
+                    showDialogFeedbackForDay();
+                });
+                break;
+//            case 2:
+//                view = inflater.inflate(R.layout.fragment_home_history, container, false);
+//
+//
+//                ViewGroup root;
+//                TextView buttonAllHistory;
+//                root = view.findViewById(R.id.root);
+//                buttonAllHistory = view.findViewById(R.id.button_all_history);
+//
+//                updateDayCardsHistory(root, isVisibleAll);
+//
+//                buttonAllHistory.setOnClickListener(v -> {
+//                    buttonAllHistory.setVisibility(View.GONE);
+//                    isVisibleAll = !isVisibleAll;
+//                    updateDayCardsHistory(root, isVisibleAll);
+//                });
+//
+//
+//                Helper.log("Fragment Home Your Menu#" + mPage);
+//                break;
+            case 2:
+                view = inflater.inflate(R.layout.fragment_home_history_calendar, container, false);
+
+                //////////////////////////////
+                recyclerView = view.findViewById(R.id.recyclerView);
+                LinearLayoutManager manager = new LinearLayoutManager(getActivity().getBaseContext());
+                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(manager);
+                recyclerView.addItemDecoration(new GroupItemDecoration<String, CalendarMeal>());
+                mTextMonthDay = view.findViewById(R.id.tv_month_day);
+                mTextYear = view.findViewById(R.id.tv_year);
+                mTextLunar = view.findViewById(R.id.tv_lunar);
+                mCalendarView = view.findViewById(R.id.calendarView);
+                mTextCurrentDay = view.findViewById(R.id.tv_current_day);
+                mCalendarView.setSelectSingleMode();
+                updateDayCardsCalendar(new Date(mCalendarView.getCurYear(), mCalendarView.getCurMonth(), mCalendarView.getCurDay()));
+                mTextMonthDay.setOnClickListener(v -> {
+                    if (!mCalendarLayout.isExpand()) {
+                        mCalendarLayout.expand();
+                        return;
+                    }
+                    mCalendarView.showYearSelectLayout(mCalendarView.getCurYear());
+                    mTextLunar.setVisibility(View.GONE);
+                    mTextYear.setVisibility(View.GONE);
+                    mTextMonthDay.setText(String.valueOf(mYear));
+                });
+                view.findViewById(R.id.fl_current).setOnClickListener(v -> mCalendarView.scrollToCurrent());
+                mCalendarLayout = view.findViewById(R.id.calendarLayout);
+                mCalendarView.setOnYearChangeListener(year -> {
+                    mYear = year;
+                    mMonth = mCalendarView.getSelectedCalendar().getMonth();
+//                    mTextMonthDay.setText(" " + months.get(mMonth - 1));
+                    drawDaysOnCalendar(mYear, mMonth);
+                });
+                mCalendarView.setOnMonthChangeListener((year, month) -> {
+                    mYear = year;
+                    mMonth = month;
+//                    mTextMonthDay.setText(" " + months.get(mMonth - 1));
+                    drawDaysOnCalendar(mYear, mMonth);
+                });
+                mCalendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
+                    @Override public void onCalendarOutOfRange(Calendar calendar) { }
+
+                    @Override
+                    public void onCalendarSelect(Calendar calendar, boolean isClick) {
+                        mTextLunar.setVisibility(View.VISIBLE);
+                        mTextYear.setVisibility(View.VISIBLE);
+                        mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
+                        mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
+                        int year = mCalendarView.getSelectedCalendar().getYear();
+                        int month = mCalendarView.getSelectedCalendar().getMonth();
+                        int day = mCalendarView.getSelectedCalendar().getDay();
+                        updateDayCardsCalendar(new Date(year, month, day));
+                    }
+                });
+                mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
+                mYear = mCalendarView.getSelectedCalendar().getYear();
+                mMonth = mCalendarView.getSelectedCalendar().getMonth();
+                mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
+                mTextLunar.setText("Year");
+                mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
+                drawDaysOnCalendar(mYear, mMonth);
+                //////////////////////////////
+                break;
+        }
+        return view;
+    }
+
+    static int ratingDeliveryStars = 0;
+    static int ratingFoodStars = 0;
+    public static void showDialogFeedbackForDay() {
+        final Dialog dialog = new Dialog(MainMenu.getInstance());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_feedback_day);
+        dialog.setCancelable(true);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.transparent);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        MaterialButton ok = dialog.findViewById(R.id.ok);
+        MaterialButton cancel = dialog.findViewById(R.id.cancel);
+        RatingBar ratingDelivery = dialog.findViewById(R.id.rating_delivery);
+        RatingBar ratingFood = dialog.findViewById(R.id.rating_food);
+
+
+        ratingDelivery.setOnRatingChangeListener(ratingCount -> ratingDeliveryStars = (int) ratingCount);
+        ratingFood.setOnRatingChangeListener(ratingCount -> ratingFoodStars = (int) ratingCount);
+
+
+        ok.setOnClickListener((v) -> {
+            // // TODO: 5/25/2019 send feedback for day to firebase
+            dialog.dismiss();
+        });
+        cancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.getWindow().setAttributes(lp);
+        Window window = dialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.show();
+    }
+    private void initProgramDays() {
+        for (int i = 0; i < 29; i += 1) {
             List<Meal> mealList = new ArrayList<>();
             List<Dish> dishListBreakfast = new ArrayList<>();
             // Breakfast
@@ -132,147 +314,10 @@ public class FragmentHome extends Fragment {
             programDays.put(date3, new ProgramDay(date3, mealList));
             Helper.setProgramDaysData(programDays);
         }
-
-        switch (mPage) {
-            case 1:
-                view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
-                WrapContentHeightViewPager viewPager;
-                viewPager = view.findViewById(R.id.week_view_pager);
-                TextView meal = view.findViewById(R.id.meal);
-                TextView mealTime = view.findViewById(R.id.meal_time);
-                ImageView prev = view.findViewById(R.id.prev);
-                ImageView next = view.findViewById(R.id.next);
-                DotsIndicator dotsIndicator = view.findViewById(R.id.dots_indicator);
-                MaterialButton buttonPlanControl = view.findViewById(R.id.button_plan_control);
-
-                ProgramDay programDay;
-                java.util.Calendar calendar = java.util.Calendar.getInstance();
-
-                Date date = new Date(calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DATE));
-                Helper.log("getTime " + date.toString());
-                Helper.log("programDays.get(date) " + programDays.get(date));
-
-                if (programDays.get(date) != null) {
-                    programDay = programDays.get(date);
-                } else {
-                    Helper.log("push empty data");
-                    List<Meal> mealList = new ArrayList<>();
-                    mealList.add(new Meal(Meal.Type.BREAKFAST, new ArrayList<>()));
-                    mealList.add(new Meal(Meal.Type.BRUNCH, new ArrayList<>()));
-                    mealList.add(new Meal(Meal.Type.LUNCH, new ArrayList<>()));
-                    mealList.add(new Meal(Meal.Type.AFTERNOONMEALS, new ArrayList<>()));
-                    mealList.add(new Meal(Meal.Type.SECONDAFTERNOONMEALS, new ArrayList<>()));
-                    mealList.add(new Meal(Meal.Type.DINNER, new ArrayList<>()));
-                    programDay = new ProgramDay(date, mealList);
-                }
-                drawText(programDay.getMeals().get(0), date, meal, mealTime);
-                viewPager.setAdapter(new DayAdapter(LayoutInflater.from(getActivity()), programDay));
-                viewPager.setPageTransformer(false, new CustomPagerTransformer(activity, 130));
-                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override public void onPageScrolled(int i, float v, int i1) { }
-                    @Override public void onPageSelected(int i) { drawText(programDay.getMeals().get(i), date, meal, mealTime); }
-                    @Override public void onPageScrollStateChanged(int i) { }
-                });
-                dotsIndicator.setViewPager(viewPager);
-                prev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
-                next.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true));
-                buttonPlanControl.setOnClickListener(v->{
-                    Helper.setUserData(MainMenu.getInstance().user);
-                    startActivity(new Intent(MainMenu.getInstance(), PlanPauseMove.class));
-                });
-                break;
-            case 2:
-                view = inflater.inflate(R.layout.fragment_home_history, container, false);
-
-
-                ViewGroup root;
-                TextView buttonAllHistory;
-                root = view.findViewById(R.id.root);
-                buttonAllHistory = view.findViewById(R.id.button_all_history);
-
-                updateDayCardsHistory(root, isVisibleAll);
-
-                buttonAllHistory.setOnClickListener(v -> {
-                    buttonAllHistory.setVisibility(View.GONE);
-                    isVisibleAll = !isVisibleAll;
-                    updateDayCardsHistory(root, isVisibleAll);
-                });
-
-
-                Helper.log("Fragment Home Your Menu#" + mPage);
-                break;
-            case 3:
-                view = inflater.inflate(R.layout.fragment_home_history_calendar, container, false);
-
-                //////////////////////////////
-                recyclerView = view.findViewById(R.id.recyclerView);
-                LinearLayoutManager manager = new LinearLayoutManager(getActivity().getBaseContext());
-                manager.setOrientation(LinearLayoutManager.VERTICAL);
-                recyclerView.setLayoutManager(manager);
-                recyclerView.addItemDecoration(new GroupItemDecoration<String, CalendarMeal>());
-                mTextMonthDay = view.findViewById(R.id.tv_month_day);
-                mTextYear = view.findViewById(R.id.tv_year);
-                mTextLunar = view.findViewById(R.id.tv_lunar);
-                mCalendarView = view.findViewById(R.id.calendarView);
-                mTextCurrentDay = view.findViewById(R.id.tv_current_day);
-                mCalendarView.setSelectSingleMode();
-                updateDayCardsCalendar(new Date(mCalendarView.getCurYear(), mCalendarView.getCurMonth(), mCalendarView.getCurDay()));
-                mTextMonthDay.setOnClickListener(v -> {
-                    if (!mCalendarLayout.isExpand()) {
-                        mCalendarLayout.expand();
-                        return;
-                    }
-                    mCalendarView.showYearSelectLayout(mCalendarView.getCurYear());
-                    mTextLunar.setVisibility(View.GONE);
-                    mTextYear.setVisibility(View.GONE);
-                    mTextMonthDay.setText(String.valueOf(mYear));
-                });
-                view.findViewById(R.id.fl_current).setOnClickListener(v -> mCalendarView.scrollToCurrent());
-                mCalendarLayout = view.findViewById(R.id.calendarLayout);
-                mCalendarView.setOnYearChangeListener(year -> {
-                    mYear = year;
-                    mMonth = mCalendarView.getSelectedCalendar().getMonth();
-//                    mTextMonthDay.setText(" " + months.get(mMonth - 1));
-                    initProgramsDays(mYear, mMonth);
-                });
-                mCalendarView.setOnMonthChangeListener((year, month) -> {
-                    mYear = year;
-                    mMonth = month;
-//                    mTextMonthDay.setText(" " + months.get(mMonth - 1));
-                    initProgramsDays(mYear, mMonth);
-                });
-                mCalendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
-                    @Override public void onCalendarOutOfRange(Calendar calendar) { }
-
-                    @Override
-                    public void onCalendarSelect(Calendar calendar, boolean isClick) {
-                        mTextLunar.setVisibility(View.VISIBLE);
-                        mTextYear.setVisibility(View.VISIBLE);
-                        mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
-                        mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
-                        int year = mCalendarView.getSelectedCalendar().getYear();
-                        int month = mCalendarView.getSelectedCalendar().getMonth();
-                        int day = mCalendarView.getSelectedCalendar().getDay();
-                        updateDayCardsCalendar(new Date(year, month, day));
-                    }
-                });
-                mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
-                mYear = mCalendarView.getSelectedCalendar().getYear();
-                mMonth = mCalendarView.getSelectedCalendar().getMonth();
-                mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + months.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
-                mTextLunar.setText("Year");
-                mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
-                initProgramsDays(mYear, mMonth);
-                //////////////////////////////
-                break;
-
-
-        }
-        return view;
     }
 
     private void drawText(Meal meal, Date date, TextView mealText, TextView mealTime) {
-        mealText.setText(date.getDate() + " " + months.get(date.getMonth()-1));
+        mealText.setText(date.getDate() + " " + months.get(date.getMonth()));
         mealTime.setText("" + meal.getDayTime().getTime());
     }
 
@@ -290,9 +335,9 @@ public class FragmentHome extends Fragment {
         }
     }
 
-    private void initProgramsDays(int year, int month) {
+    private void drawDaysOnCalendar(int year, int month) {
 
-        Helper.log("initProgramsDays======================================");
+        Helper.log("drawDaysOnCalendar======================================");
 
         Map<String, Calendar> map = new HashMap<>();
 

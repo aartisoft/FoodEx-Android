@@ -88,7 +88,8 @@ public class FragmentMainMenu extends Fragment {
                 toolbarContainer.addView(new Toolbar(activity, true, "Home", null, null));
 
                 navigationTabStrip = view.findViewById(R.id.tabs);
-                navigationTabStrip.setTitles("Dashboard", "History", "Calendar");
+                navigationTabStrip.setTitles("Dashboard", "Calendar");
+//                navigationTabStrip.setTitles("Dashboard", "History", "Calendar");
                 navigationTabStrip.setTabIndex(0, true);
                 navigationTabStrip.setStripColor(getResources().getColor(R.color.colorPrimary));
                 navigationTabStrip.setTypeface("fonts/rns_bold.otf");
