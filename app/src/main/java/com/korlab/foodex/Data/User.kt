@@ -1,15 +1,16 @@
 package com.korlab.foodex.Data
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
+import com.google.firebase.firestore.DocumentSnapshot
+import com.korlab.foodex.FireServer.Database
 import com.korlab.foodex.Technical.Helper
-import com.korlab.garage.sharedcode.fireserver.Database
+import java.sql.Date
 
 class User {
 
 
     var email: String = ""
-    var phone: String = ""
+    var phoneNumber: String = ""
 
     lateinit var firstName: String
     lateinit var lastName: String
@@ -22,9 +23,10 @@ class User {
     var growth: Int = 160
     var growthMetrics: Boolean = false
 
-    var birthdayDay: Int = 0
-    var birthdayMonth: Int = 0
-    var birthdayYear: Int = 0
+    var birthday: Date? = null
+//    var birthdayDay: Int = 0
+//    var birthdayMonth: Int = 0
+//    var birthdayYear: Int = 0
 
     var weekdaysAddress: Address? = null
     var weekendsAddress: Address? = null
@@ -35,20 +37,26 @@ class User {
     companion object {
         fun getData(onSuccess: (user: User) -> Unit, onFail: () -> Unit) {
             // todo move to one function
-            Helper.log("get users/" + FirebaseAuth.getInstance().currentUser!!.uid)
-            Database.readValue("users/" + FirebaseAuth.getInstance().currentUser!!.uid) { dataSnapshot: DataSnapshot ->
-                Helper.log("response from server " + dataSnapshot.value)
-                val userData = dataSnapshot.value as HashMap<*, *>?
+            Helper.log("Get customer" + FirebaseAuth.getInstance().currentUser!!.uid)
+            Database.readValue("customers", "3jw1e2dVImX4P01K45Dlz4govWm1") { documentSnapshot: DocumentSnapshot? ->
+                Helper.log("Response from FireStore " + documentSnapshot?.data!!)
+                val userData = documentSnapshot.data as HashMap<*, *>?
                 if (userData == null) {
                     onFail()
-                    null
                 } else {
+                    val name = userData["name"] as HashMap<*, *>?
+
                     val user = User()
-                    user.phone = userData["phone"]?.toString() ?: ""
-                    user.firstName = userData["firstName"]?.toString() ?: ""
-                    user.lastName = userData["lastName"]?.toString() ?: ""
-                    user.middleName = userData["middleName"]?.toString() ?: ""
-                    Helper.log("userData " + userData.toString())
+                    user.phoneNumber = userData["phoneNumber"]?.toString() ?: ""
+                    user.firstName = name!!["first"]?.toString() ?: ""
+                    user.lastName = name!!["last"]?.toString() ?: ""
+                    user.middleName = name!!["middle"]?.toString() ?: ""
+                    val date = userData!!["birthday"] as com.google.firebase.Timestamp
+                    user.birthday = date.toDate() as Date?
+                    Helper.log("birthday Year: " + user.birthday?.year)
+                    Helper.log("birthday Month: " + user.birthday?.month)
+                    Helper.log("birthday Date: " + user.birthday?.date)
+                    Helper.logObjectToJson(userData)
                     onSuccess(user)
                 }
             }

@@ -1,4 +1,4 @@
-package com.korlab.garage.sharedcode.fireserver
+package com.korlab.foodex.FireServer
 
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -36,6 +36,7 @@ object Auth : AppCompatActivity() {
                   errorSent: (errorText: String) -> Unit,
                   onSuccess: () -> Unit,
                   onWrong: () -> Unit) {
+        Helper.log("verifyPhoneNumber: " + phone);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(phone, 60, TimeUnit.SECONDS, this, object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 Helper.log("onVerificationCompleted")
@@ -158,13 +159,13 @@ object Auth : AppCompatActivity() {
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(newPhone, 60, TimeUnit.SECONDS, this, object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                Log.d(TAG, "onVerificationCompleted")
+                Helper.log("onVerificationCompleted")
                 updatePhoneCredential(credential, onSuccess, onError)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
                 errorSent(e.localizedMessage ?: "Error")
-                Log.d(TAG, "onVerificationFailed " + e.toString())
+                Helper.log("onVerificationFailed " + e.toString())
             }
 
             override fun onCodeSent(verificationId: String?, token: PhoneAuthProvider.ForceResendingToken?) {

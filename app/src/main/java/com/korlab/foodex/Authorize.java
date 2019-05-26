@@ -3,7 +3,6 @@ package com.korlab.foodex;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -14,11 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.FireServer.Auth;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
 
 import com.korlab.foodex.UI.MaterialEditText;
-import com.korlab.garage.sharedcode.fireserver.Auth;
 
 import kotlin.Unit;
 import spencerstudios.com.bungeelib.Bungee;
@@ -61,9 +60,9 @@ public class Authorize extends AppCompatActivity {
                     user.setEmail(inputEmail.getText().toString().replace(" ", ""));
                     // TODO: 5/24/2019 Authorize by Email
                 } else {
-                    user.setPhone(inputPhone.getText().toString().replace(" ", ""));
-                    // TODO: 5/24/2019 Authorize by phone
-                    new Thread(() -> startAuthPhone(user.getPhone())).start();
+                    user.setPhoneNumber(inputPhone.getText().toString().replace(" ", ""));
+                    // TODO: 5/24/2019 Authorize by phoneNumber
+                    startAuthPhone(user.getPhoneNumber());
                 }
             }
         });
@@ -283,17 +282,17 @@ public class Authorize extends AppCompatActivity {
     }
 
     private kotlin.Unit onCorrectCodeGot() {
-        Helper.log("Success send sms to: " + user.getPhone());
+        Helper.log("Success send sms to: " + user.getPhoneNumber());
         launchNextActivity();
         return Unit.INSTANCE;
     }
 
     private kotlin.Unit onFailCodeGot(String error) {
-        Helper.log("Fail send sms to: " + user.getPhone());
+        Helper.log("Fail send sms to: " + user.getPhoneNumber());
         return Unit.INSTANCE;
     }
 
-    private void launchNextActivity() {
+    public void launchNextActivity() {
         Helper.setUserData(user);
         startActivity(new Intent(getInstance(), AuthorizeVerification.class));
         Bungee.slideLeft(getInstance());

@@ -1,11 +1,11 @@
-package com.korlab.garage.sharedcode.fireserver
+package com.korlab.foodex.FireServer
 
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.storage.FirebaseStorage
 
 object Storage {
-    private val storage: FirebaseStorage = FirebaseStorage.getInstance("gs://popov-garage.appspot.com/")
+    private val storage: FirebaseStorage = FirebaseStorage.getInstance("gs://foodex-korlab.appspot.com/")
     fun uploadImage(bytes: ByteArray, path: String) {
         val riversRef = storage.reference.child("images/$path")
         riversRef.putBytes(bytes)

@@ -31,6 +31,7 @@ import com.korlab.foodex.UI.MaterialButton;
 import com.korlab.foodex.UI.Toolbar;
 import com.uniquestudio.library.CircleCheckBox;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -82,7 +83,9 @@ public class ProfileEdit extends AppCompatActivity {
         toolbarRight = findViewById(R.id.toolbar_right_icon);
         user = Helper.getUserData();
 
-        dateBirthday = new int[]{user.getBirthdayDay(), user.getBirthdayMonth(), user.getBirthdayYear()};
+        Date birthday = user.getBirthday();
+
+        dateBirthday = new int[]{birthday.getDate(), birthday.getMonth(), birthday.getYear()};
 
         inputBirthday.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -175,14 +178,13 @@ public class ProfileEdit extends AppCompatActivity {
         user.setFirstName(inputName.getText().toString());
         user.setLastName(inputLastname.getText().toString());
         user.setMiddleName(inputMiddlename.getText().toString());
-        user.setBirthdayDay(dateBirthday[0]);
-        user.setBirthdayMonth(dateBirthday[1]);
-        user.setBirthdayYear(dateBirthday[2]);
+        Date birthday = new Date(dateBirthday[2],dateBirthday[1],dateBirthday[0]);
+        user.setBirthday(birthday);
         user.setGender(gender);
         user.setGrowth(Integer.parseInt(inputGrowth.getText().toString().replaceAll("[^0-9]","")));
         user.setWeight(Integer.parseInt(inputWeight.getText().toString().replaceAll("[^0-9]","")));
         user.setEmail(inputEmail.getText().toString());
-        user.setPhone(inputPhone.getText().toString());
+        user.setPhoneNumber(inputPhone.getText().toString());
         user.setNote(inputNote.getText().toString());
         user.setWeekdaysAddress(addressWeekdays);
         user.setWeekendsAddress(addressWeekends);
@@ -234,7 +236,7 @@ public class ProfileEdit extends AppCompatActivity {
         inputGrowth.setText(""+user.getGrowth());
         inputWeight.setText(""+user.getWeight());
         inputEmail.setText(""+user.getEmail());
-        inputPhone.setText(""+user.getPhone());
+        inputPhone.setText(""+user.getPhoneNumber());
         inputNote.setText(""+user.getNote());
 
         deliveryType = user.getDeliveryType();

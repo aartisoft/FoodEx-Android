@@ -12,6 +12,7 @@ import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
 
 
+import java.sql.Date;
 import java.util.Calendar;
 
 import spencerstudios.com.bungeelib.Bungee;
@@ -56,9 +57,8 @@ public class InfoBirthday extends AppCompatActivity {
         });
 
         buttonNext.setOnClickListener((v) -> {
-            user.setBirthdayDay(mDay);
-            user.setBirthdayMonth(mMonth);
-            user.setBirthdayYear(mYear);
+            Date date = new Date(mYear, mMonth, mDay);
+            user.setBirthday(date);
             Helper.logObjectToJson(user);
             Helper.setUserData(user);
             // TODO: 5/24/2019 send userData to firebase

@@ -1,4 +1,4 @@
-package com.korlab.garage.sharedcode.fireserver
+package com.korlab.foodex.FireServer
 
 import android.os.Bundle
 import android.util.Log

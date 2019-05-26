@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,7 +14,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.util.Consumer;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -23,17 +21,16 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.google.firebase.Timestamp;
 import com.google.gson.Gson;
 import com.korlab.foodex.Data.ProgramDay;
 import com.korlab.foodex.Data.User;
-import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
 import com.korlab.foodex.UI.MaterialButton;
 
@@ -48,7 +45,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -326,5 +322,10 @@ public class Helper {
     }
     public static Map<Date, ProgramDay> getProgramDaysData() {
         return Helper.programDays;
+    }
+
+    public static Date timestampToDate(Timestamp timestamp) {
+        Date date=new Date(timestamp.getSeconds());
+        return date;
     }
 }
