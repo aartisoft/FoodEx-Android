@@ -1,6 +1,6 @@
 package com.korlab.foodex.Data
 
-import java.sql.Date
+import java.util.Date
 
 class ProgramDay(date: Date, meals: List<Meal>) {
     var date: Date? = null

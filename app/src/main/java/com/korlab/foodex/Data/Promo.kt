@@ -1,7 +1,7 @@
 package com.korlab.foodex.Data
 
 import android.graphics.Bitmap
-import java.sql.Date
+import java.util.Date
 
 class Promo(id: Int, name: String, date: Date, image: String, link: String) {
 

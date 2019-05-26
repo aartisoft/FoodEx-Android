@@ -41,7 +41,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -311,6 +311,7 @@ public class Helper {
     }
 
     public static void setUserData(User user) {
+        Helper.log("Set User Data");
         Helper.user = user;
     }
     public static User getUserData() {

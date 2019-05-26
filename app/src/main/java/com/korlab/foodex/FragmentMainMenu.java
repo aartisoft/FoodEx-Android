@@ -34,7 +34,7 @@ import com.korlab.foodex.UI.NavigationTabStrip;
 import com.korlab.foodex.UI.Toolbar;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -297,7 +297,7 @@ public class FragmentMainMenu extends Fragment {
     }
 
     private void initListChat() {
-        java.sql.Date d = new Date(2019,10,10);
+        java.util.Date d = new Date(2019,10,10);
         MainMenu.getInstance().listChat = new ArrayList<>();
 
         List<Message> messagesBotChat = new ArrayList<>();

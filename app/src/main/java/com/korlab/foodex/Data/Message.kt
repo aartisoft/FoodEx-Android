@@ -1,6 +1,6 @@
 package com.korlab.foodex.Data
 
-import java.sql.Date
+import java.util.Date
 
 class Message(sender: Sender, date: Date, text: String) {
 

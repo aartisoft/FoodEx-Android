@@ -278,6 +278,7 @@ public class Authorize extends AppCompatActivity {
     }
 
     private void startAuthPhone(String phone) {
+        Helper.setUserData(user);
         Auth.INSTANCE.authPhone(phone, this::onCorrectCodeGot, this::onFailCodeGot, AuthorizeVerification::onRightSms, AuthorizeVerification::onWrongSms);
     }
 
@@ -293,7 +294,6 @@ public class Authorize extends AppCompatActivity {
     }
 
     public void launchNextActivity() {
-        Helper.setUserData(user);
         startActivity(new Intent(getInstance(), AuthorizeVerification.class));
         Bungee.slideLeft(getInstance());
     }

@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.korlab.foodex.FireServer.Database
 import com.korlab.foodex.Technical.Helper
-import java.sql.Date
+import java.util.Date
 
 class User {
 
@@ -38,12 +38,13 @@ class User {
         fun getData(onSuccess: (user: User) -> Unit, onFail: () -> Unit) {
             // todo move to one function
             Helper.log("Get customer" + FirebaseAuth.getInstance().currentUser!!.uid)
-            Database.readValue("customers", "3jw1e2dVImX4P01K45Dlz4govWm1") { documentSnapshot: DocumentSnapshot? ->
-                Helper.log("Response from FireStore " + documentSnapshot?.data!!)
-                val userData = documentSnapshot.data as HashMap<*, *>?
+            Database.readValue("customers", FirebaseAuth.getInstance().currentUser!!.uid) { documentSnapshot: DocumentSnapshot? ->
+//            Database.readValue("customers", "3jw1e2dVImX4P01K45Dlz4govWm1") { documentSnapshot: DocumentSnapshot? ->
+                val userData = documentSnapshot?.data as HashMap<*, *>?
                 if (userData == null) {
                     onFail()
                 } else {
+                    Helper.log("Response from FireStore " + documentSnapshot?.data!!)
                     val name = userData["name"] as HashMap<*, *>?
 
                     val user = User()
@@ -52,7 +53,7 @@ class User {
                     user.lastName = name!!["last"]?.toString() ?: ""
                     user.middleName = name!!["middle"]?.toString() ?: ""
                     val date = userData!!["birthday"] as com.google.firebase.Timestamp
-                    user.birthday = date.toDate() as Date?
+                    user.birthday = date.toDate()
                     Helper.log("birthday Year: " + user.birthday?.year)
                     Helper.log("birthday Month: " + user.birthday?.month)
                     Helper.log("birthday Date: " + user.birthday?.date)

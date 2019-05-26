@@ -25,7 +25,7 @@ import com.korlab.foodex.UI.MaterialButton;
 import com.korlab.foodex.UI.MessageCard;
 import com.korlab.foodex.UI.Toolbar;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class BotManagerChat extends AppCompatActivity {

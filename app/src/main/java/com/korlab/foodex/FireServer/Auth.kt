@@ -109,10 +109,10 @@ object Auth : AppCompatActivity() {
         }
     }
 
-    fun tryEnterCode(code: String,
-                     onSuccess: () -> Unit,
-                     onWrong: () -> Unit) {
-        Log.d("FirebaseAuth", "code: " + code)
+    fun checkEnteredCodeVerification(code: String,
+                                     onSuccess: () -> Unit,
+                                     onWrong: () -> Unit) {
+        Helper.log("Check entered code: $code")
         val credential = PhoneAuthProvider.getCredential(mVerificationId!!, code)
         signInWithPhoneAuthCredential(credential, onSuccess, onWrong)
     }
@@ -170,7 +170,7 @@ object Auth : AppCompatActivity() {
 
             override fun onCodeSent(verificationId: String?, token: PhoneAuthProvider.ForceResendingToken?) {
                 onCorrectSent()
-                Log.d(TAG, "onCodeSend")
+                Helper.log("onCodeSend")
                 mVerificationId = verificationId
                 mResendToken = token
             }

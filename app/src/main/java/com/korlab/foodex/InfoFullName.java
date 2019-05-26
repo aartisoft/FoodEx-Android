@@ -54,6 +54,7 @@ public class InfoFullName extends AppCompatActivity {
         Helper.disableButton(getInstance(), buttonNext);
 
         buttonNext.setOnClickListener((v) -> {
+            Helper.logObjectToJson(user);
             user.setFirstName(inputSurname.getText().toString());
             user.setLastName(inputName.getText().toString());
             user.setMiddleName(inputMiddle.getText().toString());

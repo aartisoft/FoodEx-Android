@@ -1,7 +1,7 @@
 package com.korlab.foodex.Data
 
 import com.korlab.foodex.Technical.Helper
-import java.sql.Date
+import java.util.Date
 
 class Chat(name: String, subject: String, dateLastMessage: Date, previewMessage: String, image: Int, type: Message.Sender) {
 
