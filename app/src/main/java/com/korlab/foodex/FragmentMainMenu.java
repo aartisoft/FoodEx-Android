@@ -1,7 +1,6 @@
 package com.korlab.foodex;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,14 +10,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.korlab.foodex.Chats.ChatsAdapter;
 import com.korlab.foodex.Data.Chat;
 import com.korlab.foodex.Data.Message;
@@ -193,7 +190,7 @@ public class FragmentMainMenu extends Fragment {
                         activity.getDrawable(R.drawable.profile_discount),
                         activity.getDrawable(R.drawable.profile_blog),
                         activity.getDrawable(R.drawable.profile_allergies),
-                        activity.getDrawable(R.drawable.profile_exit)
+                        activity.getDrawable(R.drawable.profile_logout)
                 };
                 menuRows = new ArrayList<>();
                 for (int i = 0; i < menuHeader.length; i++) {
@@ -366,7 +363,7 @@ public class FragmentMainMenu extends Fragment {
                     break;
                 case "1":
                     Helper.log("click: " + "profile_feedback");
-                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_feedback, null), this::onPositive, this::onNegative);
+                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_feedback, null), this::onPositiveFeedback, null);
                     break;
                 case "2":
                     Helper.log("click: " + "profile_friends");
@@ -393,11 +390,11 @@ public class FragmentMainMenu extends Fragment {
                     break;
                 case "5":
                     Helper.log("click: " + "profile_allergies");
-                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_allergies, null), this::onPositive, this::onNegative);
+                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_allergies, null), this::onPositiveAllergies, null);
                     break;
                 case "6":
-                    Helper.log("click: " + "profile_exit");
-                    activity.finish();
+                    Helper.log("click: " + "profile_logout");
+                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_logout, null), this::onPositiveLogout, null);
                     break;
 
             }
@@ -405,11 +402,20 @@ public class FragmentMainMenu extends Fragment {
         }
     }
 
-    private void onPositive(Object o) {
-        Helper.log("onPositive");
+    private void onPositiveAllergies(Object o) {
+        Helper.log("onPositiveAllergies");
+    }
+    private void onPositiveFeedback(Object o) { Helper.log("onPositiveFeedback"); }
+
+    private void onPositiveLogout(Object o) {
+        FirebaseAuth.getInstance().signOut();
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            startActivity(new Intent(MainMenu.getInstance(), Authorize.class));
+            Bungee.slideRight(MainMenu.getInstance());
+            MainMenu.getInstance().finish();
+        }, 300);
+        Helper.log("onPositiveLogout");
     }
 
-    private void onNegative(Object o) {
-        Helper.log("onNegative");
-    }
 }

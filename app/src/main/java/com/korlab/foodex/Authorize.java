@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -49,6 +50,17 @@ public class Authorize extends AppCompatActivity {
         setContentView(R.layout.activity_authorize);
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
+        if (Auth.INSTANCE.isUserSigned()) {
+            Helper.log("User already authorized");
+            Intent intent = new Intent(this, MainMenu.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Helper.checkInternet(instance, false);
+        }
+
+
+
         findView();
         user = new User();
         Helper.disableButton(getInstance(), buttonContinue);
