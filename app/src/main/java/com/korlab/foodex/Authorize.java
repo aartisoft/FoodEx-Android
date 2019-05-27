@@ -47,9 +47,6 @@ public class Authorize extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Helper.log("onCreate Authorize");
-        setContentView(R.layout.activity_authorize);
-        instance = this;
-        Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
         if (Auth.INSTANCE.isUserSigned()) {
             Helper.log("User already authorized");
             Intent intent = new Intent(this, MainMenu.class);
@@ -58,7 +55,9 @@ public class Authorize extends AppCompatActivity {
         } else {
             Helper.checkInternet(instance, false);
         }
-
+        setContentView(R.layout.activity_authorize);
+        instance = this;
+        Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
 
 
         findView();
@@ -73,7 +72,6 @@ public class Authorize extends AppCompatActivity {
                     // TODO: 5/24/2019 Authorize by Email
                 } else {
                     user.setPhoneNumber(inputPhone.getText().toString().replace(" ", ""));
-                    // TODO: 5/24/2019 Authorize by phoneNumber
                     startAuthPhone(user.getPhoneNumber());
                 }
             }
@@ -267,7 +265,6 @@ public class Authorize extends AppCompatActivity {
     }
 
     private void validateInput() {
-        Helper.log("validateInput");
         if (isRecovery) {
             Helper.log("isRecovery");
             if (inputRecoveryEmail.length() >= 5 && Helper.isEmailValid(inputRecoveryEmail.getText().toString()))

@@ -74,6 +74,7 @@ dependencies {
     implementation 'com.hedgehog.ratingbar:app:1.1.2'
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
 
 }
 apply plugin: 'com.google.gms.google-services'

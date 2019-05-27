@@ -8,11 +8,16 @@ import android.view.LayoutInflater;
 import com.korlab.foodex.Chats.ChatsAdapter;
 import com.korlab.foodex.Data.Chat;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.FireServer.Auth;
+import com.korlab.foodex.FireServer.FireRequest;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CustomViewPager;
 import com.korlab.foodex.UI.ReadableBottomBar;
 
+import java.util.HashMap;
 import java.util.List;
+
+import kotlin.Unit;
 
 public class MainMenu extends AppCompatActivity {
     private static MainMenu instance;
@@ -38,9 +43,10 @@ public class MainMenu extends AppCompatActivity {
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         Helper.setStatusBarIconWhite(getWindow());
+        FireRequest.Companion.getData("customers", Auth.INSTANCE.getRealUserId(), this::onSuccessGotUser, this::onFailGotUser);
 
         String json = "{\"birthdayDay\":9,\"birthdayMonth\":11,\"birthdayYear\":1998,\"deliveryType\":1,\"email\":\"xom9ik.code@gmail.com\",\"firstName\":\"Maxim\",\"gender\":false,\"growth\":170,\"growthMetrics\":false,\"lastName\":\"Romanyuta\",\"middleName\":\"Olegovich\",\"phoneNumber\":\"+380959483523\",\"weekdaysAddress\":{\"apartment\":\"2/F\",\"house\":\"77\",\"street\":\"Universitetksa\"},\"weekendsAddress\":{\"apartment\":\"1\",\"house\":\"30\",\"street\":\"Aprel`ska\"},\"weight\":60,\"weightMetrics\":false}";
-        user = Helper.fromJson(json, User.class);
+//        user = Helper.fromJson(json, User.class);
         findView();
 
         CustomViewPager viewPager = findViewById(R.id.viewpager_main_menu);
@@ -58,5 +64,18 @@ public class MainMenu extends AppCompatActivity {
 
     private void findView() {
         bottomBar = findViewById(R.id.bottom_bar);
+    }
+
+    // Check registered user
+    private kotlin.Unit onSuccessGotUser(HashMap<?, ?> userHashMap) {
+        Helper.log("Success find user in DB. Phone: " + userHashMap);
+//        Helper.setUserData(user);
+        return Unit.INSTANCE;
+    }
+
+    private kotlin.Unit onFailGotUser() {
+        Helper.log("Fail find this user in DB. Logout user");
+        Helper.logoutUser(getInstance());
+        return Unit.INSTANCE;
     }
 }

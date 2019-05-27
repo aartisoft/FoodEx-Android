@@ -25,7 +25,10 @@ import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.korlab.foodex.Data.Address;
+import com.korlab.foodex.Data.Growth;
+import com.korlab.foodex.Data.Name;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.Data.Weight;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
 import com.korlab.foodex.UI.Toolbar;
@@ -105,12 +108,12 @@ public class ProfileEdit extends AppCompatActivity {
         inputGrowth.addTextChangedListener(new TextWatcher() {
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override public void beforeTextChanged(CharSequence c, int start, int count, int after) { }
-            @Override public void afterTextChanged(Editable e) { checkMask(e, inputGrowth, user.getGrowthMetrics() ? "inch" : "cm"); }
+            @Override public void afterTextChanged(Editable e) { checkMask(e, inputGrowth, user.getGrowth().getType() == 0 ? "inch" : "cm"); }
         });
         inputWeight.addTextChangedListener(new TextWatcher() {
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override public void beforeTextChanged(CharSequence c, int start, int count, int after) { }
-            @Override public void afterTextChanged(Editable e) { checkMask(e, inputWeight, user.getWeightMetrics() ? "lb" : "kg"); }
+            @Override public void afterTextChanged(Editable e) { checkMask(e, inputWeight, user.getWeight().getType() == 0 ? "lb" : "kg"); }
         });
 
         setListenerChangeSex();
@@ -174,15 +177,12 @@ public class ProfileEdit extends AppCompatActivity {
                 inputWeekendsStreet.getText().toString(),
                 inputWeekendsHouse.getText().toString(),
                 inputWeekendsApartment.getText().toString());
-
-        user.setFirstName(inputName.getText().toString());
-        user.setLastName(inputLastname.getText().toString());
-        user.setMiddleName(inputMiddlename.getText().toString());
+        user.setName(new Name(inputLastname.getText().toString(), inputName.getText().toString(), inputMiddlename.getText().toString()));
         Date birthday = new Date(dateBirthday[2],dateBirthday[1],dateBirthday[0]);
         user.setBirthday(birthday);
         user.setGender(gender);
-        user.setGrowth(Integer.parseInt(inputGrowth.getText().toString().replaceAll("[^0-9]","")));
-        user.setWeight(Integer.parseInt(inputWeight.getText().toString().replaceAll("[^0-9]","")));
+        user.setGrowth(new Growth(Integer.parseInt(inputGrowth.getText().toString().replaceAll("[^0-9]","")), user.getGrowth().getType()));
+        user.setWeight(new Weight(Integer.parseInt(inputWeight.getText().toString().replaceAll("[^0-9]","")), user.getWeight().getType()));
         user.setEmail(inputEmail.getText().toString());
         user.setPhoneNumber(inputPhone.getText().toString());
         user.setNote(inputNote.getText().toString());
@@ -227,9 +227,9 @@ public class ProfileEdit extends AppCompatActivity {
     }
 
     private void drawUserData() {
-        inputName.setText(user.getFirstName());
-        inputLastname.setText(user.getLastName());
-        inputMiddlename.setText(user.getMiddleName());
+        inputName.setText(user.getName().getFirst());
+        inputLastname.setText(user.getName().getLast());
+        inputMiddlename.setText(user.getName().getMiddle());
         inputBirthday.setText(dateBirthday[0] + " " + arrayMonth.get(dateBirthday[1]-1) + ", " + dateBirthday[2]);
         if(user.getGender()) inputWomanCheckbox.setChecked(true);
         else inputManCheckbox.setChecked(true);

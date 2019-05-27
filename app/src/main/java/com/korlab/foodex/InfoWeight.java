@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.cncoderx.wheelview.WheelView;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.Data.Weight;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
 
@@ -58,8 +59,7 @@ public class InfoWeight extends AppCompatActivity {
             changeMetrics(mWeight, newIndex);
         });
         buttonNext.setOnClickListener((v) -> {
-            user.setWeight(mWeight);
-            user.setWeightMetrics((mWeightMetrics != 0));
+            user.setWeight(new Weight(mWeight, mWeightMetrics));
             Helper.setUserData(user);
             startActivity(new Intent(getInstance(), InfoGrowth.class));
             Bungee.slideLeft(getInstance());

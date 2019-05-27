@@ -7,14 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.cncoderx.wheelview.WheelView;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.Any;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.FireServer.FireRequest;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
 
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
+import kotlin.Unit;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class InfoBirthday extends AppCompatActivity {
@@ -57,11 +64,17 @@ public class InfoBirthday extends AppCompatActivity {
         });
 
         buttonNext.setOnClickListener((v) -> {
-            Date date = new Date(mYear, mMonth, mDay);
+            Date date = new Date(mYear-1900, mMonth, mDay);
             user.setBirthday(date);
             Helper.logObjectToJson(user);
             Helper.setUserData(user);
             // TODO: 5/24/2019 send userData to firebase
+            ObjectMapper oMapper = new ObjectMapper();
+            Map<String, Object> userHashMap = oMapper.convertValue(user, Map.class);
+            userHashMap.put("birthday", user.getBirthday().getTime()/1000);
+            FireRequest.Companion.callFunction("createNewCustomer", (HashMap<String, Object>) userHashMap, this::onSuccessCreateUser, this::onFailCreateUser);
+
+
             startActivity(new Intent(getInstance(), MainMenu.class));
             Bungee.slideLeft(getInstance());
             super.finish();
@@ -76,6 +89,16 @@ public class InfoBirthday extends AppCompatActivity {
         wvMonth.setCurrentIndex(mMonth);
         wvYear.setCurrentIndex(mYear - 1900);
         updateDayEntries();
+    }
+
+    private kotlin.Unit onFailCreateUser() {
+        Helper.log("onFailCreateUser");
+        return Unit.INSTANCE;
+    }
+
+    private kotlin.Unit onSuccessCreateUser() {
+        Helper.log("onSuccessCreateUser");
+        return Unit.INSTANCE;
     }
 
     private void updateDayEntries() {

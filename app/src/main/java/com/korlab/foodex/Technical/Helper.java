@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.util.Consumer;
 import android.text.Spannable;
@@ -28,9 +30,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
+import com.korlab.foodex.Authorize;
 import com.korlab.foodex.Data.ProgramDay;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
 import com.korlab.foodex.UI.MaterialButton;
 
@@ -50,6 +55,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import spencerstudios.com.bungeelib.Bungee;
 
 public class Helper {
     private static Gson gson = new Gson();
@@ -283,6 +290,16 @@ public class Helper {
     public static int getMaxNumbersInMonth(int year, int month) {
         Calendar calendar = new GregorianCalendar(year, month, 1);
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+    public static void logoutUser(Activity activity) {
+        FirebaseAuth.getInstance().signOut();
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            activity.startActivity(new Intent(activity, Authorize.class));
+            Bungee.slideRight(MainMenu.getInstance());
+            activity.finish();
+        }, 300);
     }
 
 

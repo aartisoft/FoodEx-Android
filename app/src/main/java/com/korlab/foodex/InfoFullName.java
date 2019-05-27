@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 
+import com.korlab.foodex.Data.Name;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
@@ -55,9 +56,7 @@ public class InfoFullName extends AppCompatActivity {
 
         buttonNext.setOnClickListener((v) -> {
             Helper.logObjectToJson(user);
-            user.setFirstName(inputSurname.getText().toString());
-            user.setLastName(inputName.getText().toString());
-            user.setMiddleName(inputMiddle.getText().toString());
+            user.setName(new Name(inputSurname.getText().toString(), inputName.getText().toString(), inputMiddle.getText().toString()));
             Helper.setUserData(user);
             startActivity(new Intent(getInstance(), InfoGender.class));
             Bungee.slideLeft(getInstance());

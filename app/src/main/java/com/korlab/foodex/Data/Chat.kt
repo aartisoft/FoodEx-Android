@@ -15,7 +15,7 @@ class Chat(name: String, subject: String, dateLastMessage: Date, previewMessage:
     var messages: List<Message>? = null
         set(messages) {
             for (i in 0..messages!!.size - 1) {
-                Helper.logObjectToJson(messages.get(i))
+//                Helper.logObjectToJson(messages.get(i))
                 if (!messages.get(i).isRead)
                     countUnreadMessage++
             }

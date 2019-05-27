@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.cncoderx.wheelview.WheelView;
+import com.korlab.foodex.Data.Growth;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
@@ -57,8 +58,7 @@ public class InfoGrowth extends AppCompatActivity {
         });
 
         buttonNext.setOnClickListener((v) -> {
-            user.setGrowth(mGrowth);
-            user.setGrowthMetrics((mGrowthMetrics != 0));
+            user.setGrowth(new Growth(mGrowth, mGrowthMetrics));
             Helper.logObjectToJson(user);
             Helper.setUserData(user);
             startActivity(new Intent(getInstance(), InfoBirthday.class));

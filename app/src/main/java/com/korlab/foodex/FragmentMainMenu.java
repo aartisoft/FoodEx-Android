@@ -408,13 +408,7 @@ public class FragmentMainMenu extends Fragment {
     private void onPositiveFeedback(Object o) { Helper.log("onPositiveFeedback"); }
 
     private void onPositiveLogout(Object o) {
-        FirebaseAuth.getInstance().signOut();
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            startActivity(new Intent(MainMenu.getInstance(), Authorize.class));
-            Bungee.slideRight(MainMenu.getInstance());
-            MainMenu.getInstance().finish();
-        }, 300);
+        Helper.logoutUser(activity);
         Helper.log("onPositiveLogout");
     }
 

@@ -11,9 +11,12 @@ import android.widget.TextView;
 
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.FireServer.Auth;
+import com.korlab.foodex.FireServer.FireRequest;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.InputCodeLayout;
 import com.korlab.foodex.UI.MaterialButton;
+
+import java.util.HashMap;
 
 import kotlin.Unit;
 import spencerstudios.com.bungeelib.Bungee;
@@ -118,7 +121,7 @@ public class AuthorizeVerification extends AppCompatActivity {
 
     public static Unit onRightSms() {
         Helper.log("Right sms code");
-        User.Companion.getData(AuthorizeVerification::onSuccessGotUser, AuthorizeVerification::onFailGotUser);
+        FireRequest.Companion.getData("customers",Auth.INSTANCE.getRealUserId(), AuthorizeVerification::onSuccessGotUser, AuthorizeVerification::onFailGotUser);
         return Unit.INSTANCE;
     }
 
@@ -128,9 +131,10 @@ public class AuthorizeVerification extends AppCompatActivity {
     }
 
     // Check registered user
-    private static kotlin.Unit onSuccessGotUser(User user) {
-        Helper.log("Success find user in DB. Phone: " + user.getPhoneNumber());
-        Helper.setUserData(user);
+    private static kotlin.Unit onSuccessGotUser(HashMap<?, ?> userHashMap) {
+
+        Helper.log("Success find user in DB. Phone: " + userHashMap);
+//        Helper.setUserData(user);
         launchActivity(MainMenu.class);
         return Unit.INSTANCE;
     }
