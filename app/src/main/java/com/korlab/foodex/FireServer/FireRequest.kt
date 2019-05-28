@@ -14,10 +14,10 @@ class FireRequest {
     companion object {
         private var functions: FirebaseFunctions = FirebaseFunctions.getInstance()
 
-        fun getData(collectionName: String, documentId: String, onSuccess: (hashMap: HashMap<*, *>) -> Unit, onFail: () -> Unit) {
+        fun getData(collectionName: String, documentId: String, onSuccess: (hashMap: HashMap<String, Object>) -> Unit, onFail: () -> Unit) {
             Helper.log("Get documentId: " + documentId + " from collection: " + collectionName)
             Database.readValue(collectionName, documentId) { documentSnapshot: DocumentSnapshot? ->
-                val hashMap = documentSnapshot?.data as HashMap<*, *>?
+                val hashMap = documentSnapshot?.data as HashMap<String, Object>?
                 if (hashMap == null) {
                     onFail()
                 } else {
@@ -38,28 +38,8 @@ class FireRequest {
                 }
             }
         }
-        fun pingStartApp(isWorker: Boolean): Task<String> {
-            Log.d("UIDebug", "pingStartApp()")
-            val data = java.util.HashMap<String, Any>()
-            data["isWorker"] = isWorker
 
-            return functions
-                    .getHttpsCallable("pingStartApp")
-                    .call(data)
-                    .continueWith { task ->
-                        Log.d("UIDebug", "continueWith")
-                        try {
-                            val result: java.util.HashMap<String, String> = task.result!!.data as java.util.HashMap<String, String>
-                            Log.d("UIDebug", "result: $result")
-                            val obj = JSONObject(result)
-                            Log.d("UIDebug", "code: " + obj.getString("code") + " text: " + obj.getString("text"))
-                        } catch (e: Exception) {
-                            Log.d("UIDebug", "error: $e")
-                        }
-                        "0"
-                    }
-        }
-        fun callFunction(functionName: String, dataHashMap: java.util.HashMap<String, Any>, onSuccess: () -> Unit, onFail: () -> Unit): Task<String> {
+        fun callFunction(functionName: String, dataHashMap: java.util.HashMap<String, Any>, onSuccess: (hashMap: HashMap<String, Object>) -> Unit, onFail: () -> Unit): Task<String> {
             Helper.log("Call function: $functionName")
             Helper.log("Send data: $dataHashMap")
 //            val data = java.util.HashMap<String, Any>()
@@ -70,19 +50,22 @@ class FireRequest {
                     .continueWith { task ->
                         Helper.log("continueWith")
                         try {
-                            val result: java.util.HashMap<String, String> = task.result!!.data as java.util.HashMap<String, String>
-                            Helper.log("result: $result")
-                            val obj = JSONObject(result)
+                            val hashMap = task.result!!.data as HashMap<String, Object>?
+
+//                            val hashMap: java.util.HashMap<String, String> = task.result!!.data as java.util.HashMap<String, String>
+                            Helper.log("hashMap: $hashMap")
+                            val obj = JSONObject(hashMap)
                             val code: Int = obj.getString("code").toInt()
                             val text = obj.getString("text")
+//                            val exists = obj.getBoolean("exists")
                             Helper.log("code: $code text: $text")
-                            if (code == 500) {
-                                onSuccess()
+                            if (code == 200) {
+                                onSuccess(hashMap!!)
                             } else {
                                 onFail()
                             }
                         } catch (e: Exception) {
-                            Helper.log("Error: $e")
+                            Helper.log("Error callFunction: $e")
                             onFail()
                         }
                         "0"

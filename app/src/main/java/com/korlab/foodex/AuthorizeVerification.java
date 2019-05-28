@@ -121,27 +121,30 @@ public class AuthorizeVerification extends AppCompatActivity {
 
     public static Unit onRightSms() {
         Helper.log("Right sms code");
-        FireRequest.Companion.getData("customers",Auth.INSTANCE.getRealUserId(), AuthorizeVerification::onSuccessGotUser, AuthorizeVerification::onFailGotUser);
+        FireRequest.Companion.callFunction("isMyCustomerAccountExists", new HashMap<String, Object>(), AuthorizeVerification::onUserExist, AuthorizeVerification::onUserNotExist);
+//        FireRequest.Companion.getData("customers",Auth.INSTANCE.getRealUserId(), AuthorizeVerification::onSuccessGotUser, AuthorizeVerification::onFailGotUser);
+        return Unit.INSTANCE;
+    }
+
+    // Check registered user
+    private static Unit onUserExist(HashMap<String, Object> responseHashMap) {
+        if(Boolean.parseBoolean(responseHashMap.get("exists").toString())) {
+            Helper.log("User exist");
+            launchActivity(MainMenu.class);
+        } else {
+            Helper.log("User NOT exist");
+            launchActivity(InfoFullName.class);
+        }
+        return Unit.INSTANCE;
+    }
+
+    private static Unit onUserNotExist() {
+        Helper.log("isMyCustomerAccountExists error");
         return Unit.INSTANCE;
     }
 
     public static Unit onWrongSms() {
         Helper.log("Wrong sms code");
-        return Unit.INSTANCE;
-    }
-
-    // Check registered user
-    private static kotlin.Unit onSuccessGotUser(HashMap<?, ?> userHashMap) {
-
-        Helper.log("Success find user in DB. Phone: " + userHashMap);
-//        Helper.setUserData(user);
-        launchActivity(MainMenu.class);
-        return Unit.INSTANCE;
-    }
-
-    private static kotlin.Unit onFailGotUser() {
-        Helper.log("Fail find this user in DB. Start process register");
-        launchActivity(InfoFullName.class);
         return Unit.INSTANCE;
     }
 

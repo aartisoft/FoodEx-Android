@@ -68,19 +68,10 @@ public class InfoBirthday extends AppCompatActivity {
             user.setBirthday(date);
             Helper.logObjectToJson(user);
             Helper.setUserData(user);
-            // TODO: 5/24/2019 send userData to firebase
             ObjectMapper oMapper = new ObjectMapper();
             Map<String, Object> userHashMap = oMapper.convertValue(user, Map.class);
             userHashMap.put("birthday", user.getBirthday().getTime()/1000);
             FireRequest.Companion.callFunction("createNewCustomer", (HashMap<String, Object>) userHashMap, this::onSuccessCreateUser, this::onFailCreateUser);
-
-
-            startActivity(new Intent(getInstance(), MainMenu.class));
-            Bungee.slideLeft(getInstance());
-            super.finish();
-            InfoGrowth.getInstance().finish();
-            InfoWeight.getInstance().finish();
-            InfoGender.getInstance().finish();
         });
         mYear = 1990;
         mMonth = 0;
@@ -96,8 +87,14 @@ public class InfoBirthday extends AppCompatActivity {
         return Unit.INSTANCE;
     }
 
-    private kotlin.Unit onSuccessCreateUser() {
+    private kotlin.Unit onSuccessCreateUser(HashMap<?,?> responseHashMap) {
         Helper.log("onSuccessCreateUser");
+        startActivity(new Intent(getInstance(), MainMenu.class));
+        Bungee.slideLeft(getInstance());
+        super.finish();
+        InfoGrowth.getInstance().finish();
+        InfoWeight.getInstance().finish();
+        InfoGender.getInstance().finish();
         return Unit.INSTANCE;
     }
 

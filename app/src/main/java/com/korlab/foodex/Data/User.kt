@@ -9,6 +9,7 @@ class User {
     var phoneNumber: String = ""
     var gender: Boolean = true
     var birthday: Date? = null
+    var registration: Date? = null
 
     lateinit var name: Name
     lateinit var weight: Weight

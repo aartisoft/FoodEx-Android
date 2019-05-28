@@ -3,6 +3,7 @@ package com.korlab.foodex;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
@@ -29,14 +31,20 @@ import com.korlab.foodex.Data.Growth;
 import com.korlab.foodex.Data.Name;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.Data.Weight;
+import com.korlab.foodex.FireServer.FireRequest;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
 import com.korlab.foodex.UI.Toolbar;
 import com.uniquestudio.library.CircleCheckBox;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import kotlin.Unit;
+import spencerstudios.com.bungeelib.Bungee;
 
 
 public class ProfileEdit extends AppCompatActivity {
@@ -85,14 +93,15 @@ public class ProfileEdit extends AppCompatActivity {
         toolbarLeft = findViewById(R.id.toolbar_left_icon);
         toolbarRight = findViewById(R.id.toolbar_right_icon);
         user = Helper.getUserData();
-
+        Helper.log("User data on Profile Edit:");
+        Helper.logObjectToJson(user);
         Date birthday = user.getBirthday();
 
-        dateBirthday = new int[]{birthday.getDate(), birthday.getMonth(), birthday.getYear()};
+        dateBirthday = new int[]{birthday.getDate(), birthday.getMonth(), birthday.getYear()+1900};
 
         inputBirthday.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                showCalendarDialog(getInstance(), dateBirthday);
+                showCalendarDialog(getInstance());
             }
             return true;
         });
@@ -100,7 +109,6 @@ public class ProfileEdit extends AppCompatActivity {
                 this::onPositive, this::onNegative));
         toolbarRight.setOnClickListener(v -> {
             updateUserData();
-            super.finish();
         });
 
         buttonDelivery.setOnClickListener(v -> showDeliveryTypeDialog());
@@ -178,7 +186,7 @@ public class ProfileEdit extends AppCompatActivity {
                 inputWeekendsHouse.getText().toString(),
                 inputWeekendsApartment.getText().toString());
         user.setName(new Name(inputLastname.getText().toString(), inputName.getText().toString(), inputMiddlename.getText().toString()));
-        Date birthday = new Date(dateBirthday[2],dateBirthday[1],dateBirthday[0]);
+        Date birthday = new Date(dateBirthday[2]-1900,dateBirthday[1],dateBirthday[0]);
         user.setBirthday(birthday);
         user.setGender(gender);
         user.setGrowth(new Growth(Integer.parseInt(inputGrowth.getText().toString().replaceAll("[^0-9]","")), user.getGrowth().getType()));
@@ -191,6 +199,24 @@ public class ProfileEdit extends AppCompatActivity {
         user.setDeliveryType(deliveryType);
         Helper.logObjectToJson(user);
         Helper.setUserData(user);
+        ObjectMapper oMapper = new ObjectMapper();
+        Map<String, Object> userHashMap = oMapper.convertValue(user, Map.class);
+        userHashMap.put("birthday", user.getBirthday().getTime()/1000);
+        FireRequest.Companion.callFunction("updateCustomerInfo", (HashMap<String, Object>) userHashMap, this::onSuccessUpdateUser, this::onFailUpdateUser);
+    }
+
+    private kotlin.Unit onFailUpdateUser() {
+        Helper.log("onFailUpdateUser");
+        // TODO: 5/28/2019 update fail
+        super.finish();
+        return Unit.INSTANCE;
+    }
+
+    private kotlin.Unit onSuccessUpdateUser(HashMap<?,?> responseHashMap) {
+        Helper.log("onSuccesUpdateUser");
+        // TODO: 5/28/2019 update successfull
+        super.finish();
+        return Unit.INSTANCE;
     }
 
     private void onPositive(Object o) {
@@ -230,11 +256,11 @@ public class ProfileEdit extends AppCompatActivity {
         inputName.setText(user.getName().getFirst());
         inputLastname.setText(user.getName().getLast());
         inputMiddlename.setText(user.getName().getMiddle());
-        inputBirthday.setText(dateBirthday[0] + " " + arrayMonth.get(dateBirthday[1]-1) + ", " + dateBirthday[2]);
+        inputBirthday.setText(user.getBirthday().getDate() + " " + arrayMonth.get(user.getBirthday().getMonth()) + ", " + (user.getBirthday().getYear()+1900));
         if(user.getGender()) inputWomanCheckbox.setChecked(true);
         else inputManCheckbox.setChecked(true);
-        inputGrowth.setText(""+user.getGrowth());
-        inputWeight.setText(""+user.getWeight());
+        inputGrowth.setText(""+user.getGrowth().getValue());
+        inputWeight.setText(""+user.getWeight().getValue());
         inputEmail.setText(""+user.getEmail());
         inputPhone.setText(""+user.getPhoneNumber());
         inputNote.setText(""+user.getNote());
@@ -242,13 +268,22 @@ public class ProfileEdit extends AppCompatActivity {
         deliveryType = user.getDeliveryType();
         inputDeliveryType.setText(deliveryTypeArray[deliveryType]);
 
-        inputWeekdaysStreet.setText(user.getWeekdaysAddress().getStreet());
-        inputWeekdaysHouse.setText(user.getWeekdaysAddress().getHouse());
-        inputWeekdaysApartment.setText(user.getWeekdaysAddress().getApartment());
+        if(user.getWeekdaysAddress() != null) {
+            inputWeekdaysStreet.setText(checkIsNull(user.getWeekdaysAddress().getStreet()));
+            inputWeekdaysHouse.setText(checkIsNull(user.getWeekdaysAddress().getHouse()));
+            inputWeekdaysApartment.setText(checkIsNull(user.getWeekdaysAddress().getApartment()));
+        }
 
-        inputWeekendsStreet.setText(user.getWeekendsAddress().getStreet());
-        inputWeekendsHouse.setText(user.getWeekendsAddress().getHouse());
-        inputWeekendsApartment.setText(user.getWeekendsAddress().getApartment());
+        if(user.getWeekendsAddress() != null) {
+            inputWeekendsStreet.setText(checkIsNull(user.getWeekendsAddress().getStreet()));
+            inputWeekendsHouse.setText(checkIsNull(user.getWeekendsAddress().getHouse()));
+            inputWeekendsApartment.setText(checkIsNull(user.getWeekendsAddress().getApartment()));
+        }
+    }
+
+    private String checkIsNull(String string) {
+        if(string != null) return string;
+        else return "";
     }
 
     private void changeGender(boolean value) {
@@ -296,7 +331,7 @@ public class ProfileEdit extends AppCompatActivity {
     }
 
     private String formatDate(int[] dateBirthday) {
-        return formatZero(dateBirthday[0]) + " " + arrayMonth.get(dateBirthday[1]-1) + ", " + dateBirthday[2];
+        return formatZero(dateBirthday[0]) + " " + arrayMonth.get(dateBirthday[1]) + ", " + dateBirthday[2];
     }
     private String formatZero(int value) {
         if(value>=1 && value<=9) return "0" + value;
@@ -310,7 +345,7 @@ public class ProfileEdit extends AppCompatActivity {
     private int mYear;
     private boolean isSelectYear = false, isSelectMonth = false;
     private CalendarLayout mCalendarLayout;
-    public void showCalendarDialog(Activity activity, int[] dateBirthday) {
+    public void showCalendarDialog(Activity activity) {
 
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -331,11 +366,11 @@ public class ProfileEdit extends AppCompatActivity {
         mCalendarView = dialog.findViewById(R.id.calendarView);
         mTextCurrentDay = dialog.findViewById(R.id.tv_current_day);
 
+        Helper.log("scroll to: " +dateBirthday[2] + " " + (dateBirthday[1]+1) + " " + dateBirthday[0]);
+        mCalendarView.scrollToCalendar(dateBirthday[2],(dateBirthday[1]+1),dateBirthday[0]);
         mCalendarView.getSelectedCalendar().setDay(dateBirthday[0]);
         mCalendarView.getSelectedCalendar().setMonth(dateBirthday[1]);
         mCalendarView.getSelectedCalendar().setYear(dateBirthday[2]);
-        mCalendarView.scrollToCalendar(dateBirthday[2],dateBirthday[1],dateBirthday[0]);
-
         mTextMonthDay.setOnClickListener(v -> {
             if (!mCalendarLayout.isExpand()) {
                 mCalendarLayout.expand();
@@ -366,7 +401,7 @@ public class ProfileEdit extends AppCompatActivity {
                 mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
                 if(!isSelectYear && !isSelectMonth) {
                     dateBirthday[0] = mCalendarView.getSelectedCalendar().getDay();
-                    dateBirthday[1] = mCalendarView.getSelectedCalendar().getMonth();
+                    dateBirthday[1] = mCalendarView.getSelectedCalendar().getMonth()-1;
                     dateBirthday[2] = mCalendarView.getSelectedCalendar().getYear();
                     new Handler().postDelayed(() -> {
                         inputBirthday.setText(formatDate(dateBirthday));
@@ -382,7 +417,7 @@ public class ProfileEdit extends AppCompatActivity {
         });
         mTextYear.setText(String.valueOf(mCalendarView.getSelectedCalendar().getYear()));
         mYear = mCalendarView.getCurYear();
-        mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + arrayMonth.get(mCalendarView.getSelectedCalendar().getMonth() - 1));
+        mTextMonthDay.setText(mCalendarView.getSelectedCalendar().getDay() + " " + arrayMonth.get(mCalendarView.getSelectedCalendar().getMonth()));
         mTextLunar.setText("Year");
         mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
         //////////////////////////////
