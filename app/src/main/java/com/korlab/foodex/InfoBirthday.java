@@ -7,13 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.cncoderx.wheelview.WheelView;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.Any;
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.FireServer.FireRequest;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
 
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
+import kotlin.Unit;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class InfoBirthday extends AppCompatActivity {
@@ -56,17 +64,14 @@ public class InfoBirthday extends AppCompatActivity {
         });
 
         buttonNext.setOnClickListener((v) -> {
-            user.setBirthdayDay(mDay);
-            user.setBirthdayMonth(mMonth);
-            user.setBirthdayYear(mYear);
+            Date date = new Date(mYear-1900, mMonth, mDay);
+            user.setBirthday(date);
             Helper.logObjectToJson(user);
             Helper.setUserData(user);
-            startActivity(new Intent(getInstance(), MainMenu.class));
-            Bungee.slideLeft(getInstance());
-            super.finish();
-            InfoGrowth.getInstance().finish();
-            InfoWeight.getInstance().finish();
-            InfoGender.getInstance().finish();
+            ObjectMapper oMapper = new ObjectMapper();
+            Map<String, Object> userHashMap = oMapper.convertValue(user, Map.class);
+            userHashMap.put("birthday", user.getBirthday().getTime()/1000);
+            FireRequest.Companion.callFunction("createNewCustomer", (HashMap<String, Object>) userHashMap, this::onSuccessCreateUser, this::onFailCreateUser);
         });
         mYear = 1990;
         mMonth = 0;
@@ -75,6 +80,22 @@ public class InfoBirthday extends AppCompatActivity {
         wvMonth.setCurrentIndex(mMonth);
         wvYear.setCurrentIndex(mYear - 1900);
         updateDayEntries();
+    }
+
+    private kotlin.Unit onFailCreateUser() {
+        Helper.log("onFailCreateUser");
+        return Unit.INSTANCE;
+    }
+
+    private kotlin.Unit onSuccessCreateUser(HashMap<?,?> responseHashMap) {
+        Helper.log("onSuccessCreateUser");
+        startActivity(new Intent(getInstance(), MainMenu.class));
+        Bungee.slideLeft(getInstance());
+        super.finish();
+        InfoGrowth.getInstance().finish();
+        InfoWeight.getInstance().finish();
+        InfoGender.getInstance().finish();
+        return Unit.INSTANCE;
     }
 
     private void updateDayEntries() {

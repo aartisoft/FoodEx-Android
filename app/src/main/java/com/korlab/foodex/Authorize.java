@@ -3,27 +3,30 @@ package com.korlab.foodex;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.korlab.foodex.Data.User;
+import com.korlab.foodex.FireServer.Auth;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.MaterialButton;
 
 import com.korlab.foodex.UI.MaterialEditText;
 
+import kotlin.Unit;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class Authorize extends AppCompatActivity {
 
     private static Authorize instance;
+
     public static Authorize getInstance() {
         return instance;
     }
@@ -37,36 +40,47 @@ public class Authorize extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_exit, null), (v)-> this.finishAffinity(), null);
+        Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_exit, null), (v) -> this.finishAffinity(), null);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Helper.log("onCreate Authorize");
+        if (Auth.INSTANCE.isUserSigned()) {
+            Helper.log("User already authorized");
+            Intent intent = new Intent(this, MainMenu.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            // TODO: 5/28/2019 check internet
+            Helper.checkInternet(instance, false);
+        }
         setContentView(R.layout.activity_authorize);
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
+
+
         findView();
         user = new User();
         Helper.disableButton(getInstance(), buttonContinue);
         buttonContinue.setOnClickListener((v) -> {
-            if(isRecovery) {
-                // TODO: 4/15/2019 recovery password By email
+            if (isRecovery) {
+                // TODO: 4/15/2019 recovery password by Email
             } else {
-                if(isEmail) {
+                if (isEmail) {
                     user.setEmail(inputEmail.getText().toString().replace(" ", ""));
+                    // TODO: 5/24/2019 Authorize by Email
                 } else {
-                    user.setPhone(inputPhone.getText().toString().replace(" ", ""));
+                    user.setPhoneNumber(inputPhone.getText().toString().replace(" ", ""));
+                    startAuthPhone(user.getPhoneNumber());
                 }
-                Helper.setUserData(user);
-                startActivity(new Intent(getInstance(), AuthorizeVerification.class));
-                Bungee.slideLeft(getInstance());
             }
         });
         buttomSwitchEmailPhone.setOnClickListener((v) -> switchButton());
         buttonGoogle.setOnClickListener((v) -> {
-            // TODO: 4/15/2019 authorize by gmail
+            // TODO: 4/15/2019 authorize by Gmail
         });
 
         inputPhone.setOnFocusChangeListener((v, hasFocus) -> {
@@ -153,24 +167,42 @@ public class Authorize extends AppCompatActivity {
             }
         });
         inputEmail.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 validateInput();
             }
         });
         inputPassword.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 validateInput();
             }
         });
         inputRecoveryEmail.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 validateInput();
@@ -183,18 +215,21 @@ public class Authorize extends AppCompatActivity {
 
     private void switchRecoveryPassword() {
         isRecovery = !isRecovery;
-        if(isRecovery) {
+        if (isRecovery) {
             buttonRecoveryPassword.setText("Back to the login form");
             buttonContinue.setText("Send recovery email");
             inputWrapperRecoveryEmail.setVisibility(View.VISIBLE);
             inputWrapperPhone.setVisibility(View.GONE);
             inputWrapperEmail.setVisibility(View.GONE);
         } else {
+            buttonRecoveryPassword.setText("Recover password via email");
             buttonContinue.setText("Continue");
             inputWrapperRecoveryEmail.setVisibility(View.GONE);
-            if(isEmail) {
+            if (isEmail) {
                 inputWrapperEmail.setVisibility(View.VISIBLE);
+                inputWrapperPhone.setVisibility(View.GONE);
             } else {
+                inputWrapperEmail.setVisibility(View.GONE);
                 inputWrapperPhone.setVisibility(View.VISIBLE);
             }
         }
@@ -203,7 +238,9 @@ public class Authorize extends AppCompatActivity {
 
     private void switchButton() {
         isEmail = !isEmail;
-        if(isEmail) {
+        if (isRecovery)
+            switchRecoveryPassword();
+        if (isEmail) {
             inputWrapperEmail.setVisibility(View.VISIBLE);
             inputWrapperPhone.setVisibility(View.GONE);
             buttomSwitchEmailPhone.setText("Phone");
@@ -230,28 +267,45 @@ public class Authorize extends AppCompatActivity {
     }
 
     private void validateInput() {
-        Helper.log("validateInput");
-        if(isRecovery) {
+        if (isRecovery) {
             Helper.log("isRecovery");
-            if(inputRecoveryEmail.length() >= 5 && Helper.isEmailValid(inputRecoveryEmail.getText().toString()))
+            if (inputRecoveryEmail.length() >= 5 && Helper.isEmailValid(inputRecoveryEmail.getText().toString()))
                 Helper.enableButton(getInstance(), buttonContinue);
             else
                 Helper.disableButton(getInstance(), buttonContinue);
         } else {
-            if(isEmail) {
-                if(inputEmail.length() >= 5 && inputPassword.length() >= 6 && Helper.isEmailValid(inputEmail.getText().toString()))
+            if (isEmail) {
+                if (inputEmail.length() >= 5 && inputPassword.length() >= 6 && Helper.isEmailValid(inputEmail.getText().toString()))
                     Helper.enableButton(getInstance(), buttonContinue);
                 else
                     Helper.disableButton(getInstance(), buttonContinue);
             } else {
-                if(inputPhone.length() >= 17)
+                if (inputPhone.length() >= 17)
                     Helper.enableButton(getInstance(), buttonContinue);
                 else
                     Helper.disableButton(getInstance(), buttonContinue);
             }
         }
-
     }
 
+    private void startAuthPhone(String phone) {
+        Helper.setUserData(user);
+        Auth.INSTANCE.authPhone(phone, this::onCorrectCodeGot, this::onFailCodeGot, AuthorizeVerification::onRightSms, AuthorizeVerification::onWrongSms);
+    }
 
+    private kotlin.Unit onCorrectCodeGot() {
+        Helper.log("Success send sms to: " + user.getPhoneNumber());
+        launchNextActivity();
+        return Unit.INSTANCE;
+    }
+
+    private kotlin.Unit onFailCodeGot(String error) {
+        Helper.log("Fail send sms to: " + user.getPhoneNumber());
+        return Unit.INSTANCE;
+    }
+
+    public void launchNextActivity() {
+        startActivity(new Intent(getInstance(), AuthorizeVerification.class));
+        Bungee.slideLeft(getInstance());
+    }
 }

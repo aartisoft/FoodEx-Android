@@ -1,7 +1,6 @@
 package com.korlab.foodex;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,14 +10,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.korlab.foodex.Chats.ChatsAdapter;
 import com.korlab.foodex.Data.Chat;
 import com.korlab.foodex.Data.Message;
@@ -34,7 +31,7 @@ import com.korlab.foodex.UI.NavigationTabStrip;
 import com.korlab.foodex.UI.Toolbar;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +85,8 @@ public class FragmentMainMenu extends Fragment {
                 toolbarContainer.addView(new Toolbar(activity, true, "Home", null, null));
 
                 navigationTabStrip = view.findViewById(R.id.tabs);
-                navigationTabStrip.setTitles("Dashboard", "History", "Calendar");
+                navigationTabStrip.setTitles("Dashboard", "Calendar");
+//                navigationTabStrip.setTitles("Dashboard", "History", "Calendar");
                 navigationTabStrip.setTabIndex(0, true);
                 navigationTabStrip.setStripColor(getResources().getColor(R.color.colorPrimary));
                 navigationTabStrip.setTypeface("fonts/rns_bold.otf");
@@ -110,8 +108,8 @@ public class FragmentMainMenu extends Fragment {
 
                 initListChat();
 
-                ChatsAdapter chatsAdapter = new ChatsAdapter(MainMenu.getInstance().listChat, getActivity().getBaseContext());
-                listChats.setAdapter(chatsAdapter);
+                MainMenu.getInstance().chatsAdapter = new ChatsAdapter(MainMenu.getInstance().listChat, getActivity().getBaseContext());
+                listChats.setAdapter(MainMenu.getInstance().chatsAdapter);
                 listChats.setDivider(null);
                 listChats.setDividerHeight(0);
                 listChats.setItemsCanFocus(false);
@@ -133,12 +131,12 @@ public class FragmentMainMenu extends Fragment {
                 DotsIndicator dotsIndicator = view.findViewById(R.id.dots_indicator);
                 List<Promo> pagerArr = new ArrayList<>();
 
-                pagerArr.add(new Promo(1, "+100 UAH to your account for every kilogram dropped!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/2.jpg"));
-                pagerArr.add(new Promo(2, "Loyalty Club FoodEx", new Date(2019, 3, 14), "https://foodexhub.com.ua/images/oldpromo/14877871_325929737775565_251872099_n.jpg"));
-                pagerArr.add(new Promo(3, "Order delivery of 2 programs to one address - get a discount!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/summer_ration.jpg"));
-                pagerArr.add(new Promo(4, "Invite Friends - get +150 UAH from each order!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/petrushka.jpg"));
-                pagerArr.add(new Promo(5, "Order 3 salads +1 salad for free!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/stakan-v-mashine.jpg"));
-                pagerArr.add(new Promo(6, "Become a FoodEx Partner", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/sale.jpg"));
+                pagerArr.add(new Promo(1, "+100 UAH to your account for every kilogram dropped!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/2.jpg", "https://foodexhub.com.ua/promo/kilogram"));
+                pagerArr.add(new Promo(2, "Loyalty Club FoodEx", new Date(2019, 3, 14), "https://foodexhub.com.ua/images/oldpromo/14877871_325929737775565_251872099_n.jpg", "https://foodexhub.com.ua/promo/club"));
+                pagerArr.add(new Promo(3, "Order delivery of 2 programs to one address - get a discount!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/summer_ration.jpg", "https://foodexhub.com.ua/promo/address"));
+                pagerArr.add(new Promo(4, "Invite Friends - get +150 UAH from each order!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/petrushka.jpg","https://foodexhub.com.ua/promo/friends"));
+                pagerArr.add(new Promo(5, "Order 3 salads +1 salad for free!", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/promopage/stakan-v-mashine.jpg", "https://foodexhub.com.ua/promo/salat_v_podarok"));
+                pagerArr.add(new Promo(6, "Become a FoodEx Partner", new Date(2019, 3, 14), "https://media.foodexhub.com.ua/images/Promo/sale.jpg", "https://foodexhub.com.ua/promo/partner"));
 
                 viewPager.setAdapter(new PromoAdapter(LayoutInflater.from(getActivity()), pagerArr));
                 viewPager.setPageTransformer(false, new CustomPagerTransformer(activity, 180));
@@ -192,7 +190,7 @@ public class FragmentMainMenu extends Fragment {
                         activity.getDrawable(R.drawable.profile_discount),
                         activity.getDrawable(R.drawable.profile_blog),
                         activity.getDrawable(R.drawable.profile_allergies),
-                        activity.getDrawable(R.drawable.profile_exit)
+                        activity.getDrawable(R.drawable.profile_logout)
                 };
                 menuRows = new ArrayList<>();
                 for (int i = 0; i < menuHeader.length; i++) {
@@ -215,83 +213,110 @@ public class FragmentMainMenu extends Fragment {
         programs = new ArrayList<>();
         programs.add(new Program("Express Program of Loosing Weight",
                 "To get the result in the shortest term.",
-                "https://media.foodexhub.com.ua/images/smi/ekspress1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/ekspress1.jpg",
+                "https://foodexhub.com.ua/kiev/express-pohudeniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Smooth Loosing Weight",
                 "For comfortable loosing weight",
-                "https://media.foodexhub.com.ua/images/smi/plavnoe1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/plavnoe1.jpg",
+                "https://foodexhub.com.ua/kiev/plavnoe-pohudeniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Sports Menu",
                 "For those with active life style and intensive gym trainings",
-                "https://media.foodexhub.com.ua/images/smi/sport1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/sport1.jpg",
+                "https://foodexhub.com.ua/kiev/sportivnoe-pitaniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Sport-PRO",
                 "For those with active life style, hard trainings and sports",
-                "https://media.foodexhub.com.ua/admin/sport-pro-1.jpg"));
+                "https://media.foodexhub.com.ua/admin/sport-pro-1.jpg",
+                "https://foodexhub.com.ua/kiev/sport-pro"
+        ));
         programs.add(new Program("Balanced Eating",
                 "To maintain good physical form and stick to healthy eating",
-                "https://media.foodexhub.com.ua/images/smi/balans1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/balans1.jpg",
+                "https://foodexhub.com.ua/kiev/sbalansirovannoye-pitaniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Meat-free Menu",
                 "The ration is saturated with vegetable food including seafood",
-                "https://media.foodexhub.com.ua/images/smi/bezmyasa1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/bezmyasa1.jpg",
+                "https://foodexhub.com.ua/kiev/pitaniye-bez-myasa-dlya-muzhchin"
+                ));
         programs.add(new Program("Vegetarian Menu",
                 "Balanced eating for vegetarians",
-                "https://media.foodexhub.com.ua/images/smi/vegan1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/vegan1.jpg",
+                "https://foodexhub.com.ua/kiev/postnoe-menu-dlya-muzhchin"
+                ));
         programs.add(new Program("Individual Menu",
                 "Developed specially for YOU by doctor-dietician and the Chef",
-                "https://media.foodexhub.com.ua/images/smi/ind1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/ind1.jpg",
+                "https://foodexhub.com.ua/kiev/individualnoe-pitaniye-dlya-muzhchin"
+                ));
         programs.add(new Program("Smart Lunch",
                 "Healthy food in your office",
-                "https://media.foodexhub.com.ua/images/smi/smart1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/smart1.jpg",
+                "https://foodexhub.com.ua/kiev/smart-pitaniye-dlya-muzhchin"
+                ));
         programs.add(new Program("2 weeks with Discipline",
                 "Impressive loose of weight during 14 days (right eating + trainings)",
-                "https://media.foodexhub.com.ua/programList/sofia1.png"));
+                "https://media.foodexhub.com.ua/programList/sofia1.png",
+                "https://foodexhub.com.ua/kiev/express-korrektsiya-figuri-dlya-muzhchin"
+                ));
         programs.add(new Program("Diet No 5",
                 "Well-balanced program according to the diet “Table No 5”",
-                "https://media.foodexhub.com.ua/admin/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BC%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%81%D1%82%D1%8B.jpg"));
+                "https://media.foodexhub.com.ua/admin/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BC%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%81%D1%82%D1%8B.jpg",
+                "https://foodexhub.com.ua/kiev/stol-5-pitaniye-dlya-muzhchin"
+        ));
         programs.add(new Program("Diabetes Mellitus",
                 "Well-balanced program according to the diet “Table No 9”",
-                "https://media.foodexhub.com.ua/images/smi/stol51.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/stol51.jpg",
+                "https://foodexhub.com.ua/kiev/pitaniye-pri-diabete-dlya-muzhchin"
+                ));
         programs.add(new Program("Gluten-free Menu",
                 "For those with medical prescriptions or personal desire to stick to gluten-free diet",
-                "https://media.foodexhub.com.ua/images/smi/diabet1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/diabet1.jpg",
+                "https://foodexhub.com.ua/kiev/gluten-free--dlya-muzhchin"
+                ));
         programs.add(new Program("Lactose Free",
                 "Lactose-free ration for people with a lactose intolerance",
-                "https://media.foodexhub.com.ua/images/smi/bezgluten11.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/bezgluten11.jpg",
+                "https://foodexhub.com.ua/kiev/lactose-free-dlya-muzhchin"
+                ));
         programs.add(new Program("For pregnant women and nursing mothers",
                 "Well-balanced eating during pregnancy and breast feeding",
-                "https://media.foodexhub.com.ua/programList/lacto1.jpg"));
-        programs.add(new Program("Kids’ Menu “Smart Kids”",
-                "For business parents who care about full-scale healthy eating of a child",
-                "https://media.foodexhub.com.ua/images/smi/berem1.jpg"));
+                "https://media.foodexhub.com.ua/programList/lacto1.jpg",
+                "https://foodexhub.com.ua/kiev/pitaniye-dlya-beremennykh"
+                ));
         programs.add(new Program("Gift certificate",
                 "Gift certificate FoodEx for your friends",
-                "https://media.foodexhub.com.ua/images/smi/detskoe1.jpg"));
-        programs.add(new Program("theBODYology",
-                "Online weight loss program for women in the menu on the dietitian + video training",
-                "https://media.foodexhub.com.ua/images/smi/thebodyology1.jpg"));
+                "https://media.foodexhub.com.ua/images/smi/detskoe1.jpg",
+                "https://foodexhub.com.ua/kiev/zdorovoe-pitaniye-podarochnyy-sertificat"
+                ));
     }
 
     private void initListChat() {
-        java.sql.Date d = new Date(2019,10,10);
+        java.util.Date d = new Date(2019,10,10);
         MainMenu.getInstance().listChat = new ArrayList<>();
 
-        Chat botChat = new Chat("FoodEx Bot","Notifications and tickets", d, "Here you can make ticket", 7, R.drawable.robot, Message.Sender.BOT);
         List<Message> messagesBotChat = new ArrayList<>();
         messagesBotChat.add(new Message(Message.Sender.BOT, d,"First message from bot"));
         messagesBotChat.add(new Message(Message.Sender.BOT, d,"Second message from bot"));
         messagesBotChat.add(new Message(Message.Sender.CLIENT, d,"Wow, thank you"));
         messagesBotChat.add(new Message(Message.Sender.BOT, d,"I can help you again?"));
         messagesBotChat.add(new Message(Message.Sender.BOT, d,"Okay. Good evening ;)"));
+        Chat botChat = new Chat("FoodEx Bot","Notifications and tickets", d, "Here you can make ticket", R.drawable.robot, Message.Sender.BOT);
+
         botChat.setMessages(messagesBotChat);
 
         MainMenu.getInstance().listChat.add(botChat);
 
-
-        Chat managerChat = new Chat("FoodEx Manager","Online help", d, "Here you can ask any question", 3, R.drawable.robot, Message.Sender.MANAGER);
         List<Message> messagesManagerChat = new ArrayList<>();
         messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"1"));
         messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"Second message from bot"));
         messagesManagerChat.add(new Message(Message.Sender.CLIENT, d,"Wow, thank you"));
         messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"I can help you again?"));
         messagesManagerChat.add(new Message(Message.Sender.MANAGER, d,"Okay. Good evening ;)"));
+        Chat managerChat = new Chat("FoodEx Manager","Online help", d, "Here you can ask any question", R.drawable.robot, Message.Sender.MANAGER);
+
         managerChat.setMessages(messagesManagerChat);
 
         MainMenu.getInstance().listChat.add(managerChat);
@@ -338,7 +363,7 @@ public class FragmentMainMenu extends Fragment {
                     break;
                 case "1":
                     Helper.log("click: " + "profile_feedback");
-                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_feedback, null), this::onPositive, this::onNegative);
+                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_feedback, null), this::onPositiveFeedback, null);
                     break;
                 case "2":
                     Helper.log("click: " + "profile_friends");
@@ -365,11 +390,11 @@ public class FragmentMainMenu extends Fragment {
                     break;
                 case "5":
                     Helper.log("click: " + "profile_allergies");
-                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_allergies, null), this::onPositive, this::onNegative);
+                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_allergies, null), this::onPositiveAllergies, null);
                     break;
                 case "6":
-                    Helper.log("click: " + "profile_exit");
-                    activity.finish();
+                    Helper.log("click: " + "profile_logout");
+                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_logout, null), this::onPositiveLogout, null);
                     break;
 
             }
@@ -377,11 +402,14 @@ public class FragmentMainMenu extends Fragment {
         }
     }
 
-    private void onPositive(Object o) {
-        Helper.log("onPositive");
+    private void onPositiveAllergies(Object o) {
+        Helper.log("onPositiveAllergies");
+    }
+    private void onPositiveFeedback(Object o) { Helper.log("onPositiveFeedback"); }
+
+    private void onPositiveLogout(Object o) {
+        Helper.logoutUser(activity);
+        Helper.log("onPositiveLogout");
     }
 
-    private void onNegative(Object o) {
-        Helper.log("onNegative");
-    }
 }

@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -14,8 +14,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.util.Consumer;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -23,14 +23,16 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
+import com.korlab.foodex.Authorize;
 import com.korlab.foodex.Data.ProgramDay;
 import com.korlab.foodex.Data.User;
 import com.korlab.foodex.MainMenu;
@@ -44,16 +46,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import spencerstudios.com.bungeelib.Bungee;
 
 public class Helper {
     private static Gson gson = new Gson();
@@ -289,6 +292,16 @@ public class Helper {
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
+    public static void logoutUser(Activity activity) {
+        FirebaseAuth.getInstance().signOut();
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            activity.startActivity(new Intent(activity, Authorize.class));
+            Bungee.slideRight(MainMenu.getInstance());
+            activity.finish();
+        }, 300);
+    }
+
 
     public enum Translate { months, weekDays, dishTypes }
     enum DishTypes { salad, soup, hotter, garnish, drink }
@@ -315,6 +328,7 @@ public class Helper {
     }
 
     public static void setUserData(User user) {
+        Helper.log("Set User Data");
         Helper.user = user;
     }
     public static User getUserData() {
@@ -326,5 +340,10 @@ public class Helper {
     }
     public static Map<Date, ProgramDay> getProgramDaysData() {
         return Helper.programDays;
+    }
+
+    public static Date timestampToDate(Timestamp timestamp) {
+        Date date=new Date(timestamp.getSeconds());
+        return date;
     }
 }

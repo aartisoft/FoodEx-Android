@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import com.korlab.foodex.Data.Dish;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("all")

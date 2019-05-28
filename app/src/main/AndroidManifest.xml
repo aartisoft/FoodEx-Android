@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -16,51 +19,61 @@
             android:name=".SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme">
-        </activity>
-        <activity
-            android:name=".Authorize"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".AuthorizeVerification"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".InfoFullName"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".InfoGender"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".InfoWeight"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".InfoGrowth"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".InfoBirthday"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ProfileEdit"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".MainMenu"
-            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ProfileSettings"
+            android:name=".Authorize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" ></activity>
-        <activity android:name=".PlanPauseMove"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".BotManagerChat"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".AuthorizeVerification"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".InfoFullName"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".InfoGender"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".InfoWeight"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".InfoGrowth"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".InfoBirthday"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ProfileEdit"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".MainMenu"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
         </activity>
+        <activity
+            android:name=".ProfileSettings"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".PlanPauseMove"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".BotManagerChat"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"></activity>
+
 
     </application>
-
 </manifest>

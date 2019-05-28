@@ -12,8 +12,10 @@ import com.bumptech.glide.Glide;
 import com.korlab.foodex.Data.Chat;
 import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
+import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CircleTransform;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatsAdapter extends ArrayAdapter<Chat> {
@@ -35,25 +37,32 @@ public class ChatsAdapter extends ArrayAdapter<Chat> {
         this.mContext = context;
         this.data = data;
     }
-
+    public void updateListChats(List<Chat> newlist) {
+        Helper.log("updateListChats");
+        Helper.logObjectToJson(newlist);
+        this.data = new ArrayList<>();
+//        this.data.clear();
+        this.data.addAll(newlist);
+        Helper.log("this.data");
+        Helper.logObjectToJson(this.data);
+        this.notifyDataSetChanged();
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Chat item = getItem(position);
         ViewHolder viewHolder;
-        if (convertView == null) {
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.component_chat, parent, false);
-            viewHolder.image = convertView.findViewById(R.id.image);
-            viewHolder.name = convertView.findViewById(R.id.name);
-            viewHolder.dateLastMessage = convertView.findViewById(R.id.date_last_message);
-            viewHolder.subject = convertView.findViewById(R.id.subject);
-            viewHolder.countUnreadMessages = convertView.findViewById(R.id.count_unread_messages);
-            viewHolder.previewMessage = convertView.findViewById(R.id.preview_message);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+
+        viewHolder = new ViewHolder();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        convertView = inflater.inflate(R.layout.component_chat, parent, false);
+        viewHolder.image = convertView.findViewById(R.id.image);
+        viewHolder.name = convertView.findViewById(R.id.name);
+        viewHolder.dateLastMessage = convertView.findViewById(R.id.date_last_message);
+        viewHolder.subject = convertView.findViewById(R.id.subject);
+        viewHolder.countUnreadMessages = convertView.findViewById(R.id.count_unread_messages);
+        viewHolder.previewMessage = convertView.findViewById(R.id.preview_message);
+        convertView.setTag(viewHolder);
+
         Glide.with(MainMenu.getInstance().getBaseContext())
                 .load(item.getImage())
                 .bitmapTransform(new CircleTransform(MainMenu.getInstance().getBaseContext()))
@@ -61,7 +70,12 @@ public class ChatsAdapter extends ArrayAdapter<Chat> {
         viewHolder.name.setText(item.getName());
         viewHolder.dateLastMessage.setText("14 мин. назад");
         viewHolder.subject.setText(item.getSubject());
-        viewHolder.countUnreadMessages.setText(""+item.getCountUnreadMessage());
+        if(item.getCountUnreadMessage() != 0) {
+            viewHolder.countUnreadMessages.setVisibility(View.VISIBLE);
+            viewHolder.countUnreadMessages.setText(""+item.getCountUnreadMessage());
+        } else {
+            viewHolder.countUnreadMessages.setVisibility(View.GONE);
+        }
         viewHolder.previewMessage.setText(item.getPreviewMessage());
         return convertView;
     }

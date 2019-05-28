@@ -1,30 +1,26 @@
 package com.korlab.foodex.Data
 
+import java.util.Date
+
 class User {
 
 
     var email: String = ""
-    var phone: String = ""
-
-    lateinit var firstName: String
-    lateinit var lastName: String
-    lateinit var middleName: String
-
+    var phoneNumber: String = ""
     var gender: Boolean = true
+    var birthday: Date? = null
+    var registration: Date? = null
 
-    var weight: Int = 60
-    var weightMetrics: Boolean = false
-    var growth: Int = 160
-    var growthMetrics: Boolean = false
+    lateinit var name: Name
+    lateinit var weight: Weight
+    lateinit var growth: Growth
 
-    var birthdayDay: Int = 0
-    var birthdayMonth: Int = 0
-    var birthdayYear: Int = 0
 
     var weekdaysAddress: Address? = null
     var weekendsAddress: Address? = null
     var deliveryType: Int = 0
 
     var note: String = ""
+
 
 }

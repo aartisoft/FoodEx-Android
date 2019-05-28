@@ -72,7 +72,7 @@ public class CalendarMealAdapter extends GroupRecyclerAdapter<String, CalendarMe
                 h.header.setText(item.getHeader());
                 h.header.setTextColor(item.getColor());
 
-                h.date.setText(item.getTime() + ", " + item.getDate().getDate() + " " + months.get(item.getDate().getMonth()) + " " + (item.getDate().getYear()));
+                h.date.setText(item.getTime() + ", " + item.getDate().getDate() + " " + months.get(item.getDate().getMonth()) + " " + (item.getDate().getYear()+1900));
                 h.image.setImageDrawable(item.getImage());
                 h.colorView.setBackgroundColor(item.getColor());
 

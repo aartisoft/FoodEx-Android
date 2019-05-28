@@ -1,6 +1,8 @@
 package com.korlab.foodex.Promo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -75,11 +77,15 @@ public class PromoAdapter extends PagerAdapter {
         TextView name, date;
         ImageView next, prev;
 
-
         image = view.findViewById(R.id.image);
         name = view.findViewById(R.id.promo_name);
         date = view.findViewById(R.id.promo_date);
         card = view.findViewById(R.id.card);
+
+        card.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink()));
+            MainMenu.getInstance().startActivity(browserIntent);
+        });
 
         name.setText(item.getName());
         date.setText(item.getDate().getDay() + " " + Helper.getTranslate(Helper.Translate.months, MainMenu.getInstance()).get(item.getDate().getMonth() - 1));

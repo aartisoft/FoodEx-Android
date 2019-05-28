@@ -25,7 +25,7 @@ import com.korlab.foodex.UI.MaterialButton;
 import com.korlab.foodex.UI.MessageCard;
 import com.korlab.foodex.UI.Toolbar;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class BotManagerChat extends AppCompatActivity {
@@ -81,7 +81,10 @@ public class BotManagerChat extends AppCompatActivity {
         }
 
         drawMessages(0);
+        MainMenu.getInstance().listChat.get(chatPosition).setReadAll();
 
+        MainMenu.getInstance().chatsAdapter.updateListChats(MainMenu.getInstance().listChat);
+        // // TODO: 5/24/2019 send read status for all message in ***listChat*** to firebase
         buttonAttach.setOnClickListener(v -> toggleMenu());
         buttonContinue.setOnClickListener(v -> {
             hideMenu();
@@ -90,26 +93,32 @@ public class BotManagerChat extends AppCompatActivity {
 
             switch (selectedId) {
                 case R.id.radio_manager_recall:
-                    Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_bot_manager_recall, null), this::onPositiveManagerRecall, this::onNegativeManagerRecall);
+                    Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_bot_manager_recall, null),
+                            this::onPositiveManagerRecall, this::onNegativeManagerRecall);
                     requestType = 0;
                     break;
                 case R.id.radio_courier_recall:
-                    Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_bot_courier_recall, null), this::onPositiveCourierRecall, this::onNegativeCourierRecall);
+                    Helper.showDialog(getInstance(), LayoutInflater.from(getInstance().getBaseContext()).inflate(R.layout.dialog_bot_courier_recall, null),
+                            this::onPositiveCourierRecall, this::onNegativeCourierRecall);
                     requestType = 1;
                     break;
                 case R.id.radio_move_date_delivery:
-                    startActivity(new Intent(getInstance(), PlanPauseMove.class));
+                    startActivity(new Intent(getInstance(), PlanPauseMove.class).putExtra("isPause", false));
                     requestType = 2;
                     break;
-                case R.id.radio_change_delivery_location:
+                case R.id.radio_pause_plan:
+                    startActivity(new Intent(getInstance(), PlanPauseMove.class).putExtra("isPause", true));
                     requestType = 3;
                     break;
-                case R.id.radio_change_current_plan:
+                case R.id.radio_change_delivery_location:
                     requestType = 4;
                     break;
-                case R.id.radio_cancel_delivery:
-                    requestType = 5;
-                    break;
+//                case R.id.radio_change_current_plan:
+//                    requestType = 5;
+//                    break;
+//                case R.id.radio_cancel_delivery:
+//                    requestType = 6;
+//                    break;
             }
 
         });
@@ -132,7 +141,10 @@ public class BotManagerChat extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(botMoveMessage != null) {
-            sendMessage(Message.Sender.BOT,botMoveMessage);
+            new Handler().postDelayed(() -> {
+                sendMessage(Message.Sender.BOT,botMoveMessage);
+                botMoveMessage = null;
+            }, 500);
         }
     }
 
@@ -166,6 +178,7 @@ public class BotManagerChat extends AppCompatActivity {
         Message message = new Message(sender, new Date(2019, 10, 2), text);
         MainMenu.getInstance().listChat.get(chatPosition).getMessages().add(message);
         drawMessages(MainMenu.getInstance().listChat.get(chatPosition).getMessages().size() - 1);
+        // TODO: 5/24/2019 send message to firebase
     }
 
     private void scrollToBottom() {

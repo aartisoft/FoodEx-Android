@@ -114,11 +114,11 @@ public class DayAdapter extends PagerAdapter {
                         );
             }
             if(calendarMeal.getListDish().size() == 0) {
-                Helper.log("Dish List Visible");
+//                Helper.log("Dish List Visible");
                 dishList.setVisibility(View.GONE);
                 noData.setVisibility(View.VISIBLE);
             } else {
-                Helper.log("No Data Visible");
+//                Helper.log("No Data Visible");
                 dishList.setVisibility(View.VISIBLE);
                 noData.setVisibility(View.GONE);
             }

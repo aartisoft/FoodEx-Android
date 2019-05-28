@@ -1,6 +1,8 @@
 package com.korlab.foodex.Program;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.korlab.foodex.Data.Program;
 import com.korlab.foodex.MainMenu;
 import com.korlab.foodex.R;
+import com.korlab.foodex.UI.MaterialButton;
 
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class ProgramAdapter extends ArrayAdapter<Program> {
         TextView name;
         TextView smallDescription;
         TextView price;
+        MaterialButton buttonBuy;
     }
 
     public ProgramAdapter(List<Program> data, Context context) {
@@ -43,6 +47,7 @@ public class ProgramAdapter extends ArrayAdapter<Program> {
             viewHolder.smallDescription = convertView.findViewById(R.id.small_description);
             viewHolder.image = convertView.findViewById(R.id.image);
             viewHolder.price = convertView.findViewById(R.id.price);
+            viewHolder.buttonBuy = convertView.findViewById(R.id.button_buy);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -52,6 +57,10 @@ public class ProgramAdapter extends ArrayAdapter<Program> {
         viewHolder.name.setText(item.getName());
         viewHolder.smallDescription.setText(item.getSmallDescription());
         viewHolder.price.setText("$6.32");
+        viewHolder.buttonBuy.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink()));
+            MainMenu.getInstance().startActivity(browserIntent);
+        });
         return convertView;
     }
 }

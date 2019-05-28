@@ -44,8 +44,8 @@
     <dimen name="dp190">190dp</dimen>
     <dimen name="dp196">196dp</dimen>
     <dimen name="dp280">280dp</dimen>
-    <dimen name="dp10InputCodeLayout">10dp</dimen>
-    <dimen name="dp42InputCodeLayout">42dp</dimen>
+    <dimen name="dp10InputCodeLayout">3dp</dimen>
+    <dimen name="dp42InputCodeLayout">36dp</dimen>
 
 
     <dimen name="sp9">4sp</dimen>

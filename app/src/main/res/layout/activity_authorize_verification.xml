@@ -31,11 +31,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Activate your account"
-                android:textSize="@dimen/sp20"
-                android:textColor="@color/black"
+                android:fontFamily="@font/rns_regular"
                 android:gravity="center_horizontal"
-                android:fontFamily="@font/rns_regular"/>
+                android:text="Activate your account"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp20" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,8 +82,20 @@
                 app:icl_textColor="@color/colorPrimaryDark"
                 app:icl_textSize="@dimen/sp22InputCodeLayout"
                 app:icl_unFocusBackground="@drawable/bg_edit_un_focus"
-                app:icl_width="@dimen/dp42InputCodeLayout" >
+                app:icl_width="@dimen/dp42InputCodeLayout">
+
             </com.korlab.foodex.UI.InputCodeLayout>
+
+            <TextView
+                android:id="@+id/button_reset_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:fontFamily="@font/rns_medium"
+                android:text="Reset code"
+                android:textColor="?colorPrimaryDark"
+                android:textScaleX="1.0"
+                android:textSize="@dimen/sp15" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -93,6 +106,7 @@
                 android:textColor="@color/dark_text"
                 android:textScaleX="1.0"
                 android:textSize="@dimen/sp15" />
+
 
 
             <LinearLayout

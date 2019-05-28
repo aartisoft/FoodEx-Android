@@ -31,7 +31,6 @@ private static Bitmap circleCrop(BitmapPool pool, Bitmap source) {
     int x = (source.getWidth() - size) / 2;
     int y = (source.getHeight() - size) / 2;
 
-    // TODO this could be acquired from the pool too
     Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
     if (squared != source) {
         source.recycle();

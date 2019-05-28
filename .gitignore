@@ -11,3 +11,10 @@
 /build
 /captures
 .externalNativeBuild
+/google-services.json
+
+app/google-services\.json
+
+*.keystore
+
+*.apk
