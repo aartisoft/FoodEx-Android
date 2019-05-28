@@ -17,12 +17,20 @@ class Meal(dayTime: Type, dishList: MutableList<Dish>) {
 //        this.fats = fats
 //        this.carbo = carbo
     }
-    enum class Type(val time: String, val second: Int) {
-        BREAKFAST("8:00", 1),
+    enum class Type(val time: String, val intType: Int) {
+        BREAKFAST("8:00", 0),
         BRUNCH("10:00", 1),
-        LUNCH("12:00", 1),
-        AFTERNOONMEALS("15:00", 1),
-        SECONDAFTERNOONMEALS("17:00", 1),
-        DINNER("19:00", 1),
+        LUNCH("12:00", 2),
+        AFTERNOONMEALS("15:00", 3),
+        SECONDAFTERNOONMEALS("17:00", 4),
+        DINNER("19:00", 5);
+        companion object {
+            fun getType(index: Int): Type {
+                for (l in Type.values()) {
+                    if (l.intType === index) return l
+                }
+                throw IllegalArgumentException("Type not found.")
+            }
+        }
     }
 }

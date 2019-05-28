@@ -52,7 +52,9 @@ public class Authorize extends AppCompatActivity {
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
             finish();
-        } else {
+        }
+        else {
+            // TODO: 5/28/2019 check internet
             Helper.checkInternet(instance, false);
         }
         setContentView(R.layout.activity_authorize);
