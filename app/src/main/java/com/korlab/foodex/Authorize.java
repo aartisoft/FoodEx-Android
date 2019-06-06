@@ -35,7 +35,7 @@ public class Authorize extends AppCompatActivity {
     private LinearLayout inputWrapperEmail, inputWrapperRecoveryEmail, inputWrapperPhone;
     private MaterialEditText inputPhone, inputEmail, inputRecoveryEmail, inputPassword;
     private MaterialButton buttonContinue, buttomSwitchEmailPhone, buttonGoogle;
-    private boolean isEmail = false, isRecovery = false;
+    private boolean isEmail = false, isRecovery = false, isProgressAuth = false;
     private User user;
 
     @Override
@@ -80,7 +80,7 @@ public class Authorize extends AppCompatActivity {
         });
         buttomSwitchEmailPhone.setOnClickListener((v) -> switchButton());
         buttonGoogle.setOnClickListener((v) -> {
-            // TODO: 4/15/2019 authorize by Gmail
+            // TODO: 4/15/2019 Authorize by Gmail
         });
 
         inputPhone.setOnFocusChangeListener((v, hasFocus) -> {
@@ -289,8 +289,12 @@ public class Authorize extends AppCompatActivity {
     }
 
     private void startAuthPhone(String phone) {
-        Helper.setUserData(user);
-        Auth.INSTANCE.authPhone(phone, this::onCorrectCodeGot, this::onFailCodeGot, AuthorizeVerification::onRightSms, AuthorizeVerification::onWrongSms);
+        if(!isProgressAuth) {
+            isProgressAuth = true;
+            Helper.setUserData(user);
+            Auth.INSTANCE.authPhone(phone, this::onCorrectCodeGot, this::onFailCodeGot, AuthorizeVerification::onRightSms, AuthorizeVerification::onWrongSms);
+            new Handler().postDelayed(() -> isProgressAuth = false, 3000);
+        }
     }
 
     private kotlin.Unit onCorrectCodeGot() {

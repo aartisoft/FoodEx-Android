@@ -1,5 +1,6 @@
 package com.korlab.foodex;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,22 +11,28 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.hedgehog.ratingbar.RatingBar;
 import com.korlab.foodex.Chats.ChatsAdapter;
 import com.korlab.foodex.Data.Chat;
 import com.korlab.foodex.Data.Message;
 import com.korlab.foodex.Data.Program;
 import com.korlab.foodex.Data.Promo;
+import com.korlab.foodex.FireServer.FireRequest;
 import com.korlab.foodex.Program.ProgramAdapter;
 import com.korlab.foodex.Promo.PromoAdapter;
 import com.korlab.foodex.Technical.Helper;
 import com.korlab.foodex.UI.CustomPagerTransformer;
 import com.korlab.foodex.UI.CustomViewPager;
+import com.korlab.foodex.UI.MaterialButton;
 import com.korlab.foodex.UI.MenuRow;
 import com.korlab.foodex.UI.NavigationTabStrip;
 import com.korlab.foodex.UI.Toolbar;
@@ -33,8 +40,12 @@ import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
+import kotlin.Unit;
 import spencerstudios.com.bungeelib.Bungee;
 
 
@@ -363,7 +374,8 @@ public class FragmentMainMenu extends Fragment {
                     break;
                 case "1":
                     Helper.log("click: " + "profile_feedback");
-                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_feedback, null), this::onPositiveFeedback, null);
+                    showDialogFeedback();
+//                    Helper.showDialog(activity, LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.dialog_feedback, null), this::onPositiveFeedback, null);
                     break;
                 case "2":
                     Helper.log("click: " + "profile_friends");
@@ -400,6 +412,70 @@ public class FragmentMainMenu extends Fragment {
             }
             new Handler().postDelayed(() -> isClickDelay = false, 1000);
         }
+    }
+
+    static int ratingDeliveryStars = 0;
+    static int ratingFoodStars = 0;
+    static int ratingManagerStars = 0;
+    static int ratingAppStars = 0;
+    static int ratingSiteStars = 0;
+
+    public void showDialogFeedback() {
+        final Dialog dialog = new Dialog(MainMenu.getInstance());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_feedback);
+        dialog.setCancelable(true);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.transparent);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        MaterialButton ok = dialog.findViewById(R.id.ok);
+        MaterialButton cancel = dialog.findViewById(R.id.cancel);
+        RatingBar ratingDelivery = dialog.findViewById(R.id.rating_delivery);
+        RatingBar ratingFood = dialog.findViewById(R.id.rating_food);
+        RatingBar ratingManager = dialog.findViewById(R.id.rating_manager);
+        RatingBar ratingApp = dialog.findViewById(R.id.rating_app);
+        RatingBar ratingSite= dialog.findViewById(R.id.rating_site);
+        EditText comment = dialog.findViewById(R.id.comment);
+
+
+        ratingDelivery.setOnRatingChangeListener(ratingCount -> ratingDeliveryStars = (int) ratingCount);
+        ratingFood.setOnRatingChangeListener(ratingCount -> ratingFoodStars = (int) ratingCount);
+        ratingManager.setOnRatingChangeListener(ratingCount -> ratingManagerStars = (int) ratingCount);
+        ratingApp.setOnRatingChangeListener(ratingCount -> ratingAppStars = (int) ratingCount);
+        ratingSite.setOnRatingChangeListener(ratingCount -> ratingSiteStars = (int) ratingCount);
+
+        ok.setOnClickListener((v) -> {
+            Map<String, Object> ratingHashMap = new HashMap<>();
+            ratingHashMap.put("deliveryRating", ratingDeliveryStars);
+            ratingHashMap.put("foodRating", ratingFoodStars);
+            ratingHashMap.put("managerRating", ratingManagerStars);
+            ratingHashMap.put("appRating", ratingAppStars);
+            ratingHashMap.put("siteRating", ratingSiteStars);
+            ratingHashMap.put("comment", comment.getText().toString());
+            ratingHashMap.put("date", new Date().getTime()/1000);
+            FireRequest.Companion.callFunction("submitServiceFeedback", (HashMap<String, Object>) ratingHashMap, this::onSuccessSendServiceFeedback, this::onFailSendServiceFeedback);
+            dialog.dismiss();
+        });
+        cancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.getWindow().setAttributes(lp);
+        Window window = dialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.show();
+    }
+    private kotlin.Unit onSuccessSendServiceFeedback(HashMap<String, Object> stringObjectHashMap) {
+        Helper.log("onSuccessSendServiceFeedback");
+        return Unit.INSTANCE;
+    }
+
+    private kotlin.Unit onFailSendServiceFeedback() {
+        Helper.log("onFailSendServiceFeedback");
+        return Unit.INSTANCE;
     }
 
     private void onPositiveAllergies(Object o) {

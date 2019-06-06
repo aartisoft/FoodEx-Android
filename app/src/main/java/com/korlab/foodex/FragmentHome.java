@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -136,9 +137,7 @@ public class FragmentHome extends Fragment {
                 dotsIndicator.setViewPager(viewPager);
                 prev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
                 next.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true));
-                buttonFeedback.setOnClickListener(v -> {
-                    showDialogFeedbackForDay();
-                });
+                buttonFeedback.setOnClickListener(v -> showDialogFeedbackForDay());
                 break;
 //            case 2:
 //                view = inflater.inflate(R.layout.fragment_home_history, container, false);
@@ -256,7 +255,7 @@ public class FragmentHome extends Fragment {
     static int ratingDeliveryStars = 0;
     static int ratingFoodStars = 0;
 
-    public static void showDialogFeedbackForDay() {
+    public void showDialogFeedbackForDay() {
         final Dialog dialog = new Dialog(MainMenu.getInstance());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_feedback_day);
@@ -273,6 +272,7 @@ public class FragmentHome extends Fragment {
         MaterialButton cancel = dialog.findViewById(R.id.cancel);
         RatingBar ratingDelivery = dialog.findViewById(R.id.rating_delivery);
         RatingBar ratingFood = dialog.findViewById(R.id.rating_food);
+        EditText comment = dialog.findViewById(R.id.comment);
 
 
         ratingDelivery.setOnRatingChangeListener(ratingCount -> ratingDeliveryStars = (int) ratingCount);
@@ -280,7 +280,12 @@ public class FragmentHome extends Fragment {
 
 
         ok.setOnClickListener((v) -> {
-            // // TODO: 5/25/2019 send feedback for day to firebase
+            Map<String, Object> ratingHashMap = new HashMap<>();
+            ratingHashMap.put("deliveryRating", ratingDeliveryStars);
+            ratingHashMap.put("foodRating", ratingFoodStars);
+            ratingHashMap.put("comment", comment.getText().toString());
+            ratingHashMap.put("date", new Date().getTime()/1000);
+            FireRequest.Companion.callFunction("submitDietDayFeedback", (HashMap<String, Object>) ratingHashMap, this::onSuccessSendDayFeedback, this::onFailSendDayFeedback);
             dialog.dismiss();
         });
         cancel.setOnClickListener(v -> dialog.dismiss());
@@ -289,6 +294,15 @@ public class FragmentHome extends Fragment {
         Window window = dialog.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         dialog.show();
+    }
+    private kotlin.Unit onSuccessSendDayFeedback(HashMap<String, Object> stringObjectHashMap) {
+        Helper.log("onSuccessSendDayFeedback");
+        return Unit.INSTANCE;
+    }
+
+    private kotlin.Unit onFailSendDayFeedback() {
+        Helper.log("onFailSendDayFeedback");
+        return Unit.INSTANCE;
     }
 //    private void initProgramDays() {
 //        for (int i = 0; i < 29; i += 1) {

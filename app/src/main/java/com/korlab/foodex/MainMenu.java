@@ -23,6 +23,7 @@ import com.korlab.foodex.UI.ReadableBottomBar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import kotlin.Unit;
@@ -51,7 +52,8 @@ public class MainMenu extends AppCompatActivity {
         instance = this;
         Helper.setStatusBarColor(getWindow(), ContextCompat.getColor(getBaseContext(), R.color.white));
         Helper.setStatusBarIconWhite(getWindow());
-        FireRequest.Companion.getData("customers", Auth.INSTANCE.getRealUserId(), this::onSuccessGotUser, this::onFailGotUser);
+//        FireRequest.Companion.getData("customers", Auth.INSTANCE.getRealUserId(), this::onSuccessGotUser, this::onFailGotUser);
+        FireRequest.Companion.callFunction("getMyData", new HashMap<>(), this::onSuccessGotUser, this::onFailGotUser);
 
         findView();
 
@@ -73,8 +75,9 @@ public class MainMenu extends AppCompatActivity {
     }
 
     // Check registered user
-    private kotlin.Unit onSuccessGotUser(HashMap<String, Object> userHashMap) {
+    private kotlin.Unit onSuccessGotUser(HashMap<String, Object> dataHashMap) {
         Helper.log("Success find user in DB.");
+        HashMap<String, Object> userHashMap = (HashMap<String, Object>) dataHashMap.get("customerData");
         Helper.logObjectToJson(userHashMap);
 
         user = new User();
@@ -82,14 +85,15 @@ public class MainMenu extends AppCompatActivity {
         user.setGender(Boolean.parseBoolean(Objects.requireNonNull(userHashMap.get("gender")).toString()));
         user.setPhoneNumber(Objects.requireNonNull(userHashMap.get("phoneNumber")).toString());
 
-        long timestamp = ((Timestamp) Objects.requireNonNull(userHashMap.get("birthday"))).getSeconds()*1000;
-        Helper.log("timestamp: " + timestamp);
-        if(timestamp<0) {
-            user.setBirthday(new Date(timestamp));
-        } else {
-            user.setBirthday(new Date(timestamp));
-        }
-        user.setRegistration(new Date(((Timestamp) Objects.requireNonNull(userHashMap.get("registration"))).getSeconds()));
+        long timestampBirthday = Integer.parseInt(Objects.requireNonNull(userHashMap.get("birthday")).toString());
+        timestampBirthday *= 1000;
+        Helper.log("timestamp birthday: " + timestampBirthday);
+        user.setBirthday(new Date(timestampBirthday));
+
+        long timestampRegistration = Integer.parseInt(Objects.requireNonNull(userHashMap.get("registration")).toString());
+        timestampRegistration *= 1000;
+        Helper.log("timestamp registration: " + timestampRegistration);
+        user.setRegistration(new Date(timestampRegistration));
 
         try {
             HashMap<String, String> nameMap = (HashMap<String, String>) Objects.requireNonNull(userHashMap.get("name"));
@@ -101,17 +105,18 @@ public class MainMenu extends AppCompatActivity {
             Helper.log("Error convert name");
         }
         try {
-            HashMap<String, Long> growthMap = (HashMap<String, Long>) Objects.requireNonNull(userHashMap.get("growth"));
-            int value = Objects.requireNonNull(growthMap.get("value")).intValue();
-            int type = Objects.requireNonNull(growthMap.get("type")).intValue();
+            HashMap<String, Integer> growthMap = (HashMap<String, Integer>) Objects.requireNonNull(userHashMap.get("growth"));
+            Helper.logObjectToJson(growthMap);
+            int value = Integer.parseInt(Objects.requireNonNull(growthMap.get("value")).toString());
+            int type = Integer.parseInt(Objects.requireNonNull(growthMap.get("type")).toString());
             user.setGrowth(new Growth(value,type));
         } catch (Exception e) {
             Helper.log("Error convert growth: " + e);
         }
         try {
-            HashMap<String, Long> weightMap = (HashMap<String, Long>) Objects.requireNonNull(userHashMap.get("weight"));
-            int value = Objects.requireNonNull(weightMap.get("value")).intValue();
-            int type = Objects.requireNonNull(weightMap.get("type")).intValue();
+            HashMap<String, Integer> weightMap = (HashMap<String, Integer>) Objects.requireNonNull(userHashMap.get("weight"));
+            int value = Integer.parseInt(Objects.requireNonNull(weightMap.get("value")).toString());
+            int type = Integer.parseInt(Objects.requireNonNull(weightMap.get("type")).toString());
             user.setWeight(new Weight(value,type));
         } catch (Exception e) {
             Helper.log("Error convert weight: " + e);

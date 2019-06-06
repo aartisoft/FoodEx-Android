@@ -116,7 +116,7 @@ public class AuthorizeVerification extends AppCompatActivity {
                 } catch (InterruptedException ignored) {
                 }
             }
-        });
+        }).start();
     }
 
     public static Unit onRightSms() {

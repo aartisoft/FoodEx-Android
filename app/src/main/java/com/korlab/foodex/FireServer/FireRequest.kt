@@ -34,10 +34,9 @@ class FireRequest {
                     .getHttpsCallable(functionName)
                     .call(dataHashMap)
                     .continueWith { task ->
-                        Helper.log("continueWith")
                         try {
                             val hashMap = task.result!!.data as HashMap<String, Object>?
-                            Helper.log("hashMap: $hashMap")
+                            Helper.log("$functionName result hashMap: $hashMap")
                             val obj = JSONObject(hashMap)
                             val code: Int = obj.getString("code").toInt()
 //                            val text = obj.getString("text")

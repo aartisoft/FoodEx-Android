@@ -207,14 +207,14 @@ public class ProfileEdit extends AppCompatActivity {
 
     private kotlin.Unit onFailUpdateUser() {
         Helper.log("onFailUpdateUser");
-        // TODO: 5/28/2019 update fail
+        // TODO: 5/28/2019 update userData failed
         super.finish();
         return Unit.INSTANCE;
     }
 
     private kotlin.Unit onSuccessUpdateUser(HashMap<?,?> responseHashMap) {
         Helper.log("onSuccesUpdateUser");
-        // TODO: 5/28/2019 update successfull
+        // TODO: 5/28/2019 update userData successfull
         super.finish();
         return Unit.INSTANCE;
     }
